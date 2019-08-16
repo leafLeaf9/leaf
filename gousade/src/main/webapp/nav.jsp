@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="css/skin_/nav.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
-<title>底部内容页</title>
+<title>菜单和资源页面iframe</title>
 </head>
 <% String name = (String)session.getAttribute("u"); %>
 <body  onload="listAdminMenu()">
