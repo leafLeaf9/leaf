@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.zstu.manage.mapper.Mid_TermMapper">
+<mapper namespace="com.gousade.mapper.Mid_TermMapper">
 	
 	<insert id="setRule">
 		insert into declaration(level,text,type,begin_time,end_time) 
@@ -22,11 +22,11 @@
 		update proj set end_file=#{url} where proj_id=#{projId}
 	</update>
 	
-	<select id="toFindMidList" resultType="Project">
+	<select id="toFindMidList" resultType="com.gousade.pojo.Project">
 		select proj_id,proj_name,user_id,level,phone,major from proj where mid_file is not null and state=4
 	</select>
 	
-	<select id="toFindEndList" resultType="Project">
+	<select id="toFindEndList" resultType="com.gousade.pojo.Project">
 		select proj_id,proj_name,user_id,level,phone,major from proj where end_file is not null and state=5
 	</select>
 	

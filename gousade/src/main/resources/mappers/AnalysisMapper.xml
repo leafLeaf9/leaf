@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.zstu.manage.mapper.AnalysisMapper">
+<mapper namespace="com.gousade.mapper.AnalysisMapper">
 <!-- 情感词提取(from基础词表words) -->
 <select id="extractfromwords" parameterType="map" resultType="map">
 	select * from words
@@ -36,7 +36,7 @@
 	</select>
 	
 <!-- 	导出情感词列表 -->
-	<select id="exopertwords" parameterType="map" resultType="com.gousade.textanalysis.excelvo.WordsVO">
+	<select id="exopertwords" parameterType="map" resultType="com.gousade.excelvo.WordsVO">
 		select wordname,value,wordtype,formtype
 		from words  where 1=1
 		<if test="wordname != null and wordname != ''">

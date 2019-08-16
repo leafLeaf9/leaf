@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.zstu.manage.mapper.MessageMapper">
+<mapper namespace="com.gousade.mapper.MessageMapper">
 	
 	<insert id="toMessage">
 		insert into message(mess_id, user_id,message,state,time) value(UUID(), #{userId},#{message},0,now())
 	</insert>
 	
-	<select id="findMessage" resultType="Message">
+	<select id="findMessage" resultType="com.gousade.pojo.Message">
 		select mess_id,message,state,time from message where user_Id = #{userId} order by time
 	</select>
 	

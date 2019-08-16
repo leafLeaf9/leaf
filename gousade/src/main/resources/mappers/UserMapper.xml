@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.zstu.manage.mapper.UserMapper">
+<mapper namespace="com.gousade.mapper.UserMapper">
 <!-- 校验用户名和密码 -->
-	<select id="toCheckUser" resultType="User">
+	<select id="toCheckUser" resultType="com.gousade.pojo.User">
 		select * from user where user_id=#{userId} and password=#{password}
 	</select>
 <!-- 注册新用户-->
@@ -21,7 +21,7 @@
 		user_id=#{user_id}
 	</select>
 <!-- 	根据角色ID获取对应的权限菜单 -->
-	<select id="listMenuByRoleId" parameterType="map" resultType="cn.edu.zstu.manage.pojo.Menu">
+	<select id="listMenuByRoleId" parameterType="map" resultType="com.gousade.pojo.Menu">
    select menu.* from role_menu, menu
    where role_menu.role_id = #{roleid} and role_menu.menu_id = menu.id
    and menu.state='1'
