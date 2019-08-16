@@ -40,7 +40,7 @@ left:87%;
             <div class="setting ue-clear">
             	<div class="user-info">
                 	<a href="/findMessageList?userId=<%=name%>" target="_blank" class="user-avatar"><span><i class="info-num">2</i></span></a>
-                	<span class="user-name" >您好，<%=name%></span>
+                	<span class="user-name" >您好，<%=request.getAttribute("user_name")%></span>
             	</div>
                 <ul class="setting-main ue-clear">
                     <li id="exitBtn"><a href="javascript:;" class="close-btn exit"></a></li>

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<form action="/toLogin" method="get" >
+<form action="/toLogin" method="post" >
 <div id="container">
     <div id="bd">
     	<div id="main">
@@ -69,10 +69,10 @@
     });
 	$('select').select();
 	
-	$('#Submit').click(function(e) {
+/* 	$('#Submit').click(function(e) {
 		
         document.location.href = "/main";
-    });
+    }); */
 </script>
 
 </html>

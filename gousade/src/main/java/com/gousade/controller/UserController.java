@@ -50,7 +50,7 @@ public class UserController {
 			ModelAndView mv = new ModelAndView("login");
 			return mv;
 		}else{
-			
+			model.addAttribute("user_name", user.getUserName());
 			ModelAndView mv = new ModelAndView("main");
 			return mv;
 		}
