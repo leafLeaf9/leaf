@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zstu.manage.mapper.AnalysisMapper">
+<!-- 情感词提取(from基础词表words) -->
+<select id="extractfromwords" parameterType="map" resultType="map">
+	select * from words
+	where wordname=#{wordname} and wordtype=#{wordtype}
+	
+</select>
+
+<!-- 情感词提取(from基础词表dutirwords) -->
+<select id="extractfromdutirwords" parameterType="map" resultType="map">
+	select * from dutirwords
+	where wordname=#{wordname} and wordtype=#{wordtype}
+	
+</select>
+
+<!-- 根据情感词和词性查询所属公式类型和情感值 -->
+<select id="selectform" parameterType="map" resultType="map">
+	select * from words
+	where wordname=#{wordname} and wordtype=#{wordtype}
+	
+</select>
+
+<!-- 	查询情感词列表 -->
+	<select id="querywordslist" parameterType="map" resultType="map">
+		select wordname,value,wordtype,formtype
+		from words  where 1=1
+		<if test="wordname != null and wordname != ''">
+			and wordname like CONCAT(CONCAT('%', #{wordname}), '%')
+        </if>
+<!-- 		where wordname LIKE CONCAT(CONCAT('%', 'xz'), '%') -->
+		limit #{firstPage},#{rows}
+	</select>
+	
+<!-- 	导出情感词列表 -->
+	<select id="exopertwords" parameterType="map" resultType="com.gousade.textanalysis.excelvo.WordsVO">
+		select wordname,value,wordtype,formtype
+		from words  where 1=1
+		<if test="wordname != null and wordname != ''">
+			and wordname like CONCAT(CONCAT('%', #{wordname}), '%')
+        </if>
+<!-- 		where wordname LIKE CONCAT(CONCAT('%', 'xz'), '%') -->
+		
+	</select>
+	
+<!-- 	查询情感词表数量 -->
+	<select id="querywordslistcnt" parameterType="map" resultType="long">
+    select count(*) from words  where 1=1
+    <if test="wordname != null and wordname != ''">
+			and wordname like CONCAT(CONCAT('%', #{wordname}), '%')
+    </if>    
+	</select>
+
+<!-- 	新增词语 -->
+	<insert id="insertwords" parameterType="map" >
+	
+	insert into words (wordname,value,wordtype,formtype)
+	values (#{wordname},#{value},#{wordtype},#{formtype})
+	</insert>
+	
+	<!-- 	修改词表信息 -->
+	  <update id="updatewords" parameterType="map">
+   
+    update words
+    set wordname=#{wordname},
+    value=#{value},
+    wordtype=#{wordtype},
+    formtype=#{formtype}
+      where wordname=#{wordname}
+     
+  </update> 
+  
+  <!-- 	删除词表信息 -->
+	  <update id="delwords" parameterType="map">
+   
+    delete from words 
+   
+    
+    where wordname in
+     <foreach collection="wordnames" item="wordname" open="(" separator="," close=")">
+    	#{wordname}
+    </foreach>
+  </update>
+<!-- 	查询评论(用于自动加载评论) -->
+	<select id="querycomments" parameterType="map" resultType="map">
+		select id,comment
+		from comments 	
+		limit #{index},1
+	</select>  
+<!-- 查询动态情感词表 -->
+<select id="selectdynamicwords" parameterType="map" resultType="map">
+	select * from dynamicwords
+	where wordname=#{wordname} 
+	
+</select>  
+
+</mapper>

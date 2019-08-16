@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zstu.manage.mapper.UserMapper">
+<!-- 校验用户名和密码 -->
+	<select id="toCheckUser" resultType="User">
+		select * from user where user_id=#{userId} and password=#{password}
+	</select>
+<!-- 注册新用户-->
+	<insert id="regist" parameterType="map">
+		insert into user (user_id,password,user_name,created,state,role_id)
+	values (#{user_id},#{password},#{user_name},NOW(),'1','5')
+	</insert>	
+	<!-- 	根据用户ID获取角色ID -->
+	<select id="getroleidByuid" parameterType="map" resultType="map">
+		
+		select role_id roleid
+		from user
+		where 
+		user_id=#{user_id}
+	</select>
+<!-- 	根据角色ID获取对应的权限菜单 -->
+	<select id="listMenuByRoleId" parameterType="map" resultType="cn.edu.zstu.manage.pojo.Menu">
+   select menu.* from role_menu, menu
+   where role_menu.role_id = #{roleid} and role_menu.menu_id = menu.id
+   and menu.state='1'
+</select>
+<!-- 	查询用户列表 -->
+	<select id="queryuserlist" parameterType="map" resultType="map">
+		select user_id,password,user_name,state,
+		DATE_FORMAT(created, '%Y-%m-%d %H:%i:%S') created,
+		DATE_FORMAT(updated, '%Y-%m-%d %H:%i:%S') updated,
+		remark,role_id from user 
+		<if test="roleid!=null and roleid!=''">
+	where role_id=#{roleid}
+	</if>
+	</select>
+<!-- 	新增用户 -->
+	<insert id="insertuser" parameterType="map" >
+	
+	insert into user (user_id,password,user_name,remark,created,state,role_id)
+	values (#{user_id},#{password},#{user_name},#{remark},NOW(),'1',#{role_id})
+	</insert>	
+<!-- 	修改用户信息 -->
+	  <update id="updateuser" parameterType="map">
+   
+    update user 
+    set user_id=#{user_id},
+    password=#{password},
+    user_name=#{user_name},
+    remark=#{remark},
+    role_id=#{role_id},
+    updated=NOW()
+    where user_id=#{user_id}
+  </update> 
+  <!-- 	删除用户信息 -->
+	  <update id="delusers" parameterType="map">
+   
+    update user 
+    set state='0'
+    
+    where user_id in
+     <foreach collection="userids" item="userid" open="(" separator="," close=")">
+    	#{userid}
+    </foreach>
+  </update>
+  
+  <!-- 	根据用户ID获取密码-->
+	<select id="getpsdByuid" parameterType="map" resultType="map">
+		
+		select password 
+		from user
+		where 
+		user_id=#{user_id}
+	</select>
+ 
+ <!-- 	重置密码 -->
+	  <update id="resetpsd" parameterType="map">
+   
+    update user 
+    set password=#{password},
+    updated=NOW()
+    where user_id=#{user_id}
+  </update> 
+  
+  <!-- 	根据用户ID获取手机号-->
+	<select id="selectphonenum" parameterType="map" resultType="map">
+		
+		select phonenumber 
+		from user
+		where 
+		user_id=#{user_id}
+	</select>
+  
+  <!-- 	恢复初始密码 -->
+	  <update id="cleanpsd" parameterType="map">
+   
+    update user 
+    set password=#{password},
+    updated=NOW()
+    where user_id=#{user_id}
+  </update>  
+  
+  
+<!-- 	设置申报规则 -->
+	<insert id="setrule" parameterType="map" >
+	insert into declaration (level,text,begin_time,end_time,type)
+	values (#{level},#{text},#{startdate},#{stopdate},"0")
+	</insert>
+<!-- 	填写申报书 -->
+	<insert id="declare" parameterType="map" >
+	
+	insert into proj (proj_id,level,proj_name,user_id,phone,email,major,members,promise,state)
+	values (#{proj_id},#{level},#{proj_name},#{user_id},#{phone},#{email},#{major},#{members},#{promise},'0')
+	</insert>
+<!-- 	查询项目列表(如果是专家的页面，要根据专家ID查询分配给他的项目) -->
+	<select id="queryprojlist" parameterType="map" resultType="map">
+		select proj_id,proj_name,phone,email,major,members,promise
+		from
+		proj
+		<if test="state!=null and state!=''">
+	where state=#{state}
+	</if>
+	<if test="user_id!=null and user_id!=''">
+	AND proj_id in 
+
+(select t1.proj_id from 
+proj t1 left  join trial t2 on t1.proj_id=t2.proj_id
+where t2.user_id=#{user_id})
+</if>
+	</select>
+<!-- 	根据项目ID查询站内消息接收人ID -->
+	<select id="selectidbyproj" parameterType="map" resultType="map">
+   
+    select user_id from proj where proj_id=#{proj_id}
+  </select> 	
+<!-- 	根据ID修改项目状态 -->
+	<update id="firstpassbyid" parameterType="map">
+    update proj
+    set state='1'
+    where proj_id=#{proj_id}
+  </update> 
+  <update id="secondpassbyid" parameterType="map">
+    update proj
+    set state='2'
+    where proj_id=#{proj_id}
+  </update> 
+  
+  <update id="thirdpassbyid" parameterType="map">
+    update proj
+    set state='3'
+    where proj_id=#{proj_id}
+  </update> 
+  <update id="dopassbyid" parameterType="map">
+    update proj
+    set state=#{state}
+    where proj_id=#{proj_id}
+  </update> 
+<!--   分配专家 -->
+  <insert id="assignexperts" parameterType="map" >
+	
+	
+	insert into trial (proj_id,user_id,state)
+	values 
+	 <foreach collection="userids" item="user_id" separator=",">
+    (#{proj_id},#{user_id},'0')
+    </foreach>
+	
+	</insert>
+<!-- 	专家评分 -->
+	<update id="savegrading" parameterType="map">
+    update trial
+    set score=#{score},
+    comment=#{comment},
+    state='1'
+    where proj_id=#{proj_id}
+    and
+    user_id=#{user_id}
+  </update> 
+<!--   判断所有专家是否打分完成，若完成则直接评审通过 -->
+  <select id="querygradestate" parameterType="map" resultType="map">
+		select proj_id from trial where  proj_id=#{proj_id}
+and state='0'
+	</select>
+</mapper>

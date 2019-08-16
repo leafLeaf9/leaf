@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.zstu.manage.mapper.Mid_TermMapper">
+	
+	<insert id="setRule">
+		insert into declaration(level,text,type,begin_time,end_time) 
+			values(#{declaration.level},#{declaration.text},#{declaration.type}
+			,#{declaration.beginTime},#{declaration.endTime})
+	</insert>
+	
+	<select id="toFindRule" resultType="String">
+		select text from declaration where type=#{type} and level=#{level} and end_time>=#{now}
+	</select>
+	
+	<update id="toMidUpload">
+		update proj set mid_file=#{url} where proj_id=#{projId}
+	</update>
+	
+	<update id="toEndUpload">
+		update proj set end_file=#{url} where proj_id=#{projId}
+	</update>
+	
+	<select id="toFindMidList" resultType="Project">
+		select proj_id,proj_name,user_id,level,phone,major from proj where mid_file is not null and state=4
+	</select>
+	
+	<select id="toFindEndList" resultType="Project">
+		select proj_id,proj_name,user_id,level,phone,major from proj where end_file is not null and state=5
+	</select>
+	
+	<select id="toFindMidFile" resultType="String">
+		select mid_file from proj where proj_id=#{projId}
+	</select>
+	
+	<select id="toFindEndFile" resultType="String">
+		select end_file from proj where proj_id=#{projId}
+	</select>
+	
+	<update id="toReview">
+		update proj set state=#{state} where proj_id=#{projId}
+	</update>
+	
+	<update id="toDeclare_upload">
+		update proj set start_file=#{url} where proj_id=#{projId}
+	</update>
+	
+	<select id="findUser" resultType="String">
+		select user_id from proj where proj_id=#{projId}
+	</select>
+</mapper>
