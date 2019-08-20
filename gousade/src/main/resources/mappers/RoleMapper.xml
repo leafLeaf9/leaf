@@ -17,8 +17,8 @@
 	<select id="testrolelist" parameterType="map" resultType="com.gousade.pojo.Role">
 		
 		select role_id,role_name,state,
-		 DATE_FORMAT(created, '%Y-%m-%d %H:%i:%S') created,
-		DATE_FORMAT(updated, '%Y-%m-%d %H:%i:%S') updated,
+		 DATE_FORMAT(created, '%Y-%m-%d ') created,
+		DATE_FORMAT(updated, '%Y-%m-%d ') updated,
 		remark
 		from 
 		role

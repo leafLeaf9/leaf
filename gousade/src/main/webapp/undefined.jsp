@@ -7,6 +7,6 @@
 <title>欢迎页面</title>
 </head>
 <body>
-欢迎使用文本情感分析系统。
+欢迎使用。
 </body>
 </html>
