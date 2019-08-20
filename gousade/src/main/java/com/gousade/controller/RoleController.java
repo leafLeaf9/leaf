@@ -52,7 +52,7 @@ public class RoleController {
 	
 	@RequestMapping(value="/testrolelist",method=RequestMethod.POST)
 	public List<Role> testrolelist(@RequestBody Map<String,Object> map){
-		List<Role> list=roleService.testrolelist(map);
+		
 		return roleService.testrolelist(map);
 	}
 	
