@@ -50,6 +50,13 @@ table
  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+<!-- 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script> -->
+	<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="./js/jquery.color.js"></script>
+	<script type="text/javascript" src="./js/jsUtil.js"></script>
 </head>
 <body>
 <div class="con">
@@ -72,6 +79,7 @@ table
 <!--                        	 分配角色 -->
 <!--                     </span> -->
                 </div>
+
 <table 	id="user"		align="center">
 			<tr  class="th-blue-l">
 				<th  class="js-ckAll"><input type="checkbox" name=""></th>
@@ -106,6 +114,23 @@ table
 			
 			
 		</table>
+<!-- <table id="easyuiuser" title="词表" class="easyui-datagrid" fitColumns="true" pagination="true" -->
+<%--     url="${pageContext.request.contextPath}/queryuserlist" toolbar="#tb" rownumbers="true"> --%>
+<!--     <thead> -->
+<!--         <tr> -->
+<!--             <th field="cb" checkbox="true"  align="center"></th> -->
+<!--             <th field="tid" width="20" align="center" hidden="true"></th>     -->
+<!--             <th field="user_id" width="100" align="center">用户名</th>  -->
+<!--             <th field="password" width="100" align="center">密码</th>  -->
+<!--             <th field="user_name" width="100" align="center">用户昵称</th>  -->
+<!--             <th field="created" width="100" align="center">创建时间</th>  -->
+<!--             <th field="updated" width="100" align="center">更新时间</th>  -->
+<!--             <th field="state" width="100" align="center">状态</th>  -->
+<!--             <th field="role_id" width="100" align="center">角色id</th> -->
+<!--             <th field="remark" width="100" align="center">备注</th>   -->
+<!--         </tr> -->
+<!--     </thead> -->
+<!-- </table>  -->
 		<div id="insert" align="center">
 		<table cellspacing="0" cellpadding="10" class="tfm" id="profilelist">
  

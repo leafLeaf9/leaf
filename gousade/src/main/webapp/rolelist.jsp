@@ -184,20 +184,19 @@ table
 			
 			
 		};
-		$.postJSON(webRootPath + "/queryrolelist", qaram, function(data) {
+		$.postJSON(webRootPath + "/testrolelist", qaram, function(data) {
 			var trs = "";
 			if (data) {
 					$.each(data, function(index, value) {
 											trs += "<tr>"
-												+"<td class='js-ck'><input type='checkbox' name='messagePush' value='"+value.role_id+"' data-state= '"+value.state+"' data-name= '"+value.role_name+"' data-remark= '"+value.remark+"' ></td>"
+												+"<td class='js-ck'><input type='checkbox' name='messagePush' value='"+value.roleId+"' data-state= '"+value.state+"' data-name= '"+value.roleName+"' data-remark= '"+value.remark+"' ></td>"
 												  
-													+"<td >"+value.role_id+"</td>"
+													+"<td >"+value.roleId+"</td>"
 													
-													+"<td >"+value.role_name+"</td>"
+													+"<td >"+value.roleName+"</td>"
 													+"<td >"+value.created+"</td>"
 													+"<td >"+value.updated+"</td>"
-													+"<td >"+value.state+"</td>"
-													
+													+"<td >"+value.state+"</td>"													
 													+"<td >"+value.remark+"</td>"
 												+"</tr>";
 										});

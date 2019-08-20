@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.gousade.mapper.RoleMapper;
 import com.gousade.mapper.UserMapper;
 import com.gousade.pojo.Menu;
+import com.gousade.pojo.Role;
 import com.gousade.pojo.User;
 
 @Service
@@ -27,6 +28,11 @@ public class RoleService {
 	public List<Map<String, Object>> queryrolelist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return roleMapper.queryrolelist(map);
+	}
+	
+	public List<Role> testrolelist(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return roleMapper.testrolelist(map);
 	}
 	
 	public Map<String, Object> insertrole(Map<String, Object> map) {

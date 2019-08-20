@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.gousade.pojo.Menu;
+import com.gousade.pojo.Role;
 import com.gousade.pojo.User;
 import com.gousade.service.RoleService;
 import com.gousade.service.UserService;
@@ -47,6 +48,12 @@ public class RoleController {
 	public List<Map<String,Object>> queryuserlist(@RequestBody Map<String,Object> map){
 		
 		return roleService.queryrolelist(map);
+	}
+	
+	@RequestMapping(value="/testrolelist",method=RequestMethod.POST)
+	public List<Role> testrolelist(@RequestBody Map<String,Object> map){
+		List<Role> list=roleService.testrolelist(map);
+		return roleService.testrolelist(map);
 	}
 	
 	/**
