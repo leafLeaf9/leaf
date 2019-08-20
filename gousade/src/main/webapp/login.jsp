@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="css/skin_/login.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.select.js"></script>
-<title>用户登录界面</title>
+<title>personal project</title>
 </head>
 
 <body>
@@ -37,7 +37,7 @@
                 	</span></div>
             </div>
         </div>
-        <div id="ft">CopyRight&nbsp;2018&nbsp;&nbsp;版权所有&nbsp;&nbsp;文本情感分析  -   - <a href="http://dnf.qq.com/" title="文本情感分析" target="_blank">文本情感分析</a> &nbsp;&nbsp;</div>
+        <div id="ft">CopyRight&nbsp;2018 - 2019&nbsp;&nbsp;&nbsp;&nbsp;personal project  -   - <a href="http://dnf.qq.com/" title="personal project" target="_blank">personal project</a> &nbsp;&nbsp;</div>
     </div>
 </div>
 </form>	
