@@ -72,12 +72,12 @@ public class Excelexporttest {
 	    exportParams.setSheetName("直接导出数据测试");
 	    // 生成workbook 并导出
 	    Workbook workbook = ExcelExportUtil.exportExcel(exportParams, keyList, rowDataList);
-	    File savefile = new File("D:\\Exceltest\\");
+	    File savefile = new File("D:/Exceltest/");
 	    if (!savefile.exists()) {
 	        boolean result = savefile.mkdirs();
 	        System.out.println("目录不存在，创建" + result);
 	    }
-	    FileOutputStream fos = new FileOutputStream("D:\\Exceltest\\abc.xls");
+	    FileOutputStream fos = new FileOutputStream("D:/Exceltest/abc.xls");
 	    workbook.write(fos);
 	    fos.close();
 	}

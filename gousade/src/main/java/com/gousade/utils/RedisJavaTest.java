@@ -3,6 +3,7 @@ package com.gousade.utils;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -55,5 +56,20 @@ public class RedisJavaTest {
             String key = it.next();   
             System.out.println(key);   
         }
+	}
+	/**
+	可以简单的理解在 Java 的正则表达式中，两个 \\ 代表其他语言中的一个 \，这也就是为什么表示一位数字的正则表达式是 \\d，而表示一个普通的反斜杠是 \\\\。
+	标准郑泽中\d代表数字字符，在java中就需要写成\\d，所以只要把标准正则中的所有\都变成\\就可以在java中同义
+	*/
+	@Test
+	public void patterntest(){
+		 String content = "arunooba";		
+		 String pattern = ".*runoob.*";		//.* .代表任意一个字符 *代表*前的那个字符可以重复0到无数次 所以.*代表任意个任意字符		 
+		 boolean isMatch = Pattern.matches(pattern, content);
+		 System.out.println("字符串中是否包含了 'runoob' 子字符串? " + isMatch);
+		 String str="()";
+		 String pat="\\(.*";
+		 System.out.println(str);
+		 System.out.println(Pattern.matches(pat, str));
 	}
 }
