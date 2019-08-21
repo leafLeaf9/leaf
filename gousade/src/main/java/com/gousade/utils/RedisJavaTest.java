@@ -46,8 +46,8 @@ public class RedisJavaTest {
 	public void RedisKeytest(){
 		//连接本地的 Redis 服务
 		Jedis jedis = new Jedis("localhost");
+//		jedis.auth("mypass"); //一般来说要配置IP,端口号,密码,此处本地服务器是没有密码的  public String auth(final String password)
         System.out.println("连接成功");
- 
         // 获取数据并输出
         Set<String> keys = jedis.keys("*a*"); 
         Iterator<String> it=keys.iterator() ;   
