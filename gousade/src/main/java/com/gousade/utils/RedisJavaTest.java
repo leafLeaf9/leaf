@@ -69,7 +69,6 @@ public class RedisJavaTest {
 		 System.out.println("字符串中是否包含了 'runoob' 子字符串? " + isMatch);
 		 String str="()";
 		 String pat="\\(.*";
-		 System.out.println(str);
 		 System.out.println(Pattern.matches(pat, str));
 	}
 }
