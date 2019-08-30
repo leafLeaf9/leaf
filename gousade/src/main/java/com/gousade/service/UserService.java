@@ -184,9 +184,9 @@ public class UserService {
 		
 	}
 	
-	public List<Map<String, String>> queryuserlist(Map<String, String> map) {
+	public List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap) {
 		// TODO Auto-generated method stub
-		return userMapper.queryuserlist(map);
+		return userMapper.queryuserlist(paraMap);
 	}
 	public String setrule(Map<String, String> map) {
 		int i= userMapper.setrule(map);
@@ -195,6 +195,11 @@ public class UserService {
 		}
 		return "设置失败";
 		
+	}
+	
+	public long queryuserlistcnt(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return userMapper.queryuserlistcnt(map);
 	}
 
 	public String declare(Map<String, String> map) {

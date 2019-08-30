@@ -36,7 +36,12 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
 		remark,role_id from user 
 		<if test="roleid!=null and roleid!=''">
 	where role_id=#{roleid}
+	limit #{firstPage},#{rows}
 	</if>
+	</select>
+	
+	<select id="queryuserlistcnt" parameterType="map" resultType="long">
+    select count(*) from user  where 1=1   
 	</select>
 <!-- 	新增用户 -->
 	<insert id="insertuser" parameterType="map" >

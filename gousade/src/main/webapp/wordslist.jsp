@@ -54,7 +54,7 @@ table
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.min.js"></script>
 	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
 <!-- 	<script type="text/javascript" src="./js/jquery.color.js"></script> -->
@@ -79,6 +79,7 @@ table
                     </span>
                                                           
                 </div>
+</div>
 <table id="user" title="词表" class="easyui-datagrid" fitColumns="true" pagination="true"
     url="${pageContext.request.contextPath}/querywordslist" toolbar="#tb" rownumbers="true">
     <thead>

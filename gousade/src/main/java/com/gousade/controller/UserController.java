@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.pojo.Menu;
+import com.gousade.pojo.Page;
 import com.gousade.pojo.User;
 import com.gousade.service.SmsDemo;
 import com.gousade.service.UserService;
@@ -82,13 +83,18 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/queryuserlist",method=RequestMethod.POST)
-	public List<Map<String,String>> queryuserlist(@RequestBody Map<String,String> map){
-		/*GridJson gs=new GridJson();
-		List<User> list = iMessagePushBizc.queryMessagePushList(map);
-		int cnt = iMessagePushBizc.queryMessagePushListCnt(map);
-		gs.setRows(list);
-		gs.setTotal(cnt);*/
-		return userService.queryuserlist(map);
+	public Map<String, Object> queryuserlist(@RequestParam(value="page", required=false) String page, 
+            @RequestParam(value="rows", required=false) String rows,HttpServletRequest request){
+		Page pageBean = new Page(Integer.parseInt(page), Integer.parseInt(rows));
+		Map<String, Object> retMap = new HashMap<String, Object>();
+		Map<String, Object> paraMap = new HashMap<String, Object>();		
+		paraMap.put("firstPage", pageBean.getFirstPage());
+        paraMap.put("rows", pageBean.getRows());
+        List<Map<String, Object>> list=userService.queryuserlist(paraMap);
+		long total = userService.queryuserlistcnt(paraMap);
+		retMap.put("rows", list);
+		retMap.put("total", total);
+		return retMap;
 	}
 	/**
 	 * 新增用户
@@ -96,12 +102,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value="/insertuser",method=RequestMethod.POST)
-	public Map<String,Object> insertuser(@RequestBody Map<String,Object> map){
-		/*GridJson gs=new GridJson();
-		List<User> list = iMessagePushBizc.queryMessagePushList(map);
-		int cnt = iMessagePushBizc.queryMessagePushListCnt(map);
-		gs.setRows(list);
-		gs.setTotal(cnt);*/
+	public Map<String,Object> insertuser(@RequestBody Map<String,Object> map){	
 		return userService.insertuser(map);
 	}
 	/**
@@ -168,11 +169,6 @@ public class UserController {
 	 */
 	@RequestMapping(value="/queryprojlist",method=RequestMethod.POST)
 	public List<Map<String,Object>> queryprojlist(@RequestBody Map<String,Object> map){
-		/*String result= userService.queryprojlist(map);
-		 Map<String,String> resultmap = new HashMap<String,String>();
-		 resultmap.put("result", result);
-		String  param= JSON.toJSONString(resultmap);
-		return param;*/
 		return userService.queryprojlist(map);
 	}
 	
@@ -183,13 +179,6 @@ public class UserController {
 	 */
 	@RequestMapping(value="/firstpassbyid",method=RequestMethod.POST)
 	public Map<String,Object> firstpassbyid(@RequestBody Map<String,Object> map){
-		/*String result= userService.queryprojlist(map);
-		 Map<String,String> resultmap = new HashMap<String,String>();
-		 resultmap.put("result", result);
-		String  param= JSON.toJSONString(resultmap);
-		return param;*/
-		
-		//System.out.println(received);
 		return userService.firstpassbyid(map);
 	}
 	/**
@@ -199,12 +188,6 @@ public class UserController {
 	 */
 	@RequestMapping(value="/dopassbyid",method=RequestMethod.POST)
 	public Map<String,Object> dopassbyid(@RequestBody Map<String,Object> map){
-		/*String result= userService.queryprojlist(map);
-		 Map<String,String> resultmap = new HashMap<String,String>();
-		 resultmap.put("result", result);
-		String  param= JSON.toJSONString(resultmap);
-		return param;*/
-	
 		return userService.dopassbyid(map);
 	}
 	
@@ -216,12 +199,6 @@ public class UserController {
 	
 	@RequestMapping(value="/assignexperts",method=RequestMethod.POST)
 	public Map<String,Object> assignexperts(@RequestBody Map<String,Object> map){
-		/*String result= userService.queryprojlist(map);
-		 Map<String,String> resultmap = new HashMap<String,String>();
-		 resultmap.put("result", result);
-		String  param= JSON.toJSONString(resultmap);
-		return param;*/
-		
 		return userService.assignexperts(map);
 	}
 	/**
@@ -232,12 +209,6 @@ public class UserController {
 	
 	@RequestMapping(value="/savegrading",method=RequestMethod.POST)
 	public Map<String,Object> savegrading(@RequestBody Map<String,Object> map){
-		/*String result= userService.queryprojlist(map);
-		 Map<String,String> resultmap = new HashMap<String,String>();
-		 resultmap.put("result", result);
-		String  param= JSON.toJSONString(resultmap);
-		return param;*/
-		
 		return userService.savegrading(map);
 	}
 	

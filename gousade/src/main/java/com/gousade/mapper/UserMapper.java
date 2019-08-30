@@ -20,10 +20,12 @@ public interface UserMapper {
 	public int regist(Map<String, Object> map);
 	/**
 	 * 查询用户列表
-	 * @param map
+	 * @param paraMap
 	 * @return
 	 */
-	public List<Map<String, String>> queryuserlist(Map<String, String> map);
+	public List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap);
+	
+	public long queryuserlistcnt(Map<String, Object> map);
 	/**
 	 * 新增用户
 	 * @param map
