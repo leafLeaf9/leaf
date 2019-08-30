@@ -99,34 +99,7 @@ table
 		<input id="keywordname" style="line-height:26px;border:1px solid #ccc">		
 		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
 		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="exportwords()">导出</a>
-	</div>            
-		<div id="insert" align="center">
-		<table cellspacing="0" cellpadding="10" class="tfm" id="profilelist">
- 
-<tr >
-<th >词语名称:</th>
-<td >
-<input type="text" id="wordname" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >情感值:</th>
-<td >
-<input type="text" id="value" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >词语类型:</th>
-<td >
-<input type="text" id="wordtype" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >公式类型:</th>
-<td >
-<input type="text" id="formtype" class="px" value="" tabindex="1" /></td>
-</tr>
-</table>
-<input type="button" value="提交" onclick="insertuser()">
-		</div>
-		
+	</div>            		
 		<div id="update"  align="center">
 		<table cellspacing="0" cellpadding="10" class="tfm" id="profilelist" align="center">
  
@@ -258,29 +231,6 @@ $('#insertDialog').dialog({
 
 
 		} 
-  function insertuser(){
-	  var webRootPath = '<%=request.getContextPath()%>';	
-		var qaram = {
-				"wordname" :  $("#wordname").val(),
-				"value" :  $("#value").val(),
-				"wordtype" :  $("#wordtype").val(),
-				"formtype" :  $("#formtype").val()
-			
-			};
-		console.log( JSON.stringify(qaram));
-		
-		$.postJSON(webRootPath + "/insertwords", qaram, function(data) {
-              if (data) {
-				
-				alert(data.result);
-				$("#user").datagrid("reload");
-                $("#user").datagrid("clearSelections");
-                $("#insert").hide();                
-			}else{
-				alert("操作失败！");
-			}
-		});
-  }
   function forminsertuser(){
 	  var webRootPath = '<%=request.getContextPath()%>';	
 	  var qaram=$('#insertform').serializeObject();
