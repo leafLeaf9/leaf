@@ -49,6 +49,25 @@ table
 	}
 }
 .bg-nav>span{float:left;margin-right:15px;color:#6DB4F9;cursor:pointer}
+    .row {
+      font-size: 18px;
+      color: #333;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .row_description {
+      vertical-align: top;
+      margin-left: 14%;
+      display: inline-block;
+      width: 22%;
+    }
+    .row_data {
+      display: inline-block;
+      width: 55%;
+    }
+    .danger {
+      color: #F56C6C;
+    }
 </style>
  <script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
@@ -129,13 +148,48 @@ table
 <!-- <input class="easyui-color">		 -->
 <div id="insertDialog" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true">
-    Dialog Content.<br/>
     <form id="insertform" method="post">
-    <table cellspacing="0" cellpadding="10" class="tfm" id="inserttable">
+      <div class="row">
+      <div class="row_description"><span class="danger">*</span> 词语名称:</div>
+      <div class="row_data">
+      <input name="wordname" type="text">
+      </div>
+      </div>
+      
+      <div class="row">
+      <div class="row_description"><span class="danger">*</span> 情感值:</div>
+      <div class="row_data">
+      <input name="value" type="text">
+      </div>
+      </div>
+
+      <div class="row">
+      <div class="row_description"><span class="danger">*</span> 词语类型:</div>
+      <div class="row_data">
+      <input name="wordtype" type="text">
+      </div>
+      </div>
+
+      <div class="row">
+      <div class="row_description"><span class="danger">*</span> 公式类型:</div>
+      <div class="row_data">
+      <input name="formtype" type="text">
+      </div>
+      </div>
+</form>
+<div class="clearfix" style="padding: 0 200px; margin-bottom: 40px">
+<a href="javascript:void(0);" class="easyui-linkbutton" style="width: 100px" onclick="forminsertuser()">确定</a>
+<a href="javascript:void(0);" class="easyui-linkbutton" style="float: right; width: 100px" onclick="javascript:$('#insertDialog').dialog('close')">取消</a>
+</div>
+</div>
+<div id="updateDialog" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true">
+    <form id="updateform" method="post">
+    <table cellspacing="0" cellpadding="10" class="tfm" >
 <tr >
 <th >词语名称:</th>
 <td >
-<input type="text" name="wordname" class="px" value="" tabindex="1" /></td>
+<input type="text" name="wordname" class="px" value="" tabindex="1" readonly="true"/></td>
 </tr>
 <tr >
 <th >情感值:</th>
@@ -155,15 +209,14 @@ table
 </table>
 </form>
 <div class="clearfix" style="padding: 0 200px; margin-bottom: 40px">
-<a href="javascript:void(0);" class="easyui-linkbutton" style="width: 100px" onclick="forminsertuser()">确定</a>
-<a href="javascript:void(0);" class="easyui-linkbutton" style="float: right; width: 100px" onclick="javascript:$('#insertDialog').dialog('close')">取消</a>
+<a href="javascript:void(0);" class="easyui-linkbutton" style="width: 100px" onclick="formupdateuser()">确定</a>
+<a href="javascript:void(0);" class="easyui-linkbutton" style="float: right; width: 100px" onclick="javascript:$('#updateDialog').dialog('close')">取消</a>
 </div>
 </div>
-
 <script>
 $(function() {
 	$('#insertDialog').dialog('close');
-	$("#insert").hide();
+	$('#updateDialog').dialog('close');
 	$("#update").hide();
 });
 $('#insertDialog').dialog({
