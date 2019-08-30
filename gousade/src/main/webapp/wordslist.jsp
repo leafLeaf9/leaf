@@ -286,12 +286,12 @@ $('#insertDialog').dialog({
 	  var qaram=$('#insertform').serializeObject();
 	  $.postJSON(webRootPath + "/insertwords", qaram, function(data) {
           if (data) {			
-			alert(data.result);
+        	  $.messager.alert('提示','操作成功');
 			$("#user").datagrid("reload");
             $("#user").datagrid("clearSelections");          
             $('#insertDialog').dialog('close');
 		}else{
-			alert("操作失败！");
+			$.messager.alert('提示','操作失败');
 		}
 	});
   }
@@ -309,12 +309,12 @@ $('#insertDialog').dialog({
 		$.postJSON(webRootPath + "/updatewords", qaram, function(data) {
               if (data) {
 				
-				alert(data.result);				
+            	  $.messager.progress(); 
 				$("#user").datagrid("reload");
                 $("#user").datagrid("clearSelections");
                 $("#update").hide();
 			}else{
-				alert("操作失败！");
+				 $.messager.alert('操作失败');
 			}
 		});
   }
@@ -349,7 +349,6 @@ $('#insertDialog').dialog({
   
 function exportwords(){
 	var webRootPath = '<%=request.getContextPath()%>';
-	console.log(${pageContext.request.contextPath});
 // 	var qaram = {
 			
 // 			};
