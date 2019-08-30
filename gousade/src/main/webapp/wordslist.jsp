@@ -50,15 +50,14 @@ table
 }
 .bg-nav>span{float:left;margin-right:15px;color:#6DB4F9;cursor:pointer}
 </style>
- <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="./js/jquery.color.js"></script>
+<!-- 	<script type="text/javascript" src="./js/jquery.color.js"></script> -->
 	<script type="text/javascript" src="./js/jsUtil.js"></script>
 </head>
 <body>
@@ -153,7 +152,7 @@ table
 </table>
 <input type="button" value="提交" onclick="updateuser()">
 		</div>
-<input class="easyui-color">		
+<!-- <input class="easyui-color">		 -->
 <div id="insertDialog" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true">
     Dialog Content.<br/>

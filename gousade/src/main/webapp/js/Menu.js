@@ -19,12 +19,19 @@ Menu.prototype._createContent = function($this){
 	if($this.is(this.defaultSelect)){
 		var $tab = $('<li data-id="'+ id +'" data-default="default"><a href="javascript:;" class="ue-clear"><span>'+ name +'</span></a></li>');	
 	}else{
-		var $tab = $('<li data-id="'+ id +'"><a href="javascript:;" class="ue-clear"><span>'+ name +'</span><i class="close-tab"></i></a></li>');	
+		if(id==undefined){
+	//		var $tab = $('<li data-id="'+ 404 +'"><a href="javascript:;" class="ue-clear"><span>'+ '错误页面' +'</span><i class="close-tab"></i></a></li>');	
+		}else{
+			var $tab = $('<li data-id="'+ id +'"><a href="javascript:;" class="ue-clear"><span>'+ name +'</span><i class="close-tab"></i></a></li>');	
+		}
+		
 	}
-	
-	var $iframe= $('<iframe data-id="'+ id +'" width="100%" height="100%" frameborder="0" src="'+ href +'"></iframe>');
-	
-	$iframe.height($("#bd").height() - $(".tab").height()-8);
+	if(id==undefined){
+	//var $iframe= $('<iframe data-id="'+ 404 +'" width="100%" height="100%" frameborder="0" src="'+ '/404' +'"></iframe>');
+	}else{
+		var $iframe= $('<iframe data-id="'+ id +'" width="100%" height="100%" frameborder="0" src="'+ href +'"></iframe>');	
+		$iframe.height($("#bd").height() - $(".tab").height()-8);
+	}	
 	 
 	this.cacheOpen[id]={nav:$this, tab:$tab, iframe:$iframe};
 	 
@@ -188,7 +195,12 @@ Menu.prototype._select = function($this){
 		
 	// 是否已经存在
 	if(opened){
-		this._show($this);	
+		opened.tab.remove();
+		opened.iframe.remove();
+		opened.more && current.more.remove();		
+		delete this.cacheOpen[id];
+		this._createContent($this);	
+	//	this._show($this);	
 	}else{
 		this._createContent($this);	
 	}
