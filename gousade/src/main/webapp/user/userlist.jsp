@@ -59,6 +59,7 @@ table
 	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
 <!-- 	<script type="text/javascript" src="./js/jquery.color.js"></script> -->
 	<script type="text/javascript" src="./js/jsUtil.js"></script>
+	<link rel="stylesheet" href="./img/icon-font/iconfont.css">
 </head>
 <body>
 
@@ -66,16 +67,14 @@ table
             	<!-- 操作 -->
                 <div class="bg-nav">
                     <span onclick="readyinsertuser()">
-                        <img src="<%=request.getContextPath()%>/img/leading-in.png"/>
-                       	 新增
+                        <i class="iconfont icon-Create_member"> 新增</i>
+
                     </span>
                     <span  onclick="readyupdateuser()">
-                        <img src="<%=request.getContextPath()%>/img/insert.png" />
-                       	 编辑
+                   <i class="iconfont icon-bianji"> 编辑</i>
                     </span>
                     <span onclick="readydeluser()">
-                        <img src="<%=request.getContextPath()%>/img/delete.png" />
-                       	 删除
+                    <i class="iconfont icon-shanchu"> 删除</i>
                     </span>
                                                           
                 </div>
