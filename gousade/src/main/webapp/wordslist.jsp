@@ -98,8 +98,9 @@ table
                                                           
                 </div>
 </div>
-<table id="user" title="词表" class="easyui-datagrid" fitColumns="true" pagination="true"
-    url="${pageContext.request.contextPath}/querywordslist" toolbar="#tb" rownumbers="true">
+<!-- <table id="user" title="词表" class="easyui-datagrid" fitColumns="true" pagination="true" -->
+<%--     url="${pageContext.request.contextPath}/querywordslist" toolbar="#tb" rownumbers="true"> --%>
+    <table id="user" title="词表" toolbar="#tb">
     <thead>
         <tr>
             <th field="cb" checkbox="true"  align="center"></th>
@@ -214,6 +215,15 @@ table
 </div>
 <script>
 $(function() {
+	$('#user').datagrid({
+        url: '${pageContext.request.contextPath}/querywordslist',
+        pagination: true,
+        rownumbers: true,
+        fitColumns: true,
+        pageNumber: 1,
+        pageSize: 10,
+        pageList: [10,20],
+      })
 	$('#insertDialog').dialog('close');
 	$('#updateDialog').dialog('close');
 	$("#update").hide();
