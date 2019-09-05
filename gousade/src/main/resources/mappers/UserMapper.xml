@@ -9,8 +9,8 @@
 	</select>
 <!-- 注册新用户-->
 	<insert id="regist" parameterType="map">
-		insert into user (user_id,password,user_name,created,state,role_id)
-	values (#{user_id},#{password},#{user_name},NOW(),'1','5')
+		insert into user (user_id,password,salt,user_name,created,state,role_id)
+	values (#{user_id},#{password},#{salt},#{user_name},NOW(),'1','5')
 	</insert>	
 	<!-- 	根据用户ID获取角色ID -->
 	<select id="getroleidByuid" parameterType="map" resultType="map">

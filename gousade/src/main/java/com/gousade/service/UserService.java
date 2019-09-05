@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.gousade.mapper.UserMapper;
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
+import com.gousade.utils.SaltUtil;
 
 import edu.hit.ir.ltp4j.NER;
 import edu.hit.ir.ltp4j.Postagger;
@@ -39,7 +40,12 @@ public class UserService {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		try {
-			String password = DigestUtils.md5Hex((String)map.get("password"));
+			String firstpsd=(String) map.get("password");
+			String uid = SaltUtil.getUUId();
+			String uidsalt = DigestUtils.md5Hex(uid);
+			String psd = firstpsd.concat(uidsalt);
+			String password = DigestUtils.md5Hex(psd);
+			map.put("salt", uid);
 			map.put("password", password);
 			int i=userMapper.regist(map);
 			
