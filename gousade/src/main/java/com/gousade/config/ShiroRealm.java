@@ -13,11 +13,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.context.annotation.Configuration;
 
-import com.gousade.pojo.User;
- 
+import com.gousade.model.User;
 
- 
- 
 /**
  * Realms配置;
  * 注:可编写多个realm类继承AuthorizingRealm实现多认证、多授权;
