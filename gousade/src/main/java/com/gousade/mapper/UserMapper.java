@@ -12,6 +12,8 @@ public interface UserMapper {
 	
 	public User toCheckUser(@Param(value="userId") String userId,
 				@Param(value="password") String password);
+	
+	public User SelectUserByLoginName(String userId);
 	/**
 	 * 注册用户
 	 * @param map

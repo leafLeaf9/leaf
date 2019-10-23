@@ -7,6 +7,10 @@
 	<select id="toCheckUser" resultType="com.gousade.pojo.User">
 		select * from user where user_id=#{userId} and password=#{password}
 	</select>
+<!-- 根据用户名查询用户，用于shiro校验 -->
+	<select id="SelectUserByLoginName" parameterType="java.lang.String" resultType="com.gousade.pojo.User">
+		select * from user where user_id=#{userId} 
+	</select>
 <!-- 注册新用户-->
 	<insert id="regist" parameterType="map">
 		insert into user (user_id,password,salt,user_name,created,state,role_id)

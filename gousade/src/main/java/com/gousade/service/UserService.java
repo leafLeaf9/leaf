@@ -35,6 +35,10 @@ public class UserService {
 	//	System.out.println("加密之后的密码是"+password);
 		return userMapper.toCheckUser(userId,password);
 	}
+	
+	public User SelectUserByLoginName(String userId){
+		return userMapper.SelectUserByLoginName(userId);
+	}
 
 	public Map<String, Object> regist(Map<String, Object> map) {
 		// TODO Auto-generated method stub

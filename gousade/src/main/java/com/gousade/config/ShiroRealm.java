@@ -11,9 +11,11 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import com.gousade.model.User;
+import com.gousade.pojo.User;
+import com.gousade.service.UserService;
 
 /**
  * Realms配置;
@@ -26,6 +28,8 @@ import com.gousade.model.User;
 @Configuration
 public class ShiroRealm extends AuthorizingRealm {
 	
+	@Autowired
+	private UserService userService;
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) 
 			throws AuthenticationException {
@@ -48,13 +52,10 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *  注: 这里假设从数据库查出来了某个用户的数据,假设User类的实例principal中的就是查出来的数据
 		 *  注:如果我们想要在程序中，获取到我们在Realm里面方式的自定义的用户对象实例(即上图中的User principal)，那么可以这么获得:
          *    User u = (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
-         */
-		User principal = null ;
-		if(username != null && username.equals("zhangsan")) {
-		    principal = new User(username, "2a0d136ceacafe198ea64ac09daaf1b6", "admin,user"); 
-		}
-		if(username != null && username.equals("lisi")) {
-			principal = new User(username, "8c702ae443795331c91cfab48f3f3833", "user"); 
+         */		
+		User principal = userService.SelectUserByLoginName(username);
+		if (principal == null) {
+			return null;
 		}
 		
 	
@@ -77,7 +78,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *  注:盐值 最好保证其唯一性。 
 		 *  注:由于一般情况下,用户名是唯一的，所以我们一般使用用户名来计算盐值
 		 */
-		ByteSource credentialsSalt = ByteSource.Util.bytes(username);
+		ByteSource credentialsSalt = ByteSource.Util.bytes(principal.getSalt());
  
 		/*
 		 * 实例化对象.
@@ -124,7 +125,6 @@ public class ShiroRealm extends AuthorizingRealm {
 		
 		// 4.创建 SimpleAuthorizationInfo, 并将办好角色的Set放入.
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(rolesSet);
-		
 		// 5.返回 SimpleAuthorizationInfo对象. 
 		return info; 
 	}
