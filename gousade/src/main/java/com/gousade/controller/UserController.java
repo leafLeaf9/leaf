@@ -6,9 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +48,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@RequestMapping("/toLogin")
 	public ModelAndView toLogin(@RequestParam(value="userId") String userId,
 			@RequestParam(value="password") String password,Model model,HttpServletRequest request){
@@ -56,6 +67,57 @@ public class UserController {
 			return mv;
 		}
 	}
+	
+	@RequestMapping("/loginShiroUser")
+	public ModelAndView loginShiroUser(@RequestParam(value="userId") String userId,
+			@RequestParam(value="password") String password,Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		logger.info("进行账号"+userId+",密码验证"+password+".....");
+    	UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(userId,password);
+    	Subject subject = SecurityUtils.getSubject();
+    	ModelAndView loginmv = new ModelAndView("login");
+		try {  
+    		subject.login(usernamePasswordToken);   //完成shiro登录验证
+    		User user=(User) subject.getPrincipal();
+    		session.setAttribute("user", user);
+//    		session.setAttribute("clickId","home");
+    		ModelAndView mv = new ModelAndView("main");
+    		return mv;
+        }catch(UnknownAccountException uae){  
+            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");  
+            request.setAttribute("message", "未知账户");  
+            return loginmv;//返回登录页面
+        }catch(IncorrectCredentialsException ice){  
+            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,错误的凭证");  
+            request.setAttribute("message", "密码不正确");  
+            return loginmv;//返回登录页面
+        }catch(LockedAccountException lae){  
+            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,账户已锁定");  
+            request.setAttribute("message", "账户已锁定");
+            return loginmv;//返回登录页面
+        }catch(ExcessiveAttemptsException eae){  
+            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,错误次数过多");  
+            request.setAttribute("message", "用户名或密码错误次数过多");
+            return loginmv;//返回登录页面
+        }catch(AuthenticationException ae){  
+            //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
+            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,堆栈轨迹如下");
+            ae.printStackTrace();  
+            request.setAttribute("message", "用户名或密码不正确");  
+            return loginmv;//返回登录页面
+        }
+
+	}
+	
+	/**
+	 * 注册用户
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping(value="/ShiroRegist",method=RequestMethod.POST)
+	public Map<String,Object> ShiroRegist(@RequestBody Map<String,Object> map){				
+		return userService.ShiroRegist(map);
+		}
 	
 	/**
 	 * 注册用户

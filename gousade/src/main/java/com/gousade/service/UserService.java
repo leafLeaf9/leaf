@@ -68,6 +68,32 @@ public class UserService {
 		return retMap;
 	}
 	
+	public Map<String, Object> ShiroRegist(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		Map<String, Object> retMap = new HashMap<String, Object>();
+		try {
+			String firstpsd=(String) map.get("password");
+			String salt=SaltUtil.getUUId();
+			String password =SaltUtil.toHex(firstpsd, salt);
+			map.put("salt", salt);
+			map.put("password", password);
+			int i=userMapper.regist(map);
+			
+				if(i>=1) {
+					//retMap.put("success", true);
+					retMap.put("result", "注册成功,跳转到登录页面");
+				}else {
+				//	retMap.put("success", false);
+					retMap.put("result", "注册失败");
+				}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return retMap;
+	}
+	
 	public Map<String, Object> insertuser(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
