@@ -81,7 +81,7 @@ public class UserService {
 			
 				if(i>=1) {
 					//retMap.put("success", true);
-					retMap.put("result", "注册成功,跳转到登录页面");
+					retMap.put("result", "注册成功,跳转到登录页面。");
 				}else {
 				//	retMap.put("success", false);
 					retMap.put("result", "注册失败");
