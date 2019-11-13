@@ -68,7 +68,7 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping("/loginShiroUser")
+	@RequestMapping(value="/loginShiroUser",method = RequestMethod.POST)
 	public ModelAndView loginShiroUser(@RequestParam(value="userId") String userId,
 			@RequestParam(value="password") String password,Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
