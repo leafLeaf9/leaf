@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 
 public class SaltUtil {
@@ -22,7 +23,7 @@ public class SaltUtil {
     }
     
     public static String toHex(Object source, Object salt) {
-        return new SimpleHash(algorithmName, source, salt, hashIterations).toHex();
+        return new SimpleHash(algorithmName, source, ByteSource.Util.bytes(salt), hashIterations).toHex();
     }
     @Test
     public void test() throws UnknownHostException {

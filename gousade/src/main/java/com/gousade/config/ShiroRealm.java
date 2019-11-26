@@ -1,6 +1,9 @@
 package com.gousade.config;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -124,8 +127,14 @@ public class ShiroRealm extends AuthorizingRealm {
 		} 
 		
 		// 4.创建 SimpleAuthorizationInfo, 并将办好角色的Set放入.
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(rolesSet);
-		// 5.返回 SimpleAuthorizationInfo对象. 
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		info.setRoles(rolesSet);
+		// 5.创建权限Set，并存入SimpleAuthorizationInfo对象. 此处是随意添加的两个权限字符串，以后要修改为像上述角色Set一样通过方法获取user的权限并存入对象
+		Set<String> PermissionsSet = new HashSet<>();
+		PermissionsSet.add("user:show");
+		PermissionsSet.add("user:admin");
+        info.setStringPermissions(PermissionsSet);     
+		// 6.返回 SimpleAuthorizationInfo对象. 
 		return info; 
 	}
 }
