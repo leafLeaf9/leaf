@@ -57,6 +57,7 @@ public class ShiroRealm extends AuthorizingRealm {
          *    User u = (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
          */		
 		User principal = userService.SelectUserByLoginName(username);
+		//此处还要再通过service查询到user所拥有的角色和资源并set给user，后续完善
 		if (principal == null) {
 			return null;
 		}
@@ -133,9 +134,10 @@ public class ShiroRealm extends AuthorizingRealm {
 		Set<String> PermissionsSet = new HashSet<>();
 		PermissionsSet.add("user:show");
 		PermissionsSet.add("user:admin");
-        info.setStringPermissions(PermissionsSet);     
+        info.setStringPermissions(PermissionsSet);   
+        //这里的set角色和权限可以改为直接从User user = (User)principal;此处的user里的get方法获取，因为user类里添加了Set<String> roles、urls，后续完善
 		// 6.返回 SimpleAuthorizationInfo对象. 
-		return info; 
+		return info;
 	}
 }
  

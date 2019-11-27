@@ -1,6 +1,8 @@
 package com.gousade.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,8 +10,7 @@ import javax.persistence.Table;
 
 @Table(name="user")
 public class User implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -143390288050304564L;
 	@Id
 	private String userId;
 	private String userName;
@@ -20,7 +21,10 @@ public class User implements Serializable{
 	private String salt;
 	/** 用户角色 */
 	private String userRoles;
-	
+	private Set<String> roles;
+	private Set<String> urls;	
+	private String mobile;
+	private String lastLoginTime;
 	/**
 	 * 无参构造
 	 */
@@ -42,6 +46,14 @@ public class User implements Serializable{
 		this.password = password;
 		this.userRoles = userRoles;
 		this.salt = salt;
+	}
+	
+	public User(String userId, String userName, String mobile, Set<String> urls, Set<String> roles) {
+		this.userId = userId;
+		this.userName = userName;
+		this.mobile = mobile;
+		this.urls = urls;
+		this.roles = roles;		
 	}
 	
 	@Override
@@ -102,5 +114,37 @@ public class User implements Serializable{
 	}
 	public void setUpdated(String updated) {
 		this.updated = updated;
+	}
+
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
+
+	public Set<String> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(Set<String> urls) {
+		this.urls = urls;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(String lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 }
