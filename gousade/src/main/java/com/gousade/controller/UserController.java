@@ -80,7 +80,7 @@ public class UserController {
     	UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(userId,password);
     	Subject subject = SecurityUtils.getSubject();
     	ModelAndView loginmv = new ModelAndView("login");
-		try {  
+		try {
     		subject.login(usernamePasswordToken);   //完成shiro登录验证
     		User user=(User) subject.getPrincipal();
     		session.setAttribute("user", user);
@@ -90,7 +90,7 @@ public class UserController {
 //    		session.setAttribute("clickId","home");
     		String currentUser = subject.getPrincipal().toString();
             System.err.println("当前登录的用户是："+currentUser);
-    		ModelAndView mv = new ModelAndView("main");
+    		ModelAndView mv = new ModelAndView("redirect:/main");
     		return mv;
         }catch(UnknownAccountException uae){  
             logger.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");  

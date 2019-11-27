@@ -23,7 +23,7 @@ public class ManageController {
         if (obj == null) {
             return "login";
         }
-		return "main";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping("/{pageName}")
@@ -55,7 +55,7 @@ public class ManageController {
         if (obj == null) {
             return "login";
         }
-		return "main";
+		return "redirect:/main";
 	}
 
 	@RequestMapping("/user/{pageName}")
