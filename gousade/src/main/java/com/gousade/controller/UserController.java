@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.exceptions.ClientException;
@@ -111,6 +113,20 @@ public class UserController {
             return loginmv;//返回登录页面
         }
 
+	}
+	
+	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	public Object logout(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+		Map<String, Object> res = new HashMap<String, Object>();
+		try {
+            Subject subject = SecurityUtils.getSubject();
+            subject.logout();         
+            res.put("status", true);
+            res.put("msg", "退出成功");
+        } catch (Exception e) {
+            res.put("status", false);
+        }
+		return res;
 	}
 	
 	/**

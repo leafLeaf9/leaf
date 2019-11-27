@@ -119,6 +119,19 @@ $('.exitDialog input[type=button]').click(function(e) {
 	}
 });
 
+$("#in-logout").on("click", function () {
+	$.post('${ctx}/logout', function (result) {
+		if (result.status) {
+			//progressClose(); 添加一个加载动画，
+			$('body').append(result.msg)
+			window.location.href ='${ctx}';
+			//isOpen=false;
+		} else {
+			window.location.href ='${ctx}';
+		}
+	}, 'json');
+})
+
 (function(){
 	var totalWidth = 0, current = 1;
 	
