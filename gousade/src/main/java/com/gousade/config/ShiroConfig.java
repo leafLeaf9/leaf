@@ -26,7 +26,7 @@ public class ShiroConfig {
 		// 配置不会被拦截的链接 顺序判断
 		//filterChainDefinitionMap.put("/static/**", "anon");
 		//配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
-		filterChainDefinitionMap.put("/logout", "logout");		
+//		filterChainDefinitionMap.put("/logout", "logout");		
 		//<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		//<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
 		filterChainDefinitionMap.put("/login", "anon");
@@ -39,7 +39,6 @@ public class ShiroConfig {
 //		shiroFilterFactoryBean.setLoginUrl("/login/loginUser");
 		// 登录成功后要跳转的链接
 		shiroFilterFactoryBean.setSuccessUrl("/main");
- 
 		//未授权界面;
 		shiroFilterFactoryBean.setUnauthorizedUrl("/undefined");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -91,7 +90,7 @@ public class ShiroConfig {
 		return authorizationAttributeSourceAdvisor;
 	}
  
-	@Bean(name="simpleMappingExceptionResolver")
+	/*@Bean(name="simpleMappingExceptionResolver")
 	public SimpleMappingExceptionResolver
 	createSimpleMappingExceptionResolver() {
 		SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver();
@@ -104,7 +103,7 @@ public class ShiroConfig {
 		r.setExceptionAttribute("ex");     // Default is "exception"
 		//r.setWarnLogCategory("example.MvcLogger");     // No default
 		return r;
-	}
+	}*/
  
  
  
