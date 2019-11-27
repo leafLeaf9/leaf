@@ -34,8 +34,12 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/ShiroRegist", "anon");
 		filterChainDefinitionMap.put("/loginShiroUser", "anon");
         filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/template/**", "anon");
 		filterChainDefinitionMap.put("/static/templates/**", "authc");
-//		filterChainDefinitionMap.put("/**", "authc");
+		filterChainDefinitionMap.put("/**", "authc");
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
 //		shiroFilterFactoryBean.setLoginUrl("/login/loginUser");
 		// 登录成功后要跳转的链接
