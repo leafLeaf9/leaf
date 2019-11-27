@@ -3,7 +3,8 @@
     <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>  
+%>
+<%@ include file="/template/commons/total.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -7,12 +7,25 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gousade.pojo.User;
+
+
 @Controller
 public class ManageController {
+	@RequestMapping("/login")
+	public String login(){
+		User obj = (User) SecurityUtils.getSubject().getPrincipal();
+        if (obj == null) {
+            return "login";
+        }
+		return "main";
+	}
+	
 	@RequestMapping("/{pageName}")
 	public String toPage(@PathVariable String pageName,HttpServletRequest request,HttpServletResponse response){
 		/*Set<String> notLoginPaths = new HashSet<>();
@@ -30,8 +43,10 @@ public class ManageController {
 				return pageName;
 			}
 		}*/
+		
 		return pageName;
 	}
+	
 	
 	
 	@RequestMapping("/")

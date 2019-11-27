@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							"user_name" :  $("#user_name").val(),
 							"confirm_password" :  $("#confirm_password").val(),						
 					};
-				  $.postJSON(webRootPath + "/regist", qaram, function(data) {
+				  $.postJSON(webRootPath + "/ShiroRegist", qaram, function(data) {
 		              if (data) {
 						
 						alert(data.result);

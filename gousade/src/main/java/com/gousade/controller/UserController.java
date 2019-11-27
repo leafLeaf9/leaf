@@ -82,6 +82,8 @@ public class UserController {
     		subject.login(usernamePasswordToken);   //完成shiro登录验证
     		User user=(User) subject.getPrincipal();
     		session.setAttribute("user", user);
+    		session.setAttribute("u", userId);
+    		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效
 //    		session.setAttribute("clickId","home");
     		ModelAndView mv = new ModelAndView("main");
     		return mv;
