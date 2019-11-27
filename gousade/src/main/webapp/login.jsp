@@ -34,7 +34,7 @@
                 	<span style="color:red;font-weight:bold;margin-right:300px;font-size:20px;margin-left: 0px;">
                 		<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>
                	    <input type="submit" id="Submit" class="button" value="登录"  />
-                	<input type="button" class="button" value="注册" onclick="window.open('regist.jsp')"  />
+                	<input type="button" class="button" value="注册" onclick="window.open('regist')"  />
                 	</span></div>
             </div>
         </div>

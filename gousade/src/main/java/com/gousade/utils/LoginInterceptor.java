@@ -109,6 +109,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		notLoginPaths.add("/regist");
 		notLoginPaths.add("/toLogin");
 		notLoginPaths.add("/loginShiroUser");
+		notLoginPaths.add("/ShiroRegist");
 		if(notLoginPaths.contains(path)) return false;
 		return true;
 	}

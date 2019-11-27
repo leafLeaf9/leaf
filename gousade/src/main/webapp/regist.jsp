@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		              if (data) {
 						
 						alert(data.result);
-						window.location.href='login.jsp';
+						window.location.href='login';
 						
 					}else{
 						alert("操作失败！");
