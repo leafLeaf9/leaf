@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 <%@ include file="/template/commons/total.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -147,8 +143,8 @@ table
 <input type="button" value="提交" onclick="updateuser()">
 		</div>
 <!-- <input class="easyui-color">		 -->
-<div id="insertDialog" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true">
+<div id="insertDialog" class="easyui-dialog" style="width:400px;height:200px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
     <form id="insertform" method="post">
       <div class="row">
       <div class="row_description"><span class="danger">*</span> 词语名称:</div>
@@ -183,8 +179,8 @@ table
 <a href="javascript:void(0);" class="easyui-linkbutton" style="float: right; width: 100px" onclick="javascript:$('#insertDialog').dialog('close')">取消</a>
 </div>
 </div>
-<div id="updateDialog" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true">
+<div id="updateDialog" class="easyui-dialog" style="width:400px;height:200px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
     <form id="updateform" method="post">
     <table cellspacing="0" cellpadding="10" class="tfm" >
 <tr >
@@ -225,10 +221,6 @@ $(function() {
         pageSize: 10,
         pageList: [10,20],
       })
-	$('#insertDialog').dialog('close');
-	$('#updateDialog').dialog('close');
-	$("#update").hide();
-});
 $('#insertDialog').dialog({
     title: '新增词语',
     width: 700,
@@ -242,6 +234,12 @@ $('#insertDialog').dialog({
        //$(this).dialog("destroy").remove();
       },
 });
+$('#insertDialog').dialog('close');
+$('#updateDialog').dialog('close');
+$("#update").hide();
+});
+
+
   $.postJSON = function(url, data, callback) {
 	      return jQuery.ajax( {
 	          'type' : 'POST',
@@ -262,7 +260,7 @@ $('#insertDialog').dialog({
 	      })
   }
   function readyinsertuser(){	  
-	  $('#insertDialog').dialog('open');
+	  $('#insertDialog').dialog('open').dialog("center");
   }
   function readyupdateuser(){
 	  var ids = [];

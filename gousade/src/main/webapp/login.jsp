@@ -9,9 +9,8 @@
 <link rel="stylesheet" type="text/css" href="css/skin_/login.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.select.js"></script>
-<title>personal project</title>
+<title>shiro登录界面</title>
 </head>
-
 <body>
 <form action="/loginShiroUser" method="post" >
 <div id="container">

@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="css/jquery.dialog.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
-<title>personal project</title>
+<title> personal project</title>
 <style>
 #txt{color:white;
 position:absolute;
