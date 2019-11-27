@@ -115,7 +115,17 @@ $('.exitDialog input[type=button]').click(function(e) {
     $('.exitDialog').Dialog('close');
 	
 	if($(this).hasClass('ok')){
-		window.location.href = "login.html"	;
+// 		window.location.href = "login.html"	;
+		$.post('${ctx}/logout', function (result) {
+			if (result.status) {
+				//progressClose(); 添加一个加载动画，
+				$('body').append(result.msg)
+				window.location.href ='${ctx}';
+				//isOpen=false;
+			} else {
+				window.location.href ='${ctx}';
+			}
+		}, 'json');
 	}
 });
 
