@@ -51,7 +51,11 @@ public class ManageController {
 	
 	@RequestMapping("/")
 	public String showIndex(){
-		return "login";
+		User obj = (User) SecurityUtils.getSubject().getPrincipal();
+        if (obj == null) {
+            return "login";
+        }
+		return "main";
 	}
 
 	@RequestMapping("/user/{pageName}")
