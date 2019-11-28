@@ -53,12 +53,6 @@ public class ManageController {
 				return pageName;
 			}
 		}*/
-		User obj = (User) SecurityUtils.getSubject().getPrincipal();
-        if (obj == null) {
-        	System.err.println("当前shiro无subject");
-        }else{
-        	System.err.println("当前shiro-subject:"+obj.toString());
-        }
 		return pageName;
 	}
 	

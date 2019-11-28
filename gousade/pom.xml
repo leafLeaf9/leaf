@@ -221,7 +221,7 @@
         <artifactId>spring-boot-devtools</artifactId>
 
         <optional>true</optional>
-
+        <scope>true</scope>
    </dependency>
 
 		

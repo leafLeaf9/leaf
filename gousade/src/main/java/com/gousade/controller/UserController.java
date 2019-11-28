@@ -123,7 +123,7 @@ public class UserController {
 		Map<String, Object> res = new HashMap<String, Object>();
 		try {
             Subject subject = SecurityUtils.getSubject();
-            subject.logout();         
+            subject.logout();
             res.put("status", true);
             res.put("msg", "退出成功");
         } catch (Exception e) {
