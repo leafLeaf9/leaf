@@ -57,8 +57,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 //		session.setAttribute(Constants.SessionKey.USER, userInfo);
 		
 		//如果登录了，会把用户信息存进session
-		HttpSession session = request.getSession();
-		String users =  (String) session.getAttribute("u");
+		HttpSession session = request.getSession();		
+//		String users =  (String) session.getAttribute("u");
+		String users ="1";
 		/*User userInfo = new User();
 		userInfo.setId(users.get(0).getId());
 		userInfo.setName(users.get(0).getName());

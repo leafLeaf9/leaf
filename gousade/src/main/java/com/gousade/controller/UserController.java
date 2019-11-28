@@ -85,8 +85,8 @@ public class UserController {
     		User user=(User) subject.getPrincipal();
     		session.setAttribute("user", user);
     		session.setAttribute("u", userId);
-    		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效   
     		session.setAttribute("user_name", user.getUserName());
+    		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效
 //    		session.setAttribute("clickId","home");
     		String currentUser = subject.getPrincipal().toString();
             System.err.println("当前登录的用户是："+currentUser);

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
@@ -18,11 +19,20 @@ import com.gousade.pojo.User;
 @Controller
 public class ManageController {
 	@RequestMapping("/login")
-	public String login(){
+	public String login(HttpServletRequest request){
+		HttpSession session = request.getSession();	
+		String users =  (String) session.getAttribute("u");
+		if(users==null){
+			System.err.println("当前无session");
+		}else{
+			System.err.println("当前有session:"+users);
+		}
 		User obj = (User) SecurityUtils.getSubject().getPrincipal();
         if (obj == null) {
+        	System.err.println("当前shiro无subject");
             return "login";
         }
+        System.err.println("当前shiro-subject:"+obj.toString());
 		return "redirect:/main";
 	}
 	
@@ -43,7 +53,12 @@ public class ManageController {
 				return pageName;
 			}
 		}*/
-		
+		User obj = (User) SecurityUtils.getSubject().getPrincipal();
+        if (obj == null) {
+        	System.err.println("当前shiro无subject");
+        }else{
+        	System.err.println("当前shiro-subject:"+obj.toString());
+        }
 		return pageName;
 	}
 	
