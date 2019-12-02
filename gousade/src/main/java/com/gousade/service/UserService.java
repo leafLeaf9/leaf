@@ -16,9 +16,6 @@ import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
 import com.gousade.utils.SaltUtil;
 
-import edu.hit.ir.ltp4j.NER;
-import edu.hit.ir.ltp4j.Postagger;
-import edu.hit.ir.ltp4j.Segmentor;
 
 @Service
 public class UserService {
@@ -355,7 +352,7 @@ public class UserService {
 		return retMap;
 	}
 	
-	public Map<String, Object> segment(Map<String, Object> map) {
+/*	public Map<String, Object> segment(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		  Segmentor sentenceSplitApp= new Segmentor();
@@ -409,7 +406,7 @@ public class UserService {
 		    postaggerApp.release();   	
 		    retMap.put("result", result);
 		return retMap;
-	}
+	}*/
 
 	public List<Menu> listAdminMenuByRole(Map<String, Object> map) {
 		// TODO Auto-generated method stub

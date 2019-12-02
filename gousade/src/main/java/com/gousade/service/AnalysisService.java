@@ -18,16 +18,16 @@ import com.gousade.mapper.AnalysisMapper;
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
 
-import edu.hit.ir.ltp4j.NER;
-import edu.hit.ir.ltp4j.Postagger;
-import edu.hit.ir.ltp4j.Segmentor;
+//import edu.hit.ir.ltp4j.NER;
+//import edu.hit.ir.ltp4j.Postagger;
+//import edu.hit.ir.ltp4j.Segmentor;
 
 @Service
 public class AnalysisService {
 	@Autowired
 	private AnalysisMapper analysisMapper;
 	
-	public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
+	/*public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.querywordslist(map);
 	}
@@ -663,6 +663,6 @@ public class AnalysisService {
 		retMap.put("resultvalue", resultvalue);
 		retMap.put("list", map);
 		return retMap;
-	}
+	}*/
 
 }

@@ -27,8 +27,8 @@ public class Excelexporttest {
 	 * @author JustryDeng
 	 * @date 2018/12/5 11:44
 	 */
-	@Autowired
-	private AnalysisService analysisService;
+//	@Autowired
+//	private AnalysisService analysisService;
 	@Test
 	public void directExportExcel() throws IOException {
 	    // Map作为每一行的数据容器，List作为行的容器

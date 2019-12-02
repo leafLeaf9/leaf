@@ -42,7 +42,6 @@ import com.gousade.pojo.User;
 import com.gousade.service.SmsDemo;
 import com.gousade.service.UserService;
 
-import edu.hit.ir.ltp4j.Segmentor;
 
 @Controller
 //添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
