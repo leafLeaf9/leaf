@@ -27,7 +27,7 @@ public class AnalysisService {
 	@Autowired
 	private AnalysisMapper analysisMapper;
 	
-	/*public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
+	public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.querywordslist(map);
 	}
@@ -109,7 +109,7 @@ public class AnalysisService {
 		return analysisMapper.querycomments(map);
 	}
 	
-	public Map<String, Object> segment(Map<String, Object> map) {
+	/*public Map<String, Object> segment(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		  Segmentor sentenceSplitApp= new Segmentor();

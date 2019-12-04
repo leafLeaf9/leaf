@@ -48,16 +48,16 @@ import cn.afterturn.easypoi.excel.entity.ExportParams;
 
 public class AnalysisController {
 	
-/*	@Autowired
+	@Autowired
 	private AnalysisService analysisService;
 
 
 	
-	*//**
+	/**
 	 * 查询词表
 	 * @param map
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value="/querywordslist",method=RequestMethod.POST)
 	public Map<String,Object> querywordslist(@RequestParam(value="page", required=false) String page, 
             @RequestParam(value="rows", required=false) String rows,HttpServletRequest request){
@@ -76,57 +76,57 @@ public class AnalysisController {
 		return retMap; 
 	}
 	
-	*//**
+	/**
 	 * 新增词语
 	 * @param map
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value="/insertwords",method=RequestMethod.POST)
 	public Map<String,Object> insertwords(@RequestBody Map<String,Object> map){
 	
 		return analysisService.insertwords(map);
 	}
 	
-	*//**
+	/**
 	 * 修改词表信息
 	 * @param map
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value="/updatewords",method=RequestMethod.POST)
 	public Map<String,Object> updatewords(@RequestBody Map<String,Object> map){
 		
 		return analysisService.updatewords(map);
 	}
 	
-	*//**
+	/**
 	 * 删除词表信息
 	 * @param map
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value="/delwords",method=RequestMethod.POST)
 	public Map<String,Object> delwords(@RequestBody Map<String,Object> map){
 		
 		return analysisService.delwords(map);
 	}
 	
-	*//**
+	/**
 	 * 查询评论
 	 * @param map
 	 * @return
-	 *//*
+	 */
 	@RequestMapping(value="/querycomments",method=RequestMethod.POST)
 	public List<Map<String,Object>> querycomments(@RequestBody Map<String,Object> map){
 		
 		return analysisService.querycomments(map);
 	}
 	
-	*//**
+	/**
 	 * 中文分词
 	 * @param map
 	 * @return
-	 *//*
+	 */
 	
-	@RequestMapping(value="/segment",method=RequestMethod.POST)
+	/*@RequestMapping(value="/segment",method=RequestMethod.POST)
 	public Map<String,Object> segment(@RequestBody Map<String,Object> map){
 		System.out.println("-------java.library.path:"+System.getProperty("java.library.path"));
 
@@ -167,13 +167,13 @@ public class AnalysisController {
 	public Map<String,Object> calculate(@RequestBody  Map<String, Object> qarammap){
 
 		return analysisService.calculate(qarammap);
-	}
+	}*/
 	
-	*//**
+	/**
 	 * 导出词表到excel
 	 * @param map
 	 * @return
-	 *//*
+	 */
 	
 	@RequestMapping(value="/exopertwords",method=RequestMethod.POST)
 	public Map<String, Object> exopertwords(HttpServletResponse response,  Map<String, Object> qarammap) throws IOException{
@@ -205,6 +205,6 @@ public class AnalysisController {
 		    retMap.put("result", "操作成功");
 		    return retMap;
 		
-	}*/
+	}
 
 }
