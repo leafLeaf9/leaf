@@ -32,6 +32,11 @@ public class AnalysisService {
 		return analysisMapper.querywordslist(map);
 	}
 	
+	public List<Map<String, Object>> pagewordslist(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return analysisMapper.selectwordslist(map);
+	}
+	
 	public List<WordsVO> exopertwords(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.exopertwords(map);

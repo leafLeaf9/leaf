@@ -34,6 +34,8 @@ public interface AnalysisMapper {
 	 */
 	public List<Map<String, Object>> querywordslist(Map<String, Object> map);
 	
+	public List<Map<String, Object>> selectwordslist(Map<String, Object> map);
+	
 	public List<WordsVO> exopertwords(Map<String, Object> map);
 	
 	/**查询词表数量

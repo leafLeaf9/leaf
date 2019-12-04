@@ -213,7 +213,7 @@ table
 <script>
 $(function() {
 	$('#user').datagrid({
-        url: '${pageContext.request.contextPath}/querywordslist',
+        url: '${pageContext.request.contextPath}/selectwordslist',
         pagination: true,
         rownumbers: true,
         fitColumns: true,

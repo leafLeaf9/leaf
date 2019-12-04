@@ -224,25 +224,25 @@
     <artifactId>easypoi-annotation</artifactId>
     <version>3.1.0</version>
 </dependency>
+<dependency>
+    <groupId>com.github.pagehelper</groupId>
+    <artifactId>pagehelper</artifactId>
+    <version>5.1.10</version>
+</dependency>
 <!--跨域解决-->
-  <dependency>
-            <groupId>com.thetransactioncompany</groupId>
-            <artifactId>cors-filter</artifactId>
-            <version>2.5</version>
-        </dependency>
+<dependency>
+    <groupId>com.thetransactioncompany</groupId>
+    <artifactId>cors-filter</artifactId>
+    <version>2.5</version>
+</dependency>
 <!-- 热部署，修改包括静态页面的代码后自动重启生效 -->  
  <dependency>
-
-        <groupId>org.springframework.boot</groupId>
-
-        <artifactId>spring-boot-devtools</artifactId>
-
-        <optional>true</optional>
-        <scope>true</scope>
-   </dependency>
-
-		
-  </dependencies>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <optional>true</optional>
+    <scope>true</scope>
+</dependency>		
+</dependencies>
   
   <build>
     <finalName>gousade</finalName>
