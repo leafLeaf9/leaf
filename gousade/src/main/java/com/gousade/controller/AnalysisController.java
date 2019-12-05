@@ -89,7 +89,7 @@ public class AnalysisController {
 		paraMap.put("firstPage", pageBean.getFirstPage());
         paraMap.put("rows", pageBean.getRows());
         paraMap.put("wordname",wordname);
-        PageHelper.startPage(pageBean.getFirstPage(),pageBean.getRows());
+        PageHelper.startPage(pageBean.getPage(),pageBean.getRows());//引入PageHelper后会自动计算(page - 1) * rows，Page类后续可以考虑删掉
 		List<Map<String, Object>> list=analysisService.pagewordslist(paraMap);
 		PageInfo<Map<String, Object>> pageInfo = new PageInfo<Map<String, Object>>(list);		
 		long total = pageInfo.getTotal();

@@ -114,6 +114,7 @@ table
 		<span>词名:</span>
 		<input id="keywordname" style="line-height:26px;border:1px solid #ccc">		
 		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="ClearSearch()">清空</a>
 		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="exportwords()">导出</a>
 	</div>            		
 		<div id="update"  align="center">
@@ -257,8 +258,14 @@ $("#update").hide();
   function doSearch(){
 	  $('#user').datagrid('load', {	        
 	        wordname: $('#keywordname').val(),
-	      })
+	      });
   }
+  
+  function ClearSearch(){
+	  $('#tb input').val('');
+	  $('#user').datagrid('reload',{});
+  }
+  
   function readyinsertuser(){	  
 	  $('#insertDialog').dialog('open').dialog("center");
   }
