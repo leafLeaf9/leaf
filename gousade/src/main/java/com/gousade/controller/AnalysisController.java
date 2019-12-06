@@ -68,7 +68,6 @@ public class AnalysisController {
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		Map<String, Object> paraMap = new HashMap<String, Object>();
 		String wordname = request.getParameter("wordname");
-//		System.out.println("关键词是："+wordname);
 		paraMap.put("firstPage", pageBean.getFirstPage());
         paraMap.put("rows", pageBean.getRows());
         paraMap.put("wordname",wordname);
@@ -79,6 +78,9 @@ public class AnalysisController {
 		return retMap; 
 	}
 	
+	/**
+	 * PageHelper分页
+	 */
 	@RequestMapping(value="/selectwordslist",method=RequestMethod.POST)
 	public Map<String,Object> selectwordslist(@RequestParam(value="page", required=false) String page, 
             @RequestParam(value="rows", required=false) String rows,HttpServletRequest request){
@@ -86,7 +88,6 @@ public class AnalysisController {
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		Map<String, Object> paraMap = new HashMap<String, Object>();
 		String wordname = request.getParameter("wordname");
-//		System.out.println("关键词是："+wordname);
 		paraMap.put("firstPage", pageBean.getFirstPage());
         paraMap.put("rows", pageBean.getRows());
         paraMap.put("wordname",wordname);
