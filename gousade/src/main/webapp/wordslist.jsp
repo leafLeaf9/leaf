@@ -315,12 +315,6 @@ $("#update").hide();
  
   function formupdatewords(){
 	  var param=$('#updatewordsform').serializeObject();
-		var qaram = {
-				"wordname" : $("#wordname1").val(),
-				"value" :  $("#value1").val(),
-				"wordtype" :  $("#wordtype1").val(),
-				"formtype" :  $("#formtype1").val(),							
-			};
 		$.postJSON(webRootPath + "/updatewords", param, function(data) {
               if (data) {				
             	$.messager.alert('提示','修改成功');
