@@ -335,8 +335,8 @@ $("#update").hide();
 		  for(var i=0; i<rows.length; i++){
 				ids.push(rows[i].wordname);
 			}
-		var qaram = {				
-			"wordnames": ids			
+		var qaram = {
+			"wordnames": ids,
 			};
 		console.log( JSON.stringify(qaram));
 		
