@@ -7,6 +7,6 @@
 <title>欢迎页面</title>
 </head>
 <body>
-欢迎使用。
+无权限！
 </body>
 </html>

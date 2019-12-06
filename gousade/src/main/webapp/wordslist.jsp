@@ -116,7 +116,7 @@ table
 		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
 		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="ClearSearch()">清空</a>
 		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="exportwords()">导出</a>
-	</div>            		
+</div>            		
 		<div id="update"  align="center">
 		<table cellspacing="0" cellpadding="10" class="tfm" id="profilelist" align="center">
  
@@ -213,15 +213,15 @@ table
 </div>
 <script>
 $(function() {
-	$('#user').datagrid({
-        url: '${pageContext.request.contextPath}/selectwordslist',
-        pagination: true,
-        rownumbers: true,
-        fitColumns: true,
-        pageNumber: 1,
-        pageSize: 10,
-        pageList: [10,20],
-      })
+$('#user').datagrid({
+       url: '${pageContext.request.contextPath}/selectwordslist',
+       pagination: true,
+       rownumbers: true,
+       fitColumns: true,
+       pageNumber: 1,
+       pageSize: 10,
+       pageList: [10,20],
+     });
 $('#insertDialog').dialog({
     title: '新增词语',
     width: 700,
@@ -345,10 +345,8 @@ $("#update").hide();
 		  for(var i=0; i<rows.length; i++){
 				ids.push(rows[i].wordname);
 			}
-		var qaram = {
-				
-			"wordnames": ids
-			
+		var qaram = {				
+			"wordnames": ids			
 			};
 		console.log( JSON.stringify(qaram));
 		
@@ -367,26 +365,12 @@ $("#update").hide();
   
 function exportwords(){
 	var webRootPath = '<%=request.getContextPath()%>';
-// 	var qaram = {
-			
-// 			};
-	 var myform = $("<form></form>");
+	var myform = $("<form></form>");
 	   myform.attr('method', 'post');
-	   myform.attr('action', "/exopertwords"); 
-// 	   myform.append(qaram);  
+	   myform.attr('action', "/exopertwords");   
 	   myform.appendTo('body').submit();
-	/* $.postJSON(webRootPath + "/exopertwords", qaram, function(data) {
-        if (data) {
-        	 url="./xls/词表导出.xlsx";
-        	window.open(url); 
-			
-		}else{
-			alert("操作失败！");
-		}
-	}); */
 }
   
-  </script>
-<script  src = "canvas-nest.js-2.0.1/dist/newnest.js"> </script>
+</script>
 </body>
 </html>

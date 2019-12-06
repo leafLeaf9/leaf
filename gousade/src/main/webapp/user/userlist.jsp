@@ -76,8 +76,7 @@ table
                                                           
                 </div>
 </div>
-<table id="user" title="用户列表" class="easyui-datagrid" fitColumns="true" pagination="true"
-    url="${pageContext.request.contextPath}/queryuserlist" toolbar="#tb" rownumbers="true">
+<table id="user" title="词表" toolbar="#UserToolbar">
     <thead>
         <tr>
            <th field="cb" checkbox="true"  align="center"></th>
@@ -93,7 +92,15 @@ table
             
         </tr>
     </thead>
-</table>             		
+</table>
+<div id="UserToolbar" style="padding:3px">
+		<span>用户名:</span>
+		<input name="userId" style="line-height:26px;border:1px solid #ccc">
+		<span>姓名:</span>
+		<input name="userName" style="line-height:26px;border:1px solid #ccc">
+		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="ClearSearch()">清空</a>		
+</div>              		
 		<div id="update"  align="center">
 		<table cellspacing="0" cellpadding="10" class="tfm" id="profilelist" align="center">
  
@@ -122,8 +129,7 @@ table
 		</div>
 <!-- <input class="easyui-color">		 -->
 <div id="insertDialog" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true">
-    Dialog Content.<br/>
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
     <form id="insertform" method="post">
     <table cellspacing="0" cellpadding="10" class="tfm" id="inserttable">
 <tr >
@@ -156,6 +162,15 @@ table
 
 <script>
 $(function() {
+	$('#user').datagrid({
+        url: '${pageContext.request.contextPath}/queryuserlist',
+        pagination: true,
+        rownumbers: true,
+        fitColumns: true,
+        pageNumber: 1,
+        pageSize: 10,
+        pageList: [10,20],
+      });
 	$('#insertDialog').dialog('close');
 	$("#insert").hide();
 	$("#update").hide();
