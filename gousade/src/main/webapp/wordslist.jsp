@@ -146,68 +146,73 @@ table
 <!-- <input class="easyui-color">		 -->
 <div id="insertDialog" class="easyui-dialog" style="width:400px;height:200px;"
     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
-    <form id="insertform" method="post">
-      <div class="row">
-      <div class="row_description"><span class="danger">*</span> 词语名称:</div>
-      <div class="row_data">
-      <input name="wordname" type="text">
-      </div>
-      </div>
-      
-      <div class="row">
-      <div class="row_description"><span class="danger">*</span> 情感值:</div>
-      <div class="row_data">
-      <input name="value" type="text">
-      </div>
-      </div>
+<form id="insertform" method="post">
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 词语名称:</div>
+  <div class="row_data">
+  <input name="wordname" type="text">
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 情感值:</div>
+  <div class="row_data">
+  <input name="value" type="text">
+  </div>
+  </div>
 
-      <div class="row">
-      <div class="row_description"><span class="danger">*</span> 词语类型:</div>
-      <div class="row_data">
-      <input name="wordtype" type="text">
-      </div>
-      </div>
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 词语类型:</div>
+  <div class="row_data">
+  <input name="wordtype" type="text">
+  </div>
+  </div>
 
-      <div class="row">
-      <div class="row_description"><span class="danger">*</span> 公式类型:</div>
-      <div class="row_data">
-      <input name="formtype" type="text">
-      </div>
-      </div>
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 公式类型:</div>
+  <div class="row_data">
+  <input name="formtype" type="text">
+  </div>
+  </div>
 </form>
 <div class="clearfix" style="padding: 0 200px; margin-bottom: 40px">
 <a href="javascript:void(0);" class="easyui-linkbutton" style="width: 100px" onclick="forminsertuser()">确定</a>
 <a href="javascript:void(0);" class="easyui-linkbutton" style="float: right; width: 100px" onclick="javascript:$('#insertDialog').dialog('close')">取消</a>
 </div>
 </div>
-<div id="updateDialog" class="easyui-dialog" style="width:400px;height:200px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
-    <form id="updateform" method="post">
-    <table cellspacing="0" cellpadding="10" class="tfm" >
-<tr >
-<th >词语名称:</th>
-<td >
-<input type="text" name="wordname" class="px" value="" tabindex="1" readonly="true"/></td>
-</tr>
-<tr >
-<th >情感值:</th>
-<td >
-<input type="text" name="value" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >词语类型:</th>
-<td >
-<input type="text" name="wordtype" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >公式类型:</th>
-<td >
-<input type="text" name="formtype" class="px" value="" tabindex="1" /></td>
-</tr>
-</table>
+<div id="updateDialog" class="easyui-dialog" style="width:700px;height:300px;"
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,onClose:function(){$('updatewordsform')[0].reset()}">
+<form id="updatewordsform" method="post">
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 词语名称:</div>
+  <div class="row_data">
+  <input name="wordname" type="text">
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 情感值:</div>
+  <div class="row_data">
+  <input name="value" type="text">
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 词语类型:</div>
+  <div class="row_data">
+  <input name="wordtype" type="text">
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="row_description"><span class="danger">*</span> 公式类型:</div>
+  <div class="row_data">
+  <input name="formtype" type="text">
+  </div>
+  </div>
 </form>
 <div class="clearfix" style="padding: 0 200px; margin-bottom: 40px">
-<a href="javascript:void(0);" class="easyui-linkbutton" style="width: 100px" onclick="formupdateuser()">确定</a>
+<a href="javascript:void(0);" class="easyui-linkbutton" style="width: 100px" onclick="formupdatewords()">确定</a>
 <a href="javascript:void(0);" class="easyui-linkbutton" style="float: right; width: 100px" onclick="javascript:$('#updateDialog').dialog('close')">取消</a>
 </div>
 </div>
@@ -226,7 +231,7 @@ $('#insertDialog').dialog({
     title: '新增词语',
     width: 700,
     height: 350,
-    closed: false,
+    closed: true,
     cache: false,
    // href: 'get_content.php',
     modal: true,
@@ -240,7 +245,6 @@ $('#updateDialog').dialog('close');
 $("#update").hide();
 });
 
-
   $.postJSON = function(url, data, callback) {
 	      return jQuery.ajax( {
 	          'type' : 'POST',
@@ -251,9 +255,6 @@ $("#update").hide();
 	          'success' : callback
 	      });
 	  };
-	  
-	  
-
 
   function doSearch(){
 	  $('#user').datagrid('load', {	        
@@ -275,14 +276,12 @@ $("#update").hide();
 	  if(rows.length!=1){
 			alert("提示！,请选择一条且仅选择一条记录");
 		}else{
-			$("#update").show();
-			$("#wordname1").val(rows[0].wordname);
-			$("#value1").val(rows[0].value);
-			$("#wordtype1").val(rows[0].wordtype);
-			$("#formtype1").val(rows[0].formtype);	
+			$('#updateDialog').dialog('open').dialog("center").dialog("setTitle", "编辑词语");
+			$('#updatewordsform input[name=wordname]').val(rows[0].wordname);
+			$('#updatewordsform input[name=value]').val(rows[0].value);
+			$('#updatewordsform input[name=wordtype]').val(rows[0].wordtype);
+			$('#updatewordsform input[name=formtype]').val(rows[0].formtype);	
 		}
-	 
-	  
   }
 	function readydeluser() { 
 		 var rows = $('#user').datagrid('getSelections');
@@ -304,7 +303,7 @@ $("#update").hide();
 	  var qaram=$('#insertform').serializeObject();
 	  $.postJSON(webRootPath + "/insertwords", qaram, function(data) {
           if (data) {			
-        	  $.messager.alert('提示','操作成功');
+        	$.messager.alert('提示','操作成功');
 			$("#user").datagrid("reload");
             $("#user").datagrid("clearSelections");          
             $('#insertDialog').dialog('close');
@@ -314,23 +313,20 @@ $("#update").hide();
 	});
   }
  
-  function updateuser(){
-	  var webRootPath = '<%=request.getContextPath()%>';	
+  function formupdatewords(){
+	  var param=$('#updatewordsform').serializeObject();
 		var qaram = {
 				"wordname" : $("#wordname1").val(),
 				"value" :  $("#value1").val(),
 				"wordtype" :  $("#wordtype1").val(),
 				"formtype" :  $("#formtype1").val(),							
 			};
-		console.log( JSON.stringify(qaram));
-		
-		$.postJSON(webRootPath + "/updatewords", qaram, function(data) {
-              if (data) {
-				
-            	  $.messager.progress(); 
+		$.postJSON(webRootPath + "/updatewords", param, function(data) {
+              if (data) {				
+            	$.messager.alert('提示','修改成功');
 				$("#user").datagrid("reload");
                 $("#user").datagrid("clearSelections");
-                $("#update").hide();
+                $('#updateDialog').dialog('close');
 			}else{
 				 $.messager.alert('操作失败');
 			}
@@ -352,13 +348,11 @@ $("#update").hide();
 		
 		$.postJSON(webRootPath + "/delwords", qaram, function(data) {
               if (data) {
-				
-				alert(data.result);
+            	$.messager.alert('提示',data.result);
 				$("#user").datagrid("reload");
-                $("#user").datagrid("clearSelections");
-				
+                $("#user").datagrid("clearSelections");				
 			}else{
-				alert("操作失败！");
+				$.messager.alert('提示','操作失败');
 			}
 		});
   }
