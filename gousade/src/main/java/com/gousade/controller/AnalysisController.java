@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,6 +104,7 @@ public class AnalysisController {
 	 * @param map
 	 * @return
 	 */
+	@RequiresPermissions("/user:admin")
 	@RequestMapping(value="/insertwords",method=RequestMethod.POST)
 	public Map<String,Object> insertwords(@RequestBody Map<String,Object> map){
 	
@@ -196,7 +198,7 @@ public class AnalysisController {
 	 * @param map
 	 * @return
 	 */
-	
+	@RequiresPermissions("/exopertword")
 	@RequestMapping(value="/exopertwords",method=RequestMethod.POST)
 	public Map<String, Object> exopertwords(HttpServletResponse response,  Map<String, Object> qarammap) throws IOException{
 		 Map<String, Object> paraMap = new HashMap<String, Object>();
