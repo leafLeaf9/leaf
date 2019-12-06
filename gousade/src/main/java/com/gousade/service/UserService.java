@@ -440,15 +440,9 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return userMapper.getroleidByuid(map);
 	}
-
 	
-
-	
-
-	
-
-	
-
-	
-	
+	public int updateLoginTime(String userId) {
+		int i=userMapper.updateLoginTime(userId);
+		return i;
+	}
 }

@@ -194,4 +194,9 @@ where t2.user_id=#{user_id})
 		select proj_id from trial where  proj_id=#{proj_id}
 and state='0'
 	</select>
+  <update id="updateLoginTime" >
+    update user
+    set lastlogintime=sysdate
+    where user_id=#{userId} and delflag=0
+  </update>
 </mapper>

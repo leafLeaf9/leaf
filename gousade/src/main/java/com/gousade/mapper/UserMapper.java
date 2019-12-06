@@ -141,8 +141,9 @@ public interface UserMapper {
 	 * @return
 	 */
 	public Map<String, Object> getpsdByuid(Map<String, Object> map);
-
 	
-	
-	
+	/**
+	 * 更新登录时间	 
+	 */
+	public int updateLoginTime(String userId);
 }

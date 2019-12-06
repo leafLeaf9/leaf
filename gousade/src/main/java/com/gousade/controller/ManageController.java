@@ -9,15 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gousade.pojo.User;
+import com.gousade.service.UserService;
 
 
 @Controller
 public class ManageController {
+	@Autowired
+	private UserService userService;
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request){
 		HttpSession session = request.getSession();	
@@ -54,10 +58,8 @@ public class ManageController {
 			}
 		}*/
 		return pageName;
-	}
-	
-	
-	
+	}	
+
 	@RequestMapping("/")
 	public String showIndex(){
 		User obj = (User) SecurityUtils.getSubject().getPrincipal();
@@ -65,6 +67,15 @@ public class ManageController {
             return "login";
         }
 		return "redirect:/main";
+	}
+	
+	@RequestMapping("/main")
+	public String main(){
+		User obj = (User) SecurityUtils.getSubject().getPrincipal();
+		if(obj != null){
+			userService.updateLoginTime(obj.getUserId());
+		}
+		return "main";
 	}
 
 	@RequestMapping("/user/{pageName}")
