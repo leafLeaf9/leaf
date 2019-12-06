@@ -8,10 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <base href="<%=basePath%>">
-<meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="keywords" content="jquery,ui,easy,easyui,web">
-	<meta name="description" content="easyui help you build your web page easily!">
 <style>
 a{
  cursor:pointer;
