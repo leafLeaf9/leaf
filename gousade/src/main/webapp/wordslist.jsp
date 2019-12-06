@@ -233,11 +233,9 @@ $('#insertDialog').dialog({
     height: 350,
     closed: true,
     cache: false,
-   // href: 'get_content.php',
     modal: true,
     onClose: function() {
        $('#insertform')[0].reset();  
-       //$(this).dialog("destroy").remove();
       },
 });
 $('#insertDialog').dialog('close');
@@ -329,8 +327,7 @@ $("#update").hide();
   
   function deluser(){
 	  var webRootPath = '<%=request.getContextPath()%>';	
-
-		 var ids = [];
+		  var ids = [];
 		  var rows = $('#user').datagrid('getSelections');
 		  for(var i=0; i<rows.length; i++){
 				ids.push(rows[i].wordname);
@@ -338,8 +335,6 @@ $("#update").hide();
 		var qaram = {
 			"wordnames": ids,
 			};
-		console.log( JSON.stringify(qaram));
-		
 		$.postJSON(webRootPath + "/delwords", qaram, function(data) {
               if (data) {
             	$.messager.alert('提示',data.result);
