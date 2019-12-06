@@ -350,12 +350,12 @@ $("#update").hide();
 			}
 		});
   }
-  
+
 function exportwords(){
 	var webRootPath = '<%=request.getContextPath()%>';
 	var myform = $("<form></form>");
 	   myform.attr('method', 'post');
-	   myform.attr('action', "/exopertwords");   
+	   myform.attr('action', "/exopertwords");
 	   myform.appendTo('body').submit();
 }
   
