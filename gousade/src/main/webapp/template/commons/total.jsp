@@ -10,20 +10,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-a{
+a
+{
  cursor:pointer;
  color:blue;
 }
-
 table
-  {
+{
   border-collapse:collapse;
-
-  }
-  table, td, th
-  {
+}
+table, td, th
+{
   border:1px solid black;
-  }
+}
 .bg-nav{
 	overflow: hidden;
 	margin: 25px 0 10px 15px;
