@@ -225,8 +225,7 @@ public class AnalysisController {
 		    ExcelUtil.downloadExcel(response, workbook,"词表导出表");
 		    Map<String, Object> retMap = new HashMap<String, Object>();
 		    retMap.put("result", "操作成功");
-		    return retMap;
-		
+		    return retMap;	
 	}
 
 }
