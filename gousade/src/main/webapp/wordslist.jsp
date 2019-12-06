@@ -15,9 +15,6 @@ a{
  cursor:pointer;
  color:blue;
 }
-#label{
-display:none;
-}
 table
   {
   border-collapse:collapse;
