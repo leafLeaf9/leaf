@@ -12,7 +12,7 @@
 <title>shiro登录界面</title>
 </head>
 <body>
-<form action="/loginShiroUser" method="post" >
+<form action="${pageContext.request.contextPath}/loginShiroUser" method="post" >
 <div id="container">
     <div id="bd">
     	<div id="main">

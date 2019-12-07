@@ -36,7 +36,7 @@ public interface AnalysisMapper {
 	
 	public List<Map<String, Object>> selectwordslist(Map<String, Object> map);
 	
-	public List<WordsVO> exopertwords(Map<String, Object> map);
+	public List<WordsVO> expertwords(Map<String, Object> map);
 	
 	/**查询词表数量
 	 * @param map

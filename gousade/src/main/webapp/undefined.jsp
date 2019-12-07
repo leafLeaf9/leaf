@@ -7,6 +7,6 @@
 <title>欢迎页面</title>
 </head>
 <body>
-无权限！
+您属实无权限！
 </body>
 </html>

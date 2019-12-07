@@ -123,8 +123,10 @@ public class ShiroRealm extends AuthorizingRealm {
 		
 		// 3.创建一个Set,来放置用户拥有的角色
 		java.util.Set<String> rolesSet = new java.util.HashSet<>();
-		for (String role : roles) {
-			rolesSet.add(role);
+		if(roles!=null) {
+			for (String role : roles) {
+				rolesSet.add(role);
+			}
 		} 
 		
 		// 4.创建 SimpleAuthorizationInfo, 并将办好角色的Set放入.

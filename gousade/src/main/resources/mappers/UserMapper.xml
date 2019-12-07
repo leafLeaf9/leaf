@@ -39,9 +39,9 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
 		DATE_FORMAT(updated, '%Y-%m-%d %H:%i:%S') updated,
 		remark,role_id from user 
 		<if test="roleid!=null and roleid!=''">
-	where role_id=#{roleid}
-	limit #{firstPage},#{rows}
-	</if>
+	    where role_id=#{roleid}
+	    </if>
+	    limit #{firstPage},#{rows}
 	</select>
 	
 	<select id="queryuserlistcnt" parameterType="map" resultType="long">

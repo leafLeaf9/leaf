@@ -45,7 +45,7 @@
 	</select>
 	
 <!-- 	导出情感词列表 -->
-	<select id="exopertwords" parameterType="map" resultType="com.gousade.excelvo.WordsVO">
+	<select id="expertwords" parameterType="map" resultType="com.gousade.excelvo.WordsVO">
 		select wordname,value,wordtype,formtype
 		from words  where 1=1
 		<if test="wordname != null and wordname != ''">

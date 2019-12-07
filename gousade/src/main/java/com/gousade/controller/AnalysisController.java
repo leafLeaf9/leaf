@@ -81,6 +81,7 @@ public class AnalysisController {
 	/**
 	 * PageHelper分页
 	 */
+//	@RequiresPermissions("selectwordslist")
 	@RequestMapping(value="/selectwordslist",method=RequestMethod.POST)
 	public Map<String,Object> selectwordslist(@RequestParam(value="page", required=false) String page, 
             @RequestParam(value="rows", required=false) String rows,HttpServletRequest request){
@@ -97,6 +98,7 @@ public class AnalysisController {
 		long total = pageInfo.getTotal();
 		retMap.put("rows", list);
 		retMap.put("total", total);
+		retMap.put("msg", "成功了");
 		return retMap; 
 	}
 	
@@ -105,7 +107,7 @@ public class AnalysisController {
 	 * @param map
 	 * @return
 	 */
-	@RequiresPermissions("/user:admin")
+	@RequiresPermissions("insertwords")
 	@RequestMapping(value="/insertwords",method=RequestMethod.POST)
 	public Map<String,Object> insertwords(@RequestBody Map<String,Object> map){
 	
@@ -199,13 +201,13 @@ public class AnalysisController {
 	 * @param map
 	 * @return
 	 */
-	@RequiresPermissions("/exopertword")
-	@RequestMapping(value="/exopertwords",method=RequestMethod.POST)
-	public Map<String, Object> exopertwords(HttpServletResponse response,  Map<String, Object> qarammap) throws IOException{
+	@RequiresPermissions("expertword")
+	@RequestMapping(value="/expertwords",method=RequestMethod.POST)
+	public Map<String, Object> expertwords(HttpServletResponse response,  Map<String, Object> qarammap) throws IOException{
 		 Map<String, Object> paraMap = new HashMap<String, Object>();
 		 paraMap.put("firstPage", 0);
 	     paraMap.put("rows",500);
-	     List<WordsVO> list=analysisService.exopertwords(paraMap);
+	     List<WordsVO> list=analysisService.expertwords(paraMap);
 		// excel总体设置
 		    ExportParams exportParams = new ExportParams();
 		    // 不需要标题

@@ -37,9 +37,9 @@ public class AnalysisService {
 		return analysisMapper.selectwordslist(map);
 	}
 	
-	public List<WordsVO> exopertwords(Map<String, Object> map) {
+	public List<WordsVO> expertwords(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return analysisMapper.exopertwords(map);
+		return analysisMapper.expertwords(map);
 	}
 	
 	public long querywordslistcnt(Map<String, Object> map) {

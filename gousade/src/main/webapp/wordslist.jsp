@@ -178,7 +178,7 @@ table
 </div>
 </div>
 <div id="updateDialog" class="easyui-dialog" style="width:700px;height:300px;"
-    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,onClose:function(){$('updatewordsform')[0].reset()}">
+    data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,onClose:function(){document.getElementById('updatewordsform').reset()}">
 <form id="updatewordsform" method="post">
   <div class="row">
   <div class="row_description"><span class="danger">*</span> 词语名称:</div>
@@ -216,13 +216,36 @@ table
 <script>
 $(function() {
 $('#user').datagrid({
-       url: '${pageContext.request.contextPath}/selectwordslist',
+//        url: '${pageContext.request.contextPath}/selectwordslist',
        pagination: true,
        rownumbers: true,
        fitColumns: true,
        pageNumber: 1,
        pageSize: 10,
        pageList: [10,20],
+       loader : function(param, success, error) {
+           $.ajax({
+               type : "post",  
+               url : '${pageContext.request.contextPath}/selectwordslist',
+               dataType : 'json',  
+               contentType : 'application/json;charset=utf-8', // 设置请求头信息  
+               data : param,  
+               success : function(data) {         
+                  success(data); 
+               },
+               error :function(data){
+            	   $.messager.alert('提示',data.msg);  
+               },
+           }); 
+       },
+//        onLoadSuccess:function(data){
+//     	   alert(1);
+//     	   $.messager.alert('提示',data.msg);
+//        },
+//        onLoadError:function(data){
+//     	   alert(0);
+//     	   $.messager.alert('提示',data.msg);
+//        },
      });
 $('#insertDialog').dialog({
     title: '新增词语',
@@ -297,13 +320,13 @@ $("#update").hide();
 	  var webRootPath = '<%=request.getContextPath()%>';	
 	  var qaram=$('#insertform').serializeObject();
 	  $.postJSON(webRootPath + "/insertwords", qaram, function(data) {
-          if (data) {			
+          if (data.status) {			
         	$.messager.alert('提示','操作成功');
 			$("#user").datagrid("reload");
             $("#user").datagrid("clearSelections");          
             $('#insertDialog').dialog('close');
 		}else{
-			$.messager.alert('提示','操作失败');
+			$.messager.alert('提示',data.msg);
 		}
 	});
   }
@@ -346,7 +369,7 @@ $("#update").hide();
 function exportwords(){
 	var myform = $("<form></form>");
 	   myform.attr('method', 'post');
-	   myform.attr('action', "/exopertwords");
+	   myform.attr('action', "/expertwords");
 	   myform.appendTo('body').submit();
 }
   
