@@ -216,36 +216,13 @@ table
 <script>
 $(function() {
 $('#user').datagrid({
-//        url: '${pageContext.request.contextPath}/selectwordslist',
+       url: '${pageContext.request.contextPath}/selectwordslist',
        pagination: true,
        rownumbers: true,
        fitColumns: true,
        pageNumber: 1,
        pageSize: 10,
        pageList: [10,20],
-       loader : function(param, success, error) {
-           $.ajax({
-               type : "post",  
-               url : '${pageContext.request.contextPath}/selectwordslist',
-               dataType : 'json',  
-               contentType : 'application/json;charset=utf-8', // 设置请求头信息  
-               data : param,  
-               success : function(data) {         
-                  success(data); 
-               },
-               error :function(data){
-            	   $.messager.alert('提示',data.msg);  
-               },
-           }); 
-       },
-//        onLoadSuccess:function(data){
-//     	   alert(1);
-//     	   $.messager.alert('提示',data.msg);
-//        },
-//        onLoadError:function(data){
-//     	   alert(0);
-//     	   $.messager.alert('提示',data.msg);
-//        },
      });
 $('#insertDialog').dialog({
     title: '新增词语',
