@@ -98,7 +98,6 @@ public class AnalysisController {
 		long total = pageInfo.getTotal();
 		retMap.put("rows", list);
 		retMap.put("total", total);
-		retMap.put("msg", "成功了");
 		return retMap; 
 	}
 	
