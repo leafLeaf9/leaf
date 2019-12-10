@@ -196,7 +196,7 @@ and state='0'
 	</select>
   <update id="updateLoginTime" >
     update user
-    set lastlogintime=sysdate
+    set lastlogintime=now()
     where user_id=#{userId} and delflag=0
   </update>
 </mapper>

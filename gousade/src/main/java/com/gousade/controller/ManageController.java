@@ -73,7 +73,7 @@ public class ManageController {
 	public String main(){
 		User obj = (User) SecurityUtils.getSubject().getPrincipal();
 		if(obj != null){
-//			userService.updateLoginTime(obj.getUserId());
+			userService.updateLoginTime(obj.getUserId());
 		}
 		return "main";
 	}

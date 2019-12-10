@@ -29,6 +29,7 @@ public class User implements Serializable{
 	private Set<String> urls;	
 	private String phonenumber;
 	private String lastLoginTime;
+	private String delflag;
 	/**
 	 * 无参构造
 	 */
@@ -64,9 +65,7 @@ public class User implements Serializable{
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("userId : " + userId);
-		sb.append(",userName : " + userName);
-		sb.append(",password : " + password);
-		sb.append(",userRoles : " + userRoles);
+		sb.append(",userName : " + userName);		
 		return sb.toString();
 	}
 	
@@ -150,5 +149,13 @@ public class User implements Serializable{
 
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
+	}
+
+	public String getDelflag() {
+		return delflag;
+	}
+
+	public void setDelflag(String delflag) {
+		this.delflag = delflag;
 	}
 }
