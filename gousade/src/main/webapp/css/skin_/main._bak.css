@@ -3,7 +3,7 @@
 html{*overflow:auto;}
 
 /* CSS Document */
-#hd{position:relative;height:114px;padding-left:20px;background:url(../../img/skin_/topbg.png);}
+#hd{position:relative;height:75px;padding-left:20px;background:url(../../img/skin_/topbg.png);}
 /*头部样式*/
 .mainHd{height:64px;}
 .mainHd h1{float:left;margin-right:10px;}

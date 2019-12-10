@@ -12,7 +12,7 @@
 <script type="text/javascript" src="js/global.js"></script>
 <title> personal project</title>
 <style>
-#txt{color:white;
+#nowtime{color:white;
 position:absolute;
 right:20%;
 top:20px;
@@ -31,12 +31,12 @@ left:87%;
 </style>
 </head>
 <% String name = (String)session.getAttribute("u"); %>
-<body  onload="startTime()">
+<body onload="ShowTime()">
 
 <div id="container">
 	<div id="hd">
     	<div class="hd-top">
-    	<div id="txt"></div>
+    	<div id="nowtime"></div>
             <h1 class="logo"></h1>
             <div class="setting ue-clear">
             	<div class="user-info">
@@ -45,18 +45,6 @@ left:87%;
             	</div>
                 <ul class="setting-main ue-clear">
                     <li id="exitBtn"><a href="javascript:;" class="close-btn exit"></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="hd-bottom">
-        	<i class="home"><a href="javascript:;" ></a></i>
-        	<div class="nav-wrap">
-                <ul class="nav ue-clear">
-                    <li><a href="javascript:;" style="font-weight:bold;font-size:18px" ></a></li>
-                    <li><a href="javascript:;" style="font-weight:bold;font-size:18px"></a></li>
-                    <li><a href="javascript:;" style="font-weight:bold;font-size:18px"></a></li>
-                    <li><a href="javascript:;" style="font-weight:bold;font-size:18px"></a></li>
-                    <li><a href="javascript:;" style="font-weight:bold;font-size:18px"></a></li>
                 </ul>
             </div>
         </div>
@@ -85,16 +73,31 @@ left:87%;
 </body>
 <script type="text/javascript" src="js/core.js"></script>
 <script type="text/javascript" src="js/jquery.dialog.js"></script>
-<script type="text/javascript">
-function startTime()
-{
-var today=new Date()
-
-document.getElementById('txt').innerHTML=today
-t=setTimeout('startTime()',1000)
+<script>
+function ShowTime(){
+	getnowtime();
+	setInterval(function(){
+		getnowtime();
+	},1000);     //setInterval(fn,i) 定时器，每隔i秒执行fn
+}
+function getnowtime(){
+  var time=new Date();
+  var year=time.getFullYear();  //获取年份
+  var month=time.getMonth()+1;  //获取月份
+  var day=time.getDate();   //获取日期
+  var hour=checkTime(time.getHours());   //获取时
+  var minite=checkTime(time.getMinutes());  //获取分
+  var second=checkTime(time.getSeconds());  //获取秒
+  /****当时、分、秒、小于10时，则添加0****/
+  function checkTime(i){
+	  if(i<10){
+			return "0"+i;  
+		  }
+	  return i;
+  }
+  document.getElementById("nowtime").innerHTML="当前时间："+year+"年"+month+"月"+day+"日  "+hour+":"+minite+":"+second;
 }
 $("#bd").height($(window).height()-$("#hd").outerHeight()-26);
-
 $(window).resize(function(e) {
     $("#bd").height($(window).height()-$("#hd").outerHeight()-26);
 
@@ -143,6 +146,7 @@ $("#in-logout").on("click", function () {
 })
 
 $(function(){
+	
 	var totalWidth = 0, current = 1;
 	
 	$.each($('.nav').find('li'), function(){
