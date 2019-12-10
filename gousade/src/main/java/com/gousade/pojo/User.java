@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 
 @Table(name="user")
 public class User implements Serializable{
@@ -16,14 +18,16 @@ public class User implements Serializable{
 	private String userName;
 	private String password;
 	private int state;
-	private String created;
-	private String updated;
+//	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private Date created;
+//	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private Date updated;
 	private String salt;
 	/** 用户角色 */
 	private String userRoles;
 	private Set<String> roles;
 	private Set<String> urls;	
-	private String mobile;
+	private String phonenumber;
 	private String lastLoginTime;
 	/**
 	 * 无参构造
@@ -48,10 +52,10 @@ public class User implements Serializable{
 		this.salt = salt;
 	}
 	
-	public User(String userId, String userName, String mobile, Set<String> urls, Set<String> roles) {
+	public User(String userId, String userName, String phonenumber, Set<String> urls, Set<String> roles) {
 		this.userId = userId;
 		this.userName = userName;
-		this.mobile = mobile;
+		this.phonenumber = phonenumber;
 		this.urls = urls;
 		this.roles = roles;		
 	}
@@ -103,16 +107,16 @@ public class User implements Serializable{
 	public void setUserRoles(String userRoles) {
 		this.userRoles = userRoles;
 	}
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
-	public void setUpdated(String updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 
@@ -132,19 +136,19 @@ public class User implements Serializable{
 		this.urls = urls;
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
 	public String getLastLoginTime() {
 		return lastLoginTime;
 	}
 
 	public void setLastLoginTime(String lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
+	}
+
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 }
