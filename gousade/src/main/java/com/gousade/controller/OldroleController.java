@@ -24,20 +24,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.gousade.pojo.Menu;
-import com.gousade.pojo.Role;
+import com.gousade.pojo.Oldrole;
 import com.gousade.pojo.User;
-import com.gousade.service.RoleService;
+import com.gousade.service.OldroleService;
 import com.gousade.service.UserService;
 
 @Controller
 //添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
 
 @RestController
-public class RoleController {
+public class OldroleController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	private RoleService roleService;
+	private OldroleService roleService;
 
 	/**
 	 * 查询角色列表
@@ -51,7 +51,7 @@ public class RoleController {
 	}
 	
 	@RequestMapping(value="/testrolelist",method=RequestMethod.POST)
-	public List<Role> testrolelist(@RequestBody Map<String,Object> map){
+	public List<Oldrole> testrolelist(@RequestBody Map<String,Object> map){
 		
 		return roleService.testrolelist(map);
 	}

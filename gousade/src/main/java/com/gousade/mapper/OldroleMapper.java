@@ -6,11 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.gousade.pojo.Menu;
-import com.gousade.pojo.Role;
+import com.gousade.pojo.Oldrole;
 import com.gousade.pojo.User;
 
 
-public interface RoleMapper {
+public interface OldroleMapper {
 
 	/**
 	 * 查询用户列表
@@ -19,7 +19,7 @@ public interface RoleMapper {
 	 */
 	public List<Map<String, Object>> queryrolelist(Map<String, Object> map);
 	
-	public List<Role> testrolelist(Map<String, Object> map);
+	public List<Oldrole> testrolelist(Map<String, Object> map);
 	/**
 	 * 新增角色
 	 * @param map

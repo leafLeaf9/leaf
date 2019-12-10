@@ -1,6 +1,6 @@
 package com.gousade.pojo;
 
-public class Role {
+public class Oldrole {
 	private String roleId;
 	private String roleName;	
 	private int state;

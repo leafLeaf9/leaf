@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gousade.mapper.RoleMapper">
+<mapper namespace="com.gousade.mapper.OldroleMapper">
 <!-- 	查询角色列表 -->
 	<select id="queryrolelist" parameterType="map" resultType="map">
 		
@@ -11,22 +11,22 @@
 		DATE_FORMAT(updated, '%Y-%m-%d %H:%i:%S') updated,
 		remark
 		from 
-		role
+		oldrole
 	</select>
 	
-	<select id="testrolelist" parameterType="map" resultType="com.gousade.pojo.Role">
+	<select id="testrolelist" parameterType="map" resultType="com.gousade.pojo.Oldrole">
 		
 		select role_id,role_name,state,
 		 DATE_FORMAT(created, '%Y-%m-%d ') created,
 		DATE_FORMAT(updated, '%Y-%m-%d ') updated,
 		remark
 		from 
-		role
+		oldrole
 	</select>
 <!-- 	新增角色 -->
 	<insert id="insertrole" parameterType="map" >
 	
-	insert into role (role_id,state,role_name,remark,created)
+	insert into oldrole (role_id,state,role_name,remark,created)
 	values (#{role_id},#{state},#{role_name},#{remark},NOW())
 	
 	</insert>	
@@ -34,7 +34,7 @@
 <!-- 	修改用户信息 -->
 	  <update id="updaterole" parameterType="map">
 
-    update role 
+    update oldrole 
     set role_id=#{role_id},
     role_name=#{role_name},
     remark=#{remark},
@@ -46,7 +46,7 @@
    <!-- 	删除角色信息 -->
 	  <update id="delroles" parameterType="map">
    
-    update role 
+    update oldrole 
     set state='0'
     
     where role_id in

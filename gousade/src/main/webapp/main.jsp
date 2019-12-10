@@ -142,7 +142,7 @@ $("#in-logout").on("click", function () {
 	}, 'json');
 })
 
-(function(){
+$(function(){
 	var totalWidth = 0, current = 1;
 	
 	$.each($('.nav').find('li'), function(){
@@ -210,6 +210,6 @@ $("#in-logout").on("click", function () {
 
 		$('.logo-icon').removeClass('active'); 
 	});
-})();
+});
 </script>
 </html>
