@@ -8,254 +8,247 @@
   <name>gousade Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.6.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>1.5.6.RELEASE</version>
+	<relativePath /> <!-- lookup parent from repository -->
   </parent>
 	
   <properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	<java.version>1.8</java.version>
   </properties>
   <dependencies>
     <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
- <!--对数据库的支持-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-        <!--redis缓存相关支持-->
-        <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-redis</artifactId>
-           <version>1.4.5.RELEASE</version>
-    	</dependency>
-    	<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <!--数据库mysql的支持  -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-		<!--jackson支持  -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-joda</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.10</version>
-        </dependency>
-        <!--mybatis与springboot整合-->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.0</version>
-        </dependency>
-        <!--通用mapper,tk.mapper-->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>1.1.4</version>
-        </dependency>
-        <!-- 通用Mapper -->
-		<dependency>
-			<groupId>com.github.abel533</groupId>
-			<artifactId>mapper</artifactId>
-			<version>2.3.2</version>
-		</dependency>
-        <!--pagehelper-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.1.3</version>
-        </dependency>
-        <dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.3.2</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.3.5</version>
-		</dependency>
-
-		<!--jstl依赖 -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-
-		<!--使jsp页面生效 使用外部Tomcat时需要provided-->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<scope>provided</scope>
-		</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-tomcat</artifactId>
-    <scope>provided</scope>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-api</artifactId>
-    <version>1.7.22</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-log4j12</artifactId>
-    <version>1.7.22</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-<dependency>
-    <groupId>com.alibaba</groupId>
-    <artifactId>fastjson</artifactId>
-    <version>1.2.54</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <version>1.18.4</version>
-    <scope>provided</scope>
-</dependency>
- <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.4.0</version>
-</dependency>
-<dependency>
-	<artifactId>quartz</artifactId>
-	<groupId>org.opensymphony.quartz</groupId>
-	<version>1.6.1</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.shiro</groupId>
-	<artifactId>shiro-core</artifactId>
-	<version>1.2.2</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.shiro</groupId>
-	<artifactId>shiro-web</artifactId>
-	<version>1.2.2</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.shiro</groupId>
-	<artifactId>shiro-quartz</artifactId>
-	<version>1.2.2</version>
-</dependency>
-<!-- <dependency> -->
-<!-- 	<groupId>redis.clients</groupId> -->
-<!-- 	<artifactId>jedis</artifactId> -->
-<!-- 	<version>2.1.0</version> -->
-<!-- </dependency> -->
-
-<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-ehcache -->
- <dependency>
-    <groupId>org.apache.shiro</groupId>
-    <artifactId>shiro-ehcache</artifactId>
-    <version>1.4.0</version>
-</dependency> 
-
-<dependency>
-  <groupId>com.aliyun</groupId>
-  <artifactId>aliyun-java-sdk-core</artifactId>
-  <version>3.3.1</version> <!-- 注：如提示报错，先升级基础包版，无法解决可联系技术支持 -->
-</dependency>
-<dependency>
-<groupId>com.aliyun</groupId>
-<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-<version>1.0.0</version>
-</dependency>
-<!-- 本地ltp4j jar包-->
-<!-- <dependency> -->
-<!-- <groupId>cn.edu.zstu</groupId> -->
-<!-- <artifactId>ltp4j</artifactId> -->
-<!-- <version>0.1.0-SNAPSHOT</version> -->
-<!-- </dependency> -->
-<!--RabbitMQ支持-->
-<dependency>
-    <groupId>com.rabbitmq</groupId>
-    <artifactId>amqp-client</artifactId>
-    <version>4.1.0</version>
-</dependency>
-<dependency>  
-    <groupId>org.springframework.boot</groupId>  
-    <artifactId>spring-boot-starter-freemarker</artifactId>  
-</dependency>
-<!--exportExcel easypoi-->
-<dependency>
-    <groupId>cn.afterturn</groupId>
-    <artifactId>easypoi-base</artifactId>
-    <version>3.1.0</version>
-</dependency>
-<dependency>
-    <groupId>cn.afterturn</groupId>
-    <artifactId>easypoi-web</artifactId>
-    <version>3.1.0</version>
-</dependency>
-<dependency>
-    <groupId>cn.afterturn</groupId>
-    <artifactId>easypoi-annotation</artifactId>
-    <version>3.1.0</version>
-</dependency>
-<dependency>
-    <groupId>com.github.pagehelper</groupId>
-    <artifactId>pagehelper</artifactId>
-    <version>5.1.10</version>
-</dependency>
-<!--跨域解决-->
-<dependency>
-    <groupId>com.thetransactioncompany</groupId>
-    <artifactId>cors-filter</artifactId>
-    <version>2.5</version>
-</dependency>
-<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->  
- <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-devtools</artifactId>
-    <optional>true</optional>
-    <scope>true</scope>
-</dependency>		
-</dependencies>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+    <!--对数据库的支持-->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    <!--redis缓存相关支持-->
+    <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-redis</artifactId>
+       <version>1.4.5.RELEASE</version>
+	</dependency>
+	<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
+    <!--数据库mysql的支持  -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+	<!--jackson支持  -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-joda</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.module</groupId>
+        <artifactId>jackson-module-parameter-names</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>1.1.10</version>
+    </dependency>
+    <!--mybatis与springboot整合-->
+    <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>1.3.0</version>
+    </dependency>
+    <!--通用mapper,tk.mapper-->
+    <dependency>
+        <groupId>tk.mybatis</groupId>
+        <artifactId>mapper-spring-boot-starter</artifactId>
+        <version>1.1.4</version>
+    </dependency>
+    <!-- 通用Mapper -->
+	<dependency>
+		<groupId>com.github.abel533</groupId>
+		<artifactId>mapper</artifactId>
+		<version>2.3.2</version>
+	</dependency>
+    <!--pagehelper-->
+    <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>1.1.3</version>
+    </dependency>
+    <dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.3.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+		<version>4.3.5</version>
+	</dependency>
+	<!--jstl依赖 -->
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+	</dependency>
+	<!--使jsp页面生效 使用外部Tomcat时需要provided-->
+	<dependency>
+		<groupId>org.apache.tomcat.embed</groupId>
+		<artifactId>tomcat-embed-jasper</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-tomcat</artifactId>
+	    <scope>provided</scope>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>1.7.22</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>1.7.22</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.54</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.4</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.shiro</groupId>
+	    <artifactId>shiro-spring</artifactId>
+	    <version>1.4.0</version>
+	</dependency>
+	<dependency>
+		<artifactId>quartz</artifactId>
+		<groupId>org.opensymphony.quartz</groupId>
+		<version>1.6.1</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-core</artifactId>
+		<version>1.2.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-web</artifactId>
+		<version>1.2.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-quartz</artifactId>
+		<version>1.2.2</version>
+	</dependency>
+	<!-- <dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+		<version>2.1.0</version>
+	</dependency> -->
+	<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-ehcache -->
+	 <dependency>
+	     <groupId>org.apache.shiro</groupId>
+	     <artifactId>shiro-ehcache</artifactId>
+	     <version>1.4.0</version>
+	</dependency> 	
+	<dependency>
+	    <groupId>com.aliyun</groupId>
+	    <artifactId>aliyun-java-sdk-core</artifactId>
+	    <version>3.3.1</version> <!-- 注：如提示报错，先升级基础包版，无法解决可联系技术支持 -->
+	</dependency>
+	<dependency>
+		<groupId>com.aliyun</groupId>
+		<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	<!-- 本地ltp4j jar包 -->
+	<!-- <dependency>
+		<groupId>cn.edu.zstu</groupId>
+		<artifactId>ltp4j</artifactId>
+		<version>0.1.0-SNAPSHOT</version>
+	</dependency> -->
+	<!--RabbitMQ支持-->
+	<dependency>
+	    <groupId>com.rabbitmq</groupId>
+	    <artifactId>amqp-client</artifactId>
+	    <version>4.1.0</version>
+	</dependency>
+	<dependency>  
+	    <groupId>org.springframework.boot</groupId>  
+	    <artifactId>spring-boot-starter-freemarker</artifactId>  
+	</dependency>
+	<!--exportExcel easypoi-->
+	<dependency>
+	    <groupId>cn.afterturn</groupId>
+	    <artifactId>easypoi-base</artifactId>
+	    <version>3.1.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>cn.afterturn</groupId>
+	    <artifactId>easypoi-web</artifactId>
+	    <version>3.1.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>cn.afterturn</groupId>
+	    <artifactId>easypoi-annotation</artifactId>
+	    <version>3.1.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>5.1.10</version>
+	</dependency>
+	<!--跨域解决-->
+	<dependency>
+	    <groupId>com.thetransactioncompany</groupId>
+	    <artifactId>cors-filter</artifactId>
+	    <version>2.5</version>
+	</dependency>
+	<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->  
+	 <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-devtools</artifactId>
+	    <optional>true</optional>
+	    <scope>true</scope>
+	</dependency>
+  </dependencies>
   
   <build>
     <finalName>gousade</finalName>
     <plugins>  
         <plugin>  
-            <groupId>org.springframework.boot</groupId>  
+       		<groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-maven-plugin</artifactId>  
             <configuration>
-
-                <fork>true</fork>
-
+            <fork>true</fork>
             </configuration>
-            <dependencies>    <!-- 修改代码后自动生效，Reload Java classes without restarting the container -->  
+            <dependencies><!-- 修改代码后自动生效，Reload Java classes without restarting the container -->
                 <dependency>  
                     <groupId>org.springframework</groupId>  
                     <artifactId>springloaded</artifactId>  
@@ -264,19 +257,19 @@
             </dependencies>  
         </plugin> 
         <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
-                <configuration>
-                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
-                    <overwrite>true</overwrite>
-                    <verbose>true</verbose>
-                </configuration>
-            </plugin> 
+        <plugin>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <version>1.3.2</version>
+            <configuration>
+                <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                <overwrite>true</overwrite>
+                <verbose>true</verbose>
+            </configuration>
+        </plugin> 
     </plugins>  
   </build>
 </project>
