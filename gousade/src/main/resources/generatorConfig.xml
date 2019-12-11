@@ -7,9 +7,10 @@
     <classPathEntry  location="D:/sl/maven/mymaven/repository/mysql/mysql-connector-java/5.1.43/mysql-connector-java-5.1.43.jar"/>
     <context id="DB2Tables"  targetRuntime="MyBatis3">
         <commentGenerator>
-            <property name="suppressDate" value="true"/>
-            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="false"/>
+            <!-- 是否去除所有自动生成的文件的时间戳 是 ： false:否 -->
+            <property name="suppressDate" value="false"/>
+            <!-- 是否去除自动生成的注释 true 是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://101.132.118.130:3306/managesystem" userId="root" password="root">
