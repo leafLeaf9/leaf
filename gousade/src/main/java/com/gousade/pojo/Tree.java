@@ -42,8 +42,8 @@ public class Tree implements Serializable {
         return state;
     }
 
-    public void setState(Integer opened) {
-        this.state = (null != opened && opened == 1) ? "open" : "closed";
+    public void setState(String state) {
+        this.state = (state != null && state.equals("1")) ? "open" : "closed";
     }
 
     public boolean isChecked() {

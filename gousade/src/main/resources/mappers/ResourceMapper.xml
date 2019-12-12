@@ -16,6 +16,12 @@
   <sql id="Base_Column_List" >
     id, pid, name, url, icon, remarks, state, create_time, update_time, delflag
   </sql>
+  <select id="selectResourceList" resultType="com.gousade.pojo.Resource">
+    select
+    <include refid="Base_Column_List" />
+    from resource t
+    where t.delflag=0
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

@@ -1,8 +1,13 @@
 package com.gousade.mapper;
 
+import java.util.List;
+
 import com.gousade.pojo.Resource;
 
 public interface ResourceMapper {
+	
+	List<Resource> selectResourceList();
+	
     int deleteByPrimaryKey(String id);
 
     int insert(Resource record);
