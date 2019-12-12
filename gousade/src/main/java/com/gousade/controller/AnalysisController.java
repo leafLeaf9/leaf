@@ -98,7 +98,7 @@ public class AnalysisController {
 		long total = pageInfo.getTotal();
 		retMap.put("rows", list);
 		retMap.put("total", total);
-		return retMap; 
+		return retMap;
 	}
 	
 	/**

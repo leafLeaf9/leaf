@@ -98,7 +98,7 @@
 	<dependency>
 		<groupId>org.apache.httpcomponents</groupId>
 		<artifactId>httpclient</artifactId>
-		<version>4.3.5</version>
+		<version>4.5.3</version>
 	</dependency>
 	<!--jstl依赖 -->
 	<dependency>
@@ -120,13 +120,13 @@
 	<dependency>
 	    <groupId>org.slf4j</groupId>
 	    <artifactId>slf4j-api</artifactId>
-	    <version>1.7.22</version>
+	    <version>1.7.25</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
 	<dependency>
 	    <groupId>org.slf4j</groupId>
 	    <artifactId>slf4j-log4j12</artifactId>
-	    <version>1.7.22</version>
+	    <version>1.7.25</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 	<dependency>
@@ -138,7 +138,7 @@
 	<dependency>
 	    <groupId>org.projectlombok</groupId>
 	    <artifactId>lombok</artifactId>
-	    <version>1.18.4</version>
+	    <version>1.16.18</version>
 	    <scope>provided</scope>
 	</dependency>
 	<dependency>
@@ -230,7 +230,7 @@
 	    <artifactId>cors-filter</artifactId>
 	    <version>2.5</version>
 	</dependency>
-	<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->  
+	<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
 	 <dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-devtools</artifactId>
@@ -242,24 +242,25 @@
   <build>
     <finalName>gousade</finalName>
     <plugins>  
-        <plugin>  
+        <!-- <plugin>  
        		<groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-maven-plugin</artifactId>  
             <configuration>
             <fork>true</fork>
             </configuration>
-            <dependencies><!-- 修改代码后自动生效，Reload Java classes without restarting the container -->
+                                    修改代码后自动生效，Reload Java classes without restarting the container
+            <dependencies>
                 <dependency>  
                     <groupId>org.springframework</groupId>  
                     <artifactId>springloaded</artifactId>  
                     <version>1.2.6.RELEASE</version>  
                 </dependency>  
             </dependencies>  
-        </plugin> 
+        </plugin> -->
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+        </plugin>
         <plugin>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-maven-plugin</artifactId>
