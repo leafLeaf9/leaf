@@ -14,7 +14,7 @@
     <result column="delflag" property="delflag" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, pid, name, url, icon, remarks, state, create_time, update_time, delflag
+    id, pid, name, url, icon, remarks, status, create_time, update_time, delflag
   </sql>
   <select id="selectResourceList" resultType="com.gousade.pojo.Resource">
     select

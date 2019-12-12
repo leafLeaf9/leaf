@@ -20,8 +20,8 @@ $('#AllResourceTree').treegrid({
     rownumbers: true,
     columns:[[
 		{
-			field : 'id',
-			title : '编号',           
+			title : '编号',
+			field : 'id',			
 		},
 		{
 			field : 'name',
@@ -32,14 +32,12 @@ $('#AllResourceTree').treegrid({
             title : '资源路径',
 		},
 		{
-			field : 'state',
+			field : 'status',
             title : '菜单状态',
             formatter : function(value, row, index) {
-                if (value == 'open') {
-                	console.log(value);
+                if (value == '1') {
                     return '打开';
                 } else {
-                	console.log(value);
                     return '关闭';
                 }
             },
@@ -57,6 +55,9 @@ $('#AllResourceTree').treegrid({
             title : '创建时间',
 		},
     ]],
+    onLoadSuccess: function(data){
+    	$('#AllResourceTree').treegrid('collapseAll');
+    }
 });
 })
 </script>
