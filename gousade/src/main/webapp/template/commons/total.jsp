@@ -88,7 +88,7 @@ $.postJSON = function(url, data, callback) {
         'dataType' : 'json',
         'success' : callback
     });
- };
+};
 </script>
 </body>
 </html>
