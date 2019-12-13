@@ -62,21 +62,22 @@ table, td, th
       color: #F56C6C;
     }
 </style>
- <script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
-	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.min.js"></script>
-	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-<!-- 	<script type="text/javascript" src="./js/jquery.color.js"></script> -->
-	<script type="text/javascript" src="./js/jsUtil.js"></script>
+<link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
+<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+<!-- <script type="text/javascript" src="./js/jquery.color.js"></script> -->
+<script type="text/javascript" src="./js/jsUtil/jsUtil.js"></script>
+<script type="text/javascript" src="./js/jsUtil/extraJs.js"></script>
 <link rel="stylesheet" href="./img/icon-font/iconfont.css">
 </head>
 <body>
 <%--ctxPath--%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-            		
+
 <script>
 //扩展treegrid，使其支持平滑数据格式
 $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
@@ -117,6 +118,6 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 	  };
 
 </script>
-<script  src = "canvas-nest.js-2.0.1/dist/newnest.js"> </script>
+<script src = "canvas-nest.js-2.0.1/dist/newnest.js"></script>
 </body>
 </html>
