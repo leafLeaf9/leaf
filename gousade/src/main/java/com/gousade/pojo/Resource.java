@@ -2,6 +2,8 @@ package com.gousade.pojo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Resource {
     private String id;
 
@@ -17,8 +19,10 @@ public class Resource {
 
     private String status;
 
-    private Date createTime;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;//不加此注释时，date类型数据返回给前端是类似 1576218079 的时间戳形式
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private String delflag;
