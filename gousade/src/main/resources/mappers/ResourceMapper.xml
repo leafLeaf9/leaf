@@ -8,7 +8,7 @@
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="delflag" property="delflag" jdbcType="VARCHAR" />
@@ -35,11 +35,11 @@
   <insert id="insert" parameterType="com.gousade.pojo.Resource" >
     insert into resource (id, pid, name, 
       url, icon, remarks, 
-      state, create_time, update_time, 
+      status, create_time, update_time, 
       delflag)
     values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{state,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{delflag,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gousade.pojo.Resource" >
@@ -63,8 +63,8 @@
       <if test="remarks != null" >
         remarks,
       </if>
-      <if test="state != null" >
-        state,
+      <if test="status != null" >
+        status,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -95,8 +95,8 @@
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="state != null" >
-        #{state,jdbcType=VARCHAR},
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -127,8 +127,8 @@
       <if test="remarks != null" >
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="state != null" >
-        state = #{state,jdbcType=VARCHAR},
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -149,7 +149,7 @@
       url = #{url,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       remarks = #{remarks,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       delflag = #{delflag,jdbcType=VARCHAR}
