@@ -54,9 +54,13 @@ $('#AllResourceTree').treegrid({
 			field : 'createTime',
             title : '创建时间',
 		},
+		{
+			field : 'updateTime',
+            title : '更新时间',
+		},
     ]],
     onLoadSuccess: function(data){
-    	$('#AllResourceTree').treegrid('collapseAll');
+//     	$('#AllResourceTree').treegrid('collapseAll');
     }
 });
 })
