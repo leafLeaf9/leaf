@@ -62,7 +62,7 @@ table, td, th
       color: #F56C6C;
     }
 </style>
-<script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
