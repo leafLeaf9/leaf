@@ -53,3 +53,6 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
     }
     return data;
 };
+
+//扩展combotree，使其支持平滑数据格式
+$.fn.combotree.defaults.loadFilter = $.fn.tree.defaults.loadFilter;
