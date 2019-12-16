@@ -93,25 +93,25 @@ public class UserController {
     		return mv;
         }catch(UnknownAccountException uae){  
             logger.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");  
-            request.setAttribute("message", "未知账户");  
+            request.setAttribute("msg", "账户不存在");  
             return loginmv;//返回登录页面
         }catch(IncorrectCredentialsException ice){  
             logger.info("对用户[" + userId + "]进行登录验证..验证未通过,错误的凭证");  
-            request.setAttribute("message", "密码不正确");  
+            request.setAttribute("msg", "密码不正确");  
             return loginmv;//返回登录页面
         }catch(LockedAccountException lae){  
             logger.info("对用户[" + userId + "]进行登录验证..验证未通过,账户已锁定");  
-            request.setAttribute("message", "账户已锁定");
+            request.setAttribute("msg", "账户已锁定");
             return loginmv;//返回登录页面
         }catch(ExcessiveAttemptsException eae){  
             logger.info("对用户[" + userId + "]进行登录验证..验证未通过,错误次数过多");  
-            request.setAttribute("message", "用户名或密码错误次数过多");
+            request.setAttribute("msg", "用户名或密码错误次数过多");
             return loginmv;//返回登录页面
         }catch(AuthenticationException ae){  
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
             logger.info("对用户[" + userId + "]进行登录验证..验证未通过,堆栈轨迹如下");
             ae.printStackTrace();  
-            request.setAttribute("message", "用户名或密码不正确");  
+            request.setAttribute("msg", "用户名或密码不正确");  
             return loginmv;//返回登录页面
         }
 
