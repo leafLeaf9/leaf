@@ -26,7 +26,7 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
     return data;
 };
 
-// 扩展treegrid，使其支持平滑数据格式
+// 扩展treegrid，使其支持平滑数据格式，即不需要在Resource.java中增加List<Resource> children属性，直接使用平级数据也可在前端通过parentField生成对应的树
 $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
     var opt = $(this).data().treegrid.options;
     var idFiled, textFiled, parentField;
