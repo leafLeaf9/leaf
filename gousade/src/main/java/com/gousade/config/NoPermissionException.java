@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /** 
 * @author 作者: woxi-Gisard
 * @version 创建时间:2019年12月7日 下午5:31:52 
-* 类说明:
+* 类说明:异常处理类
 */
 @ControllerAdvice
 public class NoPermissionException {
