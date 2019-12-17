@@ -8,6 +8,11 @@
 <title>资源管理</title>
 </head>
 <body>
+<div class="con">
+<span onclick="readyinsertresource()"><i class="iconfont icon-Create_member">新增</i></span>
+<span onclick="readyupdateresource()"><i class="iconfont icon-bianji">编辑</i></span>
+<span onclick="readydelresource()"><i class="iconfont icon-shanchu">删除</i></span>
+</div>
 <table id="AllResourceTree"></table>
 <script>
 $(function(){
@@ -19,9 +24,13 @@ $('#AllResourceTree').treegrid({
     fitColumns: true,
     rownumbers: true,
     columns:[[
-		{
+    	{
+    		field: 'ck',
+    		checkbox: true,
+    	},
+    	{
 			title : '编号',
-			field : 'id',			
+			field : 'id',
 		},
 		{
 			field : 'name',
