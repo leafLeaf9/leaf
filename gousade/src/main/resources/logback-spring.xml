@@ -24,6 +24,12 @@
 <!--                 <charset>UTF-8</charset> -->
             </pattern>
         </layout>
+<!--         ThresholdFilter为系统定义的拦截器，例如我们用ThresholdFilter来过滤掉ERROR级别以下的日志不输出到文件中 -->
+        <!--
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+             <level>ERROR</level>
+        </filter>
+         -->
     </appender>
     <appender name="FileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
     	<!--日志名称，如果没有File 属性，那么只会使用FileNamePattern的文件路径规则,如果同时有<File>和<FileNamePattern>，那么当天日志是<File>，明天会自动把今天
