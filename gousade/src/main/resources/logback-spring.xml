@@ -14,16 +14,14 @@
 	<!--输出到控制台 ConsoleAppender-->
     <appender name="ConsoleInfoLog" class="ch.qos.logback.core.ConsoleAppender">
     	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-             <level>INFO</level>
+             <level>debug</level>
         </filter> 
         <!--展示格式 layout-->
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>
+        <encoder>
                 <pattern>%d{yyyy-MM-dd HH:mm:ss} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
-<!--                 <pattern>${CONSOLE_LOG_PATTERN}</pattern> -->
-<!--                 <charset>UTF-8</charset> -->
-            </pattern>
-        </layout>
+<!--                 <pattern>%black(控制台-) %red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{10}) - %cyan(%msg%n)</pattern> -->
+                <charset>UTF-8</charset>
+        </encoder>
 <!--         ThresholdFilter为系统定义的拦截器，例如我们用ThresholdFilter来过滤掉ERROR级别以下的日志不输出到文件中 -->
         <!--
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -42,29 +40,37 @@
         <!--只保留最近90天的日志-->
         <maxHistory>180</maxHistory>
 		<!--单个日志文件最大值，达到之后就进行切割 -->
-        <maxFileSize>52MB</maxFileSize>
+<!--         <maxFileSize>52MB</maxFileSize> -->
         <!--用来指定日志文件总体的最大值，到了这个值，就会删除旧的日志-->
         <totalSizeCap>2GB</totalSizeCap>
    		</rollingPolicy>
     	<!--日志输出编码格式化-->
    		<encoder>
-<!--         <charset>UTF-8</charset> -->
+        <charset>UTF-8</charset>
         <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
     	</encoder>
 	</appender>
-	<!--指定最基础的日志输出级别-->
-    <root level="INFO">
-        <!--appender将会添加到这个loger-->
-        <appender-ref ref="ConsoleInfoLog"/>
-        <appender-ref ref="FileInfoLog"/>
-    </root>
+	
     <!-- <logger>用来设置某一个包或者具体的某一个类的日志打印级别、以及指定<appender>
 	name:用来指定受此loger约束的某一个包或者具体的某一个类。
 	<loger>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger。
 	level:用来设置打印级别，大小写无关。如果未设置此属性，那么当前loger将会继承上级的级别。
 	addtivity:是否向上级loger传递打印信息。默认是true。 -->
-    <logger name="com.gousade.controllerr" level="WARN" additivity="false">
+    <logger name="com.gousade.controller" level="WARN" additivity="false">
         <appender-ref ref="ConsoleInfoLog"/>
     </logger>
+    
+    <!--此处和application.properties中的logging.level.com.gousade.mapper=debug只需配置一个即可，作用相同，使得控制台和日志可以打印sql-->
+    <logger name="com.gousade.mapper" level="debug" additivity="false">
+        <appender-ref ref="ConsoleInfoLog"/>
+        <appender-ref ref="FileInfoLog"/>
+    </logger>
+    
+    <!--指定最基础的日志输出级别-->
+    <root level="INFO">
+        <!--appender将会添加到这个loger-->
+        <appender-ref ref="ConsoleInfoLog"/>
+        <appender-ref ref="FileInfoLog"/>
+    </root>
 
 </configuration>
