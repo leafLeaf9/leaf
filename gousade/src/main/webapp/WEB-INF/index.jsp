@@ -7,6 +7,5 @@
 </head>
 <body>
 This is the index jsp of the gousade project.
-是是是
 </body>
 </html>
