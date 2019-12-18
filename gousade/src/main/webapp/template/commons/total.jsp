@@ -65,8 +65,8 @@ table, td, th
       color: #F56C6C;
     }
 </style>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="./js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
 <link rel="stylesheet" href="./img/icon-font/iconfont.css"><!-- 阿里巴巴矢量图标 -->
