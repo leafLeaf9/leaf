@@ -35,7 +35,7 @@
 				style="font-size: 12px;">关闭</div>
 			<div data-options="iconCls:''" type="closeOther">关闭其他</div>
 			<div data-options="iconCls:''" type="closeAll">关闭所有</div>
-		</div>
+	</div>
 </div>
 <script>
 $(function(){
