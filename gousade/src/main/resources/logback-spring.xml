@@ -16,10 +16,10 @@
     	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
              <level>debug</level>
         </filter> 
-        <!--展示格式 layout-->
         <encoder>
-                <pattern>%d{yyyy-MM-dd HH:mm:ss} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
-<!--                 <pattern>%black(控制台-) %red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{10}) - %cyan(%msg%n)</pattern> -->
+<!--                 <pattern>%d{yyyy-MM-dd HH:mm:ss} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern> -->
+                <pattern>%boldRed(%d{yyyy-MM-dd HH:mm:ss}) %magenta(%contextName) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) - %cyan(%msg%n)</pattern>
+<!--                 <pattern>${CONSOLE_LOG_PATTERN}</pattern> -->
                 <charset>UTF-8</charset>
         </encoder>
 <!--         ThresholdFilter为系统定义的拦截器，例如我们用ThresholdFilter来过滤掉ERROR级别以下的日志不输出到文件中 -->
