@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/css/indexUl.css" />
 <title>首页</title>
 </head>
-<body>
-<div id="cc" class="easyui-layout" style="width:600px;height:400px;">
-    <div data-options="region:'north',title:'导航栏'" style="height:100px;">
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" style="overflow: hidden; background: #2c7acb">
     <div class="lc-title">This is the index jsp of the gousade project.</div>
     </div>       
     <div data-options="region:'west',title:'菜单',split:true" style="width:100px;">
@@ -28,7 +28,7 @@
     </div>
     </div>
     <div id="tabsMenu">
-			<div data-options="iconCls:'fi-loop'" type="refresh"
+			<div data-options="iconCls:'icon-reload'" type="refresh"
 				style="font-size: 12px;">刷新</div>
 			<div class="menu-sep"></div>
 			<div data-options="iconCls:'fi-x'" type="close"
@@ -36,7 +36,6 @@
 			<div data-options="iconCls:''" type="closeOther">关闭其他</div>
 			<div data-options="iconCls:''" type="closeAll">关闭所有</div>
 	</div>
-</div>
 <script>
 $(function(){
 	$('#index_layout').layout({
@@ -48,16 +47,16 @@ $(function(){
 		{
 			fit : true,
 			border : false,
-// 			onContextMenu : function(e, title) {
-// 				e.preventDefault();
-// 				indexTabsMenu.menu('show', {
-// 					eft : e.pageX,
-// 					top : e.pageY
-// 				}).data('tabTitle', title);
-// 			},
+			onContextMenu : function(e, title) {
+				e.preventDefault();
+				indexTabsMenu.menu('show', {
+					eft : e.pageX,
+					top : e.pageY
+				}).data('tabTitle', title);
+			},
 			tools : [
 					{
-						iconCls : 'fi-home',
+						iconCls : 'icon-tip',
 						handler : function() {
 							index_tabs.tabs('select', 0);
 						}
