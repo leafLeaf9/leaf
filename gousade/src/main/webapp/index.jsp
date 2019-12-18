@@ -83,19 +83,16 @@ $(function(){
 	indexTabsMenu = $('#tabsMenu').menu(
 		{
 			onClick : function(item) {
-				var curTabTitle = $(this).data(
-						'tabTitle');
+				var curTabTitle = $(this).data('tabTitle');
 				var type = $(item.target).attr('type');
 				if (type === 'refresh') {
 					refreshTab();
 					return;
 				}
 				if (type === 'close') {
-					var t = index_tabs.tabs('getTab',
-							curTabTitle);
+					var t = index_tabs.tabs('getTab',curTabTitle);
 					if (t.panel('options').closable) {
-						index_tabs.tabs('close',
-								curTabTitle);
+						index_tabs.tabs('close',curTabTitle);
 					}
 					return;
 				}
@@ -103,18 +100,14 @@ $(function(){
 				var closeTabsTitle = [];
 				$.each(allTabs, function() {
 					var opt = $(this).panel('options');
-					if (opt.closable
-							&& opt.title != curTabTitle
-							&& type === 'closeOther') {
+					if (opt.closable && opt.title != curTabTitle && type === 'closeOther') {
 						closeTabsTitle.push(opt.title);
-					} else if (opt.closable
-							&& type === 'closeAll') {
+					} else if (opt.closable && type === 'closeAll') {
 						closeTabsTitle.push(opt.title);
 					}
 				});
 				for (var i = 0; i < closeTabsTitle.length; i++) {
-					index_tabs.tabs('close',
-							closeTabsTitle[i]);
+					index_tabs.tabs('close',closeTabsTitle[i]);
 				}
 			}
 		});
