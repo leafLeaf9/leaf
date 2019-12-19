@@ -7,7 +7,8 @@
 <link rel="stylesheet" type="text/css" href="/css/indexUl.css" />
 <title>首页</title>
 </head>
-<body class="easyui-layout">
+<body>
+<div id="index_layout">
     <div data-options="region:'north',border:false" style="overflow: hidden; background: #2c7acb">
     <div class="lc-title">This is the index jsp of the gousade project.</div>
     </div>       
@@ -23,7 +24,7 @@
     <div title="Tab2" data-options="closable:true" style="overflow:auto;padding:20px;display:none;">
 		tab2
     </div>
-    <div title="Tab3" data-options="iconCls:'icon-reload',closable:true" style="padding:20px;display:none;">
+    <div title="Tab3" data-options="iconCls:'fi-eye',closable:true" style="padding:20px;display:none;">
 		tab3
     </div>
     </div>
@@ -37,6 +38,7 @@
 			<div data-options="iconCls:''" type="closeOther">关闭其他</div>
 			<div data-options="iconCls:''" type="closeAll">关闭所有</div>
 	</div>
+</div>
 <script>
 $(function(){
 	$('#index_layout').layout({
