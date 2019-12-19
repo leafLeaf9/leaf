@@ -45,25 +45,25 @@ table, td, th
 	}
 }
 .bg-nav>span{float:left;margin-right:15px;color:#6DB4F9;cursor:pointer}
-    .row {
-      font-size: 18px;
-      color: #333;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-    .row_description {
-      vertical-align: top;
-      margin-left: 14%;
-      display: inline-block;
-      width: 22%;
-    }
-    .row_data {
-      display: inline-block;
-      width: 55%;
-    }
-    .danger {
-      color: #F56C6C;
-    }
+.row {
+  font-size: 18px;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.row_description {
+  vertical-align: top;
+  margin-left: 14%;
+  display: inline-block;
+  width: 22%;
+}
+.row_data {
+  display: inline-block;
+  width: 55%;
+}
+.danger {
+  color: #F56C6C;
+}
 </style>
 <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
 <script src="./js/jquery-3.4.1.min.js"></script>
