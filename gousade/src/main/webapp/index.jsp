@@ -11,10 +11,11 @@
     <div data-options="region:'north',border:false" style="overflow: hidden; background: #2c7acb">
     <div class="lc-title">This is the index jsp of the gousade project.</div>
     </div>       
-    <div data-options="region:'west',title:'菜单',split:true" style="width:100px;">
+    <div data-options="region:'west',title:'菜单',split:true" 
+    style="width: 200px; overflow: hidden; overflow-y: auto; padding: 0px; font-size: 12px;">
     <ul id="layout_west_tree"></ul>
     </div>
-    <div data-options="region:'center',title:'首页'" style="padding:5px;background:#eee;">
+    <div data-options="region:'center'" style="overflow: hidden;">
     <div id="index_tabs" class="easyui-tabs">
     <div title="Tab1" style="padding:20px;display:none;">
 		tab1
