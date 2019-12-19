@@ -57,7 +57,7 @@ $(function(){
 			},
 			tools : [
 					{
-						iconCls : 'icon-tip',
+						iconCls : 'fi-home',
 						handler : function() {
 							index_tabs.tabs('select', 0);
 						}
