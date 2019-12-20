@@ -14,10 +14,18 @@ import org.springframework.context.annotation.Bean;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
+/** 
+* @author 作者: woxi-Gisard
+* @version 创建时间:2018年12月25日 下午12:25:52 
+* 类说明:SpringBoot启动类
+*/
 @SpringBootApplication
 @MapperScan("com.*.mapper")
-
 public class StarterManage extends SpringBootServletInitializer{
+	
+	/** 
+	*项目部署到外部Tomcat时需要重写的方法
+	*/
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(StarterManage.class);
