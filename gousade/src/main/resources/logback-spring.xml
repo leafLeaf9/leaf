@@ -18,7 +18,7 @@
         </filter> 
         <encoder>
 <!--                 <pattern>%d{yyyy-MM-dd HH:mm:ss} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern> -->
-                <pattern>%boldRed(%d{yyyy-MM-dd HH:mm:ss}) %magenta(%contextName) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) - %cyan(%msg%n)</pattern>
+                <pattern>%boldRed(%d{yyyy-MM-dd HH:mm:ss}) %magenta(%contextName) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) - %msg%n</pattern>
 <!--                 <pattern>${CONSOLE_LOG_PATTERN}</pattern> -->
                 <charset>UTF-8</charset>
         </encoder>

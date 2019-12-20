@@ -24,16 +24,24 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
+	<!-- <dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+	</dependency> -->
     <!--对数据库的支持-->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-jdbc</artifactId>
     </dependency>
-    <!--redis缓存相关支持-->
+    <!--redis相关支持-->
     <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-redis</artifactId>
-       <version>1.4.5.RELEASE</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+	<!--redis所需要的依赖-->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-pool2</artifactId>
 	</dependency>
 	<dependency>
         <groupId>org.springframework.boot</groupId>
@@ -61,6 +69,7 @@
         <groupId>com.fasterxml.jackson.module</groupId>
         <artifactId>jackson-module-parameter-names</artifactId>
     </dependency>
+    <!--druid连接池-->
     <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>druid-spring-boot-starter</artifactId>
@@ -88,17 +97,17 @@
     <dependency>
         <groupId>com.github.pagehelper</groupId>
         <artifactId>pagehelper-spring-boot-starter</artifactId>
-        <version>1.2.3</version>
+        <version>1.2.13</version>
     </dependency>
     <dependency>
 		<groupId>org.apache.commons</groupId>
 		<artifactId>commons-lang3</artifactId>
-		<version>3.3.2</version>
+		<version>3.7</version>
 	</dependency>
 	<dependency>
 		<groupId>org.apache.httpcomponents</groupId>
 		<artifactId>httpclient</artifactId>
-		<version>4.5.3</version>
+		<version>4.5.6</version>
 	</dependency>
 	<!--jstl依赖 -->
 	<dependency>
@@ -161,11 +170,11 @@
 		<artifactId>shiro-quartz</artifactId>
 		<version>1.2.2</version>
 	</dependency> -->
-	<!-- <dependency>
+	<dependency>
 		<groupId>redis.clients</groupId>
 		<artifactId>jedis</artifactId>
-		<version>2.1.0</version>
-	</dependency> -->
+		<version>2.9.0</version>
+	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-ehcache -->
 	<dependency>
 	     <groupId>org.apache.shiro</groupId>
@@ -213,11 +222,6 @@
 	    <groupId>cn.afterturn</groupId>
 	    <artifactId>easypoi-annotation</artifactId>
 	    <version>3.1.0</version>
-	</dependency>
-	<dependency>
-	    <groupId>com.github.pagehelper</groupId>
-	    <artifactId>pagehelper</artifactId>
-	    <version>5.1.10</version>
 	</dependency>
 	<!--跨域解决-->
 	<dependency>
