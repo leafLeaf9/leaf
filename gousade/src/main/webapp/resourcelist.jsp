@@ -17,11 +17,14 @@
 $(function(){
 $('#AllResourceTree').treegrid({
 	url:'${pageContext.request.contextPath}/selectResourceList',
+	title:'资源管理',
     idField:'id',
     treeField:'name',
     parentField : 'pid',
     fitColumns: true,
     rownumbers: true,
+    singleSelect:false,
+    checkOnSelect:true,
     columns:[[
     	{
     		field: 'ck',
