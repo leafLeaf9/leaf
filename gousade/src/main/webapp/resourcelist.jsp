@@ -36,9 +36,14 @@
 <div class="show-double">
 <label >上级资源：</label>
 <select id="resourceEditPid" name="pid" style="width: 200px; height: 29px;"></select>
+<a class="easyui-linkbutton" href="javascript:void(0)" onclick="$('#resourceEditPid').combotree('clear');" >清空</a>
 <label >备注：</label>
 <input name="remarks" type="text">
 </div>
+<li>
+</ul>
+<button type="button" class="submit" id="doSubmitButton" onClick="submitsill();return false;" >确定</button>
+<button type="button" class='submit' onClick="javascript:$('#insertDialog').dialog('close');return false;">取消</button>
 </form>
 </div>
 <script>
