@@ -1,0 +1,331 @@
+@CHARSET "UTF-8";
+/** 通用表单样式 */
+
+.shadow-box {
+    position: relative;
+    display: block;
+    /* width: 50vw; */
+    min-width: 600px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 30px 15px;
+    overflow: hidden;
+    background-color: #fff;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+    line-height: 1.5;
+}
+/** placeholder 字体样式 */
+:-moz-placeholder {
+   /*  color: blue; */
+}
+ 
+::-webkit-input-placeholder {
+    /* color: blue; */
+}
+
+/** 去除输入框默认样式 */
+*:focus {outline: none;}
+/** 修改列表样式 */
+.contact-form ul {
+    width:100%;
+    list-style-type: none;
+    list-style-position: outside;
+    margin:0px;
+    padding:0px;
+}
+.contact-form li{
+    padding-top:6px; 
+    border-bottom:1px solid #eee;
+    position:relative;
+}
+
+/** 表单首位添加样式 */
+.contact-form li:first-child
+ {
+   /*  border-bottom:1px solid #777; */
+   border-bottom:2px solid #ccc;
+}
+
+/** 表单页眉提醒样式 */
+.contact-form h2 {
+    margin:0;
+    display: inline;
+}
+.required-notification {
+    color:#d45252; 
+    margin:5px 0 0 0; 
+    display:inline;
+    float:right;
+}
+
+.contact-form label {
+    width: 140px;
+    /* margin-top: 3px; */
+    display:inline-block;
+    float:left;
+    padding:3px;
+    font-weight: 600;
+}
+
+.contact-form label.needTrans2other {
+	margin-top: 0px;
+    padding: 0;
+    font-weight: 500;
+    float: none;
+}
+
+/** 表单内元素样式 */
+.contact-form input{
+    /* height:20px;  */
+    width:220px; 
+    padding:5px 8px;
+}
+.contact-form select {
+	width:260px; 
+	height:26px;
+}
+/* 一行展示两个 */
+.show-double {
+	display: inline-block;
+	width:49%;
+	vertical-align: middle;
+}
+.contact-form textarea {padding:8px; width:220px; height: 90px; overflow-y: auto;}
+/* .contact-form button {margin-left:164px; margin-top: 16px;} */
+
+.contact-form input, .contact-form textarea, .contact-form select { 
+    border:1px solid #aaa;
+    box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+    border-radius:2px;
+}
+/* 没有选择时候的样式 */
+.contact-form .dis-show {
+	border: 0;
+	box-shadow: 0;
+	border-radius: 0;
+}
+.contact-form input:focus, .contact-form textarea:focus {
+    background: #fff; 
+    border:1px solid #555; 
+    box-shadow: 0 0 3px #aaa; 
+}
+.contact-form .defaultTime:focus {
+	border: 0;
+	background: none;
+	box-shadow: 0;
+}
+.contact-form input[type=radio],  .contact-form input[type=checkbox]{
+	width: 30px;
+	box-shadow: none;
+	vertical-align: middle;
+	border: 0;
+	border-radius: 0;
+}
+
+/* Button Style */
+/* 绿色*/
+button.submit {
+	margin-left: 146px;
+	margin-top: 10px;
+    background-color: #68b12f;
+    /* background: -webkit-gradient(linear, left top, left bottom, from(#68b12f), to(#50911e));
+    background: -webkit-linear-gradient(top, #68b12f, #50911e);
+    background: -moz-linear-gradient(top, #68b12f, #50911e);
+    background: -ms-linear-gradient(top, #68b12f, #50911e);
+    background: -o-linear-gradient(top, #68b12f, #50911e);
+    background: linear-gradient(top, #68b12f, #50911e); */
+    border: 1px solid #509111;
+    border-bottom: 1px solid #5b992b;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 #9fd574;
+    -webkit-box-shadow: 0 1px 0 0 #9fd574 inset ;
+    -moz-box-shadow: 0 1px 0 0 #9fd574 inset;
+    -ms-box-shadow: 0 1px 0 0 #9fd574 inset;
+    -o-box-shadow: 0 1px 0 0 #9fd574 inset;
+    color: white;
+    font-weight: bold;
+    padding: 6px 28px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #396715;
+}
+/* 红色 */
+button.refused {
+	margin-left: 146px;
+	margin-top: 10px;
+	background-color: #f76565;
+    /* background: -webkit-gradient(linear, left top, left bottom, from(#f76565), to(#e83e3e));
+    background: -webkit-linear-gradient(top, #f76565, #e83e3e);
+    background: -moz-linear-gradient(top, #f76565, #e83e3e);
+    background: -ms-linear-gradient(top, #f76565, #e83e3e);
+    background: -o-linear-gradient(top, #f76565, #e83e3e);
+    background: linear-gradient(top, #f76565, #e83e3e); */
+    border: 1px solid #9e0707;
+    border-bottom: 1px solid #9e0707;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 #f9acac;
+    -webkit-box-shadow: 0 1px 0 0 #f9acac inset;
+    -moz-box-shadow: 0 1px 0 0 #f9acac inset;
+    -ms-box-shadow: 0 1px 0 0 #f9acac inset;
+    -o-box-shadow: 0 1px 0 0 #f9acac inset;
+    color: white;
+    font-weight: bold;
+    padding: 6px 28px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #bf0f0f;
+}
+/* 黄色   */
+button.completeOrder {
+	background-color: #e89200;
+    /* background: -webkit-gradient(linear, left top, left bottom, from(#fcc567), to(#e29002));
+    background: -webkit-linear-gradient(top, #fcc567, #e29002);
+    background: -moz-linear-gradient(top, #fcc567, #e29002);
+    background: -ms-linear-gradient(top, #fcc567, #e29002);
+    background: -o-linear-gradient(top, #fcc567, #e29002);
+    background: linear-gradient(top, #fcc567, #e29002); */
+    border: 1px solid #bf7d0b;
+    border-bottom: 1px solid #996000;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    box-shadow: inset 0 1px 0 0 #fce5bd;
+    -webkit-box-shadow: 0 1px 0 0 #fce5bd inset;
+    -moz-box-shadow: 0 1px 0 0 #fce5bd inset;
+    -ms-box-shadow: 0 1px 0 0 #fce5bd inset;
+    -o-box-shadow: 0 1px 0 0 #fce5bd inset;
+    color: white;
+    font-weight: bold;
+    padding: 6px 28px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #b57d1e;
+}
+button.submit:hover, button.refused:hover, button.completeOrder:hover {
+    opacity:.85;
+    cursor: pointer; 
+}
+button.submit:active {
+    border: 1px solid #20911e;
+    box-shadow: 0 0 10px 5px #356b0b inset; 
+    -webkit-box-shadow:0 0 10px 5px #356b0b inset ;
+    -moz-box-shadow: 0 0 10px 5px #356b0b inset;
+    -ms-box-shadow: 0 0 10px 5px #356b0b inset;
+    -o-box-shadow: 0 0 10px 5px #356b0b inset;
+}
+button.refused:active {
+	border: 1px solid #9e0707;
+    box-shadow: 0 0 10px 5px #9e0707 inset; 
+    -webkit-box-shadow:0 0 10px 5px #9e0707 inset ;
+    -moz-box-shadow: 0 0 10px 5px #9e0707 inset;
+    -ms-box-shadow: 0 0 10px 5px #9e0707 inset;
+    -o-box-shadow: 0 0 10px 5px #9e0707 inset;
+}
+button.completeOrder:active {
+	border: 1px solid #996000;
+    box-shadow: 0 0 10px 5px #996000 inset; 
+    -webkit-box-shadow:0 0 10px 5px #996000 inset ;
+    -moz-box-shadow: 0 0 10px 5px #996000 inset;
+    -ms-box-shadow: 0 0 10px 5px #996000 inset;
+    -o-box-shadow: 0 0 10px 5px #996000 inset;
+}
+button.button {
+	margin-top: 0px;
+	margin-left: 5px; 
+	width: 50px; 
+	height: 25px; 
+	border: 1px solid #ccc; 
+	border-radius: 2px;
+}
+/* 拓展效果 */
+.contact-form input:focus, .contact-form textarea:focus { /* add this to the already existing style */
+    padding-right:70px;
+}
+.contact-form input[readOnly]:focus {
+	padding-right: 30px;
+}
+.contact-form input, .contact-form textarea { /* add this to the already existing style */
+    -moz-transition: padding .25s; 
+    -webkit-transition: padding .25s; 
+    -o-transition: padding .25s;
+    transition: padding .25s;
+}
+
+/* 实现 required 提醒效果 */
+.contact-form input, .contact-form textarea {
+    padding-right:30px;
+}
+input:required, textarea:required {
+    background: #fff url(../image/red_asterisk.png) no-repeat 98% center;
+}
+/* 红框 提醒效果 */
+.contact-form input:focus:invalid, .contact-form textarea:focus:invalid { /* when a field is considered invalid by the browser */
+    background: #fff url(../image/invalid.png) no-repeat 98% center; 
+    box-shadow: 0 0 5px #d45252;
+    border-color: #b03535;
+}
+/* 绿框 提醒效果 */
+.contact-form input:required:valid, .contact-form textarea:required:valid { /* when a field is considered valid by the browser */
+    background: #fff url(../image/valid.png) no-repeat 98% center; 
+    box-shadow: 0 0 5px #5cd053;
+    border-color: #28921f;
+}
+.contact-form input[readOnly] {
+	/* url(../image/valid.png) no-repeat 98% center */
+	background: #d2d2d2 ; 
+    box-shadow: 0 0 5px #5cd053;
+    border-color: #28921f;
+}
+
+/* 敏感信息标题 */
+.sensitive-title {
+	display: inline-block;
+	width: 50px;
+}
+
+/* 不可编辑的背景 */
+.contact-form .unedit {
+	background: #EEE;
+}
+/* 添加上传文件 */
+.uploadFile p {margin-left: 146px; margin-bottom: 2px; width: 290px;}
+.orderAddBtn {padding: 0; margin: 0; width: 64px; height: 22px; color: green;}
+.orderDelBtn {padding: 0; margin: 0; width: 64px; height: 22px; color: red;}
+
+/* 流转过程 */
+table.orderProcess tr {
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: rgb(211, 202, 221);
+}
+table.orderProcess {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: rgb(211, 202, 221);
+}
+
+/* Padding and font style */
+table.orderProcess td, table.orderProcess th {
+	padding: 5px 10px;
+	font-size: 12px;
+	font-family: Verdana;
+	color: rgb(95, 74, 121);
+}
+
+/* Alternating background colors */
+table.orderProcess tr:nth-child(even) {
+	background: rgb(223, 216, 232)
+}
+table.orderProcess tr:nth-child(odd) {
+	background: #FFF
+}
