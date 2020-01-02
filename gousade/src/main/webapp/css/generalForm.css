@@ -46,7 +46,7 @@
 .contact-form li:first-child
  {
    /*  border-bottom:1px solid #777; */
-   border-bottom:2px solid #ccc;
+/*    border-bottom:1px solid #eee; */
 }
 
 /** 表单页眉提醒样式 */
@@ -84,7 +84,7 @@
     padding:5px 8px;
 }
 .contact-form select {
-	width:260px; 
+	width:220px; 
 	height:26px;
 }
 /* 一行展示两个 */
@@ -128,8 +128,8 @@
 /* Button Style */
 /* 绿色*/
 button.submit {
-	margin-left: 146px;
-	margin-top: 10px;
+	margin-left: 200px;
+	margin-top: 30px;
     background-color: #68b12f;
     /* background: -webkit-gradient(linear, left top, left bottom, from(#68b12f), to(#50911e));
     background: -webkit-linear-gradient(top, #68b12f, #50911e);
@@ -266,17 +266,17 @@ button.button {
     padding-right:30px;
 }
 input:required, textarea:required {
-    background: #fff url(../image/red_asterisk.png) no-repeat 98% center;
+/*     background: #fff url(../image/red_asterisk.png) no-repeat 98% center; */
 }
 /* 红框 提醒效果 */
 .contact-form input:focus:invalid, .contact-form textarea:focus:invalid { /* when a field is considered invalid by the browser */
-    background: #fff url(../image/invalid.png) no-repeat 98% center; 
+/*     background: #fff url(../image/invalid.png) no-repeat 98% center;  */
     box-shadow: 0 0 5px #d45252;
     border-color: #b03535;
 }
 /* 绿框 提醒效果 */
 .contact-form input:required:valid, .contact-form textarea:required:valid { /* when a field is considered valid by the browser */
-    background: #fff url(../image/valid.png) no-repeat 98% center; 
+/*     background: #fff url(../image/valid.png) no-repeat 98% center;  */
     box-shadow: 0 0 5px #5cd053;
     border-color: #28921f;
 }

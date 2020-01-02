@@ -39,8 +39,8 @@
       delflag)
     values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{delflag,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, now(), #{updateTime,jdbcType=TIMESTAMP}, 
+      0)
   </insert>
   <insert id="insertSelective" parameterType="com.gousade.pojo.Resource" >
     insert into resource

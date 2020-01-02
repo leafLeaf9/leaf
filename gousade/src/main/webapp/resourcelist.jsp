@@ -9,40 +9,54 @@
 </head>
 <body>
 <div class="con">
-<span onclick="readyinsertresource()"><i class="iconfont icon-Create_member">新增</i></span>
-<span onclick="readyupdateresource()"><i class="iconfont icon-bianji">编辑</i></span>
-<span onclick="readydelresource()"><i class="iconfont icon-shanchu">删除</i></span>
+<span style="cursor: pointer;" onclick="readyinsertresource()"><i class="iconfont icon-Create_member">新增</i></span>
+<span style="cursor: pointer;" onclick="readyupdateresource()"><i class="iconfont icon-bianji">编辑</i></span>
+<span style="cursor: pointer;" onclick="readydelresource()"><i class="iconfont icon-shanchu">删除</i></span>
 </div>
 <table id="AllResourceTree"></table>
-<div id="insertDialog" class="easyui-dialog" style="width:500px;height:350px;"
-    data-options="resizable:true,modal:true,closed:true,onClose: function() {$('#editForm')[0].reset();}">
+<div id="insertDialog" class="easyui-dialog" style="width:850px;height:300px;"
+    data-options="resizable:true,modal:true,closed:true,onClose: function() {document.getElementById('EditResourceForm').reset();}">
 <form id="EditResourceForm" method="post" class="contact-form">
 <ul>
 <li>
 <div class="show-double">
 <label >资源名称：</label>
-<input name="name" type="text">
+<input name="name" type="text" required="required">
+</div>
+<div class="show-double">
 <label >资源路径：</label>
 <input name="url" type="text">
 </div>
+</li>
 
+<li>
 <div class="show-double">
 <label >资源图标：</label>
 <input name="icon" type="text">
-<label >资源状态：</label>
-<input name="status" type="text">
 </div>
+<div class="show-double">
+<label >资源状态：</label>
+<select name="status" type="text" required="required">
+<option value=""></option>
+<option value="1">打开</option>
+<option value="0">关闭</option>
+</select>
+</div>
+</li>
 
+<li>
 <div class="show-double">
 <label >上级资源：</label>
-<select id="resourceEditPid" name="pid" style="width: 200px; height: 29px;"></select>
+<select id="resourceEditPid" name="pid"></select>
 <a class="easyui-linkbutton" href="javascript:void(0)" onclick="$('#resourceEditPid').combotree('clear');" >清空</a>
+</div>
+<div class="show-double">
 <label >备注：</label>
 <input name="remarks" type="text">
 </div>
 <li>
 </ul>
-<button type="button" class="submit" id="doSubmitButton" onClick="submitsill();return false;" >确定</button>
+<button type="submit" class="submit" id="doSubmitButton">确定</button>
 <button type="button" class='submit' onClick="javascript:$('#insertDialog').dialog('close');return false;">取消</button>
 </form>
 </div>
@@ -107,9 +121,21 @@ $('#AllResourceTree').treegrid({
 //     	$('#AllResourceTree').treegrid('collapseAll');
     }
 });
+$('#EditResourceForm').form({
+    url : '${ctx}/insertresource',
+    onSubmit : function() {
+    },
+    success : function(result) {
+    	result = $.parseJSON(result);
+    	$('#EditResourceForm')[0].reset();
+    	$('#insertDialog').dialog('close');
+    	$('#AllResourceTree').treegrid('reload');
+    	$.messager.alert('提示', result.msg, 'info');
+    }
+});
 })
 function readyinsertresource(){
-	$('#EditResourceForm').dialog('open').dialog("center").dialog("setTitle", "新增资源");
+	$('#insertDialog').dialog('open').dialog("center").dialog("setTitle", "新增资源");
 	$('#resourceEditPid').combotree({
         url : '${ctx}/selectAllTree',
         parentField : 'pid',
