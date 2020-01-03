@@ -141,6 +141,9 @@ function readyinsertresource(){
         parentField : 'pid',
         lines : true,
         panelHeight : 'auto',
+        onLoadSuccess: function(data){
+        	$("#resourceEditPid").combotree('tree').tree("collapseAll");//折叠所有节点
+        }
     });
 }
 

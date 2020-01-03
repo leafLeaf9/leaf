@@ -37,7 +37,7 @@ public class ResourceService {
             tree.setText(resource.getName());
             tree.setIconCls(resource.getIcon());
             tree.setAttributes(resource.getUrl());
-            tree.setState(resource.getStatus());
+            tree.setState("1");
             trees.add(tree);
         }
         return trees;
