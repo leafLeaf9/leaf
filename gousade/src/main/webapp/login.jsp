@@ -68,7 +68,19 @@
 		$('#bd').css('padding-top', bdheight);
     });
 	$('select').select();
-	
+	var OriginTitile = document.title;
+	var titleTime;
+	document.addEventListener('visibilitychange', function() {
+	    if (document.hidden) {
+	    	document.title = '其实你点击不到我的。';
+	        clearTimeout(titleTime);
+	    } else {
+	    	document.title = '食驚！';
+	        titleTime = setTimeout(function() {
+	            document.title = OriginTitile;
+	        }, 1500);
+	    }
+	});
 /* 	$('#Submit').click(function(e) {
 		
         document.location.href = "/main";
