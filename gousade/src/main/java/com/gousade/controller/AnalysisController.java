@@ -136,6 +136,15 @@ public class AnalysisController {
 	}
 	
 	/**
+	 * 获得SSR链接
+	 */
+	@RequestMapping(value="/getssrlink",method=RequestMethod.POST)
+	public Map<String,Object> getssrlink(@RequestBody Map<String,Object> map){
+		
+		return analysisService.getssrlink(map);
+	}
+	
+	/**
 	 * 查询评论
 	 * @param map
 	 * @return

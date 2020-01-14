@@ -109,6 +109,14 @@ public class AnalysisService {
 		return retMap;
 	}
 	
+	public Map<String, Object> getssrlink(Map<String, Object> map) {
+		Map<String, Object> retMap = new HashMap<String, Object>();
+		retMap=analysisMapper.getssrlink(map);
+		retMap.put("status", true);
+		retMap.put("msg", "获取SSR链接成功。");
+		return retMap;
+	}
+	
 	public List<Map<String, Object>> querycomments(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.querycomments(map);

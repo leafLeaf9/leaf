@@ -6,6 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/css/indexUl.css" />
 <title>首页</title>
+<style>
+#index_tabs{
+background-image:url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3862456464,1470828142&fm=26&gp=0.jpg);
+background-repeat:repeat;
+z-index:999;
+}
+#SSR-publish{
+z-index:-1;
+}
+</style>
 </head>
 <body>
 <div id="index_layout">
@@ -17,17 +27,19 @@
     <ul id="layout_west_tree"></ul>
     </div>
     <div data-options="region:'center'" style="overflow: hidden;">
-    <div id="index_tabs" class="easyui-tabs">
-    <div title="Tab1" style="padding:20px;display:none;">			
+    <div id="index_tabs" class="easyui-tabs" >
+    <div title="SSR-publish" id="SSR-publish" style="padding:20px;display:none;">			
+		1the newest ssr link is :
+		<div id="ssr"></div>
+	</div>
+    <div title="Tab1" data-options="closable:true" style="padding:20px;display:none;">			
 		tab1
 	</div>
     <div title="Tab2" data-options="closable:true" style="overflow:auto;padding:20px;display:none;">
-		tab2
-		
+		tab2		
     </div>
     <div title="Tab3" data-options="iconCls:'fi-eye',closable:true" style="padding:20px;display:none;">
-		tab3
-		  	
+		tab3		  	
     </div>
     </div>
     </div>
@@ -115,7 +127,41 @@ $(function(){
 				}
 			}
 		});
+	
+	getssrlink();
 })
+
+function getssrlink(){
+	var param={};
+	$.ajax({
+		url : "${ctx}/getssrlink",
+		type : "POST",
+		cache : false,
+		contentType : "application/json;charset=utf-8",
+		data:JSON.stringify(param),
+		dataType : 'json',		
+		success : function(result) {
+			$('#ssr').html(result.link);
+		},
+		error : function() {
+			$('#ssr').html("404 Not Found");
+		}
+	})
+}
+
+var OriginTitile = document.title;
+var titleTime;
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+    	document.title = '其实你点击不到我的。';
+        clearTimeout(titleTime);
+    } else {
+    	document.title = '食驚！';
+        titleTime = setTimeout(function() {
+            document.title = OriginTitile;
+        }, 1500);
+    }
+});
 </script>
 </body>
 </html>

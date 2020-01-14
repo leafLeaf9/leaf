@@ -35,8 +35,11 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/ShiroRegist", "anon");
 		filterChainDefinitionMap.put("/loginShiroUser", "anon");
         filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/index", "anon");
+        filterChainDefinitionMap.put("/getssrlink", "anon");//用于免登录发布SSR最新地址
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
+        filterChainDefinitionMap.put("/foundation-icons/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/template/**", "anon");
 		filterChainDefinitionMap.put("/static/templates/**", "authc");

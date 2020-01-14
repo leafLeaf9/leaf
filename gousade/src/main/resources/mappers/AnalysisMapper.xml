@@ -93,6 +93,12 @@
     	#{wordname}
     </foreach>
   </update>
+  
+<!-- 获取SSR链接 -->
+  <select id="getssrlink" resultType="map">
+  select * from ssr
+  </select>
+  
 <!-- 	查询评论(用于自动加载评论) -->
 	<select id="querycomments" parameterType="map" resultType="map">
 		select id,comment

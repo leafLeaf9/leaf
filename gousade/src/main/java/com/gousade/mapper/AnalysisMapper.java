@@ -62,6 +62,8 @@ public interface AnalysisMapper {
 	 */
 	public int delwords(Map<String, Object> map);
 	
+	public Map<String, Object> getssrlink(Map<String, Object> map);
+	
 	/**查询评论
 	 * @param map
 	 * @return
