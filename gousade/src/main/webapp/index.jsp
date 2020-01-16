@@ -31,15 +31,20 @@ z-index:-1;
     <div title="SSR-publish" id="SSR-publish" style="padding:20px;display:none;">			
 		1the newest ssr link is :
 		<div id="ssr"></div>
+		<img src="/img/92f5c23a2b538e7b1e410d1e841eab87.png"  alt="Misaka Mikoto" width="100%" height="100%"/>
+	</div>
+	<div title="Tab0" data-options="closable:true" style="padding:20px;display:none;">			
+		Misaka Mikoto
+		<img src="/img/92f5c23a2b538e7b1e410d1e841eab87.png"  alt="Misaka Mikoto" />
 	</div>
     <div title="Tab1" data-options="closable:true" style="padding:20px;display:none;">			
 		tab1
+		<img src="/img/5887413b7ba8277e4c2bd786748cf9b7.jpg"  alt="小狐狸"/>
 	</div>
-    <div title="Tab2" data-options="closable:true" style="overflow:auto;padding:20px;display:none;">
-		tab2		
-    </div>
     <div title="Tab3" data-options="iconCls:'fi-eye',closable:true" style="padding:20px;display:none;">
-		tab3		  	
+		tab3
+		<img src="/img/76c99d3c9a38d9b398162b8dc0d3eab4.jpg"  alt="爱蜜莉雅" />
+		<img src="/img/9859c0db785f04221a8799425bdba11e.jpg"  alt="橙黑色"/>
     </div>
     </div>
     </div>
