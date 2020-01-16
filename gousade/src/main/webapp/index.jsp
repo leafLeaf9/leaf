@@ -31,20 +31,24 @@ z-index:-1;
     <div title="SSR-publish" id="SSR-publish" style="padding:20px;display:none;">			
 		1the newest ssr link is :
 		<div id="ssr"></div>
-		<img src="/img/92f5c23a2b538e7b1e410d1e841eab87.png"  alt="Misaka Mikoto" width="100%" height="100%"/>
+		<img src="http://img01.sogoucdn.com/app/a/100520146/92f5c23a2b538e7b1e410d1e841eab87"  alt="Misaka Mikoto" width="100%" height="100%"/>
 	</div>
 	<div title="Tab0" data-options="closable:true" style="padding:20px;display:none;">			
 		Misaka Mikoto
-		<img src="/img/92f5c23a2b538e7b1e410d1e841eab87.png"  alt="Misaka Mikoto" />
+		<img src="http://img01.sogoucdn.com/app/a/100520146/92f5c23a2b538e7b1e410d1e841eab87"  alt="Misaka Mikoto" />
 	</div>
     <div title="Tab1" data-options="closable:true" style="padding:20px;display:none;">			
 		tab1
-		<img src="/img/5887413b7ba8277e4c2bd786748cf9b7.jpg"  alt="小狐狸"/>
+		<img src="http://img02.sogoucdn.com/app/a/100520146/5887413b7ba8277e4c2bd786748cf9b7"  alt="小狐狸"/>
 	</div>
+    <div title="Tab2" data-options="closable:true" style="overflow:auto;padding:20px;display:none;">
+		tab2
+		<img src="http://img03.sogoucdn.com/app/a/100520146/deea25f4f33701892d50890ecbeb1c04"  alt="蓝色花香"/>
+    </div>
     <div title="Tab3" data-options="iconCls:'fi-eye',closable:true" style="padding:20px;display:none;">
 		tab3
-		<img src="/img/76c99d3c9a38d9b398162b8dc0d3eab4.jpg"  alt="爱蜜莉雅" />
-		<img src="/img/9859c0db785f04221a8799425bdba11e.jpg"  alt="橙黑色"/>
+		<img src="http://img04.sogoucdn.com/app/a/100520146/76c99d3c9a38d9b398162b8dc0d3eab4"  alt="爱蜜莉雅" />
+		<img src="http://img04.sogoucdn.com/app/a/100520146/9859c0db785f04221a8799425bdba11e"  alt="橙黑色妹妹"/>
     </div>
     </div>
     </div>
