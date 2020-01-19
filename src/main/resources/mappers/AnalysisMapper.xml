@@ -29,7 +29,7 @@
 		select wordname,value,wordtype,formtype
 		from words  where 1=1
 		<if test="wordname != null and wordname != ''">
-			and wordname like CONCAT(CONCAT('%', #{wordname}), '%')
+			and wordname like concat('%',#{wordname},'%')
         </if>
 <!-- 		where wordname LIKE CONCAT(CONCAT('%', 'xz'), '%') -->
 		limit #{firstPage},#{rows}
@@ -40,7 +40,7 @@
 		select wordname,value,wordtype,formtype
 		from words  where 1=1
 		<if test="wordname != null and wordname != ''">
-			and wordname like CONCAT(CONCAT('%', #{wordname}), '%')
+			and wordname like concat('%',#{wordname},'%')
         </if>
 	</select>
 	
@@ -49,7 +49,7 @@
 		select wordname,value,wordtype,formtype
 		from words  where 1=1
 		<if test="wordname != null and wordname != ''">
-			and wordname like CONCAT(CONCAT('%', #{wordname}), '%')
+			and wordname like concat('%',#{wordname},'%')
         </if>
 <!-- 		where wordname LIKE CONCAT(CONCAT('%', 'xz'), '%') -->
 		
@@ -59,7 +59,7 @@
 	<select id="querywordslistcnt" parameterType="map" resultType="long">
     select count(*) from words  where 1=1
     <if test="wordname != null and wordname != ''">
-			and wordname like CONCAT(CONCAT('%', #{wordname}), '%')
+			and wordname like concat('%',#{wordname},'%')
     </if>    
 	</select>
 
