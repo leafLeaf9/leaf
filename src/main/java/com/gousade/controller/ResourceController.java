@@ -21,7 +21,6 @@ public class ResourceController {
 	
 	@RequestMapping(value="/selectResourceList",method=RequestMethod.POST)
 	public List<Resource> selectResourceList(){
-		List<Resource> r=resourceService.selectResourceList();
 		return resourceService.selectResourceList();
 	}
 	
