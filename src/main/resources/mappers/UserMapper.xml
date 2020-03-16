@@ -69,8 +69,7 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
 	  <update id="delusers" parameterType="map">
    
     update user 
-    set state='0'
-    
+    set delflag='1'   
     where user_id in
      <foreach collection="userids" item="userid" open="(" separator="," close=")">
     	#{userid}

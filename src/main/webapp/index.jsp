@@ -29,7 +29,7 @@ z-index:-1;
     <div data-options="region:'center'" style="overflow: hidden;">
     <div id="index_tabs" class="easyui-tabs" >
     <div title="SSR-publish" id="SSR-publish" style="padding:20px;display:none;">			
-		1the newest ssr link is :
+		the newest ssr link is :
 		<div id="ssr"></div>
 		<img src="/img/92f5c23a2b538e7b1e410d1e841eab87.png"  alt="Misaka Mikoto" width="100%" height="100%"/>
 	</div>

@@ -1,5 +1,6 @@
 package com.gousade.mapper;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.gousade.pojo.Resource;
@@ -19,4 +20,6 @@ public interface ResourceMapper {
     int updateByPrimaryKeySelective(Resource record);
 
     int updateByPrimaryKey(Resource record);
+    
+    int deleteBatchIds(List<? extends Serializable> idList);
 }

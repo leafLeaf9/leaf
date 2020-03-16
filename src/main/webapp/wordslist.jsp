@@ -156,6 +156,9 @@ $('#user').datagrid({
        pageNumber: 1,
        pageSize: 10,
        pageList: [10,20],
+       onLoadSuccess: function(data){
+       	console.log(data);
+       }
      });
 $('#insertDialog').dialog({
     title: '新增词语',

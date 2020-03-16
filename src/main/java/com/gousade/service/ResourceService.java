@@ -56,4 +56,30 @@ public class ResourceService {
 		}
 		return map;
 	}
+	
+	public Map<String, Object> updateresource(Resource resource) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int i=resourceMapper.updateByPrimaryKey(resource);
+		if(i>=1) {
+			map.put("status", true);
+			map.put("msg", "编辑资源成功");
+		}else {
+			map.put("status", false);
+			map.put("msg", "编辑资源失败");
+		}
+		return map;
+	}
+	
+	public Map<String, Object> deleteBatchIds(List<? extends String> idList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int i=resourceMapper.deleteBatchIds(idList);
+		if(i>=1) {
+			map.put("status", true);
+			map.put("msg", "删除资源成功");
+		}else {
+			map.put("status", false);
+			map.put("msg", "删除资源失败");
+		}
+		return map;
+	}
 }

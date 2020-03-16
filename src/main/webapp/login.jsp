@@ -20,7 +20,7 @@
                 <div id="logo"></div>
                 <h1></h1>
                 <div class="input username" id="username">
-                    <label for="userName">用户名1</label>
+                    <label for="userName">用户名</label>
                     <span></span>
                     <input type="text" id="userName" name="userId" />
                 </div>
