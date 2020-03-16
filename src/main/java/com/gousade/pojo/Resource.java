@@ -15,6 +15,8 @@ public class Resource {
 
     private String icon;
 
+    private Integer seq;
+
     private String remarks;
 
     private String status;
@@ -65,6 +67,14 @@ public class Resource {
 
     public void setIcon(String icon) {
         this.icon = icon == null ? null : icon.trim();
+    }
+
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
     }
 
     public String getRemarks() {

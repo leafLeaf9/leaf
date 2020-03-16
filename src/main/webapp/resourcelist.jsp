@@ -70,6 +70,13 @@
 <input name="remarks" type="text">
 </div>
 </li>
+
+<li>
+<div class="show-double">
+<label >排序：</label>
+<input name="seq" type="number">
+</div>
+</li>
 </ul>
 <button type="submit" class="submit" id="doSubmitButton">确定</button>
 <button type="button" class='submit' onClick="javascript:$('#insertDialog').dialog('close');return false;">取消</button>
@@ -105,6 +112,10 @@ $('#AllResourceTree').treegrid({
 		{
 			field : 'url',
             title : '资源路径',
+		},
+		{
+			field : 'seq',
+            title : '排序',
 		},
 		{
 			field : 'status',
@@ -181,6 +192,7 @@ function readyupdateresource(){
 		$("#EditResourceForm input[name=name]").val(rows[0].name);
 		$("#EditResourceForm input[name=url]").val(rows[0].url);
 		$("#EditResourceForm input[name=icon]").val(rows[0].icon);
+		$("#EditResourceForm input[name=seq]").val(rows[0].seq);
 		$("#EditResourceForm select[name=status]").val(rows[0].status);
 		$("#EditResourceForm input[name=remarks]").val(rows[0].remarks);
 		$('#resourceEditPid').combotree({
@@ -205,8 +217,6 @@ function readydelresource(){
 		$.messager.confirm('警告', '删除当前资源会连同子资源一起删除!您是否要删除当前资源？', function(r){
 			if (r){
 				progressLoad();
-				console.log(arr);
-				console.log(rows[0].children);
 				let data = [];//let和var有区别
 				temparr=[];
 				temparr.push(rows[0].id);
