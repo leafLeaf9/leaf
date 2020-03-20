@@ -92,6 +92,7 @@ $('#AllResourceTree').treegrid({
     idField:'id',
     treeField:'name',
     parentField : 'pid',
+    fit: true,
     fitColumns: true,
     rownumbers: true,
     singleSelect:false,
@@ -104,6 +105,7 @@ $('#AllResourceTree').treegrid({
     	{
 			title : '编号',
 			field : 'id',
+			width: 10,
 		},
 		{
 			field : 'name',
@@ -223,19 +225,19 @@ function readydelresource(){
 				data=getchildNode(rows[0]);
 				$.ajax({
 					type:"post",
-					   url:"${ctx}/deleteresource",
-					   data:{"ids":data},
-					   traditional: true,//传数组进后台需设置
-					   dataType:"json",
-					   success:function(data){
-						   if(data.status){
-							   $('#AllResourceTree').treegrid('reload');
-							   $('#AllResourceTree').treegrid('unselectAll');
-						 	   progressClose();
-						       $.messager.alert('提示', data.msg, 'info');
-						   }
-					   }
-					});
+				    url:"${ctx}/deleteresource",
+				    data:{"ids":data},
+				    traditional: true,//传数组进后台需设置
+				    dataType:"json",
+				    success:function(data){
+					    if(data.status){
+						    $('#AllResourceTree').treegrid('reload');
+						    $('#AllResourceTree').treegrid('unselectAll');
+					 	    progressClose();
+					        $.messager.alert('提示', data.msg, 'info');
+					    }
+				    }
+				});
 			}
 		});
 	}

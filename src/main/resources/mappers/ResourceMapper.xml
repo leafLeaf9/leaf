@@ -160,9 +160,8 @@
       icon = #{icon,jdbcType=VARCHAR},
       seq = #{seq,jdbcType=INTEGER},
       remarks = #{remarks,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      status = #{status,jdbcType=VARCHAR},     
+      update_time = sysdate()
     where id = #{id,jdbcType=VARCHAR}
   </update>
   

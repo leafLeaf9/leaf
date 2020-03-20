@@ -88,7 +88,7 @@ public class UserController {
     		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效
 //    		session.setAttribute("clickId","home");
     		String currentUser = subject.getPrincipal().toString();
-            System.err.println("当前登录的用户是："+currentUser);
+    		logger.info("当前登录的用户是："+currentUser);
     		ModelAndView mv = new ModelAndView("redirect:/main");
     		return mv;
         }catch(UnknownAccountException uae){  

@@ -89,8 +89,6 @@ public class AnalysisController {
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		Map<String, Object> paraMap = new HashMap<String, Object>();
 		String wordname = request.getParameter("wordname");
-		paraMap.put("firstPage", pageBean.getFirstPage());
-        paraMap.put("rows", pageBean.getRows());
         paraMap.put("wordname",wordname);
         PageHelper.startPage(pageBean.getPage(),pageBean.getRows());//引入PageHelper后会自动计算(page - 1) * rows，Page类后续可以考虑删掉
 		List<Map<String, Object>> list=analysisService.pagewordslist(paraMap);

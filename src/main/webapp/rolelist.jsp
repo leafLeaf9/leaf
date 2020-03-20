@@ -1,321 +1,284 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/template/commons/total.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<base href="<%=basePath%>">
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/generalForm.css" />
 <title>角色管理</title>
-<style>
-a{
- cursor:pointer;
- color:blue;
-}
-#label{
-display:none;
-}
-table
-  {
-  border-collapse:collapse;
-
-  }
-  table, td, th
-  {
-  border:1px solid black;
-  }
-.bg-nav{
-	overflow: hidden;
-	margin: 25px 0 10px 15px;
-	>span{
-		float: left;
-		margin-right: 15px;
-		color: #6DB4F9;
-		cursor: pointer;
-		img{
-			float: left;
-			margin: 2px 8px  0 0;
-		}
-		&+span{
-			border-left: 1px solid #DFDFDF;
-			padding-left: 15px;
-		}
-	}
-}
-.bg-nav>span{float:left;margin-right:15px;color:#6DB4F9;cursor:pointer}
-</style>
- <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
- <script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<div class="con">
-            	<!-- 操作 -->
-                <div class="bg-nav">
-                    <span onclick="readyinsertuser()">
-                        <img src="<%=request.getContextPath()%>/img/leading-in.png"/>
-                       	 新增
-                    </span>
-                    <span  onclick="readyupdateuser()">
-                        <img src="<%=request.getContextPath()%>/img/insert.png" />
-                       	 编辑
-                    </span>
-                    <span onclick="readydeluser()">
-                        <img src="<%=request.getContextPath()%>/img/delete.png" />
-                       	 删除
-                    </span>
-                </div>
-<table 	id="user"		align="center">
-			<tr class="th-blue-l">
-				<th class="js-ckAll"><input type="checkbox" name=""></th>
-				<th>
-					角色id
-				</th>
-				
-				<th>
-					角色名称
-				</th>
-				<th>
-					创建时间
-				</th>
-				<th>
-					更新时间
-				</th>
-				<th>
-					角色状态
-				</th>
-				
-				<th>
-					备注
-				</th>
-			</tr>
-            <tbody id="projlist">
-            	
-            	</tbody>
-			
-			
-		</table>
-		<div id="insert" align="center">
-		<table cellspacing="0" cellpadding="10" class="tfm" id="profilelist">
- 
-<tr >
-<th >角色id:</th>
-<td >
-<input type="text" name="role_id" id="role_id" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >角色状态:</th>
-<td >
-<input type="text" name="state" id="state" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >角色名称:</th>
-<td >
-<input type="text" name="role_name" id="role_name" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >备注:</th>
-<td >
-<input type="text" name="remark" id="remark" class="px" value="" tabindex="1" /></td>
-</tr>
+<a href="javascript:void(0)" onclick="readyinsertrole()" class="easyui-linkbutton"><i class="iconfont icon-Create_member"></i>新增</a>
+<a href="javascript:void(0)" onclick="readyeditrole()" class="easyui-linkbutton"><i class="iconfont icon-bianji"></i>编辑</a>
+<a href="javascript:void(0)" onclick="readydelrole()" class="easyui-linkbutton"><i class="iconfont icon-shanchu"></i>删除</a>
+<a href="javascript:void(0)" onclick="readyauthorize()" class="easyui-linkbutton"><i class="iconfont fi-check"></i>授权</a>
+<!-- <div class="easyui-layout" data-options="fit:true,border:false"> -->
+<!--     <div data-options="region:'center',border:false"  style="overflow: hidden;"> -->
+        <table id="role-datagrid"></table>
+<!--     </div> -->
+<!-- </div> -->
+<div id="roletoolbar" >
+	<span>角色名:</span>
+	<input name="keyword" style="line-height:26px;border:1px solid #ccc">
+	<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
+	<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="ClearSearch()">清空</a>
+</div>
+<div id="insertDialog" class="easyui-dialog" style="width:850px;height:200px;"
+    data-options="resizable:true,modal:true,closed:true,onClose: function() {document.getElementById('EditRoleForm').reset();}">
+<form id="EditRoleForm" method="post" class="contact-form" onsubmit="return false;"><!-- onsubmit用于防止表单提交页面跳转 -->
+<ul>
+<li>
+<div class="show-double">
+<label >角色名称：</label>
+<input name="id" type="hidden">
+<input name="name" type="text" required="required">
+</div>
+<div class="show-double">
+<label >序号：</label>
+<input name="seq" type="number">
+</div>
+</li>
 
-</table>
-<input type="button" value="提交" onclick="insertuser()">
-		</div>
-		<div id="update" align="center">
-		<table cellspacing="0" cellpadding="10" class="tfm" id="profilelist">
- 
-<tr >
-<th >角色id:</th>
-<td >
-<input type="text"  id="user_id1" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >角色状态:</th>
-<td >
-<input type="text"  id="password1"  /></td>
-</tr>
-<tr >
-<th >角色名称:</th>
-<td >
-<input type="text"  id="user_name1" class="px" value="" tabindex="1" /></td>
-</tr>
-<tr >
-<th >备注:</th>
-<td >
-<input type="text"  id="remark1" class="px" value="" tabindex="1" /></td>
-</tr>
+<li>
+<div class="show-double">
+<label >备注：</label>
+<input name="remarks" type="text">
+</div>
+</li>
 
-</table>
-<input type="button" value="提交" onclick="updateuser()">
-		</div>
-		
-		 
+</ul>
+<button type="submit" class="submit" id="doSubmitButton">确定</button>
+<button type="button" class='submit' onClick="javascript:$('#insertDialog').dialog('close');return false;">取消</button>
+</form>
+</div>
 
-		<script>
-  
-  $.postJSON = function(url, data, callback) {
-	      return jQuery.ajax( {
-	          'type' : 'POST',
-	          'url' : url,
-	          'contentType' : 'application/json;charset=UTF-8',
-	          'data' : JSON.stringify(data),
-	          'dataType' : 'json',
-	          'success' : callback
-	      });
-	  };
-	  $("#user").on("click",".th-blue-l .js-ckAll input[type=checkbox]",function(){
-			if($(this).prop("checked")==true){
-				$("#user .js-ck input[type=checkbox]").prop("checked",true);
-			}else{
-				$("#user .js-ck input[type=checkbox]").prop("checked",false);
-			}
-		})
+<div id="AuthorizeDialog" class="easyui-dialog" style="width:500px;height:500px;"
+    data-options="resizable:true,modal:true,closed:true">
+<div id="roleAuthorizeLayout" class="easyui-layout" data-options="fit:true,border:false">
+    <div data-options="region:'west'" title="资源授权" style="width: 300px; padding: 1px;">
+        <div class="well well-small" >
+            <form id="roleAuthorizeForm" method="post">
+                <input name="roleId" type="hidden" readonly="readonly">
+                <ul id="resourceTree"></ul>
+                <input id="resourceIds" name="resourceIds" type="hidden" />
+            </form>
+        </div>
+    </div>
+    <div data-options="region:'center'" title="" style="overflow: hidden; padding: 10px;">
+        <div>
+            <button onclick="checkAll();"><i class="iconfont fi-battery-full"></i>全选</button>
+            <br /> <br />
+            <button onclick="checkInverse();"><i class="iconfont fi-minus"></i>反选</button>
+            <br /> <br />
+            <button onclick="uncheckAll();"><i class="iconfont fi-battery-empty"></i>取消</button>
+            <br /> <br /> <br /> <br />
+            <button id="roleAuthorizeSubmit" style="cursor: pointer;"><i class="iconfont fi-download"></i>保存</button>
+        </div>      
+    </div>
+</div>
+</div>
+<script>
+$(function(){
+	$('#role-datagrid').datagrid({
+		url:'${ctx}/selectRoleList',
+		title:'角色管理',
+		fitColumns: true,
+		pagination: true,
+	    rownumbers: true,
+	    toolbar: '#roletoolbar',
+	    columns:[[
+	    	{
+	    		field: 'ck',
+	    		checkbox: true,
+	    	},
+	    	{
+	    		title : '编号',
+				field : 'id',
+				hidden: true,
+			},
+			{
+				field : 'name',
+	            title : '角色名称',
+	            width: 50,
+			},			
+			{
+				field : 'seq',
+	            title : '序号',
+	            width: 50,
+			},
+			{
+				field : 'remarks',
+	            title : '备注',
+	            width: 50,
+			},
+			{
+				field : 'createTime',
+	            title : '创建时间',
+	            width: 50,
+			},
+			{
+				field : 'updateTime',
+	            title : '更新时间',
+	            width: 50,
+			},
+	    ]],
+	});
+	
+	$('#resourceTree').tree({
+		url : '${ctx}/selectAllTree',
+        parentField : 'pid',
+        lines : true,
+        checkbox : true,
+        cascadeCheck : false,
+        onLoadSuccess: function(node,data){
+        	$("#resourceTree").tree("collapseAll");//折叠所有节点
+        	$(".tree-icon,.tree-file").removeClass("tree-icon tree-file");//删除tree默认的文件夹和文件图标
+            $(".tree-icon,.tree-folder").removeClass("tree-icon tree-folder tree-folder-open tree-folder-closed");
+        }
+	});	
+})
+function doSearch(){
+	$('#role-datagrid').datagrid('load', {
+        name: $('#roletoolbar input[name=keyword]').val(),
+      });
+}
+function ClearSearch(){
+	  $('#roletoolbar input').val('');
+	  $('#role-datagrid').datagrid('reload',{});
+}
+function readyinsertrole(){
+	$('#insertDialog').dialog('open').dialog("center").dialog("setTitle", "新增角色");
+}
 
-  function queryprojlist(){
-	  var webRootPath = '<%=request.getContextPath()%>';	  
-		var qaram = {
-			// "pageNum" : (pageNum-1)*pageSize,
-			// "pageSize" : pageSize,
-			// "roleId" : roleIdShowGlob,
-			
-			
-		};
-		$.postJSON(webRootPath + "/testrolelist", qaram, function(data) {
-			var trs = "";
-			if (data) {
-					$.each(data, function(index, value) {
-											trs += "<tr>"
-												+"<td class='js-ck'><input type='checkbox' name='messagePush' value='"+value.roleId+"' data-state= '"+value.state+"' data-name= '"+value.roleName+"' data-remark= '"+value.remark+"' ></td>"
-												  
-													+"<td >"+value.roleId+"</td>"
-													
-													+"<td >"+value.roleName+"</td>"
-													+"<td >"+value.created+"</td>"
-													+"<td >"+value.updated+"</td>"
-													+"<td >"+value.state+"</td>"													
-													+"<td >"+value.remark+"</td>"
-												+"</tr>";
-										});
-				
-				$("#projlist").html(trs);
-				
-			}
-		});
-		
+function readyeditrole(){
+	var rows = $('#role-datagrid').datagrid('getSelections');
+	if(rows.length!=1){
+		$.messager.alert('提示', '请仅选择一条记录进行编辑!', 'info');
+		return false;
+	}else{
+		$('#insertDialog').dialog('open').dialog("center").dialog("setTitle", "编辑角色");
+		$("#EditRoleForm input[name=id]").val(rows[0].id);
+		$("#EditRoleForm input[name=name]").val(rows[0].name);
+		$("#EditRoleForm input[name=seq]").val(rows[0].seq);
+		$("#EditRoleForm input[name=remarks]").val(rows[0].remarks);
 	}
-  queryprojlist();
-  $("#insert").hide();
-  $("#update").hide();
-  function readyinsertuser(){
-	  $("#update").hide();
-	  $("#insert").show();
-  }
-  function readyupdateuser(){
-	  var checkMshPsh=$("input[name='messagePush']:checked");
-		console.log($("input[name='messagePush']:checked")[0])
-		if($(checkMshPsh).length!=1){
-			alert("提示！,请选择且仅选择一条记录");
-		}else{
-			$("#insert").hide();
-			$("#update").show();
-			$("#user_id1").val($(checkMshPsh).val());
-			$("#password1").val($(checkMshPsh).data("state"));
-			$("#user_name1").val($(checkMshPsh).data("name"));
-			$("#remark1").val($(checkMshPsh).data("remark"));
-			
-			
-			
-		}
-	  
-  }
-	function readydeluser() { 
-		
-		if(confirm("是否删除选定内容？")) {
-			deluser();
-		}else{
-			
-		}
+}
 
+$('#EditRoleForm').submit(function(e){
+	progressLoad();
+	$.ajax({
+    	type : "post",  
+    	url : '${ctx}/saverole',
+   		dataType : 'json',  
+    	contentType : 'application/json;charset=utf-8', // 设置请求头信息  
+    	data:JSON.stringify($('#EditRoleForm').serializeObject()),
+    	success : function(result) {
+    		progressClose();
+    		$('#EditRoleForm')[0].reset();
+        	$('#insertDialog').dialog('close');
+    		$('#role-datagrid').datagrid('reload');
+    		$.messager.alert('提示', result.msg, 'info');
+    	}  
+	})
+})
 
-		} 
-  function insertuser(){
-	  var webRootPath = '<%=request.getContextPath()%>';	
-		var qaram = {
-				"role_id" :  $("#role_id").val(),
-				"state" :  $("#state").val(),
-				"role_name" :  $("#role_name").val(),
-				"remark" :  $("#remark").val()
-			
-			};
-		console.log( JSON.stringify(qaram));
-		
-		$.postJSON(webRootPath + "/insertrole", qaram, function(data) {
-              if (data) {
-				
-				alert(data.result);
-				
-				
-			}else{
-				alert("操作失败！");
+function readydelrole(){
+	var rows = $('#role-datagrid').datagrid('getSelections');
+	if(rows.length<1){
+		$.messager.alert('提示', '请至少一条记录进行删除。', 'error');
+	}else{
+		$.messager.confirm('警告', '是否确认删除这些角色？', function(r){
+			if (r){
+				progressLoad();
+				var data=[];
+				for(var i=0; i<rows.length; i++){
+					data.push(rows[i].id);
+				}
+				$.ajax({
+					type:"post",
+				    url:"${ctx}/deleterole",
+				    data:{"ids":data},
+				    traditional: true,//传数组进后台需设置
+				    dataType:"json",
+				    success:function(data){
+				    	if(data.status){
+				    		progressClose();
+				    		$('#role-datagrid').datagrid('reload');
+				    		$.messager.alert('提示', data.msg, 'info');
+				    	}
+				    }
+				});
 			}
 		});
-  }
-  function updateuser(){
-	  var webRootPath = '<%=request.getContextPath()%>';	
-		var qaram = {
-				"role_id" :  $("#user_id1").val(),
-				"state" :  $("#password1").val(),
-				"role_name" :  $("#user_name1").val(),
-				"remark" :  $("#remark1").val()
-			
-			};
-		console.log( JSON.stringify(qaram));
-		
-		$.postJSON(webRootPath + "/updaterole", qaram, function(data) {
-              if (data) {
-				
-				alert(data.result);
-				
-				
-			}else{
-				alert("操作失败！");
-			}
+	}
+}
+
+function readyauthorize(){
+	var rows = $('#role-datagrid').datagrid('getSelections');
+	if(rows.length!=1){
+		$.messager.alert('提示', '请仅选择一个角色进行资源授权!', 'warning');
+		return false;
+	}else{
+		$('#AuthorizeDialog').dialog('open').dialog("center").dialog("setTitle", "授权");
+		progressLoad();
+		$("#roleAuthorizeForm input[name=roleId]").val(rows[0].id);
+		uncheckAll();
+		$.ajax({
+			type:"post",
+		    url:"${ctx}/selectResourceIdListByRoleId",
+		    contentType : 'application/json;charset=utf-8',
+		    data:JSON.stringify(rows[0]),
+		    dataType:"json",
+		    success:function(result){
+		    	if(result.status){
+		    		progressClose();
+		    		var tempArr = result.resultData;
+		    		for (var i = 0; i < tempArr.length; i++) {
+		    			if ($('#resourceTree').tree('find', tempArr[i])) {
+		    				$('#resourceTree').tree('check', $('#resourceTree').tree('find', tempArr[i]).target);
+                        }
+		    		}
+		    	}
+		    }
 		});
-  }
-  
-  function deluser(){
-	  var webRootPath = '<%=request.getContextPath()%>';	
-	  var ruleIds=new Array();
-	 // var ruleIds = {};
-	var i=0;
-	  var proj_id=$("#input").val();
-		$("#user .js-ck input[name='messagePush']:checked").each(function(){
-			/*ruleIds[i] = {};
-			ruleIds[i]['userid'] =$(this).val();
-			i++;*/
-			ruleIds.push($(this).val());
-		});
-		console.log(ruleIds);
-		var qaram = {
-				
-			"roleids": ruleIds
-			
-			};
-		console.log( JSON.stringify(qaram));
-		
-		$.postJSON(webRootPath + "/delroles", qaram, function(data) {
-              if (data) {
-				
-				alert(data.result);
-				
-				
-			}else{
-				alert("操作失败！");
-			}
-		});
-  }
-  
-  </script>
+	}
+}
+
+$("#roleAuthorizeSubmit").on("click", function(){
+	progressLoad();
+	var roleId=$("#roleAuthorizeForm input[name=roleId]").val();
+	var tempArr = [];
+	var checknodes = $('#resourceTree').tree('getChecked');
+	if (checknodes && checknodes.length > 0) {
+        for ( var i = 0; i < checknodes.length; i++) {
+        	tempArr.push(checknodes[i].id);
+        }
+    }
+	$.ajax({
+		type:"post",
+	    url:"${ctx}/saveRoleAuthorize",
+	    data:{"roleId":roleId,"resourceIds":tempArr},
+	    traditional: true,//传数组进后台需设置
+	    dataType:"json",
+	    success:function(data){
+	    	if(data.status){
+	    		progressClose();
+	    		$('#AuthorizeDialog').dialog('close');
+	    		$('#role-datagrid').datagrid('reload');
+	    		$.messager.alert('提示', data.msg, 'info');
+	    	}
+	    }
+	});
+})
+
+function uncheckAll(){
+	var nodes = $('#resourceTree').tree('getChecked');
+	if (nodes && nodes.length > 0) {
+		for ( var i = 0; i < nodes.length; i++) {
+			$('#resourceTree').tree('uncheck', nodes[i].target);
+		}
+	}
+}
+</script>
 </body>
 </html>

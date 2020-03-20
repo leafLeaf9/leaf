@@ -97,9 +97,9 @@ function getnowtime(){
   }
   document.getElementById("nowtime").innerHTML="当前时间："+year+"年"+month+"月"+day+"日  "+hour+":"+minite+":"+second;
 }
-$("#bd").height($(window).height()-$("#hd").outerHeight()-26);
+$("#bd").height($(window).height()-$("#hd").height());
 $(window).resize(function(e) {
-    $("#bd").height($(window).height()-$("#hd").outerHeight()-26);
+    $("#bd").height($(window).height()-$("#hd").height());
 
 });
 

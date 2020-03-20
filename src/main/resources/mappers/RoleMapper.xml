@@ -5,13 +5,26 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="delflag" property="delflag" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, remarks, create_time, update_time, delflag
+    id, name, remarks, seq, create_time, update_time, delflag
   </sql>
+  
+  <select id="selectRoleList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from role t
+    where t.delflag=0
+    <if test="name != null and name != ''">
+			and t.name like concat('%',#{name},'%')
+    </if>
+    order by create_time
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -23,11 +36,11 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gousade.pojo.Role" >
-    insert into role (id, name, remarks, 
+    insert into role (id, name, remarks, seq, 
       create_time, update_time, delflag
       )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delflag,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
+      sysdate(), #{updateTime,jdbcType=TIMESTAMP}, 0
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gousade.pojo.Role" >
@@ -41,6 +54,9 @@
       </if>
       <if test="remarks != null" >
         remarks,
+      </if>
+      <if test="seq != null" >
+        seq,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -62,6 +78,9 @@
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -82,6 +101,9 @@
       <if test="remarks != null" >
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="seq != null" >
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -98,9 +120,25 @@
     update role
     set name = #{name,jdbcType=VARCHAR},
       remarks = #{remarks,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      delflag = #{delflag,jdbcType=VARCHAR}
+      seq = #{seq,jdbcType=INTEGER},
+      update_time = sysdate()
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <delete id="deleteBatchIds">
+	update role set delflag=1,update_time=sysdate()
+	where  delflag=0
+	and id in 
+	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+	   	 #{item}  
+	</foreach>
+  </delete>
+  
+  <select id="selectResourceIdListByRoleId" resultType="java.lang.String" parameterType="java.lang.String">
+  select re.resourceid as id from
+  role r left join role_resource re on r.id=re.roleid
+  and r.delflag=0
+  and re.delflag=0
+  where r.id=#{id}
+  </select>
 </mapper>

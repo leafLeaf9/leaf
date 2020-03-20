@@ -2,21 +2,15 @@ package com.gousade.pojo;
 
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
-public class Role {
+public class RoleResource {
     private String id;
 
-    private String name;
+    private String roleid;
 
-    private String remarks;
-    
-    private Integer seq;
+    private String resourceid;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private String delflag;
@@ -29,29 +23,21 @@ public class Role {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getRoleid() {
+        return roleid;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setRoleid(String roleid) {
+        this.roleid = roleid == null ? null : roleid.trim();
     }
 
-    public String getRemarks() {
-        return remarks;
+    public String getResourceid() {
+        return resourceid;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
+    public void setResourceid(String resourceid) {
+        this.resourceid = resourceid == null ? null : resourceid.trim();
     }
-    
-	public Integer getSeq() {
-		return seq;
-	}
-
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
 
     public Date getCreateTime() {
         return createTime;
