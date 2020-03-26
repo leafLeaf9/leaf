@@ -271,6 +271,15 @@ $("#roleAuthorizeSubmit").on("click", function(){
 	});
 })
 
+function checkAll(){
+	var nodes = $('#resourceTree').tree('getChecked', 'unchecked');
+	if (nodes && nodes.length > 0) {
+		for ( var i = 0; i < nodes.length; i++) {
+			$('#resourceTree').tree('check', nodes[i].target);
+		}
+	}
+}
+
 function uncheckAll(){
 	var nodes = $('#resourceTree').tree('getChecked');
 	if (nodes && nodes.length > 0) {
@@ -278,6 +287,21 @@ function uncheckAll(){
 			$('#resourceTree').tree('uncheck', nodes[i].target);
 		}
 	}
+}
+
+function checkInverse(){
+	var unchecknodes = $('#resourceTree').tree('getChecked', 'unchecked');
+	var checknodes = $('#resourceTree').tree('getChecked');
+	if (unchecknodes && unchecknodes.length > 0) {
+        for ( var i = 0; i < unchecknodes.length; i++) {
+        	$('#resourceTree').tree('check', unchecknodes[i].target);
+        }
+    }
+	if (checknodes && checknodes.length > 0) {
+        for ( var i = 0; i < checknodes.length; i++) {
+        	$('#resourceTree').tree('uncheck', checknodes[i].target);
+        }
+    }
 }
 </script>
 </body>
