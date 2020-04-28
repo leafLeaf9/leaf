@@ -79,6 +79,7 @@ table, td, th
 <script type="text/javascript" src="./js/jsUtil/jsUtil.js"></script>
 <script type="text/javascript" src="./js/jsUtil/extraJs.js"></script>
 <!-- <script src ="canvas-nest.js-2.0.1/dist/newnest.js"></script> -->
+<script type="text/javascript" src="./static/echarts/echarts.min.js"></script>
 </head>
 <body>
 <%--ctxPath--%>
