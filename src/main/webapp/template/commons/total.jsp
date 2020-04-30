@@ -72,14 +72,15 @@ table, td, th
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
 <link rel="stylesheet" href="./img/icon-font/iconfont.css"><!-- 阿里巴巴矢量图标 -->
 <link rel="stylesheet" href="./foundation-icons/foundation-icons.css"><!-- foundation图标 -->
-<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.min.js"></script>
-<script type="text/javascript" src="./js/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+<script src="./js/jquery-easyui-1.7.0/jquery.min.js"></script>
+<script src="./js/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
 <!-- <script type="text/javascript" src="./js/jquery.color.js"></script> -->
-<script type="text/javascript" src="./js/jsUtil/jsUtil.js"></script>
-<script type="text/javascript" src="./js/jsUtil/extraJs.js"></script>
+<script src="./js/jsUtil/jsUtil.js"></script>
+<script src="./js/jsUtil/extraJs.js"></script>
 <!-- <script src ="canvas-nest.js-2.0.1/dist/newnest.js"></script> -->
-<script type="text/javascript" src="./static/echarts/echarts.min.js"></script>
+<script src="./static/echarts/echarts.min.js"></script>
+<script src="./static/echarts/echarts-gl.min.js"></script>
 </head>
 <body>
 <%--ctxPath--%>
