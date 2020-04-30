@@ -25,6 +25,7 @@ import com.gousade.utils.SaltUtil;
 * https://blog.csdn.net/nextyu/article/details/78669997
 * https://www.cnblogs.com/caoyc/p/5632963.html
 * https://www.cnblogs.com/xd502djj/p/10940627.html
+* webapp/img/Exception.png
 */
 
 @Service
