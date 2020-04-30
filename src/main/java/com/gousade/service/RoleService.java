@@ -1,5 +1,6 @@
 package com.gousade.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,12 +10,22 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gousade.mapper.RoleMapper;
 import com.gousade.mapper.RoleResourceMapper;
 import com.gousade.pojo.Role;
 import com.gousade.pojo.RoleResource;
 import com.gousade.utils.SaltUtil;
+
+/** 
+* 类说明:角色管理Service，并且测试@Transactional注解功能
+* @Transactional 默认只回滚RuntimeException和Error，添加rollbackFor = Exception.class可以让事物在遇到非运行时异常时也回滚
+* 参考https://www.cnblogs.com/clwydjgs/p/9317849.html 
+* https://blog.csdn.net/nextyu/article/details/78669997
+* https://www.cnblogs.com/caoyc/p/5632963.html
+* https://www.cnblogs.com/xd502djj/p/10940627.html
+*/
 
 @Service
 public class RoleService {
@@ -29,10 +40,14 @@ public class RoleService {
         return list;
     }
 	
+	@Transactional
 	public Map<String, Object> insertrole(Role role) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		role.setId(SaltUtil.getUUId());
 		int i=roleMapper.insert(role);
+		/*if (true) {//测试@Transactional注解是否生效，默认只回滚RuntimeException和Error
+	        throw new RuntimeException("save 抛异常了");
+	    }*/
 		if(i>=1) {
 			map.put("status", true);
 			map.put("msg", "新增角色成功");
@@ -43,9 +58,13 @@ public class RoleService {
 		return map;
 	}
 	
-	public Map<String, Object> updaterole(Role role) {
+	@Transactional(rollbackFor = Exception.class)
+	public Map<String, Object> updaterole(Role role) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int i=roleMapper.updateByPrimaryKey(role);
+		/*if (true) {//测试@Transactional注解是否生效，默认只回滚RuntimeException和Error，添加rollbackFor = Exception.class可以让事物在遇到非运行时异常时也回滚
+	        throw new IOException("save 抛异常了");
+	    }*/
 		if(i>=1) {
 			map.put("status", true);
 			map.put("msg", "编辑角色成功");
@@ -78,6 +97,7 @@ public class RoleService {
 		return map;
     }
 	
+	@Transactional(rollbackFor = Exception.class)
 	public Map<String, Object> saveRoleAuthorize(String roleId, String[] resourceIds) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		roleResourceMapper.deleteByRoleId(roleId);

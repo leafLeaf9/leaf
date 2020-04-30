@@ -1,5 +1,6 @@
 package com.gousade.controller;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +44,7 @@ public class RoleController {
 	}
 	
 	@RequestMapping(value="/saverole",method=RequestMethod.POST)
-	public Map<String,Object> saverole(@RequestBody Role role){
+	public Map<String,Object> saverole(@RequestBody Role role) throws IOException{
 		if(StringUtils.isBlank(role.getId())){
 			return roleService.insertrole(role);
 		}else{
