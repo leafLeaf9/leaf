@@ -12,6 +12,7 @@
 <a href="javascript:void(0)" onclick="readyeditrole()" class="easyui-linkbutton"><i class="iconfont icon-bianji"></i>编辑</a>
 <a href="javascript:void(0)" onclick="readydelrole()" class="easyui-linkbutton"><i class="iconfont icon-shanchu"></i>删除</a>
 <a href="javascript:void(0)" onclick="readyauthorize()" class="easyui-linkbutton"><i class="iconfont fi-check"></i>授权</a>
+<a href="javascript:void(0)" onclick="generatePDF()" class="easyui-linkbutton"><i class="iconfont fi-check"></i>PDF生成方法测试</a>
 <!-- <div class="easyui-layout" data-options="fit:true,border:false"> -->
 <!--     <div data-options="region:'center',border:false"  style="overflow: hidden;"> -->
         <table id="role-datagrid"></table>
@@ -303,6 +304,14 @@ function checkInverse(){
         	$('#resourceTree').tree('uncheck', checknodes[i].target);
         }
     }
+}
+function generatePDF(){
+	var myform = $("<form></form>");
+    myform.attr('method', 'post');
+    myform.attr('target', 'hiddenIframe');
+    myform.attr('action', "${ctx}/generatePDFTest");
+    myform.appendTo('body').submit();
+    myform.remove();
 }
 </script>
 </body>
