@@ -1,4 +1,4 @@
-package com.gousade.config;
+package com.gousade.scheduler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +8,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 
 /** 
 * @author 作者: woxi-Gisard
@@ -33,12 +35,13 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableScheduling//此做法和将@EnableScheduling这个注解写在springboot入口处的效果是一样的，两个写一个即可。
 @EnableAsync
+@Slf4j
 public class SchedulerTask {
 	
 	@Async
 	@Scheduled(cron = "*/6 * * * * ?")
 	public void pushDataScheduled(){
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		System.out.println("现在时间：" + dateFormat.format(new Date()));
+		log.info("现在时间：" + dateFormat.format(new Date()));
 	}
 }

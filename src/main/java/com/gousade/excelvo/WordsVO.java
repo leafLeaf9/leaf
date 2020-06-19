@@ -1,8 +1,15 @@
 package com.gousade.excelvo;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
+import java.io.Serializable;
 
-public class WordsVO {
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.handler.inter.IExcelModel;
+
+public class WordsVO implements IExcelModel,Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
+	private String errorMsg;
 	
 	@Excel(name = "词名")
 	private String wordname;
@@ -46,6 +53,16 @@ public class WordsVO {
 
 	public void setFormtype(String formtype) {
 		this.formtype = formtype;
+	}
+
+	@Override
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	@Override
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
 	}
 
 }
