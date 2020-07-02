@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.gousade.annotation.OperateHis;
 import com.gousade.pojo.Role;
 import com.gousade.service.RoleService;
 import com.gousade.utils.GeneratePDFUtil;
@@ -35,6 +36,7 @@ public class RoleController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@OperateHis(operationType=0)
 	@RequestMapping(value="/selectRoleList",method=RequestMethod.POST)
 	public Map<String,Object> selectRoleList(@RequestParam(value="page", required=false) String page, 
             @RequestParam(value="rows", required=false) String rows,HttpServletRequest request){

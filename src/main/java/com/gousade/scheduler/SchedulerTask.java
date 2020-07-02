@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 * @author 作者: woxi-Gisard
 * @version 创建时间:2019年12月18日 下午6:29:28 
 * 类说明:CRON表达式 含义 :
-		0 0 12 * * ?” 每天中午十二点触发 
+		0 00 12 * * ?” 每天中午十二点触发 
 		0 15 10 ? * *” 每天早上10：15触发 
 		0 15 10 * * ?” 每天早上10：15触发 
 		0 15 10 * * ? *” 每天早上10：15触发 
@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SchedulerTask {
 	
 	@Async
-	@Scheduled(cron = "*/6 * * * * ?")
+	@Scheduled(cron = "0 0/3 * * * *")
 	public void pushDataScheduled(){
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		log.info("现在时间：" + dateFormat.format(new Date()));

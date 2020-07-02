@@ -18,9 +18,7 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
  * 动态配置定时任务
- * 
  */
 @Slf4j
 @Component
@@ -59,7 +57,7 @@ public class TimerTaskDynamicCron {
             @Override
             public Date nextExecutionTime(TriggerContext triggerContext){
             	//0/30 * * * * ?
-            	CronTrigger trigger = new CronTrigger("*/10 * * * * *");
+            	CronTrigger trigger = new CronTrigger("0 0/3 * * * *");
                 Date nextExec = trigger.nextExecutionTime(triggerContext);
                 return nextExec;
             }
