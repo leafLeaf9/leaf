@@ -20,15 +20,10 @@ import org.springframework.context.annotation.Configuration;
 import com.gousade.pojo.User;
 import com.gousade.service.UserService;
 
-/**
- * Realms配置;
- * 注:可编写多个realm类继承AuthorizingRealm实现多认证、多授权;
- *    为快速实例,这里只编写了一个类来继承AuthorizingRealm
- *
- * @author JustryDeng
- * @Date 2018年8月25日 上午11:00:31
- */
-@Configuration
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Configuration //在@Configuration注解中是包含@Component注解的
 public class ShiroRealm extends AuthorizingRealm {
 	
 	@Autowired
@@ -36,7 +31,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) 
 			throws AuthenticationException {
-        System.out.println(".......................................ShiroRealm");
+        log.info(".......................................ShiroRealm");
 		// 1. 把 AuthenticationToken 拆箱转换为 UsernamePasswordToken
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
  
@@ -98,7 +93,7 @@ public class ShiroRealm extends AuthorizingRealm {
  
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		System.out.println("...................ShiroRealm鉴权");
+		log.info("...................ShiroRealm鉴权");
 		/*
 		 * 1.从principals中获取到第一个principal
 		 *  注:多个Realm时,Shiro返回给此方法的参数principals的规则是由身份认证策略控制的(可详见:身份认证策略)

@@ -10,6 +10,8 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.select.js"></script>
 <title>shiro登录界面</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/loginShiroUser" method="post" >

@@ -70,12 +70,12 @@ public class RedisJavaTest {
 	*/
 	@Test
 	public void patterntest(){
-		 String content = "arunooba";		
-		 String pattern = ".*runoob.*";		//.* .代表任意一个字符 *代表*前的那个字符可以重复0到无数次 所以.*代表任意个任意字符		 
+		 String content = "Swift1 Swift2 Swift3Swift4Swift4Swift4";		
+		 String pattern = "Swift(?!4)";		//.* .代表任意一个字符 *代表*前的那个字符可以重复0到无数次 所以.*代表任意个任意字符		 
 		 boolean isMatch = Pattern.matches(pattern, content);
 		 log.warn("字符串中是否包含了 'runoob' 子字符串? " + isMatch);
 		 String str="()";
 		 String pat="\\(.*";
-		 log.debug(""+Pattern.matches(pat, str));
+//		 log.debug(""+Pattern.matches(pat, str));
 	}
 }

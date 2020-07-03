@@ -81,6 +81,8 @@ table, td, th
 <!-- <script src ="canvas-nest.js-2.0.1/dist/newnest.js"></script> -->
 <script src="./static/echarts/echarts.min.js"></script>
 <script src="./static/echarts/echarts-gl.min.js"></script>
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
 </head>
 <body>
 <%--ctxPath--%>

@@ -1,9 +1,5 @@
 package com.gousade.controller;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -45,25 +41,16 @@ public class ManageController {
 		return "redirect:/main";
 	}
 	
-	@RequestMapping("/{pageName}")
+	@RequestMapping("/{pageName:^(?!favicon.ico).*$}")//此正则用于排除@RequestMapping("favicon.ico")将favicon.ico也解析为jsp视图
 	public String toPage(@PathVariable String pageName,HttpServletRequest request,HttpServletResponse response){
-		/*Set<String> notLoginPaths = new HashSet<>();
-		notLoginPaths.add("");
-		notLoginPaths.add("login");
-		if(notLoginPaths.contains(pageName)) {
-			return pageName;	
-		}else {
-			String user =  (String) request.getSession().getAttribute("u");
-			if(user==null) {
-				System.out.println("尚未登录，跳转到登录界面");
-				
-				return "redirect:/login";
-			}else{
-				return pageName;
-			}
-		}*/
-		return pageName;
-	}	
+			return pageName;
+	}
+	
+	/*@RequestMapping("/favicon.ico")
+    public String returnFavicon() {
+        return "forward:/static/favicon.ico";
+        //此方法有错误 不知道应该返回什么才能得到favicon.ico图标 不写此方法的话@RequestMapping("/{pageName}"默认会把获取favicon.ico得请求也解析为jsp视图
+    }*/
 
 	@RequestMapping("/")
 	public String showIndex(){

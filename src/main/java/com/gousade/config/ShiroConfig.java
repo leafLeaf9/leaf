@@ -47,6 +47,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/foundation-icons/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/template/**", "anon");
+        filterChainDefinitionMap.put("/favicon.ico", "anon");//防止favicon.ico图标被拦截
+        filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/static/templates/**", "authc");
 		filterChainDefinitionMap.put("/**", "authc");
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
