@@ -28,13 +28,14 @@ import com.gousade.pojo.Role;
 import com.gousade.service.RoleService;
 import com.gousade.utils.GeneratePDFUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class RoleController {
 	
 	@Autowired
 	private RoleService roleService;
-	
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@OperateHis(operationType=0)
 	@RequestMapping(value="/selectRoleList",method=RequestMethod.POST)
@@ -46,6 +47,7 @@ public class RoleController {
 		param.put("name",name);
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
 		List<Role> list = roleService.selectRoleList(param);
+		log.info(list.get(0).toString());
 		PageInfo<Role> pageInfo = new PageInfo<Role>(list);
 		long total = pageInfo.getTotal();
 		result.put("rows", list);
@@ -63,10 +65,10 @@ public class RoleController {
 	public void generatePDFTest(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		//模板路径
 		String templatePath=request.getServletContext().getRealPath("/")+"static\\template\\order\\feeOrderTemplate.pdf";
-		logger.info(templatePath);
+		log.info(templatePath);
 		//生成文件的路径
 		String filePath=request.getServletContext().getRealPath("/")+"static\\template\\order\\"+System.currentTimeMillis()+".pdf";
-		logger.info(filePath);
+		log.info(filePath);
 		Map<String, String> map=new HashMap<String, String>();
 		map.put("realName", "名字0");
 		map.put("mobile","mobile1");

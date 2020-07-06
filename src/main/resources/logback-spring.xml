@@ -58,8 +58,9 @@
 	<loger>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger。
 	level:用来设置打印级别，大小写无关。如果未设置此属性，那么当前loger将会继承上级的级别。
 	addtivity:是否向上级loger传递打印信息。默认是true。 -->
-    <logger name="com.gousade.controller" level="WARN" additivity="false">
+    <logger name="com.gousade.controller" level="DEBUG" additivity="false">
         <appender-ref ref="ConsoleInfoLog"/>
+        <appender-ref ref="FileInfoLog"/>
     </logger>
     
     <!--此处和application.properties中的logging.level.com.gousade.mapper=debug只需配置一个即可，作用相同，使得控制台和日志可以打印sql-->

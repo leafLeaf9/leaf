@@ -2,6 +2,8 @@ package com.gousade.pojo;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Role {
@@ -75,5 +77,10 @@ public class Role {
 
     public void setDelflag(String delflag) {
         this.delflag = delflag == null ? null : delflag.trim();
+    }
+    
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

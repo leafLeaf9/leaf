@@ -1,6 +1,6 @@
 /*css reset-uimaker.com版权所有*/
 html{*overflow:auto;}
-#container{position:relative;background:url(../../img/skin_/loginlight.png) no-repeat center center;background-color:#0170a4;}
+#container{position:relative;background:url(../../img/skin_/loginlight.png) no-repeat center center;}
 
 /*页面主体*/
 #bd{min-height:430px;}

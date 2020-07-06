@@ -12,6 +12,11 @@
 <title>shiro登录界面</title>
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
+<style>
+body{
+background: url(img/bg1.jpg);
+}
+</style>
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/loginShiroUser" method="post" >
