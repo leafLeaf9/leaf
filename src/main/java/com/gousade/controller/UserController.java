@@ -75,7 +75,7 @@ public class UserController {
 	public ModelAndView loginShiroUser(@RequestParam(value="userId") String userId,
 			@RequestParam(value="password") String password,Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		logger.info("进行账号"+userId+",密码验证"+password+".....");
+//		logger.info("进行账号"+userId+",密码验证"+password+".....");
     	UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(userId,password);
     	Subject subject = SecurityUtils.getSubject();
     	ModelAndView loginmv = new ModelAndView("login");

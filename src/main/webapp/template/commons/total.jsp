@@ -83,10 +83,23 @@ table, td, th
 <script src="./static/echarts/echarts-gl.min.js"></script>
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
+<!-- Bootstrap 4.5.0 如果你使用的是我们编译过的 JavaScript，不要忘记在它之前引入 jQuery 和 Popper.js jQuery在前,Popper在中间,Bootstrap最后 -->
+<script src="./static/popper.js-1.6.1/popper.min.js"></script>
+<link rel="stylesheet" href="./static/bootstrap-4.5.0-dist/css/bootstrap.min.css">
+<script src="./static/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/jquery.dataTables.css">
+<script src="./static/DataTables-1.10.21/media/js/jquery.dataTables.js"></script>
+<!-- Select2 -->
+<link rel="stylesheet" href="./static/select2-4.0.13/dist/css/select2.min.css">
+<script src="./static/select2-4.0.13/dist/js/select2.min.js"></script>
+<script src="./static/select2-4.0.13/dist/js/select2tree.js"></script>
 </head>
 <body>
 <%--ctxPath--%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<%--静态文件目录 --%>
+<c:set var="staticPath" value="${ctx}" />
 <script>
 $.postJSON = function(url, data, callback) {
     return jQuery.ajax( {
@@ -98,6 +111,14 @@ $.postJSON = function(url, data, callback) {
         'success' : callback
     });
 };
+//配置DataTables默认参数
+$.extend(true, $.fn.dataTable.defaults, {
+    "language": {
+    	"url": "./static/DataTables-1.10.21/assets/Chinese.txt",
+    	"pagingType": "full_numbers",
+    	"autoWidth": true,
+    }
+});
 </script>
 </body>
 </html>

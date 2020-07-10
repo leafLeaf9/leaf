@@ -1,39 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>  
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/template/commons/total.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<base href="<%=basePath%>">
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="keywords" content="jquery,ui,easy,easyui,web">
-	<meta name="description" content="easyui help you build your web page easily!">
 <title>datatables测试页面</title>
-<style>
-</style>
- <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
- <script src="http://cdn.bootcss.com/jquery/1.12.2/jquery.js"></script>
- <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="./js/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="./js/jquery.color.js"></script>
-	<script type="text/javascript" src="./js/jsUtil.js"></script>
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="DataTables-1.10.15/media/css/jquery.dataTables.css">
-<!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="DataTables-1.10.15/media/js/jquery.js"></script>
-<!-- DataTables -->
-<script type="text/javascript" charset="utf8" src="DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
 </head>
-<body>	
-<table id="table_id_example" class="display">
+<body>
+<button type="button" class="btn btn-success btn-sm" >新增</button>
+<select class="form-control" id="id_select2_demo1"></select>
+<table id="table_id_example" class="table table-bordered table-hover nowrap">
     <thead>
         <tr>
             <th>Column 1</th>
@@ -52,13 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tbody>
 </table>
 <script>
-// $(document).ready( function () {
-//     $('#table_id_example').DataTable();
-// } );
 $(function() {
-	$(document).ready( function () {
-	    $('#table_id_example').DataTable();
-	} );
+    $('#table_id_example').DataTable({
+    });
+	$('#id_select2_demo1').select2();
 });
 </script>
 </body>

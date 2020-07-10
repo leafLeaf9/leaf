@@ -1,8 +1,9 @@
 package com.gousade.utils;
 
-import java.math.BigDecimal;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -10,6 +11,9 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，ByteSource.Util.bytes(salt)方法似乎并不影响加密结果
     public static final String g = "-";
     public static final String k = "";
@@ -57,8 +61,17 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
     	BigDecimal bigresult=five.divide(seven.divide(two, 2, BigDecimal.ROUND_HALF_UP), 2, BigDecimal.ROUND_HALF_UP);
     	int result=(int) Math.ceil(bigresult.doubleValue());
     	System.out.println("result："+result);*/
-    	String str1="宽带智能提速包自2018年10月17日上市，专门针对临时需要提速的客户推出的一项服务，目前有100M提速包、200M提速包2种，花2元/小时，就可让宽带下载速率最高提速到200M，上传速率最高提速到30M。时长可以累计，时间暂时用不完，可以通过开关来自由控制，30天内使用有效。您可以通过网上营业厅、“欢go” 手机营业厅办理哦！";
-    	String str2="宽带智能提速包自2018年10月17日上市，专门针对临时需要提速的客户推出的一项服务，目前有100M提速包、200M提速包2种，花2元/小时，就可让宽带下载速率最高提速到200M，上传速率最高提速到30M。时长可以累计，时间暂时用不完，可以通过开关来自由控制，30天内使用有效。您可以通过网上营业厅、“欢go” 手机营业厅办理哦！";
+    	String str1="亲，您可以通过点击这里进行宽带线路检测，你的宽带出现了以下哪种问题，请选择：[1]自助排障宝典. [2]无法上网. [3]网速慢. [4]经常断线. [5]WiFi上网问题 .";
+    	String str2="亲，您可以通过点击这里进行宽带线路检测，你的宽带出现了以下哪种问题，请选择：[1]自助排障宝典. [2]无法上网. [3]网速慢. [4]经常断线. [5]WiFi上网问题 .";
     	System.out.println(str1.equals(str2));
+    	String[] zone={"话务运营组","话务预备组","工单投诉组","客服支撑组","无","",null};
+    	Date date=new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_MONTH, -10);
+		date = calendar.getTime();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+		String dateStr=sdf.format(date);
+		log.info("日期："+dateStr);
     }
 }

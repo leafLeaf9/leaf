@@ -123,10 +123,10 @@ $('.exitDialog input[type=button]').click(function(e) {
 			if (result.status) {
 				//progressClose(); 添加一个加载动画，
 				$('body').append(result.msg)
-				window.location.href ='${ctx}';
+				window.location.href ='${ctx}/login';
 				//isOpen=false;
 			} else {
-				window.location.href ='${ctx}';
+				window.location.href ='${ctx}/login';
 			}
 		}, 'json');
 	}
