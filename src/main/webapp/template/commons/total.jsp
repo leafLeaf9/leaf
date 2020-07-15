@@ -94,6 +94,10 @@ table, td, th
 <link rel="stylesheet" href="./static/select2-4.0.13/dist/css/select2.min.css">
 <script src="./static/select2-4.0.13/dist/js/select2.min.js"></script>
 <script src="./static/select2-4.0.13/dist/js/select2tree.js"></script>
+<!-- datetimepicker -->
+<link rel="stylesheet" href="./static/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css">
+<script type="text/javascript" src="./static/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="./static/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 </head>
 <body>
 <%--ctxPath--%>
