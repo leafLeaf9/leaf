@@ -18,9 +18,9 @@ public class User implements Serializable{
 	private String userName;
 	private String password;
 	private int state;
-//	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
-//	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date updated;
 	private String salt;
 	/** 用户角色 */
@@ -28,7 +28,8 @@ public class User implements Serializable{
 	private Set<String> roles;
 	private Set<String> urls;	
 	private String phonenumber;
-	private String lastLoginTime;
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private Date lastLoginTime;
 	private String delflag;
 	/**
 	 * 无参构造
@@ -135,11 +136,11 @@ public class User implements Serializable{
 		this.urls = urls;
 	}
 
-	public String getLastLoginTime() {
+	public Date getLastLoginTime() {
 		return lastLoginTime;
 	}
 
-	public void setLastLoginTime(String lastLoginTime) {
+	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
 

@@ -238,7 +238,7 @@
 	    <version>2.5</version>
 	</dependency>
 	<!-- AOP begin -->
-	<dependency>
+	<!-- <dependency>
 		<groupId>org.aspectj</groupId>
 		<artifactId>aspectjrt</artifactId>
 	</dependency>
@@ -250,7 +250,7 @@
 		<groupId>cglib</groupId>
 		<artifactId>cglib</artifactId>
 		<version>3.3.0</version>
-	</dependency>
+	</dependency> -->
 	<!-- AOP end -->
 	<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
 	 <dependency>

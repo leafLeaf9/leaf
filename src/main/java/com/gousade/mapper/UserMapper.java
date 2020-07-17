@@ -27,6 +27,8 @@ public interface UserMapper {
 	 */
 	public List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap);
 	
+	public List<User> selectUserList(Map<String, Object> searchMap);
+	
 	public long queryuserlistcnt(Map<String, Object> map);
 	/**
 	 * 新增用户

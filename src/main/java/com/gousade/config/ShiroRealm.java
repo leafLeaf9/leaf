@@ -16,6 +16,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import com.gousade.pojo.User;
 import com.gousade.service.UserService;
@@ -26,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration //在@Configuration注解中是包含@Component注解的
 public class ShiroRealm extends AuthorizingRealm {
 	
+	@Lazy//不加此注解会导致userService无法被AOP拦截，似乎是shiro和aspect冲突 https://www.jermey.cn/2020/03/03/1.html
 	@Autowired
 	private UserService userService;
 	@Override

@@ -121,7 +121,11 @@ $.extend(true, $.fn.dataTable.defaults, {
     	"url": "./static/DataTables-1.10.21/assets/Chinese.txt",
     	"pagingType": "full_numbers",
     	"autoWidth": true,
-    }
+    },
+    "columnDefs": [ {
+        "targets": '_all',//将所有列的空值变为''空字符串,防止报Requested unknown parameter 'xxx',please see http://datatables.net/tn/4错误
+        "defaultContent": '',
+      } ]
 });
 </script>
 </body>

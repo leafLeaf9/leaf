@@ -84,9 +84,76 @@
         </tr>
     </tbody>
 </table>
+
+<div class="row">
+<div class="col-md-12">
+<form class="form-inline person-search-form search-form" id="user-search-form" method="post">
+	<div class="form-group">
+		<label>方案内容：</label> <input type="text"
+			class="form-control input-sm" name="planContent">
+	</div>
+	<div class="input-group">
+	  <div class="input-group-prepend">
+	    <span class="input-group-text">用户名:</span>
+	  </div>
+	  <input type="text" class="form-control input-sm" name="userName" placeholder="userName">
+	</div>
+	<button type="submit" class="btn btn-primary btn-sm">查询</button>
+	<button type="button" class="btn btn-warning btn-sm"
+		onclick="clearSearchByplanlist()">清空</button>
+	<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#updateplanmodal"
+			onclick="openinsertplan()">新增</button>
+</form>
+</div>
+</div>
+
+<table id="user-datagrid" class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>用户名</th>
+            <th>姓名</th>
+            <th>联系方式</th>
+            <th>最后登录时间</th>
+            <th>创建时间</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 <script>
 $(function() {
     $('#table_id_example').DataTable({
+    });
+    
+    $('#user-datagrid').DataTable({
+    	ajax: {
+			url: "${ctx}/selectUserList",
+			type: "POST",
+			data: {
+				"searchMap": function () {
+					return JSON.stringify($('#user-search-form').serializeObject());
+				}
+			}
+		},
+		serverSide: true,
+		pagingType: "full_numbers",
+		columns: [
+			{
+				data: 'userId',
+			},
+			{
+				data: 'userName',
+			},
+			{
+				data: 'phonenumber',
+			},
+			{
+				data: 'lastLoginTime',
+			},
+			{
+				data: 'created',
+			},
+		],
     });
     for(var i=0;i<10;i++){
     	$('#id_select2_demo1').append(

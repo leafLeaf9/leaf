@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.ibatis.io.ResolverUtil.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gousade.mapper.UserMapper;
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
+import com.gousade.utils.DataTablesPageUtil;
 import com.gousade.utils.SaltUtil;
 
 
@@ -221,6 +221,13 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return userMapper.queryuserlist(paraMap);
 	}
+	
+	public DataTablesPageUtil<User> selectUserList(DataTablesPageUtil<User> dataTables) {
+		List<User> list = userMapper.selectUserList(dataTables.getSearchMap());
+		dataTables.setData(list);
+		return dataTables;
+	}
+	
 	public String setrule(Map<String, String> map) {
 		int i= userMapper.setrule(map);
 		if(i>=0) {

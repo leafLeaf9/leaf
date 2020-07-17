@@ -1,6 +1,5 @@
 package com.gousade.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,23 +15,17 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.aliyuncs.exceptions.ClientException;
@@ -41,13 +34,13 @@ import com.gousade.pojo.Page;
 import com.gousade.pojo.User;
 import com.gousade.service.SmsDemo;
 import com.gousade.service.UserService;
+import com.gousade.utils.DataTablesPageUtil;
 
 
-@Controller
 //添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
-
 @RestController
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
 	
@@ -180,6 +173,14 @@ public class UserController {
 		retMap.put("total", total);
 		return retMap;
 	}
+	
+	@RequestMapping(value="/selectUserList",method=RequestMethod.POST)
+	public DataTablesPageUtil<User> selectUserList(HttpServletRequest request){
+		DataTablesPageUtil<User> dataTables = new DataTablesPageUtil<User>(request);
+		dataTables = userService.selectUserList(dataTables);
+		return dataTables;
+	}
+	
 	/**
 	 * 新增用户
 	 * @param map

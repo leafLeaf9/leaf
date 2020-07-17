@@ -47,6 +47,15 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
 	<select id="queryuserlistcnt" parameterType="map" resultType="long">
     select count(*) from user  where 1=1   
 	</select>
+	
+  <select id="selectUserList" parameterType="java.util.Map" resultType="com.gousade.pojo.User">
+		select t.* from user t
+		where 1=1
+		<if test="userName!=null and userName!=''">
+	    and t.user_name=#{userName}
+	    </if>
+	</select>
+
 <!-- 	新增用户 -->
 	<insert id="insertuser" parameterType="map" >
 	
