@@ -2,8 +2,7 @@ package com.gousade.config;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Properties;
- 
+
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -12,9 +11,6 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
-
-import com.gousade.aspect.OperateHisAspect;
 
 import lombok.extern.slf4j.Slf4j;
 

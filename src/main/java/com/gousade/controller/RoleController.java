@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.gousade.annotation.OperateHis;
+import com.gousade.annotation.OperationRecord;
 import com.gousade.pojo.Role;
 import com.gousade.service.RoleService;
 import com.gousade.utils.GeneratePDFUtil;
@@ -37,7 +37,7 @@ public class RoleController {
 	@Autowired
 	private RoleService roleService;
 	
-	@OperateHis(operationType=0)
+	@OperationRecord(operationNum=0,operationMethodName="查询角色列表")
 	@RequestMapping(value="/selectRoleList",method=RequestMethod.POST)
 	public Map<String,Object> selectRoleList(@RequestParam(value="page", required=false) String page, 
             @RequestParam(value="rows", required=false) String rows,HttpServletRequest request){
@@ -47,7 +47,6 @@ public class RoleController {
 		param.put("name",name);
 		PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
 		List<Role> list = roleService.selectRoleList(param);
-		log.info(list.get(0).toString());
 		PageInfo<Role> pageInfo = new PageInfo<Role>(list);
 		long total = pageInfo.getTotal();
 		result.put("rows", list);

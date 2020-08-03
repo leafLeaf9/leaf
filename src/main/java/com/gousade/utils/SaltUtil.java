@@ -1,5 +1,6 @@
 package com.gousade.utils;
 
+import java.math.BigDecimal;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -73,5 +74,18 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		String dateStr=sdf.format(date);
 		log.info("日期："+dateStr);
+
+		BigDecimal b=new BigDecimal(45.65);
+		int a = b.intValue();
+		log.info("BigDecimal转int:"+a);
+		Calendar rightNow=Calendar.getInstance();
+		String[] data = rightNow.getTime().toString().split(" ");
+		System.out.println("Today is "+ data[0]);
+		if(Integer.parseInt(data[2].toString())%2==0){
+			System.out.println("today is even number.");
+		}else{
+			System.out.println("today is odd number.");
+		}
     }
+
 }

@@ -90,6 +90,7 @@ table, td, th
 <!-- DataTables -->
 <link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/jquery.dataTables.css">
 <script src="./static/DataTables-1.10.21/media/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/dataTables.bootstrap4.min.css">
 <!-- Select2 -->
 <link rel="stylesheet" href="./static/select2-4.0.13/dist/css/select2.min.css">
 <script src="./static/select2-4.0.13/dist/js/select2.min.js"></script>

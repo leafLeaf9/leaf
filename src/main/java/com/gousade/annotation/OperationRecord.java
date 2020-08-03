@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface OperateHis {
-	 int operationType() default 0;
+public @interface OperationRecord {
+	 int operationNum() default 0;
+	 
+	 String operationMethodName() default "";
 }

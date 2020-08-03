@@ -155,6 +155,7 @@ $(function() {
 			},
 		],
     });
+    $('#user-datagrid').removeClass( 'display' );
     for(var i=0;i<10;i++){
     	$('#id_select2_demo1').append(
 			"<option value='" + "测试st"+ i + "'>" + "测试st"+ i +
