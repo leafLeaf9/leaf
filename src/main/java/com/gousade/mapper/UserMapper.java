@@ -1,12 +1,11 @@
 package com.gousade.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
 	
@@ -148,4 +147,6 @@ public interface UserMapper {
 	 * 更新登录时间	 
 	 */
 	public int updateLoginTime(String userId);
+
+	public int updateUserById(User entity);
 }

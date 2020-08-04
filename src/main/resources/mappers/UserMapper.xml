@@ -207,4 +207,14 @@ and state='0'
     set lastlogintime=now()
     where user_id=#{userId} and delflag=0
   </update>
+
+	<update id="updateUserById">
+		update user
+		set user_name=#{userName},
+		phonenumber=#{phonenumber},
+		updated=sysdate()
+		where ID=#{id}
+		and DELFLAG = 0
+	</update>
+
 </mapper>

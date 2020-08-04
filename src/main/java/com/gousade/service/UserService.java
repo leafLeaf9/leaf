@@ -1,20 +1,19 @@
 package com.gousade.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.gousade.mapper.UserMapper;
+import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
+import com.gousade.pojo.UserRole;
 import com.gousade.utils.DataTablesPageUtil;
 import com.gousade.utils.SaltUtil;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 
 @Service
@@ -25,6 +24,9 @@ public class UserService {
 	
 	@Autowired
 	private MessageService messageService;
+
+	@Autowired
+	private UserRoleMapper userRoleMapper;
 	
 	public User toCheck(String userId,String password){
 		// MD5加密后与数据库中数据比较
@@ -224,6 +226,10 @@ public class UserService {
 	
 	public DataTablesPageUtil<User> selectUserList(DataTablesPageUtil<User> dataTables) {
 		List<User> list = userMapper.selectUserList(dataTables.getSearchMap());
+		for(User user : list){
+			List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getUserId());
+			user.setRoleIds(String.join(",", roleIdList));
+		}
 		dataTables.setData(list);
 		return dataTables;
 	}
@@ -359,62 +365,6 @@ public class UserService {
 		return retMap;
 	}
 	
-/*	public Map<String, Object> segment(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		  Segmentor sentenceSplitApp= new Segmentor();
-		  Postagger postaggerApp=new Postagger();
-		  NER   nerApp=new NER();
-		  String nerpath=this.getClass().getClassLoader().getResource("./ner.model").getPath();
-		  System.out.println(nerpath);
-		  if(nerApp.create(nerpath.substring(1))<0){//去掉/E:/textanalysis/target/classes/ner.model的第一个/
-		      System.err.println("ner load failed");		
-		    }
-		  String cwspath=this.getClass().getClassLoader().getResource("./cws.model").getPath();
-		    if(sentenceSplitApp.create(cwspath.substring(1))<0){
-		      System.err.println("load failed");		
-		    }
-		    String pospath=this.getClass().getClassLoader().getResource("./pos.model").getPath();
-		    if(postaggerApp.create(pospath.substring(1))<0) {
-			      System.err.println("load failed");			     
-			    }
-		    String sent = (String) map.get("comment");
-		    List<String> words = new ArrayList<String>();
-		    int asize = sentenceSplitApp.segment(sent,words);
-		    for(int i = 0; i<asize; i++) {
-			      System.out.print(words.get(i));
-			      if(i==asize-1) {
-			        System.out.println();
-			      } else{
-			        System.out.print("\t");
-			      }
-			    }
-		    String result="";
-		    List<Map<String, Object>> needmaplist= new ArrayList<Map<String, Object>>();
-		    List<String> postags= new ArrayList<String>();
-		    int size = postaggerApp.postag(words,postags);
-		    for(int i = 0; i < size; i++) {
-		      Map<String, Object> singlemap=new HashMap<String, Object>();
-		      //new map 必须放到for循环里，否则list中的数据会被覆盖，因为list中存的是map的引用而不是具体值，map变化list里的值就会变化
-		      System.out.print(words.get(i)+"_"+postags.get(i));
-		      result+=words.get(i)+"_"+postags.get(i);
-		      singlemap.put("wordname", words.get(i));
-		      singlemap.put("wordtype", postags.get(i));
-		      needmaplist.add(singlemap);
-		      if(i==size-1) {
-		        System.out.println();
-		        result+="\n";
-		      } else {
-		        System.out.print("|");
-		        result+="|";
-		      }
-		    }
-		    sentenceSplitApp.release();
-		    postaggerApp.release();   	
-		    retMap.put("result", result);
-		return retMap;
-	}*/
-
 	public List<Menu> listAdminMenuByRole(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		List<Menu> menuList;
@@ -451,5 +401,25 @@ public class UserService {
 	public int updateLoginTime(String userId) {
 		int i=userMapper.updateLoginTime(userId);
 		return i;
+	}
+
+	@Transactional(rollbackFor = Exception.class)
+	public boolean updateUserById(User entity) {
+		userRoleMapper.deleteByUserId(entity.getUserId());
+		insertUserRole(entity);
+		return userMapper.updateUserById(entity)>0;
+	}
+
+	private void insertUserRole(User entity) {
+		if (!StringUtils.isBlank(entity.getRoleIds())) {
+			String[] roles = entity.getRoleIds().split(",");
+			UserRole userRole = new UserRole();
+			for (String roleId : roles) {
+				userRole.setId(SaltUtil.getUUId());
+				userRole.setUserId(entity.getUserId());
+				userRole.setRoleId(roleId);
+				userRoleMapper.insert(userRole);
+			}
+		}
 	}
 }

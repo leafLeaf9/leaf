@@ -1,13 +1,13 @@
 package com.gousade.pojo;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
+import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.alibaba.fastjson.annotation.JSONField;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
 
 
 @Table(name="user")
@@ -31,6 +31,8 @@ public class User implements Serializable{
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date lastLoginTime;
 	private String delflag;
+
+	private String roleIds;
 	/**
 	 * 无参构造
 	 */
@@ -61,13 +63,10 @@ public class User implements Serializable{
 		this.urls = urls;
 		this.roles = roles;		
 	}
-	
+
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("userId : " + userId);
-		sb.append(",userName : " + userName);		
-		return sb.toString();
+		return ReflectionToStringBuilder.toString(this);
 	}
 	
 	public String getUserId() {
@@ -158,5 +157,13 @@ public class User implements Serializable{
 
 	public void setDelflag(String delflag) {
 		this.delflag = delflag;
+	}
+
+	public String getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(String roleIds) {
+		this.roleIds = roleIds;
 	}
 }
