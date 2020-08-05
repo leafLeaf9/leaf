@@ -35,7 +35,7 @@
 <li>
 <div class="show-double">
 <label >资源名称：</label>
-<input name="id" type="hidden">
+<input name="id" type="text" style="display:none;">
 <input name="name" type="text" required="required">
 </div>
 <div class="show-double">
@@ -201,7 +201,7 @@ function readyupdateresource(){
 	        url : '${ctx}/selectAllTree',
 	        parentField : 'pid',
 	        lines : true,
-	        panelHeight : 'auto',
+	        panelHeight : '300',
 	        value : typeof rows[0].pid == "undefined" ? '' : rows[0].pid,
 	        onLoadSuccess: function(data){
 	        	$("#resourceEditPid").combotree('tree').tree("collapseAll");//折叠所有节点

@@ -14,59 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-a
-{
- cursor:pointer;
- color:blue;
-}
-table
-{
-  border-collapse:collapse;
-}
-table, td, th
-{
-  border:1px solid black;
-}
-.bg-nav{
-	overflow: hidden;
-	margin: 25px 0 10px 15px;
-	>span{
-		float: left;
-		margin-right: 15px;
-		color: #6DB4F9;
-		cursor: pointer;
-		img{
-			float: left;
-			margin: 2px 8px  0 0;
-		}
-		&+span{
-			border-left: 1px solid #DFDFDF;
-			padding-left: 15px;
-		}
-	}
-}
-.bg-nav>span{float:left;margin-right:15px;color:#6DB4F9;cursor:pointer}
-.row {
-  font-size: 18px;
-  color: #333;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-.row_description {
-  vertical-align: top;
-  margin-left: 14%;
-  display: inline-block;
-  width: 22%;
-}
-.row_data {
-  display: inline-block;
-  width: 55%;
-}
-.danger {
-  color: #F56C6C;
-}
 </style>
-<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
 <script src="./js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="./js/jquery-easyui-1.7.0/themes/icon.css">
@@ -80,7 +28,7 @@ table, td, th
 <script src="./js/jsUtil/extraJs.js"></script>
 <!-- <script src ="canvas-nest.js-2.0.1/dist/newnest.js"></script> -->
 <script src="./static/echarts/echarts.min.js"></script>
-<script src="./static/echarts/echarts-gl.min.js"></script>
+<!-- <script src="./static/echarts/echarts-gl.min.js"></script> -->
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
 <!-- Bootstrap 4.5.0 如果你使用的是我们编译过的 JavaScript，不要忘记在它之前引入 jQuery 和 Popper.js jQuery在前,Popper在中间,Bootstrap最后 -->
@@ -90,7 +38,7 @@ table, td, th
 <!-- DataTables -->
 <link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/jquery.dataTables.css">
 <script src="./static/DataTables-1.10.21/media/js/jquery.dataTables.js"></script>
-<link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/dataTables.bootstrap4.min.css">
+<!-- <link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/dataTables.bootstrap4.min.css"> -->
 <!-- Select2 -->
 <link rel="stylesheet" href="./static/select2-4.0.13/dist/css/select2.min.css">
 <script src="./static/select2-4.0.13/dist/js/select2.min.js"></script>
@@ -99,6 +47,8 @@ table, td, th
 <link rel="stylesheet" href="./static/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css">
 <script type="text/javascript" src="./static/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="./static/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<!-- layer -->
+<script type="text/javascript" src="${staticPath}/static/layer/layer.js"></script>
 </head>
 <body>
 <%--ctxPath--%>

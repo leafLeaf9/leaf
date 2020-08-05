@@ -54,6 +54,12 @@ public class RoleController {
 		return result;
 	}
 	
+	@RequestMapping(value="/getRoles",method=RequestMethod.POST)
+	public List<Role> getRoles(){
+		List<Role> list = roleService.getRoles();
+		return list;
+	}
+	
 	/**
 	 * pdf预览工具方法
 	 * @param request

@@ -25,4 +25,6 @@ public interface RoleMapper {
     int deleteBatchIds(List<? extends Serializable> idList);
     
     List<String> selectResourceIdListByRoleId(String id);
+
+	List<Role> getRoles();
 }

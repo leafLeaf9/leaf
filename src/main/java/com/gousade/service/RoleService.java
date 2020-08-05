@@ -126,4 +126,8 @@ public class RoleService {
 		}
 		return map;
     }
+
+	public List<Role> getRoles() {
+		return roleMapper.getRoles();
+	}
 }

@@ -25,6 +25,14 @@
     order by create_time
   </select>
   
+  <select id="getRoles" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from role t
+    where t.delflag=0
+    order by t.seq
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

@@ -7,6 +7,8 @@ import com.gousade.pojo.User;
 import com.gousade.pojo.UserRole;
 import com.gousade.utils.DataTablesPageUtil;
 import com.gousade.utils.SaltUtil;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -421,5 +423,11 @@ public class UserService {
 				userRoleMapper.insert(userRole);
 			}
 		}
+	}
+
+	public boolean insert(User user) {
+		user.setSalt(SaltUtil.getUUId());
+		user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));
+		return userMapper.insert(user)>0;
 	}
 }

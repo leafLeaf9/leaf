@@ -319,11 +319,20 @@ public class UserController {
 	 */
 	@RequestMapping(value="/cleanpsd",method=RequestMethod.POST)
 	public Map<String,Object> cleanpsd(@RequestBody Map<String,Object> map){
-		
 		return userService.cleanpsd(map);
-			
-		
-		
+	}
+	
+	@RequestMapping(value = "/userEdit", method = RequestMethod.POST)
+	public Object userEdit(User user){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		if(user.getUserId()==null||"".equals(user.getUserId())){
+			userService.insert(user);
+		}else {
+			userService.updateUserById(user);
+		}
+		resultMap.put("status", true);
+		resultMap.put("msg", "操作成功");
+		return resultMap;
 	}
 	
 }

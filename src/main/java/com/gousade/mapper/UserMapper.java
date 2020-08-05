@@ -149,4 +149,6 @@ public interface UserMapper {
 	public int updateLoginTime(String userId);
 
 	public int updateUserById(User entity);
+
+	int insert(User user);
 }
