@@ -25,16 +25,13 @@ public class UserService {
 	private UserMapper userMapper;
 	
 	@Autowired
-	private MessageService messageService;
-
-	@Autowired
 	private UserRoleMapper userRoleMapper;
 	
-	public User toCheck(String userId,String password){
-		// MD5加密后与数据库中数据比较
-		password = DigestUtils.md5Hex(password);
-	//	System.out.println("加密之后的密码是"+password);
-		return userMapper.toCheckUser(userId,password);
+	public User selectByPrimaryKey(String id) {
+		User user = userMapper.selectByPrimaryKey(id);
+		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getUserId());
+		user.setRoleIds(String.join(",", roleIdList));
+		return user;
 	}
 	
 	public User SelectUserByLoginName(String userId){
@@ -42,7 +39,6 @@ public class UserService {
 	}
 
 	public Map<String, Object> regist(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		try {
 			String firstpsd=(String) map.get("password");
@@ -95,154 +91,14 @@ public class UserService {
 		return retMap;
 	}
 	
-	public Map<String, Object> insertuser(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			String password = DigestUtils.md5Hex((String)map.get("password"));
-			map.put("password", password);
-			int i=userMapper.insertuser(map);
-			
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "新增用户成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "新增用户失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return retMap;
-	}
-	
-	public Map<String, Object> updateuser(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			map.put("password", DigestUtils.md5Hex((String)map.get("password")));
-			int i=userMapper.updateuser(map);
-			
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "修改用户信息成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "修改用户信息失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-	}
-	
-	public Map<String, Object> delusers(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			int i=userMapper.delusers(map);
-			
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "删除用户信息成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "删除用户信息失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-	}
-	
-	public Map<String, Object> resetpsd(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		
-			Map<String, Object> psdmap = new HashMap<String, Object>();
-			psdmap=userMapper.getpsdByuid(map);
-			String password=(String) psdmap.get("password");
-			String currPsd = DigestUtils.md5Hex((String)map.get("currPsd"));
-			if(currPsd.equals(password)) {
-				try {
-					map.put("password", DigestUtils.md5Hex((String)map.get("password")));
-				int i=userMapper.resetpsd(map);
-				
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "重置密码成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "重置密码失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-			}else {
-				retMap.put("result", "原密码错误");
-				return retMap;
-			}
-			
-	}
-	
-
-	public Map<String, Object> selectphonenum(Map<String, Object> map) {
-		return userMapper.selectphonenum(map)	;	
-	}
-	
-	public Map<String, Object> cleanpsd(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		int  newcode =SmsDemo.getNewcode(); 
-		System.out.println("从Sms获得的验证码是："+newcode);
-		int code=Integer.parseInt((String) map.get("code")) ;
-		if(code==newcode)	{
-			String initpsd="123456";
-			map.put("password", DigestUtils.md5Hex(initpsd));
-			int i=userMapper.cleanpsd(map);
-			if(i>=1) {
-				//retMap.put("success", true);
-				retMap.put("result", "恢复初始密码成功!\n初始密码为123456，请妥善保存。");
-			}else {
-			//	retMap.put("success", false);
-				retMap.put("result", "恢复初始密码失败");
-			}
-			return retMap;
-		}else {
-			retMap.put("result", "验证码输入错误");
-			return retMap;
-		}	
-		
-	}
-	
-	public List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap) {
-		// TODO Auto-generated method stub
-		return userMapper.queryuserlist(paraMap);
-	}
-	
 	public DataTablesPageUtil<User> selectUserList(DataTablesPageUtil<User> dataTables) {
 		List<User> list = userMapper.selectUserList(dataTables.getSearchMap());
-		for(User user : list){
+		/*for(User user : list){
 			List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getUserId());
 			user.setRoleIds(String.join(",", roleIdList));
-		}
+		}*/
 		dataTables.setData(list);
 		return dataTables;
-	}
-	
-	public String setrule(Map<String, String> map) {
-		int i= userMapper.setrule(map);
-		if(i>=0) {
-			return "设置成功";
-		}
-		return "设置失败";
-		
 	}
 	
 	public long queryuserlistcnt(Map<String, Object> map) {
@@ -250,123 +106,6 @@ public class UserService {
 		return userMapper.queryuserlistcnt(map);
 	}
 
-	public String declare(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		int i= userMapper.declare(map);
-		if(i>=1) {
-			return "申报成功";
-		}
-		return "申报失败";
-	}
-
-	public List<Map<String,Object>> queryprojlist(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		/*int i= userMapper.declare(map);
-		if(i>=0) {
-			return "申报成功";
-		}
-		return "申报失败";*/
-		return userMapper.queryprojlist(map);
-	}
-
-	public Map<String, Object> firstpassbyid(Map<String, Object> map) {
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			int i=userMapper.firstpassbyid(map);
-			
-				if(i>=1) {
-					//retMap.put("success", true);
-					String received= (String) userMapper.selectidbyproj(map).get("user_id");
-					//System.out.println(received);
-					retMap.put("result", "修改状态成功");
-					messageService.toMessage(received, "您好，您的项目已经通过初审");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "修改状态失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-	}
-	public Map<String, Object> dopassbyid(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			int i=userMapper.dopassbyid(map);
-			
-				if(i>=1) {
-					if(map.get("state").equals("4")) {
-						String received= (String) userMapper.selectidbyproj(map).get("user_id");
-					messageService.toMessage(received, "您好，您的项目已经成功立项");
-					}
-					//retMap.put("success", true);
-					retMap.put("result", "修改状态成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "修改状态失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-	}
-
-	public Map<String, Object> assignexperts(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			int i=userMapper.assignexperts(map);
-			
-			
-				if(i>=1) {
-					userMapper.secondpassbyid(map);
-					String received= (String) userMapper.selectidbyproj(map).get("user_id");	
-					messageService.toMessage(received, "您好，您的项目已经分配完专家");
-					//retMap.put("success", true);
-					retMap.put("result", "专家分配成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "专家分配失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return retMap;
-	}
-
-	public Map<String, Object> savegrading(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			int i=userMapper.savegrading(map);
-		
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "打分成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "打分失败");
-				}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		List<Map<String, Object>> list=	userMapper.querygradestate(map);
-		System.out.println(list);
-		if(list.isEmpty()) {
-			userMapper.thirdpassbyid(map);
-			String received= (String) userMapper.selectidbyproj(map).get("user_id");	
-			messageService.toMessage(received, "您好，所有专家已对您的项目完成打分");
-			System.out.println("所有专家已打分，变更状态为立项评审完成");
-		}
-		return retMap;
-	}
-	
 	public List<Menu> listAdminMenuByRole(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		List<Menu> menuList;
@@ -396,7 +135,6 @@ public class UserService {
 	}
 
 	public Map<String, Object> getroleidByuid(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return userMapper.getroleidByuid(map);
 	}
 	
@@ -409,7 +147,12 @@ public class UserService {
 	public boolean updateUserById(User entity) {
 		userRoleMapper.deleteByUserId(entity.getUserId());
 		insertUserRole(entity);
+		if(!StringUtils.isBlank(entity.getPassword())){
+			entity.setSalt(SaltUtil.generateUUId());
+			entity.setPassword(SaltUtil.toHex(entity.getPassword(), entity.getSalt()));
+		}
 		return userMapper.updateUserById(entity)>0;
+		//FIXME 改密码后还要清空shiro的密码缓存 下次补上
 	}
 
 	private void insertUserRole(User entity) {
@@ -426,8 +169,13 @@ public class UserService {
 	}
 
 	public boolean insert(User user) {
+		user.setId(SaltUtil.generateUUId());
 		user.setSalt(SaltUtil.getUUId());
 		user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));
 		return userMapper.insert(user)>0;
+	}
+
+	public boolean deleteUserByid(Map<String, Object> map) {
+		return userMapper.deleteUserByid(map)>0;
 	}
 }

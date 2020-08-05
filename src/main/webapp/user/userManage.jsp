@@ -30,6 +30,7 @@
             <th>联系方式</th>
             <th>最后登录时间</th>
             <th>创建时间</th>
+            <th>操作</th>
         </tr>
     </thead>
     <tbody>
@@ -51,13 +52,13 @@
 						<label class="col-sm-3 control-label">登录名：</label>
 						<div class="col-sm-9">
 							<input class="form-control" name="id" type="text" style="display:none;">
-							<input type="text" class="form-control input-sm" placeholder="" name="userId">
+							<input type="text" class="form-control input-sm" placeholder="" name="userId" required="required">
 						</div>
 					</div>
 					<div class="input-group mb-3">
 						<label class="col-sm-3 control-label">姓名：</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" placeholder="" name="userName">
+							<input type="text" class="form-control" placeholder="" name="userName" required="required">
 						</div>
 					</div>
 					<div class="input-group mb-3">
@@ -69,13 +70,13 @@
 					<div class="input-group mb-3">
 						<label class="col-sm-3 control-label">手机号：</label>
 						<div class="col-sm-9">
-							<input type="phonenumber" class="form-control" placeholder="" name="mobile">
+							<input type="number" class="form-control" placeholder="" name="phoneNumber" required="required">
 						</div>
 					</div>
 					<div class="input-group mb-3">
 						<label class="col-sm-3 control-label">角色：</label>
 						<div class="col-sm-9">
-						<select class="form-control select2" multiple="multiple" data-placeholder="" name="roleIds"
+						<select class="form-control select2" multiple="multiple" data-placeholder="" name="roleIds" required="required"
 						style="width: 100%">
 						</select>
 						</div>
@@ -106,6 +107,8 @@ $(function() {
 		},
 		serverSide: true,
 		pagingType: "full_numbers",
+		ordering: false,
+// 		order: [[ 0, 'desc' ]],
 		columns: [
 			{
 				data: 'userId',
@@ -122,6 +125,17 @@ $(function() {
 			{
 				data: 'created',
 			},
+			{
+				data: '',
+				render: function (data, type, row, meta) {
+					return '<button type="button" class="btn btn-info" onclick=sysUserEdit(' +
+						JSON.stringify(row.id) +
+						')><i class="fa fa-edit"></i> 编辑</button>' +
+						'<button type="button" class="btn btn-danger" onclick=sysUserDelete(' +
+						JSON.stringify(row.id) +
+						')><i class="fa fa-trash-o"></i> 删除</button></td>'
+				}
+			}
 		],
     });
     getRoles();
@@ -136,6 +150,31 @@ $("#user-search-form").submit(
 function userClearSearch(){
 	$('#user-search-form')[0].reset();
 	$.user_datagrid.ajax.reload(null,false);
+}
+
+function sysUserEdit(id){
+	$("#user-insert-form input[name=id]").val(id);
+	$.ajax({
+        url: "${ctx}/admin/sysuser/selectByPrimaryKey",
+        type: "POST",
+        data: {id:id},
+        dataType: 'json',
+        success: function (result) {
+        	$('#user-insert-form input[name=userId]').val(result.userId);
+        	$('#user-insert-form input[name=userName]').val(result.userName);
+        	$('#user-insert-form input[name=phoneNumber]').val(result.phoneNumber);
+        	if(result.roleIds!=null){
+        		$('#user-insert-form select[name=roleIds]').val(result.roleIds.split(",")).select2();
+        	}
+        },
+        error: function () {
+        	layer.msg('ajax error', {
+				icon : 2,
+				time : 1000,
+			});
+        },
+	});
+	$('#user-insert-modal').modal('show');
 }
 
 $('#user-insert-form').submit(function(e){
@@ -161,10 +200,35 @@ $('#user-insert-form').submit(function(e){
 				icon : 2,
 				time : 1000,
 			});
-        }
+        },
 	});
 	return false;
 });
+
+function sysUserDelete(id){
+	layer.confirm('是否删除该用户?', {icon: 3, title:'删除用户确认'}, function(index){
+		$.ajax({
+	        url: "${ctx}/admin/sysuser/deleteUserByid",
+	        type: "POST",
+	        data: {id:id},
+	        dataType: 'json',
+	        success: function (result) {
+	        	$.user_datagrid.draw(false);
+	        	layer.msg(result.msg, {
+					icon : 1,
+					time : 1000,
+				});
+	        },
+	        error: function () {
+	        	layer.msg('ajax error', {
+					icon : 2,
+					time : 1000,
+				});
+	        },
+		});
+		  layer.close(index);
+	});
+}
 
 $('#user-insert-modal').on('hide.bs.modal', function () {
 	 $('#user-insert-form')[0].reset();

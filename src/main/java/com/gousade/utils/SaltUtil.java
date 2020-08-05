@@ -20,6 +20,11 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
     public static final String k = "";
     private static String algorithmName="md5";
     private static int hashIterations=52;
+    
+    public static String generateUUId() {
+        return UUID.randomUUID().toString().replace(g, k);
+    }
+    
     public static String getUUId() {
         return UUID.randomUUID().toString().replace(g, k);
     }
