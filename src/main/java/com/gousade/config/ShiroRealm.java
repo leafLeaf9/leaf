@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
 import com.gousade.pojo.User;
+import com.gousade.service.RoleService;
 import com.gousade.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,10 @@ public class ShiroRealm extends AuthorizingRealm {
 	@Lazy//不加此注解会导致userService无法被AOP拦截，似乎是shiro和aspect冲突 https://www.jermey.cn/2020/03/03/1.html
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
+	
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) 
 			throws AuthenticationException {
@@ -40,7 +45,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		// 2. 从 UsernamePasswordToken 中来获取 username
 		String username = upToken.getUsername();
  
-		/*
+		/**
 		 * 3. 调用数据库的方法, 从数据库中查询 username对应的用户记录
 		 *    注:一般的 , 用户名  什么的   最好唯一  
 		 * 4. 若用户不存在, 则可以抛出 UnknownAccountException 异常
@@ -53,18 +58,25 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *  注:如果我们想要在程序中，获取到我们在Realm里面方式的自定义的用户对象实例(即上图中的User principal)，那么可以这么获得:
          *    User u = (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
          */		
-		User principal = userService.SelectUserByLoginName(username);
+		User user = userService.SelectUserByLoginName(username);
 		//此处还要再通过service查询到user所拥有的角色和资源并set给user，后续完善
-		if (principal == null) {
+		if (user == null) {
 			return null;
 		}
 		
+		Set<String> roles = roleService.findRoleNamesByUserId(user.getId());
+		
+		Set<String> urls = roleService.findUrlsByUserId(user.getId());
+		
+		user.setRoles(roles);
+		
+		user.setUrls(urls);
 	
 		/*
 		 *  7.credentials: 凭证(一般都是密码).
 		 *    credentials本应该是查询出来的;这里为了快速测试,我们直接写
 		 */
-		Object credentials = principal.getPassword(); 
+		Object credentials = user.getPassword(); 
  
 		/*
 		 *  8.realmName: 当前 realm 对象的 name. 调用父类的 getName() 方法即可
@@ -79,7 +91,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *  注:盐值 最好保证其唯一性。 
 		 *  注:由于一般情况下,用户名是唯一的，所以我们一般使用用户名来计算盐值
 		 */
-		ByteSource credentialsSalt = ByteSource.Util.bytes(principal.getSalt());
+		ByteSource credentialsSalt = ByteSource.Util.bytes(user.getSalt());
  
 		/*
 		 * 实例化对象.
@@ -89,7 +101,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *     之前录入数据库时已经加密好了的.
 		 */
 		SimpleAuthenticationInfo info = null; 
-		info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
+		info = new SimpleAuthenticationInfo(user, credentials, credentialsSalt, realmName);
 		return info;
 	}
  

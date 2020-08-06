@@ -10,15 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gousade.controller.common.BaseController;
 import com.gousade.pojo.Resource;
 import com.gousade.pojo.Tree;
+import com.gousade.pojo.User;
 import com.gousade.service.ResourceService;
 
 @RestController
-public class ResourceController {
+@RequestMapping(value = "/admin/resource", method = RequestMethod.POST)
+public class ResourceController extends BaseController{
 	
 	@Autowired
 	private ResourceService resourceService;
+	
+	@RequestMapping(value="/tree",method=RequestMethod.POST)
+	public Object tree(){
+		User user = getShiroSessionUser();
+		List<Resource> list = resourceService.selectTree(user);
+		return list;
+	}
 	
 	@RequestMapping(value="/selectResourceList",method=RequestMethod.POST)
 	public List<Resource> selectResourceList(){

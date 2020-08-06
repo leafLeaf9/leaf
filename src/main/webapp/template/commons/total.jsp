@@ -40,9 +40,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="./static/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
 <!-- font-awesome-4.7.0 -->
 <link rel="stylesheet" href="${staticPath}/static/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="${staticPath}/static/ionicons-5.0.0/docs/css/ionicons.min.css">
 <!-- AdminLTE -->
-<link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/dist/css/AdminLTE.min.css">
-<%-- <link rel="stylesheet" href="${staticPath }/static/AdminLTE-3.0.5/dist/css/skins/_all-skins.min.css"> --%>
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.2/dist/css/AdminLTE.min.css">
+<!-- AdminLTE App -->
+<%-- <script src="${staticPath}/static/AdminLTE-2.4.2/dist/js/adminlte.min.js"></script> --%>
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.2/dist/css/skins/_all-skins.min.css">
+<!-- icheck -->
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.2/plugins/iCheck/square/blue.css">
+<script type="text/javascript" src="${staticPath}/static/AdminLTE-2.4.2/plugins/iCheck/icheck.min.js"></script>
 <!-- DataTables -->
 <link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/jquery.dataTables.css">
 <script src="./static/DataTables-1.10.21/media/js/jquery.dataTables.js"></script>
@@ -57,6 +63,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="./static/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- layer -->
 <script type="text/javascript" src="${staticPath}/static/layer/layer.js"></script>
+<!-- ZTREE -->
+<link rel="stylesheet" href="${staticPath}/static/zTree_v3/zTreeStyle.css"">
+<script src="${staticPath}/static/zTree_v3/jquery.ztree.core.js"></script>
 <!-- customized basic css -->
 <link rel="stylesheet" href="${staticPath}/static/css/customized-basic.css">
 </head>

@@ -149,4 +149,41 @@
   and re.delflag=0
   where r.id=#{id}
   </select>
+  
+  <select id="findByIds" resultType="com.gousade.pojo.Role"  parameterType="java.lang.String">
+    select t.* from role t
+    where t.id in
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+    	#{item}
+    </foreach>
+  </select>
+  
+  <select id="findAllResourcesByRoleIds" resultType="com.gousade.pojo.Resource"  parameterType="java.lang.String">
+    select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks, 
+    s.seq, s.status, s.create_time
+    from role r
+    right join role_resource rre on r.id=rre.roleid and r.delflag=0 and rre.delflag=0
+    right join resource s on rre.resourceid=s.id and s.delflag=0
+    where r.id in
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+    	#{item}
+    </foreach>
+    and r.delflag=0
+    order by s.seq
+  </select>
+  
+  <select id="findResourcesByRoleIds" resultType="com.gousade.pojo.Resource"  parameterType="java.lang.String">
+    select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks, 
+    s.seq, s.status, s.create_time
+    from role r
+    right join role_resource rre on r.id=rre.roleid and r.delflag=0 and rre.delflag=0
+    right join resource s on rre.resourceid=s.id and s.delflag=0
+    where r.id in
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+    	#{item}
+    </foreach>
+    and r.delflag=0
+    and s.status=0
+    order by s.seq
+  </select>
 </mapper>

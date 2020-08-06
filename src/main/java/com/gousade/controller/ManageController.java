@@ -38,7 +38,7 @@ public class ManageController {
             return "login";
         }
         logger.info("当前shiro-subject:"+obj.toString());
-		return "redirect:/main";
+		return "redirect:/admin/index";
 	}
 	
 	@RequestMapping("/{pageName:^(?!favicon.ico).*$}")//此正则用于排除@RequestMapping("favicon.ico")将favicon.ico也解析为jsp视图
@@ -58,7 +58,7 @@ public class ManageController {
         if (obj == null) {
             return "login";
         }
-		return "redirect:/main";
+		return "/admin/index";
 	}
 	
 	@RequestMapping("/main")
@@ -73,6 +73,16 @@ public class ManageController {
 	@RequestMapping("/user/{pageName}")
 	public String showuserlist(@PathVariable String pageName){
 		return "user/"+pageName;
+	}
+	
+	@RequestMapping("/admin/{pageName}")
+	public String showAdminJsp(@PathVariable String pageName){
+		return "admin/"+pageName;
+	}
+	
+	@RequestMapping("/admin/user/{pageName}")
+	public String showAadminUserJsp(@PathVariable String pageName){
+		return "admin/user/"+pageName;
 	}
 	
 }

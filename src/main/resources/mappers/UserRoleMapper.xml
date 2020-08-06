@@ -7,7 +7,7 @@
 	</sql>
 
 	<select id="findRoleIdsByUserId" resultType="java.lang.String" parameterType="java.lang.String">
-		SELECT ROLEID FROM user_role  WHERE USERID = #{userId} and DELFLAG = 0
+		SELECT ROLEID FROM user_role  WHERE USERID = #{id} and DELFLAG = 0
 	</select>
 	
 	<insert id="insert">

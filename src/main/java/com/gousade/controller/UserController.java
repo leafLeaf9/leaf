@@ -67,7 +67,7 @@ public class UserController extends BaseController{
 //    		session.setAttribute("clickId","home");
     		String currentUser = subject.getPrincipal().toString();
     		logger.info("当前登录的用户是："+currentUser);
-    		ModelAndView mv = new ModelAndView("redirect:/main");
+    		ModelAndView mv = new ModelAndView("redirect:/admin/index");
     		return mv;
         }catch(UnknownAccountException uae){  
             logger.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");  

@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gousade.mapper.ResourceMapper;
+import com.gousade.mapper.RoleMapper;
+import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.Resource;
 import com.gousade.pojo.Tree;
+import com.gousade.pojo.User;
 import com.gousade.utils.SaltUtil;
 
 @Service
@@ -18,6 +21,24 @@ public class ResourceService {
 	
 	@Autowired
 	private ResourceMapper resourceMapper;
+	
+	@Autowired
+	private UserRoleMapper userRoleMapper;
+	
+	@Autowired
+	private RoleMapper roleMapper;
+	
+	public List<Resource> selectTree(User user) {
+		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
+        if (roleIdList == null || roleIdList.size() == 0) {
+            return null;
+        }
+        List<Resource> resourceLists = roleMapper.findResourcesByRoleIds(roleIdList);
+        if (resourceLists == null || resourceLists.size() == 0) {
+            return null;
+        }
+        return resourceLists;
+	}
 	
 	public List<Resource> selectResourceList() {
         return resourceMapper.selectResourceList();
@@ -82,4 +103,5 @@ public class ResourceService {
 		}
 		return map;
 	}
+
 }

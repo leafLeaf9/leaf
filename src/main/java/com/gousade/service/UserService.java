@@ -29,7 +29,7 @@ public class UserService {
 	
 	public User selectByPrimaryKey(String id) {
 		User user = userMapper.selectByPrimaryKey(id);
-		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getUserId());
+		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
 		user.setRoleIds(String.join(",", roleIdList));
 		return user;
 	}
@@ -161,7 +161,7 @@ public class UserService {
 			UserRole userRole = new UserRole();
 			for (String roleId : roles) {
 				userRole.setId(SaltUtil.getUUId());
-				userRole.setUserId(entity.getUserId());
+				userRole.setUserId(entity.getId());
 				userRole.setRoleId(roleId);
 				userRoleMapper.insert(userRole);
 			}

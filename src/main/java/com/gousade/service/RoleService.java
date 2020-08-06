@@ -5,15 +5,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gousade.mapper.RoleMapper;
 import com.gousade.mapper.RoleResourceMapper;
+import com.gousade.mapper.UserRoleMapper;
+import com.gousade.pojo.Resource;
 import com.gousade.pojo.Role;
 import com.gousade.pojo.RoleResource;
 import com.gousade.utils.SaltUtil;
@@ -32,6 +37,9 @@ import com.gousade.utils.SaltUtil;
 public class RoleService {
 	@Autowired
 	private RoleMapper roleMapper;
+	
+	@Autowired
+	private UserRoleMapper userRoleMapper;
 	
 	@Autowired
     private RoleResourceMapper roleResourceMapper;
@@ -129,5 +137,35 @@ public class RoleService {
 
 	public List<Role> getRoles() {
 		return roleMapper.getRoles();
+	}
+
+	public Set<String> findRoleNamesByUserId(String userId) {
+		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(userId);
+		Set<String> roles = new HashSet<String>();
+		if (roleIdList != null && roleIdList.size() > 0) {
+            List<Role> rolels = roleMapper.findByIds(roleIdList);
+            if (rolels != null && rolels.size() > 0) {
+                for (Role role : rolels) {
+                    roles.add(role.getName());
+                }
+            }
+        }
+		return roles;
+	}
+
+	public Set<String> findUrlsByUserId(String userId) {
+		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(userId);
+		Set<String> urls = new HashSet<String>();
+		if (roleIdList != null && roleIdList.size() > 0) {
+            List<Resource> resources = roleMapper.findAllResourcesByRoleIds(roleIdList);
+            if (resources != null && resources.size() > 0) {
+                for (Resource resource : resources) {
+                    if (!StringUtils.isBlank(resource.getUrl())) {
+                        urls.add(resource.getUrl());
+                    }
+                }
+            }
+        }
+		return null;
 	}
 }
