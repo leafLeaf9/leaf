@@ -12,7 +12,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <base href="<%=basePath%>">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- AdminLTE必须 -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <style>
 </style>
 <script src="./js/jquery-3.4.1.min.js"></script>
@@ -35,6 +38,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="./static/popper.js-1.6.1/popper.min.js"></script>
 <link rel="stylesheet" href="./static/bootstrap-4.5.0-dist/css/bootstrap.min.css">
 <script src="./static/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+<!-- font-awesome-4.7.0 -->
+<link rel="stylesheet" href="${staticPath}/static/font-awesome-4.7.0/css/font-awesome.min.css">
+<!-- AdminLTE -->
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/dist/css/AdminLTE.min.css">
+<%-- <link rel="stylesheet" href="${staticPath }/static/AdminLTE-3.0.5/dist/css/skins/_all-skins.min.css"> --%>
 <!-- DataTables -->
 <link rel="stylesheet" href="./static/DataTables-1.10.21/media/css/jquery.dataTables.css">
 <script src="./static/DataTables-1.10.21/media/js/jquery.dataTables.js"></script>
@@ -49,6 +57,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="./static/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- layer -->
 <script type="text/javascript" src="${staticPath}/static/layer/layer.js"></script>
+<!-- customized basic css -->
+<link rel="stylesheet" href="${staticPath}/static/css/customized-basic.css">
 </head>
 <body>
 <%--ctxPath--%>

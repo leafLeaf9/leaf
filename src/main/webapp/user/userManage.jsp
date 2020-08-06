@@ -8,7 +8,7 @@
 <body>
 <div class="row">
 <div class="col-md-12">
-<form class="form-inline person-search-form search-form" id="user-search-form" method="post">
+<form class="form-inline search-form" id="user-search-form" method="post">
 	<div class="input-group">
 	  <div class="input-group-prepend">
 	    <span class="input-group-text">用户名:</span>
@@ -128,7 +128,7 @@ $(function() {
 			{
 				data: '',
 				render: function (data, type, row, meta) {
-					return '<button type="button" class="btn btn-info" onclick=sysUserEdit(' +
+					return '<button type="button" class="btn btn-warning" onclick=sysUserEdit(' +
 						JSON.stringify(row.id) +
 						')><i class="fa fa-edit"></i> 编辑</button>' +
 						'<button type="button" class="btn btn-danger" onclick=sysUserDelete(' +
