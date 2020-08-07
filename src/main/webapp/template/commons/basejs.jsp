@@ -24,15 +24,16 @@
 <script src="${staticPath}/static/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
 <!-- font-awesome-4.7.0 -->
 <link rel="stylesheet" href="${staticPath}/static/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="${staticPath}/static/font-awesome-4.7.0/css/all.min.css">
 <link rel="stylesheet" href="${staticPath}/static/ionicons-5.0.0/docs/css/ionicons.min.css">
 <!-- AdminLTE -->
-<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.2/dist/css/AdminLTE.min.css">
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.18/dist/css/AdminLTE.min.css">
 <!-- AdminLTE App -->
-<script src="${staticPath}/static/AdminLTE-2.4.2/dist/js/adminlte.min.js"></script>
-<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.2/dist/css/skins/_all-skins.min.css">
+<script src="${staticPath}/static/AdminLTE-2.4.18/dist/js/adminlte.min.js"></script>
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.18/dist/css/skins/_all-skins.min.css">
 <!-- icheck -->
-<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.2/plugins/iCheck/square/blue.css">
-<script type="text/javascript" src="${staticPath}/static/AdminLTE-2.4.2/plugins/iCheck/icheck.min.js"></script>
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.18/plugins/iCheck/square/blue.css">
+<script type="text/javascript" src="${staticPath}/static/AdminLTE-2.4.18/plugins/iCheck/icheck.min.js"></script>
 <!-- DataTables -->
 <link rel="stylesheet" href="${staticPath}/static/DataTables-1.10.21/media/css/jquery.dataTables.css">
 <script src="${staticPath}/static/DataTables-1.10.21/media/js/jquery.dataTables.js"></script>

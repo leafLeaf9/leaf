@@ -109,7 +109,7 @@
 $(function() {
     $.user_datagrid=$('#user-datagrid').DataTable({
     	ajax: {
-			url: "${ctx}/selectUserList",
+			url: "${ctx}/admin/sysUser/selectUserList",
 			type: "POST",
 			data: {
 				"searchMap": function () {
@@ -145,7 +145,7 @@ $(function() {
 						')><i class="fa fa-edit"></i> 编辑</button>' +
 						'<button type="button" class="btn btn-danger" onclick=sysUserDelete(' +
 						JSON.stringify(row.id) +
-						')><i class="fa fa-trash-o"></i> 删除</button></td>'
+						')><i class="fa fa-close"></i> 删除</button></td>'
 				}
 			}
 		],
@@ -167,7 +167,7 @@ function userClearSearch(){
 function sysUserEdit(id){
 	$("#user-insert-form input[name=id]").val(id);
 	$.ajax({
-        url: "${ctx}/admin/sysuser/selectByPrimaryKey",
+        url: "${ctx}/admin/sysUser/selectByPrimaryKey",
         type: "POST",
         data: {id:id},
         dataType: 'json',
@@ -193,7 +193,7 @@ $('#user-insert-form').submit(function(e){
 	console.log(1);
 	var userInsertForm = new FormData($("#user-insert-form")[0]);
 	$.ajax({
-        url: "${ctx}/userEdit",
+        url: "${ctx}/admin/sysUser/userEdit",
         type: "POST",
         data: userInsertForm,
         cache : false,
@@ -221,7 +221,7 @@ $('#user-insert-form').submit(function(e){
 function sysUserDelete(id){
 	layer.confirm('是否删除该用户?', {icon: 3, title:'删除用户确认'}, function(index){
 		$.ajax({
-	        url: "${ctx}/admin/sysuser/deleteUserByid",
+	        url: "${ctx}/admin/sysUser/deleteUserByid",
 	        type: "POST",
 	        data: {id:id},
 	        dataType: 'json',

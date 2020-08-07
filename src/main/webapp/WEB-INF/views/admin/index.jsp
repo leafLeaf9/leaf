@@ -6,7 +6,7 @@
 <title>首页</title>
 <%@ include file="/template/commons/basejs.jsp"%>
 </head>
-<body class="hold-transition sidebar-mini skin-blue">
+<body class="hold-transition sidebar-mini skin-yellow">
 <div class="wrapper">
 	<header class="main-header">
 		<!-- Logo -->
@@ -33,7 +33,7 @@
         <!-- User Account Menu -->
 		<li class="dropdown user user-menu">
 		<a href="#" class="dropdown-toggle nowLogin" data-toggle="dropdown">
-		<img src="${staticPath}/static/AdminLTE-2.4.2/dist/img/Tohsaka Rin.jpg" class="user-image" alt="User Image">
+		<img src="${staticPath}/static/AdminLTE-2.4.18/dist/img/Tohsaka Rin.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">当前登录：
               <shiro:principal property='userName'></shiro:principal>
               </span>
@@ -41,7 +41,7 @@
         <ul class="dropdown-menu nowLoginDropDown">
               <!-- User image -->
               <li class="user-header">
-                <img src="${staticPath}/static/AdminLTE-2.4.2/dist/img/Tohsaka Rin.jpg" class="img-circle" alt="User Image">
+                <img src="${staticPath}/static/AdminLTE-2.4.18/dist/img/Tohsaka Rin.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   Alexander Pierce - Web Developer
@@ -76,7 +76,7 @@
 		<section class="sidebar">
 			<div class="user-panel">
 					<div class="pull-left image">
-						<img src="${staticPath}/static/AdminLTE-2.4.2/dist/img/Tohsaka Rin.jpg" class="img-circle" alt="User Image">
+						<img src="${staticPath}/static/AdminLTE-2.4.18/dist/img/Tohsaka Rin.jpg" class="img-circle" alt="User Image">
 					</div>
 					<div class="pull-left info">
 						<p>
@@ -147,7 +147,7 @@ $(function(){
 	console.log('index');
 	var currentSkin;
 	var storage = window.localStorage;
-	$('body').addClass(storage.currentSkin || 'skin-blue');
+	$('body').addClass(storage.currentSkin || 'skin-yellow');
 	$(".container-fluid").load("${ctx}/admin/user/userManage");
 	$.ajax({
 		type: "post",
@@ -157,7 +157,7 @@ $(function(){
 		contentType: 'application/json;charset=utf-8', // 设置请求头信息  
 		success: function (result) {
 			var str = "<li class='header'> 菜单导航</li>" +
-				"<li class='treeview openNewContent active' data-url='/admin/main' data-resourcetype='1'><a href='#'><i class='fa fa-home'></i><span class='tree-name'>主页</span><span class='pull-right-container'></span></a></li>";
+				"<li class='treeview openNewContent active' data-url='/admin/main' data-resourcetype='1'><a href='#'><i class='fa fa-home'></i><span class='tree-name'>Index</span><span class='pull-right-container'></span></a></li>";
 			var setting = {
 				data: {
 					simpleData: {
@@ -176,6 +176,49 @@ $(function(){
 		}
 	});
 });
+
+$(".sidebar-menu").on("click", '.openNewContent', function () {
+	// 清除所有菜单 active 状态
+	$(".openNewContent").each(function () {
+		$(this).removeClass("active");
+	});
+	var resourceType = $(this).attr("data-resourceType");
+	console.log(resourceType);
+	$(this).addClass("active")
+	var url = $(this).attr("data-url");
+	// 添加选中菜单 active 状态
+	if (resourceType == '1') {
+		$(".container-fluid").css('display', 'block');
+		$("#content-iframe").css('display', 'none');
+		url = url;
+		$(".in-page-title").text($(this).text());
+		$(".container-fluid").load(url);
+	} else if (resourceType == '2') {
+		window.open(url);
+	} else if (resourceType == '3') {
+		var userNameStr = Base64.encode("<shiro:principal property='userId'></shiro:principal>");
+		var newurl = url.replace('%username%', userNameStr);
+		window.open(newurl);
+	} else if (resourceType == '4') {
+		var userNameStr = "<shiro:principal property='userId'></shiro:principal>";
+		var newurl = url.replace('%username%', userNameStr);
+		window.open(newurl);
+	} else if (resourceType == '5') {
+		// 隐藏 section 内容区， 展示 iframe 内容区
+		$(".in-page-title").text($(this).text());
+		$(".container-fluid").css('display', 'none');
+		$("#content-iframe").attr('src', $(this).attr('data-url'));
+		$("#content-iframe").css('display', 'block');
+	} else if (resourceType == '7') {
+		var userNameStr = "<shiro:principal property='userId'></shiro:principal>";
+		var newurl = url.replace('%username%', userNameStr);
+		$(".in-page-title").text($(this).text());
+		$(".container-fluid").css('display', 'none');
+		$("#content-iframe").attr('src', newurl);
+		$("#content-iframe").css('display', 'block');
+	}
+});
+
 </script>
 </body>
 </html>

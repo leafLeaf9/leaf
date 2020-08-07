@@ -32,9 +32,10 @@ public class ShiroConfig {
 		//<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
 		//<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
 		filterChainDefinitionMap.put("/login", "anon");
+		filterChainDefinitionMap.put("/login2", "anon");
 		filterChainDefinitionMap.put("/regist", "anon");
-		filterChainDefinitionMap.put("/ShiroRegist", "anon");
-		filterChainDefinitionMap.put("/loginShiroUser", "anon");
+		filterChainDefinitionMap.put("/admin/sysUser/ShiroRegist", "anon");
+		filterChainDefinitionMap.put("/admin/sysUser/loginShiroUser", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/index", "anon");
         filterChainDefinitionMap.put("/getssrlink", "anon");//用于免登录发布SSR最新地址

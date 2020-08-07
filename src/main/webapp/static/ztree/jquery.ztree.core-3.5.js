@@ -1131,7 +1131,7 @@
 			name = setting.view.nameIsHTML ? nameStr : nameStr.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 			var icoStr = view.makeNodeIco(setting, node)
 			var childStr = view.makeChildNode(node);
-			html.push("<i class='fa ",(icoStr != null && icoStr.length > 0)? icoStr:"fa-circle-o","'></i><span class='tree-name'>",name,"</span>",(tip != null && tip > 0) ? "<span class='label label-warning pull-right'>"+ tip +"</span>": "", (tip != null && tip == 0) ? (childStr ? "<span class='label label-success pull-right'>new</span><span class='pull-right-container hide'><i class='fa fa-angle-left pull-right'></i></span>": "") : (childStr ? "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>": ""));
+			html.push("<i class='fa ",(icoStr != null && icoStr.length > 0)? icoStr:"fa-circle-o-notch","'></i><span class='tree-name'>",name,"</span>",(tip != null && tip > 0) ? "<span class='label label-warning pull-right'>"+ tip +"</span>": "", (tip != null && tip == 0) ? (childStr ? "<span class='label label-success pull-right'>new</span><span class='pull-right-container hide'><i class='fa fa-angle-left pull-right'></i></span>": "") : (childStr ? "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>": ""));
 		},
 		makeDOMNodeLine: function(html, setting, node) {
 			html.push("");

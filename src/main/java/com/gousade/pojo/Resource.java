@@ -2,6 +2,8 @@ package com.gousade.pojo;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class Resource {
@@ -19,15 +21,19 @@ public class Resource {
 
     private String remarks;
 
-    private String status;
+    private Integer status;
+
+    private Integer resourceType;
+
+    private Integer tip;
 
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;//不加此注释时，date类型数据返回给前端的是类似 1576218079 的时间戳形式
+    private Date createTime;
 
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    private String delflag;
+    private Integer delflag;
 
     public String getId() {
         return id;
@@ -85,12 +91,28 @@ public class Resource {
         this.remarks = remarks == null ? null : remarks.trim();
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(Integer resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public Integer getTip() {
+        return tip;
+    }
+
+    public void setTip(Integer tip) {
+        this.tip = tip;
     }
 
     public Date getCreateTime() {
@@ -109,11 +131,16 @@ public class Resource {
         this.updateTime = updateTime;
     }
 
-    public String getDelflag() {
+    public Integer getDelflag() {
         return delflag;
     }
 
-    public void setDelflag(String delflag) {
-        this.delflag = delflag == null ? null : delflag.trim();
+    public void setDelflag(Integer delflag) {
+        this.delflag = delflag;
+    }
+    
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

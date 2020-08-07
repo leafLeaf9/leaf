@@ -160,7 +160,7 @@
   
   <select id="findAllResourcesByRoleIds" resultType="com.gousade.pojo.Resource"  parameterType="java.lang.String">
     select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks, 
-    s.seq, s.status, s.create_time
+    s.seq, s.status, s.resource_type, s.tip, s.create_time
     from role r
     right join role_resource rre on r.id=rre.roleid and r.delflag=0 and rre.delflag=0
     right join resource s on rre.resourceid=s.id and s.delflag=0
@@ -174,7 +174,7 @@
   
   <select id="findResourcesByRoleIds" resultType="com.gousade.pojo.Resource"  parameterType="java.lang.String">
     select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks, 
-    s.seq, s.status, s.create_time
+    s.seq, s.status, s.resource_type, s.tip, s.create_time
     from role r
     right join role_resource rre on r.id=rre.roleid and r.delflag=0 and rre.delflag=0
     right join resource s on rre.resourceid=s.id and s.delflag=0
@@ -184,6 +184,7 @@
     </foreach>
     and r.delflag=0
     and s.status=0
+    and s.resource_type!=7
     order by s.seq
   </select>
 </mapper>

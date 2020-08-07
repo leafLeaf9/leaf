@@ -6,9 +6,6 @@ import java.util.List;
 import com.gousade.pojo.Resource;
 
 public interface ResourceMapper {
-	
-	List<Resource> selectResourceList();
-	
     int deleteByPrimaryKey(String id);
 
     int insert(Resource record);
@@ -20,6 +17,8 @@ public interface ResourceMapper {
     int updateByPrimaryKeySelective(Resource record);
 
     int updateByPrimaryKey(Resource record);
+    
+    List<Resource> selectResourceList();
     
     int deleteBatchIds(List<? extends Serializable> idList);
 }

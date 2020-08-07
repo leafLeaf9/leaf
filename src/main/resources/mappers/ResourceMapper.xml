@@ -9,20 +9,17 @@
     <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="seq" property="seq" jdbcType="INTEGER" />
     <result column="remarks" property="remarks" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="resource_type" property="resourceType" jdbcType="INTEGER" />
+    <result column="tip" property="tip" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="delflag" property="delflag" jdbcType="VARCHAR" />
+    <result column="delflag" property="delflag" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, pid, name, url, icon, seq, remarks, status, create_time, update_time, delflag
+    id, pid, name, url, icon, seq, remarks, status, resource_type, tip, create_time, 
+    update_time, delflag
   </sql>
-  <select id="selectResourceList" resultType="com.gousade.pojo.Resource">
-    select
-    <include refid="Base_Column_List" />
-    from resource t
-    where t.delflag=0
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -36,12 +33,14 @@
   <insert id="insert" parameterType="com.gousade.pojo.Resource" >
     insert into resource (id, pid, name, 
       url, icon, seq, remarks, 
-      status, create_time, update_time, 
-      delflag)
+      status, resource_type, tip, 
+      create_time, update_time, delflag
+      )
     values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, now(), #{updateTime,jdbcType=TIMESTAMP}, 
-      0)
+      #{status,jdbcType=INTEGER}, #{resourceType,jdbcType=INTEGER}, #{tip,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{delflag,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gousade.pojo.Resource" >
     insert into resource
@@ -69,6 +68,12 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+      <if test="tip != null" >
+        tip,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -103,7 +108,13 @@
         #{remarks,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="tip != null" >
+        #{tip,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -112,7 +123,7 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="delflag != null" >
-        #{delflag,jdbcType=VARCHAR},
+        #{delflag,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -138,7 +149,13 @@
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="resourceType != null" >
+        resource_type = #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="tip != null" >
+        tip = #{tip,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -147,7 +164,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="delflag != null" >
-        delflag = #{delflag,jdbcType=VARCHAR},
+        delflag = #{delflag,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -160,10 +177,21 @@
       icon = #{icon,jdbcType=VARCHAR},
       seq = #{seq,jdbcType=INTEGER},
       remarks = #{remarks,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},     
-      update_time = sysdate()
+      status = #{status,jdbcType=INTEGER},
+      resource_type = #{resourceType,jdbcType=INTEGER},
+      tip = #{tip,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delflag = #{delflag,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectResourceList" resultType="com.gousade.pojo.Resource">
+    select
+    <include refid="Base_Column_List" />
+    from resource t
+    where t.delflag=0
+  </select>
   
   <delete id="deleteBatchIds">
 	update resource set delflag=1,update_time=sysdate()

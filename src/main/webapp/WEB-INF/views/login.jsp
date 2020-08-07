@@ -1,81 +1,85 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ include file="/template/commons/total.jsp"%>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" type="text/css" href="css/skin_/login.css" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jquery.select.js"></script>
-<title>shiro登录界面</title>
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
-<style>
-body{
-background: url(img/bg1.jpg);
-}
-</style>
+<title>GisardAdminLTE 3.0.5 | Log in</title>
+<%@ include file="/template/commons/basejs.jsp"%>
 </head>
-<body>
-<form action="${pageContext.request.contextPath}/loginShiroUser" method="post" >
-<div id="container">
-    <div id="bd">
-    	<div id="main">
-        	<div class="login-box">
-                <div id="logo"></div>
-                <h1></h1>
-                <div class="input username" id="username">
-                    <label for="userName">用户名</label>
-                    <span></span>
-                    <input type="text" id="userName" name="userId" />
-                </div>
-                <div class="input psw" id="psw">
-                    <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-                    <span></span>
-                    <input type="password" id="password" name="password"/>
-                </div>
-                <div id="btn" class="loginButton">
-                	<span style="color:red;font-weight:bold;font-size:20px;margin-left: 0px;">
-                		<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>
-               	    <input type="submit" id="Submit" class="button" value="登录"  />
-                	<input type="button" class="button" value="注册" onclick="window.open('regist')"  />
-                	</span></div>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="{ctx}/admin/index"><b>Admin</b>LTE</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form action="/admin/sysUser/loginShiroUser" method="post">
+        <div class="input-group mb-3">
+          <input type="text" name="userId" class="form-control" placeholder="Email or userName">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-envelope"></span>
             </div>
+          </div>
         </div>
-        <div id="ft">CopyRight&nbsp;2018 - 2019&nbsp;&nbsp;&nbsp;&nbsp;personal project  -   - <a href="http://dnf.qq.com/" title="personal project" target="_blank">personal project</a> &nbsp;&nbsp;</div>
+        <div class="input-group mb-3">
+          <input type="password" name="password" class="form-control" placeholder="Password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center mb-3">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-qq mr-2"></i> Sign in using QQ
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+      </div>
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p>
+      <p class="mb-0">
+        <a href="register.html" class="text-center">Register a new membership</a>
+      </p>
     </div>
+    <!-- /.login-card-body -->
+  </div>
 </div>
-</form>	
-
-<!-- String username=request.getParameter("username"); -->
-<!-- String password=request.getParameter("password"); -->
-<!-- //连接数据库的方法或是调用后台的连接数据库的方法 -->
-<!-- //查询，这里简写一下 -->
-
-
-
-<!-- cn.edu.zstu.manage.pojo.User user = new cn.edu.zstu.manage.pojo.User(); -->
-<!-- user.setUserId(username); -->
-<!-- out.println(user.getUserId()); -->
-
-<!-- session.setAttribute("userNow",user); -->
-
 </body>
-<script type="text/javascript">
-	var height = $(window).height() > 445 ? $(window).height() : 445;
-	$("#container").height(height);
-	var bdheight = ($(window).height() - $('#bd').height()) / 2 - 20;
-	$('#bd').css('padding-top', bdheight);
-	$(window).resize(function(e) {
-        var height = $(window).height() > 445 ? $(window).height() : 445;
-		$("#container").height(height);
-		var bdheight = ($(window).height() - $('#bd').height()) / 2 - 20;
-		$('#bd').css('padding-top', bdheight);
+<script>
+$(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
     });
-	$('select').select();
-	var OriginTitile = document.title;
+    var OriginTitile = document.title;
 	var titleTime;
 	document.addEventListener('visibilitychange', function() {
 	    if (document.hidden) {
@@ -88,10 +92,6 @@ background: url(img/bg1.jpg);
 	        }, 1500);
 	    }
 	});
-/* 	$('#Submit').click(function(e) {
-		
-        document.location.href = "/main";
-    }); */
+});
 </script>
-
 </html>

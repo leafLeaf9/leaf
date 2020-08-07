@@ -16,8 +16,6 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,61 +31,60 @@ import com.gousade.pojo.User;
 import com.gousade.service.UserService;
 import com.gousade.utils.DataTablesPageUtil;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 //添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
 @RestController
+@RequestMapping(value = "/admin/sysUser", method = RequestMethod.POST)
 public class UserController extends BaseController{
 	
 	@Autowired
 	private UserService userService;
 	
-	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@RequestMapping(value="/admin/sysuser/selectByPrimaryKey",method=RequestMethod.POST)
+	@RequestMapping(value="/selectByPrimaryKey",method=RequestMethod.POST)
 	public User selectByPrimaryKey(String id){
 		User user = userService.selectByPrimaryKey(id);
 		return user;
 	}
 	
+	@SuppressWarnings("unused")
 	@RequestMapping(value="/loginShiroUser",method = RequestMethod.POST)
 	public ModelAndView loginShiroUser(@RequestParam(value="userId") String userId,
 			@RequestParam(value="password") String password,Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
-//		logger.info("进行账号"+userId+",密码验证"+password+".....");
+//		log.info("进行账号"+userId+",密码验证"+password+".....");
     	UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(userId,password);
     	Subject subject = SecurityUtils.getSubject();
     	ModelAndView loginmv = new ModelAndView("login");
 		try {
     		subject.login(usernamePasswordToken);   //完成shiro登录验证
     		User user=(User) subject.getPrincipal();
-    		session.setAttribute("user", user);
-    		session.setAttribute("u", userId);
-    		session.setAttribute("user_name", user.getUserName());
-    		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效
-//    		session.setAttribute("clickId","home");
+//    		session.setAttribute("user", user);
+//    		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效
     		String currentUser = subject.getPrincipal().toString();
-    		logger.info("当前登录的用户是："+currentUser);
+    		log.info("当前登录的用户是："+currentUser);
     		ModelAndView mv = new ModelAndView("redirect:/admin/index");
     		return mv;
         }catch(UnknownAccountException uae){  
-            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");  
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");  
             request.setAttribute("msg", "账户不存在");  
             return loginmv;//返回登录页面
         }catch(IncorrectCredentialsException ice){  
-            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,错误的凭证");  
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误的凭证");  
             request.setAttribute("msg", "密码不正确");  
             return loginmv;//返回登录页面
         }catch(LockedAccountException lae){  
-            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,账户已锁定");  
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,账户已锁定");  
             request.setAttribute("msg", "账户已锁定");
             return loginmv;//返回登录页面
         }catch(ExcessiveAttemptsException eae){  
-            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,错误次数过多");  
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误次数过多");  
             request.setAttribute("msg", "用户名或密码错误次数过多");
             return loginmv;//返回登录页面
         }catch(AuthenticationException ae){  
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
-            logger.info("对用户[" + userId + "]进行登录验证..验证未通过,堆栈轨迹如下");
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,堆栈轨迹如下");
             ae.printStackTrace();  
             request.setAttribute("msg", "用户名或密码不正确");  
             return loginmv;//返回登录页面
