@@ -25,3 +25,4 @@ WebContent
 META-INF
 MANIFEST.MF
 .springBeans
+generatorConfig.xml
