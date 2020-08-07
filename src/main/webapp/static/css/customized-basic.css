@@ -20,6 +20,20 @@
     display: none;
 }
 
+.baisc-log-window {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+/* 回到页面顶部滑块 */
 #scrollUp {
     bottom: 80px;
     background-color: #777;

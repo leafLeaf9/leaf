@@ -80,6 +80,7 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
 		phone_number=#{phoneNumber},
 		<if test="password!=null and password!=''">
 		password=#{password},
+		salt=#{salt},
 		</if>
 		update_time=sysdate()
 		where user_id=#{userId}

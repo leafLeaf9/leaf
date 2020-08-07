@@ -51,10 +51,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">修改密码</a>
+                  <button class="btn btn-danger btn-flat">修改密码</button>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">退出</a>
+                  <button class="btn btn-default btn-flat" onclick="logout();">退出</button>
                 </div>
               </li>
             </ul>
@@ -134,17 +134,17 @@
   	</footer>
 </div>
 <!-- 上滑至顶端 -->
-<%-- <a id="scrollUp" href="#" style="position: fixed; z-index: 2147483647; display: none;">
-	<i class="fa fa-angle-up"></i>
+<a id="scrollUp" href="#" style="position: fixed; z-index: 2147483647; display: none;">
+	<i class="fa  fa-angle-double-up"></i>
 </a>
 <div class="basic-shield"></div>
 	<div class="baisc-log-window">
 		<img src="${staticPath}/static/image/loading.gif" alt="加载中...">
-</div> --%>
+</div>
 
 <script>
 $(function(){
-	console.log('index');
+	console.log('Navigated to the index');
 	var currentSkin;
 	var storage = window.localStorage;
 	$('body').addClass(storage.currentSkin || 'skin-yellow');
@@ -157,7 +157,7 @@ $(function(){
 		contentType: 'application/json;charset=utf-8', // 设置请求头信息  
 		success: function (result) {
 			var str = "<li class='header'> 菜单导航</li>" +
-				"<li class='treeview openNewContent active' data-url='/admin/main' data-resourcetype='1'><a href='#'><i class='fa fa-home'></i><span class='tree-name'>Index</span><span class='pull-right-container'></span></a></li>";
+				"<li class='treeview openNewContent active' data-url=''{ctx'}/admin/main' data-resourcetype='1'><a href='#'><i class='fa fa-home'></i><span class='tree-name'>Index</span><span class='pull-right-container'></span></a></li>";
 			var setting = {
 				data: {
 					simpleData: {
@@ -183,7 +183,6 @@ $(".sidebar-menu").on("click", '.openNewContent', function () {
 		$(this).removeClass("active");
 	});
 	var resourceType = $(this).attr("data-resourceType");
-	console.log(resourceType);
 	$(this).addClass("active")
 	var url = $(this).attr("data-url");
 	// 添加选中菜单 active 状态
@@ -218,6 +217,76 @@ $(".sidebar-menu").on("click", '.openNewContent', function () {
 		$("#content-iframe").css('display', 'block');
 	}
 });
+
+function searchMenu(value){
+	if (value != null && value.length != 0) {
+		$(".treeview").hide();
+		$(".tree-name:contains(" + value + ")").parents('.treeview').show();
+		$(".tree-name:contains(" + value + ")").parents('.treeview-menu').css('display', 'block');
+		$(".tree-name:contains(" + value + ")").closest('.treeview').find('.treeview').css('display', 'block');
+	} else {
+		$(".treeview").show();
+	}
+}
+
+//pace进度条
+$(document).ajaxStart(function () {
+	Pace.restart();
+});
+
+function open_shield() {
+	$('.basic-shield').css('display', 'block');
+	$('.baisc-log-window').css('display', 'block');
+}
+// 关闭
+function cancel_shield() {
+	$('.basic-shield').css('display', 'none');
+	$('.baisc-log-window').css('display', 'none');
+}
+
+$('.wrapper').scroll(function() {
+	// 获取当前滚动条纵坐标的位置
+	var ctop = $('.wrapper').scrollTop();
+	console.log(ctop);
+	// 判断滚动条距离是否大于导航条顶部距离
+	if (ctop > 300) {
+		$('#scrollUp').css('display', 'block');
+		$('#scrollUp').on('click', function () {
+			$('.content-wrapper').scrollTop(0);
+		});
+	} else {
+		$('#scrollUp').css('display', 'none');
+	}
+});
+
+//$('.content-wrapper').scroll()不生效，原因不明，用$(window).scroll()代替后可行
+$(window).scroll(function (event) {
+	var ctop = $(window).scrollTop();
+// 	console.log(ctop);
+	// 判断滚动条距离是否大于导航条顶部距离
+	if (ctop > 300) {
+		$('#scrollUp').css('display', 'block');
+		$('#scrollUp').on('click', function () {
+			$('.content-wrapper').scrollTop(0);
+		});
+	} else {
+		$('#scrollUp').css('display', 'none');
+	}
+});
+
+function logout(){
+	layer.confirm('是否退出当前用户?', {icon: 3, title:'退出确认'}, function(index){
+		$.post('${ctx}/admin/sysUser/logout', function (result) {
+			if (result.status) {
+				$('body').append(result.msg)
+				window.location.href = '${ctx}';
+			} else {
+				window.location.href = '${ctx}';
+			}
+		}, 'json');
+		layer.close(index);
+	});
+}
 
 </script>
 </body>

@@ -51,7 +51,8 @@ public class UserController extends BaseController{
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/loginShiroUser",method = RequestMethod.POST)
 	public ModelAndView loginShiroUser(@RequestParam(value="userId") String userId,
-			@RequestParam(value="password") String password,Model model,HttpServletRequest request) {
+			@RequestParam(value="password") String password,@RequestParam(value = "rememberMe", defaultValue = "0") String rememberMe,
+			Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 //		log.info("进行账号"+userId+",密码验证"+password+".....");
     	UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(userId,password);
@@ -62,8 +63,8 @@ public class UserController extends BaseController{
     		User user=(User) subject.getPrincipal();
 //    		session.setAttribute("user", user);
 //    		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效
-    		String currentUser = subject.getPrincipal().toString();
-    		log.info("当前登录的用户是："+currentUser);
+//    		String currentUser = subject.getPrincipal().toString();
+//    		log.info("当前登录的用户是："+currentUser);
     		ModelAndView mv = new ModelAndView("redirect:/admin/index");
     		return mv;
         }catch(UnknownAccountException uae){  

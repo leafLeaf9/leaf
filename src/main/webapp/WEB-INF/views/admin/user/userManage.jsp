@@ -104,7 +104,6 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
 <script>
 $(function() {
     $.user_datagrid=$('#user-datagrid').DataTable({
@@ -117,8 +116,6 @@ $(function() {
 				}
 			}
 		},
-		serverSide: true,
-		pagingType: "full_numbers",
 		ordering: false,
 // 		order: [[ 0, 'desc' ]],
 		columns: [
@@ -160,8 +157,10 @@ $("#user-search-form").submit(
 });
 
 function userClearSearch(){
+	open_shield();
 	$('#user-search-form')[0].reset();
 	$.user_datagrid.ajax.reload(null,false);
+	cancel_shield();
 }
 
 function sysUserEdit(id){

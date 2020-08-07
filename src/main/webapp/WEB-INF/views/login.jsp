@@ -9,7 +9,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="{ctx}/admin/index"><b>Admin</b>LTE</a>
+    <a href="{ctx}/admin/index"><b>GisardAdminLTE 3.0.5</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -21,7 +21,7 @@
           <input type="text" name="userId" class="form-control" placeholder="Email or userName">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fa fa-envelope"></span>
+              <span class="fa fa-id-card"></span>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" name="rememberMe">
               <label for="remember">
                 Remember Me
               </label>
@@ -62,10 +62,10 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="#">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="#" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->

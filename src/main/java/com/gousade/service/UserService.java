@@ -1,5 +1,20 @@
 package com.gousade.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.cache.Cache;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gousade.config.ShiroRealm;
 import com.gousade.mapper.UserMapper;
 import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.Menu;
@@ -7,15 +22,6 @@ import com.gousade.pojo.User;
 import com.gousade.pojo.UserRole;
 import com.gousade.utils.DataTablesPageUtil;
 import com.gousade.utils.SaltUtil;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
 
 
 @Service
@@ -26,6 +32,9 @@ public class UserService {
 	
 	@Autowired
 	private UserRoleMapper userRoleMapper;
+	
+	@Autowired
+	private ShiroRealm shiroRealm;
 	
 	public User selectByPrimaryKey(String id) {
 		User user = userMapper.selectByPrimaryKey(id);
@@ -151,8 +160,12 @@ public class UserService {
 			entity.setSalt(SaltUtil.generateUUId());
 			entity.setPassword(SaltUtil.toHex(entity.getPassword(), entity.getSalt()));
 		}
+		//修改密码后要清除shiro缓存中的信息，否则缓存依旧匹配旧密码，新密码无法登录。
+		Cache<Object,AuthenticationInfo> authentication=shiroRealm.getAuthenticationCache();
+		if (authentication!=null){
+			authentication.remove(entity.getId());
+		}
 		return userMapper.updateUserById(entity)>0;
-		//FIXME 改密码后还要清空shiro的密码缓存 下次补上
 	}
 
 	private void insertUserRole(User entity) {
