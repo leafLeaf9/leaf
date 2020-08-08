@@ -5,6 +5,7 @@
 <head>
 <title>GisardAdminLTE 3.0.5 | Log in</title>
 <%@ include file="/template/commons/basejs.jsp"%>
+<script src="${staticPath}/static/snowing/js/snow-plugin.js"></script>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -16,7 +17,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="/admin/sysUser/loginShiroUser" method="post">
+      <form id="user-login-form" method="post">
         <div class="input-group mb-3">
           <input type="text" name="userId" class="form-control" placeholder="Email or userName">
           <div class="input-group-append">
@@ -92,6 +93,39 @@ $(function () {
 	        }, 1500);
 	    }
 	});
+});
+
+$('#user-login-form').submit(function(e){
+  console.log(1);
+  var userInsertForm = new FormData($("#user-login-form")[0]);
+  $.ajax({
+    url: "${ctx}/admin/sysUser/loginShiroUser",
+    type: "POST",
+    data: userInsertForm,
+    cache : false,
+    processData : false,// 告诉jQuery不要去处理发送的数据
+    contentType : false,// 告诉jQuery不要去设置Content-Type请求头
+    dataType: 'json',
+    success: function (result) {
+      if(result.status){
+        console.log(result.msg);
+        window.location.href = result.msg;
+      }else {
+        layer.open({
+          content: result.msg,
+          shadeClose: true,
+        });
+      }
+
+    },
+    error: function () {
+      layer.msg('ajax error', {
+        icon : 2,
+        time : 1000,
+      });
+    },
+  });
+  return false;
 });
 </script>
 </html>

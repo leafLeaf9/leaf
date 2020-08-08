@@ -1,37 +1,25 @@
 package com.gousade.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.gousade.controller.common.BaseController;
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
 import com.gousade.service.UserService;
 import com.gousade.utils.DataTablesPageUtil;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 //添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
@@ -50,47 +38,48 @@ public class UserController extends BaseController{
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/loginShiroUser",method = RequestMethod.POST)
-	public ModelAndView loginShiroUser(@RequestParam(value="userId") String userId,
+	public Object loginShiroUser(@RequestParam(value="userId") String userId,
 			@RequestParam(value="password") String password,@RequestParam(value = "rememberMe", defaultValue = "0") String rememberMe,
 			Model model,HttpServletRequest request) {
-		HttpSession session = request.getSession();
-//		log.info("进行账号"+userId+",密码验证"+password+".....");
     	UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(userId,password);
     	Subject subject = SecurityUtils.getSubject();
     	ModelAndView loginmv = new ModelAndView("login");
+		Map<String, Object> result = new HashMap<String, Object>();
 		try {
     		subject.login(usernamePasswordToken);   //完成shiro登录验证
     		User user=(User) subject.getPrincipal();
-//    		session.setAttribute("user", user);
-//    		session.setMaxInactiveInterval(15*60);//以秒为单位，即在没有活动15分钟后，session将失效
-//    		String currentUser = subject.getPrincipal().toString();
-//    		log.info("当前登录的用户是："+currentUser);
-    		ModelAndView mv = new ModelAndView("redirect:/admin/index");
-    		return mv;
+			result.put("status", true);
+			String url =request.getServerPort()+request.getContextPath() + "/admin/index";
+			log.info(url);
+			result.put("msg", "/admin/index");//{}特殊符号要转义
+//    		ModelAndView mv = new ModelAndView("redirect:/admin/index");
+//    		return mv;
         }catch(UnknownAccountException uae){  
-            log.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");  
-            request.setAttribute("msg", "账户不存在");  
-            return loginmv;//返回登录页面
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");
+			result.put("status", false);
+			result.put("msg", "账号不存在");
         }catch(IncorrectCredentialsException ice){  
-            log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误的凭证");  
-            request.setAttribute("msg", "密码不正确");  
-            return loginmv;//返回登录页面
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误的凭证");
+			result.put("status", false);
+			result.put("msg", "密码不正确");
+            /*request.setAttribute("msg", "密码不正确");
+			return renderError("密码不正确");*/
         }catch(LockedAccountException lae){  
-            log.info("对用户[" + userId + "]进行登录验证..验证未通过,账户已锁定");  
-            request.setAttribute("msg", "账户已锁定");
-            return loginmv;//返回登录页面
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,账户已锁定");
+			result.put("status", false);
+			result.put("msg", "账号被锁定");
         }catch(ExcessiveAttemptsException eae){  
-            log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误次数过多");  
-            request.setAttribute("msg", "用户名或密码错误次数过多");
-            return loginmv;//返回登录页面
+            log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误次数过多");
+			result.put("status", false);
+			result.put("msg", "密码错误错误次数过多");
         }catch(AuthenticationException ae){  
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
             log.info("对用户[" + userId + "]进行登录验证..验证未通过,堆栈轨迹如下");
-            ae.printStackTrace();  
-            request.setAttribute("msg", "用户名或密码不正确");  
-            return loginmv;//返回登录页面
+            ae.printStackTrace();
+			result.put("status", false);
+			result.put("msg", "用户名或密码不正确");
         }
-
+		return result;
 	}
 	
 	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })

@@ -5,6 +5,7 @@
 <head>
 <title>首页</title>
 <%@ include file="/template/commons/basejs.jsp"%>
+<script src="${staticPath}/static/snowing/js/snow-plugin.js"></script>
 </head>
 <body class="hold-transition sidebar-mini skin-yellow">
 <div class="wrapper">
@@ -32,13 +33,13 @@
           
         <!-- User Account Menu -->
 		<li class="dropdown user user-menu">
-		<a href="#" class="dropdown-toggle nowLogin" data-toggle="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		<img src="${staticPath}/static/AdminLTE-2.4.18/dist/img/Tohsaka Rin.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">当前登录：
               <shiro:principal property='userName'></shiro:principal>
               </span>
         </a>
-        <ul class="dropdown-menu nowLoginDropDown">
+        <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="${staticPath}/static/AdminLTE-2.4.18/dist/img/Tohsaka Rin.jpg" class="img-circle" alt="User Image">
@@ -157,7 +158,7 @@ $(function(){
 		contentType: 'application/json;charset=utf-8', // 设置请求头信息  
 		success: function (result) {
 			var str = "<li class='header'> 菜单导航</li>" +
-				"<li class='treeview openNewContent active' data-url=''{ctx'}/admin/main' data-resourcetype='1'><a href='#'><i class='fa fa-home'></i><span class='tree-name'>Index</span><span class='pull-right-container'></span></a></li>";
+				"<li class='treeview openNewContent active' data-url='/admin/main' data-resourcetype='1'><a href='#'><i class='fa fa-home'></i><span class='tree-name'>Index</span><span class='pull-right-container'></span></a></li>";
 			var setting = {
 				data: {
 					simpleData: {
