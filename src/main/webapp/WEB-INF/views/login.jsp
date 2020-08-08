@@ -6,8 +6,20 @@
 <title>GisardAdminLTE 3.0.5 | Log in</title>
 <%@ include file="/template/commons/basejs.jsp"%>
 <script src="${staticPath}/static/snowing/js/snow-plugin.js"></script>
+<script src="${staticPath}/static/snowing/slowsnow/snowy.js"></script>
+<script src="${staticPath}/static/snowing/slowsnow/Snow.js"></script>
+<style>
+.login-page {
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+}
+.snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100001;}
+</style>
 </head>
 <body class="hold-transition login-page">
+<div class="htmleaf-content">
+<div class="snow-container"></div>
+</div>
 <div class="login-box">
   <div class="login-logo">
     <a href="{ctx}/admin/index"><b>GisardAdminLTE 3.0.5</b></a>
