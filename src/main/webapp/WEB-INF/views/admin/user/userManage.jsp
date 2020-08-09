@@ -157,10 +157,8 @@ $("#user-search-form").submit(
 });
 
 function userClearSearch(){
-	open_shield();
 	$('#user-search-form')[0].reset();
 	$.user_datagrid.ajax.reload(null,false);
-	cancel_shield();
 }
 
 function sysUserEdit(id){

@@ -2,20 +2,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- AdminLTE必须 -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
 <script src="${staticPath}/static/jquery/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css">
 <link rel="stylesheet" href="${staticPath}/static/img/icon-font/iconfont.css"><!-- 阿里巴巴矢量图标 -->
-<%-- <script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script> --%>
+<script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script>
 <script defer="defer" src="${staticPath}/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
 <script defer="defer" src="${staticPath}/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
 <!-- <script type="text/javascript" src="./js/jquery.color.js"></script> -->
 <script defer="defer" src="${staticPath}/static/jsUtil/jsUtil.js"></script>
 <script defer="defer" src="${staticPath}/static/jsUtil/extraJs.js"></script>
 <!-- <script src ="canvas-nest.js-2.0.1/dist/newnest.js"></script> -->
-<script src="${staticPath}/static/echarts/echarts.min.js"></script>
-<!-- <script src="./static/echarts/echarts-gl.min.js"></script> -->
+<script defer="defer" src="${staticPath}/static/echarts/echarts.min.js"></script>
+<%-- <script defer="defer" src="${staticPath}/static/echarts/echarts-gl.min.js"></script> --%>
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
 <!-- Bootstrap 4.5.0 如果你使用的是我们编译过的 JavaScript，不要忘记在它之前引入 jQuery 和 Popper.js jQuery在前,Popper在中间,Bootstrap最后 -->
@@ -32,8 +33,8 @@
 <script defer="defer" src="${staticPath}/static/AdminLTE-3.0.5/dist/js/adminlte.min.js"></script>
 <%-- <link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/dist/css/skins/_all-skins.min.css"> --%>
 <!-- icheck -->
-<link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<%-- <link rel="stylesheet" href="${staticPath}/static/AdminLTE-2.4.18/plugins/iCheck/square/blue.css"> --%>
+<%-- <link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/icheck-bootstrap/icheck-bootstrap.min.css"> --%>
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/iCheck/square/square.css">
 <script defer="defer" src="${staticPath}/static/AdminLTE-3.0.5/plugins/iCheck/icheck.min.js"></script>
 <!-- pace pace.css可自定义样式:https://github.hubspot.com/pace/docs/welcome/ -->
 <link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/pace/pace.min.css">
@@ -47,7 +48,7 @@
 <script defer="defer" src="${staticPath}/static/select2-4.0.13/dist/js/select2.min.js"></script>
 <script defer="defer" src="${staticPath}/static/select2-4.0.13/dist/js/select2tree.js"></script>
 <!-- datetimepicker -->
-<link rel="stylesheet" href="${staticPath}/static/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css">
+<link rel="stylesheet" href="${staticPath}/static/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
 <script defer="defer" src="${staticPath}/static/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script defer="defer" src="${staticPath}/static/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- layer -->
@@ -59,8 +60,13 @@
 <link rel="stylesheet" href="${staticPath}/static/css/customized-basic.css">
 <link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/jqvmap/jqvmap.min.css">
 <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<script defer="defer" src="${staticPath}/static/AdminLTE-3.0.5/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- summernote -->
+<link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/summernote/summernote-bs4.css">
+<script defer="defer" src="${staticPath}/static/AdminLTE-3.0.5/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- control-sidebar-content -->
+<script defer="defer" src="${staticPath}/static/AdminLTE-3.0.5/dist/js/demo.js"></script>
 <script>
 $.postJSON = function(url, data, callback) {
     return jQuery.ajax( {

@@ -88,8 +88,8 @@
 <script>
 $(function () {
     $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
+      checkboxClass: 'icheckbox_square',
+      radioClass: 'iradio_square',
       increaseArea: '20%' /* optional */
     });
     var OriginTitile = document.title;
