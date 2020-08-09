@@ -1131,7 +1131,7 @@
 			name = setting.view.nameIsHTML ? nameStr : nameStr.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 			var icoStr = view.makeNodeIco(setting, node)
 			var childStr = view.makeChildNode(node);
-			html.push("<i class='fa ",(icoStr != null && icoStr.length > 0)? icoStr:"fa-circle-o-notch","'></i><span class='tree-name'>",name,"</span>",(tip != null && tip > 0) ? "<span class='label label-warning pull-right'>"+ tip +"</span>": "", (tip != null && tip == 0) ? (childStr ? "<span class='label label-success pull-right'>new</span><span class='pull-right-container hide'><i class='fa fa-angle-left pull-right'></i></span>": "") : (childStr ? "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>": ""));
+			html.push("<i class='nav-icon fa ",(icoStr != null && icoStr.length > 0)? icoStr:"fa-circle-o-notch","'></i><span class='tree-name'>",name,"</span>",(tip != null && tip > 0) ? "<span class='badge badge-info right'>"+ tip +"</span>": "", (tip != null && tip == 0) ? (childStr ? "<i class='right fas fa-angle-left'></i>": "") : (childStr ? "<i class='right fas fa-angle-left'></i>": ""));
 		},
 		makeDOMNodeLine: function(html, setting, node) {
 			html.push("");
@@ -1142,7 +1142,7 @@
 		makeDOMNodeMainBefore: function(html, setting, node) {
 			var url = view.makeNodeUrl(setting, node);
 			var resourceType =  view.makeNodeResourceType(setting, node);
-			html.push("<li class='",(url != null && url.length > 0)?"openNewContent treeview' data-url='"+url+"'":"treeview'",(resourceType != null && resourceType.toString().length > 0)?" data-resourceType='"+resourceType+"'":"",">");
+			html.push("<li class='",(url != null && url.length > 0)?"openNewContent nav-item' data-url='"+url+"'":"nav-item has-treeview'",(resourceType != null && resourceType.toString().length > 0)?" data-resourceType='"+resourceType+"'":"",">");
 		},
 		makeDOMNodeNameAfter: function(html, setting, node) {
 			html.push("</a>");
@@ -1155,7 +1155,7 @@
 			for (var f in fontcss) {
 				fontStyle.push(f, ":", fontcss[f], ";");
 			}
-			html.push("<a href='#'>")
+			html.push("<a href='#' class='nav-link'>")
 		},
 		makeNodeFontCss: function(setting, node) {
 			var fontCss = tools.apply(setting.view.fontCss, [setting.treeId, node], setting.view.fontCss);
@@ -1236,7 +1236,7 @@
 			return node.children ? true : false
 		},
 		makeUlHtml: function(setting, node, html, content) {
-			html.push("<ul class='treeview-menu'>");
+			html.push("<ul class='nav nav-treeview'>");
 			html.push(content);
 			html.push("</ul>");
 		},

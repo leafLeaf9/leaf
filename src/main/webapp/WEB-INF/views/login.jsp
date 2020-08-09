@@ -31,7 +31,7 @@
 
       <form id="user-login-form" method="post">
         <div class="input-group mb-3">
-          <input type="text" name="userId" class="form-control" placeholder="Email or userName">
+          <input type="text" name="userId" class="form-control" placeholder="Email or userName" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa fa-id-card"></span>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa fa-lock"></span>
