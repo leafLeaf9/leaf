@@ -49,7 +49,7 @@ public class UserController extends BaseController{
     		subject.login(usernamePasswordToken);   //完成shiro登录验证
     		User user=(User) subject.getPrincipal();
 			result.put("status", true);
-			String url =request.getServerPort()+request.getContextPath() + "/admin/index";
+			String url =request.getContextPath() + "/admin/index";
 			log.info(url);
 			result.put("msg", "/admin/index");//{}特殊符号要转义
 //    		ModelAndView mv = new ModelAndView("redirect:/admin/index");

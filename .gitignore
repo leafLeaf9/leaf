@@ -21,8 +21,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 
+.classpath
+.project
 WebContent
 META-INF
 MANIFEST.MF
 .springBeans
 generatorConfig.xml
+[Bb]in/
+target
+.settings/

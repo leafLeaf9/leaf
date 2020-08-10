@@ -12,6 +12,7 @@
 .login-page {
 	background-repeat:no-repeat;
 	background-size:100% 100%;
+	background-image: url(${staticPath}/static/image/winter.jpg);
 }
 .snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100001;}
 </style>
@@ -22,7 +23,7 @@
 </div>
 <div class="login-box">
   <div class="login-logo">
-    <a href="{ctx}/admin/index"><b>GisardAdminLTE 3.0.5</b></a>
+    <a href="${ctx}/admin/index"><b>GisardAdminLTE 3.0.5</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

@@ -24,8 +24,10 @@ public class User implements Serializable{
 	
 	private String userName;
 	
+	@JSONField(serialize = false)
 	private String password;
 	
+	@JSONField(serialize = false)
 	private String salt;
 
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")

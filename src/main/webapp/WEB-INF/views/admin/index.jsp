@@ -166,7 +166,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/admin/index" class="brand-link">
+    <a href="${ctx}/admin/index" class="brand-link">
       <img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">GisardAdminLTE 3.0.5</span>
