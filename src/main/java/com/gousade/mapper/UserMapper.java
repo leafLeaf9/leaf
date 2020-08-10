@@ -39,7 +39,7 @@ public interface UserMapper {
 	/**
 	 * 更新登录时间	 
 	 */
-	public int updateLoginTime(String userId);
+	public int updateLoginTime(String id);
 
 	public int updateUserById(User entity);
 

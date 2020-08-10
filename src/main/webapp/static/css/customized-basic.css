@@ -34,7 +34,7 @@
 }
 
 /* 回到页面顶部滑块 */
-#scrollUp {
+.gisard-icon-up_to_top {
     bottom: 80px;
     background-color: #777;
     color: #eee;

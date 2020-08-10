@@ -147,8 +147,8 @@ public class UserService {
 		return userMapper.getroleidByuid(map);
 	}
 	
-	public int updateLoginTime(String userId) {
-		int i=userMapper.updateLoginTime(userId);
+	public int updateLoginTime(String id) {
+		int i=userMapper.updateLoginTime(id);
 		return i;
 	}
 

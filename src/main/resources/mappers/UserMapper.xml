@@ -71,7 +71,7 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
   <update id="updateLoginTime" >
     update user
     set lastlogintime=sysdate()
-    where user_id=#{userId} and delflag=0
+    where id=#{id} and delflag=0
   </update>
 
   <update id="updateUserById" parameterType="com.gousade.pojo.User" >

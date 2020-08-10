@@ -6,7 +6,7 @@
 <title>首页</title>
 <%@ include file="/template/commons/basejs.jsp"%>
 <style>
-#scrollUp{
+.gisard-icon-up_to_top{
 cursor:pointer;
 }
 </style>
@@ -204,7 +204,7 @@ cursor:pointer;
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column sidebar-menu" data-widget="treeview" role="menu" data-accordion="false" id="in-tree">
+        <ul class="nav nav-pills nav-sidebar flex-column sidebar-menu" data-widget="treeview" role="menu" data-accordion="false" id="main-sidebar-tree">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
@@ -250,7 +250,7 @@ cursor:pointer;
 <!-- ./wrapper -->
 
 <!-- 上滑至顶端 -->
-<div id="scrollUp" style="position: fixed; z-index: 2147483647; display: none;">
+<div class="gisard-icon-up_to_top" style="position: fixed; z-index: 2147483647; display: none;">
 	<i class="fa  fa-angle-double-up"></i>
 </div>
 <div class="basic-shield"></div>
@@ -284,8 +284,8 @@ $(function(){
 			for (var i = 0; i < result.length; i++) {
 				result[i].open = true
 			}
-			$.fn.zTree.init($("#in-tree"), setting, result);
-			$("#in-tree").prepend(str);
+			$.fn.zTree.init($("#main-sidebar-tree"), setting, result);
+			$("#main-sidebar-tree").prepend(str);
 		}
 	});
 });
@@ -371,12 +371,12 @@ function cancel_shield() {
 // 	console.log(ctop);
 // 	// 判断滚动条距离是否大于导航条顶部距离
 // 	if (ctop > 300) {
-// 		$('#scrollUp').css('display', 'block');
-// 		$('#scrollUp').on('click', function () {
+// 		$('.gisard-icon-up_to_top').css('display', 'block');
+// 		$('.gisard-icon-up_to_top').on('click', function () {
 // 			$('.content-wrapper').scrollTop(0);
 // 		});
 // 	} else {
-// 		$('#scrollUp').css('display', 'none');
+// 		$('.gisard-icon-up_to_top').css('display', 'none');
 // 	}
 // });
 
@@ -386,14 +386,14 @@ $(window).scroll(function (event) {
 // 	console.log(ctop);
 	// 判断滚动条距离是否大于导航条顶部距离
 	if (ctop > 300) {
-		$('#scrollUp').css('display', 'block');
+		$('.gisard-icon-up_to_top').css('display', 'block');
 		
 	} else {
-		$('#scrollUp').css('display', 'none');
+		$('.gisard-icon-up_to_top').css('display', 'none');
 	}
 });
 
-$('#scrollUp').on('click', function () {
+$('.gisard-icon-up_to_top').on('click', function () {
 	$(window).scrollTop(0);
 });
 

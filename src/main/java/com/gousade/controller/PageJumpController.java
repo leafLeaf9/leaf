@@ -5,8 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,29 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gousade.pojo.User;
 import com.gousade.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class PageJumpController {
 	@Autowired
 	private UserService userService;
 	
-	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request){
-		HttpSession session = request.getSession();	
-		String users =  (String) session.getAttribute("u");
-		if(users==null){
-			logger.warn("当前无session");
-		}else{			
-			logger.info("当前有session:"+users);
-		}
 		User obj = (User) SecurityUtils.getSubject().getPrincipal();
         if (obj == null) {       	
-        	logger.warn("当前shiro无subject");
-            return "login";
+        	log.warn("当前shiro无subject");
+            return "/login";
         }
-        logger.info("当前shiro-subject:"+obj.toString());
+        log.info("当前shiro-subject:"+obj.getUserName());
 		return "redirect:/admin/index";
 	}
 	
@@ -56,43 +47,38 @@ public class PageJumpController {
 	public String showIndex(){
 		User obj = (User) SecurityUtils.getSubject().getPrincipal();
         if (obj == null) {
-            return "login";
+            return "/login";
         }
 		return "/admin/index";
 	}
 	
-	@RequestMapping("/main")
+	@RequestMapping("/admin/index")
 	public String main(){
 		User obj = (User) SecurityUtils.getSubject().getPrincipal();
 		if(obj != null){
-			userService.updateLoginTime(obj.getUserId());
+			userService.updateLoginTime(obj.getId());
 		}
-		return "main";
-	}
-
-	@RequestMapping("/user/{pageName}")
-	public String showuserlist(@PathVariable String pageName){
-		return "user/"+pageName;
+		return "/admin/index";
 	}
 	
 	@RequestMapping("/admin/{pageName}")
 	public String showAdminJsp(@PathVariable String pageName){
-		return "admin/"+pageName;
+		return "/admin/"+pageName;
 	}
 	
-	@RequestMapping("/admin/user/{pageName}")
-	public String showAadminUserJsp(@PathVariable String pageName){
-		return "admin/user/"+pageName;
+	@RequestMapping("/admin/{pageType}/{pageName}")
+	public String showAadminUserJsp(@PathVariable("pageType") String pageType,@PathVariable("pageName") String pageName){
+		return "/admin/"+pageType+"/"+pageName;
 	}
 	
-	@RequestMapping("/admin/role/{pageName}")
-	public String showAadminroleJsp(@PathVariable String pageName){
-		return "admin/role/"+pageName;
-	}
+//	@RequestMapping("/admin/role/{pageName}")
+//	public String showAadminroleJsp(@PathVariable String pageName){
+//		return "admin/role/"+pageName;
+//	}
 	
-	@RequestMapping("/admin/resource/{pageName}")
-	public String showAadminresourceJsp(@PathVariable String pageName){
-		return "admin/resource/"+pageName;
-	}
+//	@RequestMapping("/admin/resource/{pageName}")
+//	public String showAadminresourceJsp(@PathVariable String pageName){
+//		return "admin/resource/"+pageName;
+//	}
 	
 }

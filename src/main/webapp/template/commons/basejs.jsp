@@ -55,7 +55,7 @@
 <script defer="defer" src="${staticPath}/static/layer/layer.js"></script>
 <!-- ZTREE -->
 <link rel="stylesheet" href="${staticPath}/static/ztree/zTreeStyle.css"">
-<script defer="defer" src="${staticPath}/static/ztree/jquery.ztree.core-3.5.js"></script>
+<script defer="defer" src="${staticPath}/static/ztree/jquery.ztree.forGisardAdminLTE3.0.5.js"></script>
 <!-- customized basic css -->
 <link rel="stylesheet" href="${staticPath}/static/css/customized-basic.css">
 <link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/plugins/jqvmap/jqvmap.min.css">
