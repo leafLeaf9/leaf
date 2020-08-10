@@ -125,7 +125,7 @@ $(function(){
 	});
 	
 	$('#resourceTree').tree({
-		url : '${ctx}//admin/resource/selectAllTree',
+		url : '${ctx}/admin/resource/selectAllTree',
         parentField : 'pid',
         lines : true,
         checkbox : true,

@@ -5,6 +5,11 @@
 <head>
 <title>首页</title>
 <%@ include file="/template/commons/basejs.jsp"%>
+<style>
+#scrollUp{
+cursor:pointer;
+}
+</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -17,7 +22,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="${ctx}/admin/index" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -245,9 +250,9 @@
 <!-- ./wrapper -->
 
 <!-- 上滑至顶端 -->
-<a id="scrollUp" href="#" style="position: fixed; z-index: 2147483647; display: none;">
+<div id="scrollUp" style="position: fixed; z-index: 2147483647; display: none;">
 	<i class="fa  fa-angle-double-up"></i>
-</a>
+</div>
 <div class="basic-shield"></div>
 	<div class="baisc-log-window">
 		<img src="${staticPath}/static/image/loading.gif" alt="加载中...">
@@ -256,6 +261,7 @@
 <script>
 $(function(){
 	$(".container-fluid").load("${ctx}/admin/user/userManage");
+	changeUrlWithoutFlush();
 	$.ajax({
 		type: "post",
 		url: '${ctx}/admin/resource/tree',
@@ -283,6 +289,14 @@ $(function(){
 		}
 	});
 });
+
+function changeUrlWithoutFlush(){
+	//不知道为什么点击href为#的a标签就会刷新页面，此方法可阻止，推测是某个引用的js里点击href为#的a标签会返回到根目录
+	var stateObject = {};
+	var title = "#";
+	var newUrl = "/";
+	history.pushState(stateObject,title,newUrl);
+}
 
 $(".sidebar-menu").on("click", '.openNewContent', function () {
 	// 清除所有菜单 active 状态
@@ -351,20 +365,20 @@ function cancel_shield() {
 	$('.baisc-log-window').css('display', 'none');
 }
 
-$('.wrapper').scroll(function() {
-	// 获取当前滚动条纵坐标的位置
-	var ctop = $('.wrapper').scrollTop();
-	console.log(ctop);
-	// 判断滚动条距离是否大于导航条顶部距离
-	if (ctop > 300) {
-		$('#scrollUp').css('display', 'block');
-		$('#scrollUp').on('click', function () {
-			$('.content-wrapper').scrollTop(0);
-		});
-	} else {
-		$('#scrollUp').css('display', 'none');
-	}
-});
+// $('.wrapper').scroll(function() {
+// 	// 获取当前滚动条纵坐标的位置
+// 	var ctop = $('.wrapper').scrollTop();
+// 	console.log(ctop);
+// 	// 判断滚动条距离是否大于导航条顶部距离
+// 	if (ctop > 300) {
+// 		$('#scrollUp').css('display', 'block');
+// 		$('#scrollUp').on('click', function () {
+// 			$('.content-wrapper').scrollTop(0);
+// 		});
+// 	} else {
+// 		$('#scrollUp').css('display', 'none');
+// 	}
+// });
 
 //$('.content-wrapper').scroll()不生效，原因不明，用$(window).scroll()代替后可行
 $(window).scroll(function (event) {
@@ -373,12 +387,14 @@ $(window).scroll(function (event) {
 	// 判断滚动条距离是否大于导航条顶部距离
 	if (ctop > 300) {
 		$('#scrollUp').css('display', 'block');
-		$('#scrollUp').on('click', function () {
-			$('.content-wrapper').scrollTop(0);
-		});
+		
 	} else {
 		$('#scrollUp').css('display', 'none');
 	}
+});
+
+$('#scrollUp').on('click', function () {
+	$(window).scrollTop(0);
 });
 
 function logout(){
