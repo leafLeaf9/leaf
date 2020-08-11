@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
 <script src="${staticPath}/static/jquery/jquery-3.4.1.min.js"></script>
-<%-- <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css"> --%>
-<%-- <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css"> --%>
+<link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css">
 <link rel="stylesheet" href="${staticPath}/static/img/icon-font/iconfont.css"><!-- 阿里巴巴矢量图标 -->
-<%-- <script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script> --%>
-<%-- <script defer="defer" src="${staticPath}/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script> --%>
-<%-- <script defer="defer" src="${staticPath}/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script> --%>
-<!-- <!-- <script type="text/javascript" src="./js/jquery.color.js"></script> --> -->
+<script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script>
+<script defer="defer" src="${staticPath}/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script defer="defer" src="${staticPath}/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+<!-- <script type="text/javascript" src="./js/jquery.color.js"></script> -->
 <script defer="defer" src="${staticPath}/static/jsUtil/jsUtil.js"></script>
-<%-- <script defer="defer" src="${staticPath}/static/jsUtil/extraJs.js"></script> --%>
+<script defer="defer" src="${staticPath}/static/jsUtil/extraJs.js"></script>
 <!-- <script src ="canvas-nest.js-2.0.1/dist/newnest.js"></script> -->
 <script defer="defer" src="${staticPath}/static/echarts/echarts.min.js"></script>
 <%-- <script defer="defer" src="${staticPath}/static/echarts/echarts-gl.min.js"></script> --%>
