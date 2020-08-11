@@ -6,10 +6,8 @@
 <link rel="stylesheet" href="${staticPath}/static/css/generalForm.css" />
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css">
-<%-- <script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script> --%>
 <script  src="${staticPath}/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
 <script  src="${staticPath}/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-<script  src="${staticPath}/static/jsUtil/jsUtil.js"></script>
 <script  src="${staticPath}/static/jsUtil/extraJs.js"></script>
 <title>资源管理</title>
 </head>
@@ -34,7 +32,7 @@
     </div>
 </div>
 <!-- <table id="AllResourceTree"></table> -->
-<!-- <div id="insertResourceDialog" class="easyui-dialog" style="width:850px;height:300px;"
+<div id="insertResourceDialog" class="easyui-dialog" style="width:850px;height:300px;"
     data-options="resizable:true,modal:true,closed:true,onClose: function() {document.getElementById('EditResourceForm').reset();}">
 <form id="EditResourceForm" method="post" class="contact-form">
 <ul>
@@ -59,8 +57,8 @@
 <label >资源状态：</label>
 <select name="status" type="text" required="required">
 <option value=""></option>
-<option value="1">打开</option>
-<option value="0">关闭</option>
+<option value="0">打开</option>
+<option value="1">关闭</option>
 </select>
 </div>
 </li>
@@ -82,12 +80,24 @@
 <label >排序：</label>
 <input name="seq" type="number">
 </div>
+<div class="show-double">
+<label >资源类型：</label>
+<select name="resourceType" required="required">
+<option value="1">目录-非外链</option>
+<option value="2">目录-外链</option>
+<option value="3">目录-外链-登录(加密)</option>
+<option value="4">目录-外链-登录(明码)</option>
+<option value="5">目录-外链-嵌入</option>
+<option value="6">目录-外链-嵌入-登录</option>
+<option value="7">按钮或权限</option>
+</select>
+</div>
 </li>
 </ul>
 <button type="submit" class="submit" id="doSubmitButton">确定</button>
 <button type="button" class='submit' onClick="javascript:$('#insertResourceDialog').dialog('close');return false;">取消</button>
 </form>
-</div> -->
+</div>
 <script>
 var arr;
 var temparr=[];
@@ -126,14 +136,36 @@ $('#AllResourceTree').treegrid({
             title : '排序',
 		},
 		{
-			field : 'status',
-            title : '菜单状态',
+			field : 'resourceType',
+            title : '资源类型',
             formatter : function(value, row, index) {
                 if (value == '1') {
                     return '打开';
                 } else {
                     return '关闭';
                 }
+            },
+		},
+		{
+			field : 'status',
+            title : '资源状态',
+            formatter : function (value, row, index) {
+                if (value === 1) {
+                    return '目录-非外链';
+                }else if (value === 2) {
+                    return '目录-外链-免登录';
+                }else if (value === 3){
+                	return '目录-外链-登录（加密）';
+                }else if (value === 4){
+                	return '目录-外链-登录（明码）';
+                }else if (value === 5){
+                	return '目录-外链-嵌入';
+                }else if (value === 6){
+                	return '按钮或权限';
+                }else if (value === 7){
+                	return '目录-外链-嵌入-登录';
+                }
+                return value;
             },
 		},
 		{
@@ -156,7 +188,7 @@ $('#AllResourceTree').treegrid({
     onLoadSuccess: function(row, data){
 //     	此处使用function(row, data)是因为和datagrid有区别，详情见http://jquery-easyui.wikidot.com/forum/t-366777
     	arr=data;
-//     	$('#AllResourceTree').treegrid('collapseAll');
+    	$('#AllResourceTree').treegrid('collapseAll');
     }
 });
 $('#EditResourceForm').form({

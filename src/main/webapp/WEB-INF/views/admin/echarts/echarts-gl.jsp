@@ -30,12 +30,12 @@ context.fillStyle = config.color;
 context.shadowColor = config.color;
 
 $.when(
-    $.getScript('./static/echarts/d3-contour.js'),
-    $.getScript('./static/echarts/d3-geo.js'),
-    $.getScript('./static/echarts/d3-timer.js')
+    $.getScript('${staticPath}/static/echarts/d3-contour.js'),
+    $.getScript('${staticPath}/static/echarts/d3-geo.js'),
+    $.getScript('${staticPath}/static/echarts/d3-timer.js')
 ).done(function () {
 
-    image('./static/echarts/bathymetry_bw_composite_4k.jpg').then(function(image) {
+    image('${staticPath}/static/echarts/bathymetry_bw_composite_4k.jpg').then(function(image) {
         var m = image.height,
             n = image.width,
             values = new Array(n * m),
@@ -130,9 +130,9 @@ $.when(
             backgroundColor: '#000',
             globe: {
 
-                environment: './static/echarts/starfield.jpg',
+                environment: '${staticPath}/static/echarts/starfield.jpg',
 
-                heightTexture: './static/echarts/bathymetry_bw_composite_4k.jpg',
+                heightTexture: '${staticPath}/static/echarts/bathymetry_bw_composite_4k.jpg',
 
                 displacementScale: 0.05,
                 displacementQuality: 'high',
@@ -160,7 +160,7 @@ $.when(
                         shadow: false
                     },
                     ambientCubemap: {
-                        texture: './static/echarts/lake.hdr',
+                        texture: '${staticPath}/static/echarts/lake.hdr',
                         exposure: 1,
                         diffuseIntensity: 0.5,
                         specularIntensity: 2

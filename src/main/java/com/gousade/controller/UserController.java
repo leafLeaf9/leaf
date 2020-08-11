@@ -1,25 +1,49 @@
 package com.gousade.controller;
 
-import com.gousade.controller.common.BaseController;
-import com.gousade.pojo.Menu;
-import com.gousade.pojo.User;
-import com.gousade.service.UserService;
-import com.gousade.utils.DataTablesPageUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.gousade.controller.common.BaseController;
+import com.gousade.pojo.Menu;
+import com.gousade.pojo.User;
+import com.gousade.pojo.util.AttachmentGeneral;
+import com.gousade.service.UserService;
+import com.gousade.utils.AttachmentUtil;
+import com.gousade.utils.DataTablesPageUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 //添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
@@ -151,6 +175,62 @@ public class UserController extends BaseController{
 	public Object deleteUserByid(@RequestParam Map<String,Object> map){
 		boolean b = userService.deleteUserByid(map);
 		return renderBoolean(b);
+	}
+	
+	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+	public Object fileUpload(@RequestParam(value = "attachments") MultipartFile[] attachments) throws IOException {
+		if (attachments.length > 0 && attachments[0].getOriginalFilename() != "") {
+			for (int i = 0; i < attachments.length; i++) {
+				AttachmentGeneral attachmentGeneral = AttachmentUtil.AttachmentUpload(attachments[i]);
+			}
+		}
+		return renderSuccess("操作成功");
+	}
+	
+	/**
+	 * @param response
+	 * @throws IOException
+	 * 两种方法都可下载 但是上面的方法似乎不能识别中文和空格文件名？ 之后再测试 前端form的提交方式 不能用ajax
+	 */
+	@RequestMapping(value = "/fileDownload", method = RequestMethod.POST)
+	public void fileDownload(HttpServletResponse response) throws IOException {
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+		String dateDtr = df.format(new Date());
+		String filename = "食驚第一暗帝 永恒之海(灵宝：时间真理).png";
+		String path = "D:"+File.separator+"gousadeFiles"+File.separator+"generalfile" + File.separator+dateDtr+File.separator+filename;
+		File file = new File(path);
+//		response.reset();
+//        response.setContentType("application/force-download");
+//        response.addHeader("Content-Disposition", "attachment;fileName=" + filename);
+//        byte[] buffer = new byte[1024];
+//        try (FileInputStream fis = new FileInputStream(file);
+//        BufferedInputStream bis = new BufferedInputStream(fis)) {
+//        	OutputStream os = response.getOutputStream();
+//            int i = bis.read(buffer);
+//            while (i != -1) {
+//                os.write(buffer, 0, i);
+//                i = bis.read(buffer);
+//            }
+//        }
+
+		InputStream fis = new BufferedInputStream(new FileInputStream(path));
+		byte[] buffer = new byte[fis.available()];
+		fis.read(buffer);
+		fis.close();
+		// 清空response
+		response.reset();
+		// 设置response的Header
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		response.addHeader("Content-Disposition",
+				"attachment;filename=" + new String(filename.getBytes("gb2312"), "ISO8859-1"));
+		response.addHeader("Content-Length", "" + file.length());
+
+		OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+
+		toClient.write(buffer);
+		toClient.flush();
+		toClient.close();
 	}
 	
 }

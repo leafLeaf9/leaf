@@ -63,7 +63,7 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
 		select t.* from user t
 		where t.delflag=0
 		<if test="userName!=null and userName!=''">
-	    and (t.user_name=#{userName} or t.user_id=#{userName})
+	    and (t.user_name like concat('%',#{userName},'%') or t.user_id like concat('%',#{userName},'%'))
 	    </if>
 	    order by t.user_name
 	</select>
@@ -75,15 +75,16 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
   </update>
 
   <update id="updateUserById" parameterType="com.gousade.pojo.User" >
-		update user
-		set user_name=#{userName},
+		update user t
+		set t.user_id=#{userId},
+		user_name=#{userName},
 		phone_number=#{phoneNumber},
 		<if test="password!=null and password!=''">
 		password=#{password},
 		salt=#{salt},
 		</if>
 		update_time=sysdate()
-		where user_id=#{userId}
+		where id=#{id}
 		and DELFLAG = 0
   </update>
   

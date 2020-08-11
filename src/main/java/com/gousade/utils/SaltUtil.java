@@ -1,5 +1,6 @@
 package com.gousade.utils;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -91,6 +92,8 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
 		}else{
 			System.out.println("today is odd number.");
 		}
+		log.info("D:"+File.separator+"gousadeFiles"+File.separator);
+		log.info(File.separator);
     }
 
 }

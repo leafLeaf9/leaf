@@ -6,10 +6,8 @@
 <link rel="stylesheet" href="${staticPath}/static/css/generalForm.css" />
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css">
-<%-- <script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script> --%>
 <script  src="${staticPath}/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
 <script  src="${staticPath}/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
-<script  src="${staticPath}/static/jsUtil/jsUtil.js"></script>
 <script  src="${staticPath}/static/jsUtil/extraJs.js"></script>
 <title>角色管理</title>
 </head>
@@ -30,7 +28,7 @@
 	<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="doSearch()">查询</a>
 	<a href="javascript:void(0);" class="easyui-linkbutton" plain="true" onclick="ClearSearch()">清空</a>
 </div>
-<div id="insertDialog" class="easyui-dialog" style="width:850px;height:200px;"
+<div id="insertRoleDialog" class="easyui-dialog" style="width:850px;height:200px;"
     data-options="resizable:true,modal:true,closed:true,onClose: function() {document.getElementById('EditRoleForm').reset();}">
 <form id="EditRoleForm" method="post" class="contact-form" onsubmit="return false;"><!-- onsubmit用于防止表单提交页面跳转 -->
 <ul>
@@ -55,7 +53,7 @@
 
 </ul>
 <button type="submit" class="submit" id="doSubmitButton">确定</button>
-<button type="button" class='submit' onClick="javascript:$('#insertDialog').dialog('close');return false;">取消</button>
+<button type="button" class='submit' onClick="javascript:$('#insertRoleDialog').dialog('close');return false;">取消</button>
 </form>
 </div>
 
@@ -154,7 +152,7 @@ function ClearSearch(){
 	  $('#role-datagrid').datagrid('reload',{});
 }
 function readyinsertrole(){
-	$('#insertDialog').dialog('open').dialog("center").dialog("setTitle", "新增角色");
+	$('#insertRoleDialog').dialog('open').dialog("center").dialog("setTitle", "新增角色");
 }
 
 function readyeditrole(){
@@ -163,7 +161,7 @@ function readyeditrole(){
 		$.messager.alert('提示', '请仅选择一条记录进行编辑!', 'info');
 		return false;
 	}else{
-		$('#insertDialog').dialog('open').dialog("center").dialog("setTitle", "编辑角色");
+		$('#insertRoleDialog').dialog('open').dialog("center").dialog("setTitle", "编辑角色");
 		$("#EditRoleForm input[name=id]").val(rows[0].id);
 		$("#EditRoleForm input[name=name]").val(rows[0].name);
 		$("#EditRoleForm input[name=seq]").val(rows[0].seq);
@@ -182,7 +180,7 @@ $('#EditRoleForm').submit(function(e){
     	success : function(result) {
     		progressClose();
     		$('#EditRoleForm')[0].reset();
-        	$('#insertDialog').dialog('close');
+        	$('#insertRoleDialog').dialog('close');
     		$('#role-datagrid').datagrid('reload');
     		$.messager.alert('提示', result.msg, 'info');
     	}  

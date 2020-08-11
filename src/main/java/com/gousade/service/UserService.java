@@ -154,7 +154,7 @@ public class UserService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public boolean updateUserById(User entity) {
-		userRoleMapper.deleteByUserId(entity.getUserId());
+		userRoleMapper.deleteByUserId(entity.getId());
 		insertUserRole(entity);
 		if(!StringUtils.isBlank(entity.getPassword())){
 			entity.setSalt(SaltUtil.generateUUId());

@@ -29,6 +29,8 @@
 	<button type="submit" class="btn btn-primary btn-sm">查询</button>
 	<button type="button" class="btn btn-warning btn-sm" onclick="userClearSearch()">清空</button>
 	<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#user-insert-modal">新增</button>
+	<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#file-upload-modal">上传文件测试</button>
+	<button type="button" class="btn btn-dark btn-sm" onclick="fileDownload()">下载文件测试</button>
 </form>
 </div>
 </div>
@@ -104,6 +106,36 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade " id="file-upload-modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title su-modal-title">上传文件</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form class="form-horizontal" id="file-upload-form">
+			<div class="modal-body">
+				
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">文件：</label>
+						<div class="col-sm-9">
+							<input type="file" name="attachments" class="form-control input-sm" multiple="multiple" required="required">
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light pull-left" data-dismiss="modal">关闭</button>
+				<button type="submit" class="btn btn-primary">保存</button>
+			</div>
+			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
 <script>
 $(function() {
     $.user_datagrid=$('#user-datagrid').DataTable({
@@ -126,13 +158,13 @@ $(function() {
 				data: 'userName',
 			},
 			{
-				data: 'phonenumber',
+				data: 'phoneNumber',
 			},
 			{
-				data: 'lastLoginTime',
+				data: 'lastlogintime',
 			},
 			{
-				data: 'created',
+				data: 'createTime',
 			},
 			{
 				data: '',
@@ -169,6 +201,7 @@ function sysUserEdit(id){
         data: {id:id},
         dataType: 'json',
         success: function (result) {
+        	$('#user-insert-form input[name=id]').val(result.id);
         	$('#user-insert-form input[name=userId]').val(result.userId);
         	$('#user-insert-form input[name=userName]').val(result.userName);
         	$('#user-insert-form input[name=phoneNumber]').val(result.phoneNumber);
@@ -214,6 +247,40 @@ $('#user-insert-form').submit(function(e){
 	});
 	return false;
 });
+
+$('#file-upload-form').submit(function(e){
+	var fileUploadForm = new FormData($("#file-upload-form")[0]);
+	$.ajax({
+        url: "${ctx}/admin/sysUser/fileUpload",
+        type: "POST",
+        data: fileUploadForm,
+        cache : false,
+		processData : false,// 告诉jQuery不要去处理发送的数据
+		contentType : false,// 告诉jQuery不要去设置Content-Type请求头
+        dataType: 'json',
+        success: function (result) {
+        	$('#file-upload-modal').modal('hide');
+        	layer.msg(result.msg, {
+				icon : 1,
+				time : 1000,
+			});
+        },
+        error: function () {
+        	layer.msg('ajax error', {
+				icon : 2,
+				time : 1000,
+			});
+        },
+	});
+	return false;
+});
+
+function fileDownload(){
+	var myform = $("<form></form>");
+	myform.attr('action', "${ctx}/admin/sysUser/fileDownload");
+	myform.attr('method', 'post');
+	myform.appendTo('body').submit();
+}
 
 function sysUserDelete(id){
 	layer.confirm('是否删除该用户?', {icon: 3, title:'删除用户确认'}, function(index){

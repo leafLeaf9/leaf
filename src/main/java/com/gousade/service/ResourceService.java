@@ -7,11 +7,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gousade.mapper.ResourceMapper;
 import com.gousade.mapper.RoleMapper;
+import com.gousade.mapper.RoleResourceMapper;
 import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.Resource;
+import com.gousade.pojo.RoleResource;
 import com.gousade.pojo.Tree;
 import com.gousade.pojo.User;
 import com.gousade.utils.SaltUtil;
@@ -27,6 +30,9 @@ public class ResourceService {
 	
 	@Autowired
 	private RoleMapper roleMapper;
+	
+	@Autowired
+    private RoleResourceMapper roleResourceMapper;
 	
 	public List<Resource> selectTree(User user) {
 		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
@@ -64,11 +70,17 @@ public class ResourceService {
         return trees;
     }
 
+	@Transactional
 	public Map<String, Object> insertresource(Resource resource) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		resource.setId(SaltUtil.getUUId());
 		int i=resourceMapper.insert(resource);
-		if(i>=1) {
+		RoleResource roleResource = new RoleResource();
+        roleResource.setId(SaltUtil.getUUId());
+        roleResource.setRoleid("0e073250b876489a8eefd6b801374b60");
+        roleResource.setResourceid(resource.getId());
+        int j= roleResourceMapper.insert(roleResource);
+		if(i>=1 && j>0) {
 			map.put("status", true);
 			map.put("msg", "新增资源成功");
 		}else {
@@ -80,7 +92,7 @@ public class ResourceService {
 	
 	public Map<String, Object> updateresource(Resource resource) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int i=resourceMapper.updateByPrimaryKey(resource);
+		int i=resourceMapper.updateByPrimaryKeySelective(resource);
 		if(i>=1) {
 			map.put("status", true);
 			map.put("msg", "编辑资源成功");
