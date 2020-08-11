@@ -41,10 +41,8 @@ public class ShiroRealm extends AuthorizingRealm {
         log.info(".......................................ShiroRealm");
 		// 1. 把 AuthenticationToken 拆箱转换为 UsernamePasswordToken
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
- 
 		// 2. 从 UsernamePasswordToken 中来获取 username
 		String username = upToken.getUsername();
- 
 		/**
 		 * 3. 调用数据库的方法, 从数据库中查询 username对应的用户记录
 		 *    注:一般的 , 用户名  什么的   最好唯一  
@@ -53,7 +51,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		 * 6. principal:认证的用户实体信息.(可以为 username、手机号、邮箱等，也可以是一个携带用户信息的对象模型)
 		 *  注:也可以是数据表对应的用户的实体类对象,在鉴权时可以冲这个对象中回去到其对应有哪些权限.
 		 *  注:用户对象信息本应该是从数据库中查询出来的,这里为了快速测试，直接new一个
-		 *  注:用于存放用户信息的模型,必须能后实例化。即:必须实现Serializable接口
+		 *  注:用于存放用户信息的模型,必须能够实例化。即:必须实现Serializable接口
 		 *  注: 这里假设从数据库查出来了某个用户的数据,假设User类的实例principal中的就是查出来的数据
 		 *  注:如果我们想要在程序中，获取到我们在Realm里面方式的自定义的用户对象实例(即上图中的User principal)，那么可以这么获得:
          *    User u = (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
@@ -63,27 +61,20 @@ public class ShiroRealm extends AuthorizingRealm {
 		if (user == null) {
 			return null;
 		}
-		
 		Set<String> roles = roleService.findRoleNamesByUserId(user.getId());
-		
 		Set<String> urls = roleService.findUrlsByUserId(user.getId());
-		
 		user.setRoles(roles);
-		
 		user.setUrls(urls);
-	
 		/*
 		 *  7.credentials: 凭证(一般都是密码).
 		 *    credentials本应该是查询出来的;这里为了快速测试,我们直接写
 		 */
 		Object credentials = user.getPassword(); 
- 
 		/*
 		 *  8.realmName: 当前 realm 对象的 name. 调用父类的 getName() 方法即可
 		 *    这里获取到的是:com.aspire.shiro.realms.ShiroRealm_0
 		 */
 		String realmName = getName();
-		
 		/*
 		 *  9. 盐值.
 		 *  注:如果多个用户的密码一样，那么一般情况下加密结果也一样;
@@ -92,7 +83,6 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *  注:由于一般情况下,用户名是唯一的，所以我们一般使用用户名来计算盐值
 		 */
 		ByteSource credentialsSalt = ByteSource.Util.bytes(user.getSalt());
- 
 		/*
 		 * 实例化对象.
 		 * 注意:如果不加密,那么就是直接比对的明文
@@ -107,7 +97,7 @@ public class ShiroRealm extends AuthorizingRealm {
  
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		log.info("...................ShiroRealm鉴权");
+		log.info("...................ShiroRealm获取鉴权");
 		/*
 		 * 1.从principals中获取到第一个principal
 		 *  注:多个Realm时,Shiro返回给此方法的参数principals的规则是由身份认证策略控制的(可详见:身份认证策略)
@@ -117,37 +107,16 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *     我们读取信息时，一般拿其中的某一个进行读取就行
 		 */
 		Object principal = principals.getPrimaryPrincipal();
-		
 		/*
 		 * 2.从配置applicationContext.xml中可知:我们写的ShiroReaml是第一个,
 		 *  而ShiroReaml中的principal,我们传的是User对象
 		 *  所以这里获取到的principal即为该User对象,并获取到对应其角色信息
 		 */
 		User user = (User)principal;
-		// 获取该用户(带的)角色信息
-		String[] roles = null;
-		if(user.getUserRoles() != null) {
-			roles = (user.getUserRoles()).split(",");
-		}
-		
-		// 3.创建一个Set,来放置用户拥有的角色
-		java.util.Set<String> rolesSet = new java.util.HashSet<>();
-		if(roles!=null) {
-			for (String role : roles) {
-				rolesSet.add(role);
-			}
-		} 
-		
-		// 4.创建 SimpleAuthorizationInfo, 并将办好角色的Set放入.
+		// 3.创建 SimpleAuthorizationInfo, 角色和权限Set放入.
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.setRoles(rolesSet);
-		// 5.创建权限Set，并存入SimpleAuthorizationInfo对象. 此处是随意添加的两个权限字符串，以后要修改为像上述角色Set一样通过方法获取user的权限并存入对象
-		Set<String> PermissionsSet = new HashSet<>();
-		PermissionsSet.add("user:show");
-		PermissionsSet.add("user:admin");
-        info.setStringPermissions(PermissionsSet);   
-        //这里的set角色和权限可以改为直接从User user = (User)principal;此处的user里的get方法获取，因为user类里添加了Set<String> roles、urls，后续完善
-		// 6.返回 SimpleAuthorizationInfo对象. 
+		info.setRoles(user.getRoles() == null ? new HashSet<String>() : user.getRoles());
+		info.setStringPermissions(user.getUrls() == null ? new HashSet<String>() : user.getUrls());
 		return info;
 	}
 }
