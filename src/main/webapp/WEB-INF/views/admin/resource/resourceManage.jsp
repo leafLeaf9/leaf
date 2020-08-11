@@ -4,6 +4,13 @@
 <html>
 <head>
 <link rel="stylesheet" href="${staticPath}/static/css/generalForm.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css">
+<%-- <script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script> --%>
+<script  src="${staticPath}/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script  src="${staticPath}/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+<script  src="${staticPath}/static/jsUtil/jsUtil.js"></script>
+<script  src="${staticPath}/static/jsUtil/extraJs.js"></script>
 <title>资源管理</title>
 </head>
 <body>
@@ -11,7 +18,7 @@
 <span style="cursor: pointer;" onclick="readyinsertresource()"><i class="iconfont icon-Create_member">新增</i></span>
 <span style="cursor: pointer;" onclick="readyupdateresource()"><i class="iconfont icon-bianji">编辑</i></span>
 <span style="cursor: pointer;" onclick="readydelresource()"><i class="iconfont icon-shanchu">删除</i></span>
-<myshiro:hasAnyPermissions name="/admin/demandOrder/modulecheck,user:show">
+<myshiro:hasAnyPermissions name="/admin/user/userManage,user:show">
 <a href="#" class="easyui-linkbutton"><i class="fi-check icon-red"></i>授权1</a>
 </myshiro:hasAnyPermissions>
 <shiro:hasPermission name="user:show">
@@ -27,7 +34,7 @@
     </div>
 </div>
 <!-- <table id="AllResourceTree"></table> -->
-<!-- <div id="insertDialog" class="easyui-dialog" style="width:850px;height:300px;"
+<!-- <div id="insertResourceDialog" class="easyui-dialog" style="width:850px;height:300px;"
     data-options="resizable:true,modal:true,closed:true,onClose: function() {document.getElementById('EditResourceForm').reset();}">
 <form id="EditResourceForm" method="post" class="contact-form">
 <ul>
@@ -78,7 +85,7 @@
 </li>
 </ul>
 <button type="submit" class="submit" id="doSubmitButton">确定</button>
-<button type="button" class='submit' onClick="javascript:$('#insertDialog').dialog('close');return false;">取消</button>
+<button type="button" class='submit' onClick="javascript:$('#insertResourceDialog').dialog('close');return false;">取消</button>
 </form>
 </div> -->
 <script>
@@ -161,7 +168,7 @@ $('#EditResourceForm').form({
     	progressClose();
     	result = $.parseJSON(result);
     	$('#EditResourceForm')[0].reset();
-    	$('#insertDialog').dialog('close');
+    	$('#insertResourceDialog').dialog('close');
     	$('#AllResourceTree').treegrid('reload');
     	$('#AllResourceTree').treegrid('unselectAll');
     	$.messager.alert('提示', result.msg, 'info');
@@ -169,7 +176,7 @@ $('#EditResourceForm').form({
 });
 })
 function readyinsertresource(){
-	$('#insertDialog').dialog('open').dialog("center").dialog("setTitle", "新增资源");
+	$('#insertResourceDialog').dialog('open').dialog("center").dialog("setTitle", "新增资源");
 	$('#resourceEditPid').combotree({
         url : '${ctx}/admin/resource/selectAllTree',
         parentField : 'pid',
@@ -188,7 +195,7 @@ function readyupdateresource(){
 		$.messager.alert('提示', '请选择且仅选择一条记录进行编辑!', 'info');
 		return false;
 	}else{
-		$('#insertDialog').dialog('open').dialog("center").dialog("setTitle", "编辑资源");
+		$('#insertResourceDialog').dialog('open').dialog("center").dialog("setTitle", "编辑资源");
 		$("#EditResourceForm input[name=id]").val(rows[0].id);
 		$("#EditResourceForm input[name=name]").val(rows[0].name);
 		$("#EditResourceForm input[name=url]").val(rows[0].url);

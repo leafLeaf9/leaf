@@ -15,7 +15,7 @@ cursor:pointer;
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark navbar-navy">
+  <nav class="main-header navbar navbar-expand navbar-dark navbar-secondary">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -339,14 +339,24 @@ $(".sidebar-menu").on("click", '.openNewContent', function () {
 	}
 });
 
+$(".sidebar-menu").on("click", '.nav-link', function () {
+	//Sidebar Variants
+	$(".nav-link").each(function () {
+		$(this).removeClass("active");
+	});
+	$(this).addClass("active");
+});
+
 function searchMenu(value){
 	if (value != null && value.length != 0) {
-		$(".treeview").hide();
-		$(".tree-name:contains(" + value + ")").parents('.treeview').show();
-		$(".tree-name:contains(" + value + ")").parents('.treeview-menu').css('display', 'block');
-		$(".tree-name:contains(" + value + ")").closest('.treeview').find('.treeview').css('display', 'block');
+		$(".has-treeview").hide();
+		$(".nav-item").hide();
+		$(".tree-name:contains(" + value + ")").parents('.has-treeview').show();
+		$(".tree-name:contains(" + value + ")").parents('.nav-treeview').css('display', 'block');
+		$(".tree-name:contains(" + value + ")").closest('.nav-item').css('display', 'block');
 	} else {
-		$(".treeview").show();
+		$(".has-treeview").show();
+		$(".nav-item").show();
 	}
 }
 

@@ -4,6 +4,13 @@
 <html>
 <head>
 <link rel="stylesheet" href="${staticPath}/static/css/generalForm.css" />
+<link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css">
+<%-- <script src="${staticPath}/static/jquery-easyui-1.7.0/jquery.min.js"></script> --%>
+<script  src="${staticPath}/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+<script  src="${staticPath}/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+<script  src="${staticPath}/static/jsUtil/jsUtil.js"></script>
+<script  src="${staticPath}/static/jsUtil/extraJs.js"></script>
 <title>角色管理</title>
 </head>
 <body>
