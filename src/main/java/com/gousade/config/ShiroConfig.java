@@ -34,6 +34,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/regist", "anon");
 		filterChainDefinitionMap.put("/admin/sysUser/ShiroRegist", "anon");
+		filterChainDefinitionMap.put("/redis/**", "anon");
 		filterChainDefinitionMap.put("/admin/sysUser/loginShiroUser", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/index", "anon");
