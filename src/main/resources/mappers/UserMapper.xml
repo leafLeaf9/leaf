@@ -16,7 +16,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, user_id, user_name, password, salt, create_time, update_time, remark, phone_number, 
-    lastlogintime, delflag
+    lastlogintime, delflag,avatar_path
   </sql>
 
   <select id="SelectUserByLoginName" parameterType="java.lang.String" resultType="com.gousade.pojo.User">
@@ -162,6 +162,12 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
       phone_number = #{phoneNumber,jdbcType=VARCHAR},
       lastlogintime = #{lastlogintime,jdbcType=TIMESTAMP},
       delflag = #{delflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="uploadUserAvatar" parameterType="com.gousade.pojo.util.AttachmentGeneral">
+    update user
+    set avatar_path = #{attachPath,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 

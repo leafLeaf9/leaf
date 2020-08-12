@@ -20,6 +20,7 @@ import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
 import com.gousade.pojo.UserRole;
+import com.gousade.pojo.util.AttachmentGeneral;
 import com.gousade.utils.DataTablesPageUtil;
 import com.gousade.utils.SaltUtil;
 
@@ -190,5 +191,9 @@ public class UserService {
 
 	public boolean deleteUserByid(Map<String, Object> map) {
 		return userMapper.deleteUserByid(map)>0;
+	}
+
+	public boolean uploadUserAvatar(AttachmentGeneral attachmentGeneral) {
+		return userMapper.uploadUserAvatar(attachmentGeneral)>0;
 	}
 }

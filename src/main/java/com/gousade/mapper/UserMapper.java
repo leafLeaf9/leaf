@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
+import com.gousade.pojo.util.AttachmentGeneral;
 
 public interface UserMapper {
 	
@@ -44,5 +45,7 @@ public interface UserMapper {
 	public int updateUserById(User entity);
 
 	int deleteUserByid(Map<String, Object> map);
+
+	int uploadUserAvatar(AttachmentGeneral attachmentGeneral);
 
 }

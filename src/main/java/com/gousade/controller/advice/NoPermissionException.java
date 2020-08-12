@@ -1,4 +1,4 @@
-package com.gousade.config;
+package com.gousade.controller.advice;
 
 import java.util.HashMap;
 import java.util.Map;

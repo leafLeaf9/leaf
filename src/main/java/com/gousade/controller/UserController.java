@@ -4,10 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +57,7 @@ public class UserController extends BaseController{
 	private UserService userService;
 	
 	@RequestMapping(value="/selectByPrimaryKey",method=RequestMethod.POST)
+//	@Cacheable(value="user-key",key="\\xac\\xed\\x00\\x05t\\x00\\buser-key")
 	public User selectByPrimaryKey(String id){
 		User user = userService.selectByPrimaryKey(id);
 		return user;
@@ -177,6 +180,53 @@ public class UserController extends BaseController{
 		return renderBoolean(b);
 	}
 	
+	@RequestMapping(value = "/userAvatorUpload", method = RequestMethod.POST)
+	public Object userAvatorUpload(@RequestParam(value = "attachments") MultipartFile attachments) throws IOException {
+		String filType = attachments.getOriginalFilename().substring(attachments.getOriginalFilename().lastIndexOf('.') + 1).toLowerCase();
+		String[] imageTypes={"jpg","png","bmp","gif","jpeg"};
+		List<String> imageTyepLists=Arrays.asList(imageTypes);
+		if(!imageTyepLists.contains(filType)) {
+			return renderError("上传的文件格式不符，请重新上传。");
+		}
+		if(attachments.getOriginalFilename() != "") {
+			AttachmentGeneral attachmentGeneral = AttachmentUtil.AttachmentUpload(attachments);
+			User user = getShiroSessionUser();
+			attachmentGeneral.setId(user.getId());
+			userService.uploadUserAvatar(attachmentGeneral);
+		}
+		return renderSuccess("上传头像成功");
+	}
+	
+	@RequestMapping(value="/getUserAvatar",method=RequestMethod.GET)
+	public void getUserAvatar(HttpServletResponse response,HttpServletRequest request){
+		User user = getShiroSessionUser();
+		user = userService.selectByPrimaryKey(user.getId());
+		String rootPath=request.getServletContext().getRealPath("/");
+		File file = new File(rootPath+"/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg");
+		if(user.getAvatarPath()!=null) {
+			file = new File(user.getAvatarPath());
+		}
+		response.setContentType("image/jpeg"); // 设置返回内容格式
+	    if (file.exists()) { // 如果文件存在
+	        InputStream in;
+	        try {
+	            in = new FileInputStream(file);
+	            OutputStream os = response.getOutputStream(); // 创建输出流
+	            byte[] b = new byte[1024];
+	            while (in.read(b) != -1) {
+	                os.write(b);
+	            }
+	            in.close();
+	            os.flush();
+	            os.close();
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
 	public Object fileUpload(@RequestParam(value = "attachments") MultipartFile[] attachments) throws IOException {
 		if (attachments.length > 0 && attachments[0].getOriginalFilename() != "") {
@@ -190,7 +240,7 @@ public class UserController extends BaseController{
 	/**
 	 * @param response
 	 * @throws IOException
-	 * 两种方法都可下载 但是上面的方法似乎不能识别中文和空格文件名？ 之后再测试 前端form的提交方式 不能用ajax
+	 * 两种方法都可下载 但是上面的方法似乎不能识别中文和空格文件名？ 之后再测试 注意前端form的提交方式 不能用ajax
 	 */
 	@RequestMapping(value = "/fileDownload", method = RequestMethod.POST)
 	public void fileDownload(HttpServletResponse response) throws IOException {

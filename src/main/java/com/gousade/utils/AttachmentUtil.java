@@ -20,7 +20,7 @@ import com.gousade.pojo.util.AttachmentGeneral;
 */
 public class AttachmentUtil {
 	
-	public static AttachmentGeneral AttachmentUpload(MultipartFile file) throws IOException {
+	public static AttachmentGeneral AttachmentUpload(MultipartFile file){
 		AttachmentGeneral attachmentGeneral = new AttachmentGeneral();
 		if (!file.isEmpty()) {
 			String base = "D:"+File.separator+"gousadeFiles"+File.separator;
@@ -38,7 +38,12 @@ public class AttachmentUtil {
 			filename += "." + ext;
 			String absolutePath = base+File.separator+filename;
 			File absoluteFile = new File(absolutePath);
-			file.transferTo(absoluteFile);//此方法代替下面的文件工具类将文件写入磁盘
+			try {
+				file.transferTo(absoluteFile);//此方法代替下面的文件工具类将文件写入磁盘
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //			FileUtils.SaveFileFromInputStream(file.getInputStream(), base, filename);
 			attachmentGeneral.setAttachName(oriName.substring(0, oriName.lastIndexOf('.')));
 			attachmentGeneral.setAttachType(ext);

@@ -45,6 +45,8 @@ public class User implements Serializable{
 
     private Integer delflag;
     
+    private String avatarPath;
+    
     private String userRoles;
     
 	private Set<String> roles;

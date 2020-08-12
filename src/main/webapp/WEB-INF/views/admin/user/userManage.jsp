@@ -260,10 +260,10 @@ $('#file-upload-form').submit(function(e){
         dataType: 'json',
         success: function (result) {
         	$('#file-upload-modal').modal('hide');
-        	layer.msg(result.msg, {
-				icon : 1,
-				time : 1000,
-			});
+       		layer.open({
+   				content : result.msg,
+   				shadeClose : true,
+   			});
         },
         error: function () {
         	layer.msg('ajax error', {

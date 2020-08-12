@@ -6,7 +6,7 @@
 <title>首页</title>
 <%@ include file="/template/commons/basejs.jsp"%>
 <style>
-.gisard-icon-up_to_top{
+.gisard-icon-up_to_top,.img-circle,.user-avatar{
 cursor:pointer;
 }
 </style>
@@ -47,7 +47,7 @@ cursor:pointer;
       
       <li class="nav-item dropdown user user-menu">
 		<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-		<img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" class="user-image" alt="User Image">
+		<img src="${ctx}/admin/sysUser/getUserAvatar" class="user-image user-avatar" alt="User Image">
               <span class="hidden-xs">当前登录：
               <shiro:principal property='userName'></shiro:principal>
               </span>
@@ -56,7 +56,7 @@ cursor:pointer;
         <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" class="img-circle" alt="User Image">
+                <img src="${ctx}/admin/sysUser/getUserAvatar" class="img-circle user-avatar user-avatar-edit" alt="User Image">
 
                 <p>
                   Tohsaka Rin - Web Developer
@@ -258,6 +258,35 @@ cursor:pointer;
 		<img src="${staticPath}/static/image/loading.gif" alt="加载中...">
 </div>
 
+<div class="modal fade " id="user-avatar-modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title su-modal-title">上传头像</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form class="form-horizontal" id="user-avatar-form">
+			<div class="modal-body">
+				
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">选择文件：</label>
+						<div class="col-sm-9">
+							<input type="file" name="attachments" class="form-control input-sm" required="required">
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light pull-left" data-dismiss="modal">关闭</button>
+				<button type="submit" class="btn btn-primary">保存</button>
+			</div>
+			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
 <script>
 $(function(){
 	$(".container-fluid").load("${ctx}/admin/user/userManage");
@@ -288,6 +317,7 @@ $(function(){
 			$("#main-sidebar-tree").prepend(str);
 		}
 	});
+// 	getUserAvatar();
 });
 
 function changeUrlWithoutFlush(){
@@ -426,6 +456,38 @@ $(".menuSearchInput").focus(function(){
 });
 $(".menuSearchInput").focusout(function(){
     $(this).css("background-color","#374850");
+});
+
+$(".user-avatar-edit").click(function(){ 
+	$('#user-avatar-modal').modal('show');
+});
+
+$('#user-avatar-form').submit(function(e){
+	var userAvatarForm = new FormData($("#user-avatar-form")[0]);
+	$.ajax({
+        url: "${ctx}/admin/sysUser/userAvatorUpload",
+        type: "POST",
+        data: userAvatarForm,
+        cache : false,
+		processData : false,// 告诉jQuery不要去处理发送的数据
+		contentType : false,// 告诉jQuery不要去设置Content-Type请求头
+        dataType: 'json',
+        success: function (result) {
+        	$('#user-avatar-modal').modal('hide');
+        	$(".user-avatar").attr('src',"${ctx}/admin/sysUser/getUserAvatar");
+       		layer.open({
+   				content : result.msg,
+   				shadeClose : true,
+   			});
+        },
+        error: function () {
+        	layer.msg('ajax error', {
+				icon : 2,
+				time : 1000,
+			});
+        },
+	});
+	return false;
 });
 </script>
 </body>
