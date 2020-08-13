@@ -11,7 +11,7 @@ import com.gousade.controller.common.BaseController;
 /**
 * @author woxigsd@gmail.com
 * @date 2020-8-12 8:53:01
-* 
+* 类说明：捕获文件上传异常
 */
 @ControllerAdvice
 public class GlobalExceptionHandler extends BaseController{

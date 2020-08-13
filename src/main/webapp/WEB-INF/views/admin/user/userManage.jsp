@@ -265,11 +265,12 @@ $('#file-upload-form').submit(function(e){
    				shadeClose : true,
    			});
         },
-        error: function () {
-        	layer.msg('ajax error', {
-				icon : 2,
-				time : 1000,
-			});
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	console.log(XMLHttpRequest);
+        	layer.open({
+   				content : XMLHttpRequest.responseJSON.message,
+   				shadeClose : true,
+   			});
         },
 	});
 	return false;
