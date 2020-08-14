@@ -27,6 +27,12 @@ public class RedisController {
 
     @Resource
     private RedisUtil redisUtil;
+    
+    @RequestMapping("/keys")
+    public Object keys(String...patterns){
+    	return redisUtil.keys(patterns);
+        
+    }
 
     @RequestMapping("set")
     public boolean redisset(String key){

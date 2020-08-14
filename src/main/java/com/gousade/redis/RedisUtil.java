@@ -1,5 +1,6 @@
 package com.gousade.redis;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -551,8 +552,16 @@ public class RedisUtil {
      * @param pattern
      * @return
      */
-    public Set keys(String pattern){
-        return redisTemplate.keys(pattern);
+    public Set<String> keys(String... patterns){
+    	if(patterns==null) {
+    		return redisTemplate.keys("*");
+    	}else if(patterns.length==1){
+    		return redisTemplate.keys(patterns[0]);
+    	}else {
+    		Set<String> set=new HashSet<String>();
+    		set.add("参数过多，只需要一个参数即可。");
+    		return set;
+    	}
     }
 
     /**

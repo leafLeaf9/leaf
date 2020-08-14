@@ -201,22 +201,29 @@ function sysUserEdit(id){
         data: {id:id},
         dataType: 'json',
         success: function (result) {
-        	$('#user-insert-form input[name=id]').val(result.id);
-        	$('#user-insert-form input[name=userId]').val(result.userId);
-        	$('#user-insert-form input[name=userName]').val(result.userName);
-        	$('#user-insert-form input[name=phoneNumber]').val(result.phoneNumber);
-        	if(result.roleIds!=null){
-        		$('#user-insert-form select[name=roleIds]').val(result.roleIds.split(",")).select2();
+        	if(!result.status){
+        		layer.open({
+       				content : result.msg,
+       				shadeClose : true,
+       			});
+        	}else{
+        		$('#user-insert-form input[name=id]').val(result.id);
+            	$('#user-insert-form input[name=userId]').val(result.userId);
+            	$('#user-insert-form input[name=userName]').val(result.userName);
+            	$('#user-insert-form input[name=phoneNumber]').val(result.phoneNumber);
+            	if(result.roleIds!=null){
+            		$('#user-insert-form select[name=roleIds]').val(result.roleIds.split(",")).select2();
+            	}
+            	$('#user-insert-modal').modal('show');
         	}
         },
         error: function () {
-        	layer.msg('ajax error', {
-				icon : 2,
-				time : 1000,
-			});
+        	layer.open({
+   				content : 'ajax error',
+   				shadeClose : true,
+   			});
         },
 	});
-	$('#user-insert-modal').modal('show');
 }
 
 $('#user-insert-form').submit(function(e){

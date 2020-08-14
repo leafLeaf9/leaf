@@ -174,7 +174,7 @@ public class UserController extends BaseController{
 		return renderBoolean(b);
 	}
 	
-	@RequestMapping(value="/admin/sysuser/deleteUserByid",method=RequestMethod.POST)
+	@RequestMapping(value="/deleteUserByid",method=RequestMethod.POST)
 	public Object deleteUserByid(@RequestParam Map<String,Object> map){
 		boolean b = userService.deleteUserByid(map);
 		return renderBoolean(b);
