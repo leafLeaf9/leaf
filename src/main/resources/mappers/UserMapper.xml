@@ -99,7 +99,7 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
     select 
     <include refid="Base_Column_List" />
     from user
-    where user_id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user
@@ -169,6 +169,14 @@ left join menu m on rm.menu_id=m.id where r.role_id=7 -->
     update user
     set avatar_path = #{attachPath,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateOwnPasswordById" parameterType="com.gousade.pojo.User">
+    update user t
+    set t.password = #{password},
+    t.salt = #{salt}
+    where t.id = #{id,jdbcType=VARCHAR}
+    and t.delflag=0
   </update>
 
 </mapper>

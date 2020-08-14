@@ -66,7 +66,7 @@ cursor:pointer;
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <button class="btn btn-danger btn-flat">修改密码</button>
+                  <button class="btn btn-danger btn-flat" onclick="editOwnPassword();">修改密码</button>
                 </div>
                 <div class="pull-right">
                   <button class="btn btn-default btn-flat" onclick="logout();">退出</button>
@@ -287,6 +287,66 @@ cursor:pointer;
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade " id="user-editOwnPassword-modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title su-modal-title">上传头像</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form class="form-horizontal" id="userEditOwnPasswordForm">
+			<div class="modal-body">
+				
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">用户名：</label>
+						<div class="col-sm-9">
+							<input name="userId" type="text" class="form-control input-sm" disabled="disabled"
+							value="<shiro:principal property='userId'></shiro:principal>">
+							<input class="form-control" type="text" name="id"
+							value="<shiro:principal property='id'></shiro:principal>" style="display:none;">
+							<input class="form-control" type="text" name="phoneNumber"
+							value="<shiro:principal property='phoneNumber'></shiro:principal>" style="display:none;">
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">手机号：</label>
+						<div class="col-sm-9">
+							<input name="mobile" type="text" class="form-control input-sm" disabled="disabled">
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">验证码：</label>
+						<div class="col-sm-9">
+							<input type="text" placeholder="请输入验证码" class="form-control" name="checkCode" input-group mb-3>
+							<button type="button" class="btn btn-primary" id="getCheckCode">获取验证码(三分钟内)</button>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">新密码：</label>
+						<div class="col-sm-9">
+							<input name="password" type="password" placeholder="请输入新密码" class="form-control" required="required">
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">重复密码：</label>
+						<div class="col-sm-9">
+							<input name="rePassword" type="password" placeholder="请再次输入新密码" class="form-control" required="required">
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light pull-left" data-dismiss="modal">关闭</button>
+				<button type="submit" class="btn btn-primary">保存</button>
+			</div>
+			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
 <script>
 $(function(){
 	$(".container-fluid").load("${ctx}/admin/user/userManage");
@@ -488,6 +548,120 @@ $('#user-avatar-form').submit(function(e){
         },
 	});
 	return false;
+});
+
+function editOwnPassword(){
+	var phoneNumber = $('#userEditOwnPasswordForm input[name=phoneNumber]').val()
+	$('#userEditOwnPasswordForm input[name=mobile]').val(phoneNumber.substring(0,3)+"****"+phoneNumber.substring(7,11));
+	$('#userEditOwnPasswordForm input[name=password]').val("");
+	$('#user-editOwnPassword-modal').modal('show');
+}
+
+$('#getCheckCode').on("click",function(){
+	var phoneNumber=$("#userEditOwnPasswordForm input[name=phoneNumber]").val();
+	sendCheckCode(phoneNumber);
+});
+
+function sendCheckCode(phoneNumber){
+	$.ajax({
+		url : "${ctx}/admin/smsCode/sendSmsCode",
+		type : "POST",
+		data: {phoneNumber:phoneNumber},
+		dataType : "json",
+		success : function(result) {
+			if(result.status){
+				layer.open({
+	   				content : result.msg,
+	   				shadeClose : true,
+	   			});
+				$("#getCheckCode").html("<span id='secondTip'>180</span>秒后重新获取");
+				$("#getCheckCode").unbind("click");
+				setTimeout("clockCheckCode()",1000);
+			}else{
+				layer.open({
+	   				content : result.msg,
+	   				shadeClose : true,
+	   			});
+			}
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	console.log(XMLHttpRequest);
+        	layer.open({
+   				content : XMLHttpRequest.responseJSON.message,
+   				shadeClose : true,
+   			});
+        },
+	}); 
+}
+
+function clockCheckCode(){
+	$("#secondTip").html($("#secondTip").html()-1);
+	if($("#secondTip").html()>0){
+		setTimeout("clockCheckCode()",1000);
+	}else{
+		var phoneNumber=$("#userEditOwnPasswordForm input[name=phoneNumber]").val();
+		$("#getCheckCode").html("获取验证码(三分钟内)");
+		$("#getCheckCode").on("click",function(){
+			sendCheckCode(phoneNumber);
+	    });
+	}
+}
+
+$('#userEditOwnPasswordForm').submit(function(e){
+	var password = $("#userEditOwnPasswordForm input[name=password]").val();
+	var rePassword = $("#userEditOwnPasswordForm input[name=rePassword]").val();
+	var pattern=/^.{6,50}$/;
+	if(!pattern.test(password)){
+		layer.open({
+			content : "密码长度不能小于6位！",
+			shadeClose : true,
+		});
+		return false;
+	}
+	if (rePassword != password) {
+		layer.open({
+			content : "两次密码不一致。",
+			shadeClose : true,
+		});
+		return false;
+	}
+	var userEditOwnPasswordForm = new FormData($("#userEditOwnPasswordForm")[0]);
+	$.ajax({
+        url: "${ctx}/admin/smsCode/validate",
+        type: "POST",
+        data: userEditOwnPasswordForm,
+        async: false,
+        cache : false,
+		processData : false,// 告诉jQuery不要去处理发送的数据
+		contentType : false,// 告诉jQuery不要去设置Content-Type请求头
+        dataType: 'json',
+        success: function (result) {
+        	if(result.status){
+        		$('#user-editOwnPassword-modal').modal('hide');
+				layer.open({
+	   				content : result.msg,
+	   				shadeClose : true,
+	   			});
+			}else{
+				layer.open({
+	   				content : result.msg,
+	   				shadeClose : true,
+	   			});
+			}
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	console.log(XMLHttpRequest);
+        	layer.open({
+   				content : XMLHttpRequest.responseJSON.message,
+   				shadeClose : true,
+   			});
+        },
+	});
+	return false;
+});
+
+$('#user-editOwnPassword-modal').on('hide.bs.modal', function () {
+	 $('#userEditOwnPasswordForm')[0].reset();
 });
 </script>
 </body>

@@ -162,10 +162,10 @@ public class UserService {
 			entity.setPassword(SaltUtil.toHex(entity.getPassword(), entity.getSalt()));
 		}
 		//修改密码后要清除shiro缓存中的信息，否则缓存依旧匹配旧密码，新密码无法登录。
-		Cache<Object,AuthenticationInfo> authentication=shiroRealm.getAuthenticationCache();
+		/*Cache<Object,AuthenticationInfo> authentication=shiroRealm.getAuthenticationCache();
 		if (authentication!=null){
 			authentication.remove(entity.getId());
-		}
+		}*/
 		return userMapper.updateUserById(entity)>0;
 	}
 
@@ -195,5 +195,9 @@ public class UserService {
 
 	public boolean uploadUserAvatar(AttachmentGeneral attachmentGeneral) {
 		return userMapper.uploadUserAvatar(attachmentGeneral)>0;
+	}
+
+	public boolean updateOwnPasswordById(User user) {
+		return userMapper.updateOwnPasswordById(user)>0;
 	}
 }

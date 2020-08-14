@@ -201,9 +201,9 @@ function sysUserEdit(id){
         data: {id:id},
         dataType: 'json',
         success: function (result) {
-        	if(!result.status){
+        	if(!result){
         		layer.open({
-       				content : result.msg,
+       				content : "查询失败",
        				shadeClose : true,
        			});
         	}else{

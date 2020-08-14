@@ -48,4 +48,6 @@ public interface UserMapper {
 
 	int uploadUserAvatar(AttachmentGeneral attachmentGeneral);
 
+	int updateOwnPasswordById(User user);
+
 }
