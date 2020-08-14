@@ -47,7 +47,8 @@ public class GlobalExceptionHandler extends BaseController{
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
     public Object handleException(Exception e) {
-		e.printStackTrace();
+		log.error(e.getMessage(), e);
+//		e.printStackTrace();
         return renderError("发生未知异常："+e.getMessage());
     }
 
