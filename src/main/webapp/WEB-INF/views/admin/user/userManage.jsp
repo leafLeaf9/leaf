@@ -6,49 +6,55 @@
 <title>用户管理新</title>
 </head>
 <body>
-<div class="dropdown">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown link
-  </a>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
 <div class="row">
 <div class="col-md-12">
-<form class="form-inline search-form" id="user-search-form" method="post">
-	<div class="input-group">
-	  <div class="input-group-prepend">
-	    <span class="input-group-text">用户名:</span>
-	  </div>
-	  <input type="text" class="form-control input-sm" name="userName" placeholder="userName">
-	</div>
-	<button type="submit" class="btn btn-primary btn-sm">查询</button>
-	<button type="button" class="btn btn-warning btn-sm" onclick="userClearSearch()">清空</button>
-	<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#user-insert-modal">新增</button>
-	<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#file-upload-modal">上传文件测试</button>
-	<button type="button" class="btn btn-dark btn-sm" onclick="fileDownload()">下载文件测试</button>
-</form>
-</div>
-</div>
+<div class="nav-tabs-custom">
+	<ul class="nav nav-tabs">
+	    <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab" aria-expanded="false">用户管理</a></li>
+	    <li class="nav-item"><a class="nav-link" href="#custom-tabs-one-profile" data-toggle="tab" aria-expanded="false">Profile</a></li>
+	    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab" aria-expanded="false">Tab 3</a></li>
+    </ul>
+	<div class="tab-content">
+	<div class="tab-pane active" id="tab_1">
+	<form class="form-inline search-form" id="user-search-form" method="post">
+		<div class="input-group">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text">用户名:</span>
+		  </div>
+		  <input type="text" class="form-control input-sm" name="userName" placeholder="userName">
+		</div>
+		<button type="submit" class="btn btn-primary btn-sm">查询</button>
+		<button type="button" class="btn btn-warning btn-sm" onclick="userClearSearch()">清空</button>
+		<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#user-insert-modal">新增</button>
+		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#file-upload-modal">上传文件测试</button>
+		<button type="button" class="btn btn-dark btn-sm" onclick="fileDownload()">下载文件测试</button>
+	</form>
 
-<table id="user-datagrid" class="table table-bordered table-hover table-striped">
-    <thead>
-        <tr>
-            <th>用户名</th>
-            <th>姓名</th>
-            <th>联系方式</th>
-            <th>最后登录时间</th>
-            <th>创建时间</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+	<table id="user-datagrid" class="table table-bordered table-hover table-striped">
+	    <thead>
+	        <tr>
+	            <th>用户名</th>
+	            <th>姓名</th>
+	            <th>联系方式</th>
+	            <th>最后登录时间</th>
+	            <th>创建时间</th>
+	            <th>操作</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    </tbody>
+	</table>
+	</div>
+	<div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor,vulputate metus facilisis.
+    </div>
+    <div class="tab-pane" id="tab_3">
+	D:/AdminLTE-3.0.5/pages/UI/navbar.html
+    </div>
+	</div>
+</div>
+</div>
+</div>
 
 <div class="modal fade " id="user-insert-modal" role="dialog">
 	<div class="modal-dialog">

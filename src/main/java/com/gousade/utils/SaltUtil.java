@@ -94,6 +94,9 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
 		}
 		log.info("D:"+File.separator+"gousadeFiles"+File.separator);
 		log.info(File.separator);
+		for(int i=10;i<9;i++) {
+			log.info(i+"");
+		}
     }
 
 }
