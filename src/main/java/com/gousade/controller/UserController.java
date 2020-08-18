@@ -39,7 +39,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gousade.controller.common.BaseController;
-import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
 import com.gousade.service.UserService;
@@ -143,19 +142,6 @@ public class UserController extends BaseController{
 	public Map<String,Object> regist(@RequestBody Map<String,Object> map){				
 		return userService.regist(map);
 		}
-	
-	
-	/**
-	 * 初始化菜单
-	 * @param map
-	 * @return
-	 */
-	@RequestMapping(value="/listAdminMenu",method=RequestMethod.POST)
-	public List<Menu> listAdminMenu(@RequestBody Map<String,Object> map){
-		Map<String, Object> rolemap = new HashMap<String, Object>();
-		rolemap=userService.getroleidByuid(map);
-		return userService.listAdminMenuByRole(rolemap);
-	}
 	
 	@RequestMapping(value="/selectUserList",method=RequestMethod.POST)
 	public DataTablesPageUtil<User> selectUserList(HttpServletRequest request){

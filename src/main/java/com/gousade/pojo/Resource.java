@@ -1,13 +1,19 @@
 package com.gousade.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-public class Resource {
-    private String id;
+public class Resource implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6223969085387906203L;
+
+	private String id;
 
     private String pid;
 

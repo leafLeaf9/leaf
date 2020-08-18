@@ -35,14 +35,7 @@
 		where 
 		user_id=#{user_id}
 	</select>
-<!-- 	根据角色ID获取对应的权限菜单 -->
-	<select id="listMenuByRoleId" parameterType="map" resultType="com.gousade.pojo.Menu">
-   select menu.* from role_menu, menu
-   where role_menu.role_id = #{roleid} and role_menu.menu_id = menu.id
-   and menu.state='1'
-<!-- select m.* from role r left join role_menu rm on r.role_id=rm.role_id 
-left join menu m on rm.menu_id=m.id where r.role_id=7 -->
-</select>
+	
 <!-- 	查询用户列表 -->
 	<select id="queryuserlist" parameterType="map" resultType="map">
 		select user_id,password,user_name,state,

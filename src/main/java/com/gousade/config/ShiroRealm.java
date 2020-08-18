@@ -32,6 +32,7 @@ public class ShiroRealm extends AuthorizingRealm {
 	@Autowired
 	private UserService userService;
 	
+	@Lazy
 	@Autowired
 	private RoleService roleService;
 	

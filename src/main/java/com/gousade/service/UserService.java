@@ -1,5 +1,6 @@
 package com.gousade.service;
 
+import java.awt.Menu;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,13 +10,13 @@ import java.util.Objects;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gousade.config.ShiroRealm;
 import com.gousade.mapper.UserMapper;
 import com.gousade.mapper.UserRoleMapper;
-import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
 import com.gousade.pojo.UserRole;
 import com.gousade.pojo.util.AttachmentGeneral;
@@ -35,6 +36,7 @@ public class UserService {
 	@Autowired
 	private ShiroRealm shiroRealm;
 	
+	@Cacheable(value="redis@Cacheable")
 	public User selectByPrimaryKey(String id) {
 		User user = userMapper.selectByPrimaryKey(id);
 		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
@@ -112,38 +114,6 @@ public class UserService {
 	public long queryuserlistcnt(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return userMapper.queryuserlistcnt(map);
-	}
-
-	public List<Menu> listAdminMenuByRole(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		List<Menu> menuList;
-	     List<Menu> newMenuList = new ArrayList<>();
-	     try {
-	         //1、根据角色获得所有的菜单（包括一级和二级）
-	         menuList = userMapper.listMenuByRoleId(map);
-	         for (int i = 0; i < menuList.size(); i++) {
-	             Menu menu = menuList.get(i);
-	             List<Menu> childMenuList = new ArrayList<>();
-	             //2、拼装二级菜单
-	             if (menu.getPid() == 0) {//检测pid是否为0，为0代表是父菜单，如果是父菜单则检测刚开始获得的菜单里有哪些是它的子菜单，把子菜单
-	            	                      //添加进这个menu的ChildMenu中，再把menu放到最后返回的数据中。如果刚开始获得的菜单里只有子菜单那么返回值将为空
-	                 for (int j = 0; j < menuList.size(); j++) {
-	                     if (Objects.equals(menu.getId(), menuList.get(j).getPid())) {
-	                         childMenuList.add(menuList.get(j));
-	                     }
-	                 }
-	                 menu.setChildMenu(childMenuList);
-	                 newMenuList.add(menu);
-	             }
-	         }
-	     } catch (Exception e) {
-	         System.out.println("获取菜单出错");
-	     }
-	     return newMenuList;
-	}
-
-	public Map<String, Object> getroleidByuid(Map<String, Object> map) {
-		return userMapper.getroleidByuid(map);
 	}
 	
 	public int updateLoginTime(String id) {

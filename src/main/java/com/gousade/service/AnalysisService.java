@@ -1,22 +1,14 @@
 package com.gousade.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.io.ResolverUtil.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gousade.excelvo.WordsVO;
 import com.gousade.mapper.AnalysisMapper;
-import com.gousade.pojo.Menu;
-import com.gousade.pojo.User;
 
 //import edu.hit.ir.ltp4j.NER;
 //import edu.hit.ir.ltp4j.Postagger;

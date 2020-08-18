@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,7 @@ public class ResourceService {
 	@Autowired
     private RoleResourceMapper roleResourceMapper;
 	
+	@Cacheable(value="redis@Cacheable",key="#root.methodName+'_'+#p0.id")
 	public List<Resource> selectTree(User user) {
 		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
         if (roleIdList == null || roleIdList.size() == 0) {

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import com.gousade.pojo.Resource;
 import com.gousade.pojo.Role;
 
@@ -27,7 +29,8 @@ public interface RoleMapper {
     
     List<String> selectResourceIdListByRoleId(String id);
 
-	List<Role> getRoles();
+    @Cacheable(value="redis@Cacheable")
+    List<Role> getRoles();
 
 	List<Role> findByIds(List<String> roleIdList);
 

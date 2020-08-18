@@ -34,7 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport{
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
 
@@ -80,7 +80,7 @@ public class RedisConfig extends CachingConfigurerSupport{
      */
     private Map<String, RedisCacheConfiguration> getRedisCacheConfigurationMap() {
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
-        redisCacheConfigurationMap.put("redis@Cacheable-config4", this.getRedisCacheConfigurationWithTtl(18000));
+        redisCacheConfigurationMap.put("redis@Cacheable", this.getRedisCacheConfigurationWithTtl(86000));
         return redisCacheConfigurationMap;
     }
     
