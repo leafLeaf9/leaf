@@ -28,6 +28,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +58,7 @@ public class UserController extends BaseController{
 	private UserService userService;
 	
 	@RequestMapping(value="/selectByPrimaryKey",method=RequestMethod.POST)
-//	@Cacheable(value="user-key",key="\\xac\\xed\\x00\\x05t\\x00\\buser-key")
+	@Cacheable(value="redis@Cacheable")
 	public User selectByPrimaryKey(String id){
 		User user = userService.selectByPrimaryKey(id);
 		return user;

@@ -1,9 +1,19 @@
 package com.gousade.redis;
 
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
@@ -12,6 +22,7 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -23,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport{
 	
+	@SuppressWarnings("rawtypes")
 	@Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
 
@@ -49,11 +61,67 @@ public class RedisConfig extends CachingConfigurerSupport{
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setHashValueSerializer(jacksonSeial);
         template.afterPropertiesSet();
-
+        
         return template;
     }
 	
-	/**
+    @Bean
+    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        return new RedisCacheManager(
+            RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
+            this.getRedisCacheConfigurationWithTtl(86400), // 默认策略，未配置的 key 会使用这个
+            this.getRedisCacheConfigurationMap() // 指定 key 策略
+        );
+    }
+    
+    
+    /**
+     * @return 为特定@Cacheable(value="redis@Cacheable-config4")设定过期时间，默认是上面的86400秒
+     */
+    private Map<String, RedisCacheConfiguration> getRedisCacheConfigurationMap() {
+        Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
+        redisCacheConfigurationMap.put("redis@Cacheable-config4", this.getRedisCacheConfigurationWithTtl(18000));
+        return redisCacheConfigurationMap;
+    }
+    
+    private RedisCacheConfiguration getRedisCacheConfigurationWithTtl(Integer seconds) {
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
+        redisCacheConfiguration = redisCacheConfiguration.serializeValuesWith(
+            RedisSerializationContext
+                .SerializationPair
+                .fromSerializer(jackson2JsonRedisSerializer)
+        ).entryTtl(Duration.ofSeconds(seconds));
+
+        return redisCacheConfiguration;
+    }
+    
+    /**
+     *生成key，value::类名.方法名(参数)，例如redis@Cacheable-config6::RedisController.getUser()
+     */
+    @Bean
+    public KeyGenerator keyGenerator() {
+        return (o, method, objects) -> {
+            StringBuilder stringBuilder = new StringBuilder();
+//            stringBuilder.append(o.getClass().getSimpleName());
+//            stringBuilder.append(".");
+            stringBuilder.append(method.toString().substring(0, method.toString().indexOf("(")));
+            stringBuilder.append("(");
+            for (Object obj : objects) {
+                stringBuilder.append(obj.toString());
+            }
+            stringBuilder.append(")");
+
+            return stringBuilder.toString();
+        };
+    }
+    
+    /**
      * 对hash类型的数据操作
      *
      * @param redisTemplate

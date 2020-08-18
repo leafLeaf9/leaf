@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,6 +48,8 @@ public class RedisController {
 
     @RequestMapping("get")
     public Object redisget(String key){
+//    	Object result= redisUtil.get("redis@Cacheable::public abstract java.util.List com.gousade.mapper.UserMapper.selectUserList({\"orderStr\":\"order by null null\",\"userName\":\"\"})");
+//    	return result;
         return redisUtil.get(key);
     }
 
@@ -63,5 +66,13 @@ public class RedisController {
     @RequestMapping("persist")
     public boolean persist(String key){
         return redisUtil.persist(key);
+    }
+    
+    @RequestMapping("/getUser")
+    @Cacheable(value="redis@Cacheable-config6")
+    public User getUser() {
+        User user=new User("aa@126.com", "aa", "aa123456", "aa","123");
+        log.info("若下面没出现“无缓存的时候调用”字样且能打印出数据表示测试成功");
+        return user;
     }
 }

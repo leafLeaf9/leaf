@@ -3,6 +3,8 @@ package com.gousade.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import com.gousade.pojo.Menu;
 import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
@@ -26,6 +28,7 @@ public interface UserMapper {
 
 	public List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap);
 	
+	@Cacheable(value="redis@Cacheable")
 	public List<User> selectUserList(Map<String, Object> searchMap);
 	
 	public long queryuserlistcnt(Map<String, Object> map);
