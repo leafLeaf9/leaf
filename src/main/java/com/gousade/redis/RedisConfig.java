@@ -2,15 +2,17 @@ package com.gousade.redis;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -65,6 +67,12 @@ public class RedisConfig extends CachingConfigurerSupport{
         return template;
     }
 	
+	/**
+	 * @param redisConnectionFactory
+	 * @return
+	 * 自定义缓存管理器，可以指定key的失效时间，并设置Jackson2序列化方式
+	 */
+	@Primary//如果有多个缓存管理器的话，指定默认的缓存管理器
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         return new RedisCacheManager(
@@ -73,6 +81,37 @@ public class RedisConfig extends CachingConfigurerSupport{
             this.getRedisCacheConfigurationMap() // 指定 key 策略
         );
     }
+	
+	/**
+	 * @param redisConnectionFactory
+	 * @return
+	 * 使用spring的默认方式创建缓存管理器
+	 */
+	@Bean
+    public RedisCacheManager springDefaultCacheManager(RedisConnectionFactory redisConnectionFactory) {
+		//这个被注释的写法类似上面的自定义缓存管理器，也是通过config和map设置不同缓存的生存时间，这里不使用这种方法。
+		/*RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();  
+		  // 生成一个默认配置，通过config对象即可对缓存进行自定义配置
+		   config = config.entryTtl(Duration.ofMinutes(1))     // 设置缓存的默认过期时间，也是使用Duration设置
+		           .disableCachingNullValues();     // 不缓存空值
+		
+		   // 设置一个初始化的缓存空间set集合
+		   Set<String> cacheNames =  new HashSet<>();
+		   cacheNames.add("my-redis-cache1");
+		   cacheNames.add("my-redis-cache2");
+		
+		   // 对每个缓存空间应用不同的配置
+		   Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
+		   configMap.put("my-redis-cache1", config);
+		   configMap.put("my-redis-cache2", config.entryTtl(Duration.ofSeconds(120)));
+		
+		   RedisCacheManager cacheManager = RedisCacheManager.builder(redisConnectionFactory)     // 使用自定义的缓存配置初始化一个cacheManager
+		           .initialCacheNames(cacheNames)  // 注意这两句的调用顺序，一定要先调用该方法设置初始化的缓存名，再初始化相关的配置
+		           .withInitialCacheConfigurations(configMap)
+		           .build();*/
+		RedisCacheManager cacheManager = RedisCacheManager.create(redisConnectionFactory);
+	    return cacheManager;
+    }
     
     
     /**
@@ -80,7 +119,7 @@ public class RedisConfig extends CachingConfigurerSupport{
      */
     private Map<String, RedisCacheConfiguration> getRedisCacheConfigurationMap() {
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
-        redisCacheConfigurationMap.put("redis@Cacheable", this.getRedisCacheConfigurationWithTtl(86000));
+        redisCacheConfigurationMap.put("redis@Cacheable", this.getRedisCacheConfigurationWithTtl(100000));
         return redisCacheConfigurationMap;
     }
     
@@ -102,17 +141,19 @@ public class RedisConfig extends CachingConfigurerSupport{
     }
     
     /**
-     *生成key，value::类名.方法名(参数)，例如redis@Cacheable-config6::RedisController.getUser()
+     *生成key，value::方法名(参数)，例如redis@Cacheable-config6::getUser()
      */
     @Bean
     public KeyGenerator keyGenerator() {
-        return (o, method, objects) -> {
+        return (target, method, params) -> {
             StringBuilder stringBuilder = new StringBuilder();
-//            stringBuilder.append(o.getClass().getSimpleName());
+//            stringBuilder.append(target.getClass().getSimpleName());
 //            stringBuilder.append(".");
-            stringBuilder.append(method.toString().substring(0, method.toString().indexOf("(")));
+//            stringBuilder.append(method.toString().substring(0, method.toString().indexOf("(")));
+//            stringBuilder.append(target.getClass().getName());
+            stringBuilder.append(method.getName());
             stringBuilder.append("(");
-            for (Object obj : objects) {
+            for (Object obj : params) {
                 stringBuilder.append(obj.toString());
             }
             stringBuilder.append(")");

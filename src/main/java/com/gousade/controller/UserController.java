@@ -28,6 +28,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,8 +50,8 @@ import com.gousade.utils.DataTablesPageUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-//添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
-@RestController
+@CacheConfig(cacheNames="redis@Cacheable")
+@RestController//添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
 @RequestMapping(value = "/admin/sysUser", method = RequestMethod.POST)
 public class UserController extends BaseController{
 	
@@ -57,7 +59,7 @@ public class UserController extends BaseController{
 	private UserService userService;
 	
 	@RequestMapping(value="/selectByPrimaryKey",method=RequestMethod.POST)
-	@Cacheable(value="redis@Cacheable")
+	@Cacheable/*(value="redis@Cacheable")*/
 	public User selectByPrimaryKey(String id){
 		User user = userService.selectByPrimaryKey(id);
 		return user;
@@ -161,6 +163,7 @@ public class UserController extends BaseController{
 		return renderBoolean(b);
 	}
 	
+	@CacheEvict(allEntries=true,beforeInvocation=true)
 	@RequestMapping(value="/deleteUserByid",method=RequestMethod.POST)
 	public Object deleteUserByid(@RequestParam Map<String,Object> map){
 		boolean b = userService.deleteUserByid(map);

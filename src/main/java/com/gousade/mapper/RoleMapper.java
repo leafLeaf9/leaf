@@ -29,7 +29,6 @@ public interface RoleMapper {
     
     List<String> selectResourceIdListByRoleId(String id);
 
-    @Cacheable(value="redis@Cacheable")
     List<Role> getRoles();
 
 	List<Role> findByIds(List<String> roleIdList);

@@ -36,7 +36,6 @@ public class UserService {
 	@Autowired
 	private ShiroRealm shiroRealm;
 	
-	@Cacheable(value="redis@Cacheable")
 	public User selectByPrimaryKey(String id) {
 		User user = userMapper.selectByPrimaryKey(id);
 		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
