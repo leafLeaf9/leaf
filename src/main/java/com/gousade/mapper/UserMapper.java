@@ -27,7 +27,7 @@ public interface UserMapper {
 
 	public List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap);
 	
-	@Cacheable(value="redis@Cacheable")
+//	@Cacheable(value="redis@Cacheable")
 	public List<User> selectUserList(Map<String, Object> searchMap);
 	
 	public long queryuserlistcnt(Map<String, Object> map);

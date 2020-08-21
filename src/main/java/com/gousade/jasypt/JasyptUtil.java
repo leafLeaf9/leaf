@@ -1,0 +1,33 @@
+package com.gousade.jasypt;
+
+import org.jasypt.encryption.StringEncryptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+/**
+* @author woxigsd@gmail.com
+* @date 2020-8-21 15:42:24
+* Description:jasypt加解密工具类
+*/
+@Component
+public class JasyptUtil {
+	
+	@Autowired
+	@Qualifier("jasyptStringEncryptor")
+	/**表明使用的是JasyptConfig中的bean Field encryptor in com.gousade.jasypt.JasyptUtil required a single bean, but 2 were found
+	 *和在bean上加@Primary效果类似
+	 */
+    StringEncryptor encryptor;
+	
+	public String encypt(String value){
+    	String result = encryptor.encrypt(value);
+    	return result;
+	}
+	
+	public String decypt(String value){
+    	String result = encryptor.decrypt(value);
+    	return result;
+	}
+
+}

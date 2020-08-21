@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
 /** 
 * @author 作者: woxi-Gisard
@@ -24,6 +25,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 */
 @SpringBootApplication
 @MapperScan("com.*.mapper")
+@EnableEncryptableProperties
 public class GousadeApplication extends SpringBootServletInitializer{
 	
 	/** 

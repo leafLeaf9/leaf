@@ -1,4 +1,4 @@
-package com.gousade.test;
+package com.gousade.redis;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +16,7 @@ import com.gousade.pojo.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestRedis {
+public class RedisTest {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;

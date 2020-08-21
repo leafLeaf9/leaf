@@ -36,6 +36,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/admin/smsCode/**", "anon");
 		filterChainDefinitionMap.put("/admin/sysUser/ShiroRegist", "anon");
 		filterChainDefinitionMap.put("/redis/**", "anon");
+		filterChainDefinitionMap.put("/jasypt/**", "anon");
 		filterChainDefinitionMap.put("/admin/sysUser/loginShiroUser", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/index", "anon");
