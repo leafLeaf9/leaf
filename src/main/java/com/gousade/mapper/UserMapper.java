@@ -6,10 +6,11 @@ import java.util.Map;
 
 import org.springframework.cache.annotation.Cacheable;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
 
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User>{
 	
     int deleteByPrimaryKey(String id);
 

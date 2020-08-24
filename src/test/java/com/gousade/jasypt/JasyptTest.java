@@ -29,11 +29,11 @@ public class JasyptTest {
 	public void stringEncryptor() {
         String name = encryptor.encrypt("用户名");
         String password = encryptor.encrypt("密码");
-        String url = encryptor.encrypt("jdbc:mysql://101.132.118.130:9733/gousade?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true");
+        String url = encryptor.encrypt("jdbc:mysql://101.132.118.130:9733/gousade?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=UTC");
         String ip = encryptor.encrypt("101.132.118.130");
         log.info("name: "+name);
         log.info("password: "+password);
-        log.info("url: "+url);
+        log.info("url: ENC("+url+")");
         log.info("ip: ENC("+ip+")");
         Assert.assertTrue(name.length() > 0);
         Assert.assertTrue(password.length() > 0);
