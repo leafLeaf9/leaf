@@ -47,8 +47,14 @@ import com.gousade.service.UserService;
 import com.gousade.utils.AttachmentUtil;
 import com.gousade.utils.DataTablesPageUtil;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import springfox.documentation.annotations.ApiIgnore;
 
+@Api(tags="用户管理")
 @Slf4j
 @CacheConfig(cacheNames="redis@Cacheable")
 @RestController//添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
@@ -57,13 +63,6 @@ public class UserController extends BaseController{
 	
 	@Autowired
 	private UserService userService;
-	
-	@RequestMapping(value="/selectByPrimaryKey",method=RequestMethod.POST)
-	@Cacheable/*(value="redis@Cacheable")*/
-	public User selectByPrimaryKey(String id){
-		User user = userService.selectByPrimaryKey(id);
-		return user;
-	}
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/loginShiroUser",method = RequestMethod.POST)
@@ -145,15 +144,31 @@ public class UserController extends BaseController{
 		return userService.regist(map);
 		}
 	
+	@ApiOperation(value = "获取用户列表", notes = "查询用户列表")
 	@RequestMapping(value="/selectUserList",method=RequestMethod.POST)
 	public DataTablesPageUtil<User> selectUserList(HttpServletRequest request){
 		DataTablesPageUtil<User> dataTables = new DataTablesPageUtil<User>(request);
 		dataTables = userService.selectUserList(dataTables);
 		return dataTables;
 	}
+	
+	@ApiOperation("用户详情")
+	@RequestMapping(value="/selectByPrimaryKey",method=RequestMethod.POST)
+	@Cacheable/*(value="redis@Cacheable")*/
+	public User selectByPrimaryKey(String id){
+		User user = userService.selectByPrimaryKey(id);
+		return user;
+	}
 
+	@ApiOperation(value = "创建或编辑用户", notes = "根据User对象创建或编辑用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "phoneNumber", value = "手机号", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "roleIds", value = "角色", required = false, dataType = "String", paramType = "query")
+    })
 	@RequestMapping(value = "/userEdit", method = RequestMethod.POST)
-	public Object userEdit(User user){
+	public Object userEdit(@ApiIgnore User user){
 		boolean b=false;
 		if(user.getId()==null||"".equals(user.getId())){
 			b = userService.insert(user);

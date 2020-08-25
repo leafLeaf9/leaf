@@ -48,6 +48,11 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/template/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");//防止favicon.ico图标被拦截
         filterChainDefinitionMap.put("/static/**", "anon");
+        //下面四条都是swagger过滤
+        filterChainDefinitionMap.put("/swagger-ui/**", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/v3/api-docs", "anon");
 		filterChainDefinitionMap.put("/static/templates/**", "authc");
 		filterChainDefinitionMap.put("/**", "authc");
 		// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面

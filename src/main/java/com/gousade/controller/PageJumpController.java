@@ -32,10 +32,10 @@ public class PageJumpController {
 		return "redirect:/admin/index";
 	}
 	
-	@RequestMapping("/{pageName:^(?!favicon.ico).*$}")//此正则用于排除@RequestMapping("favicon.ico")将favicon.ico也解析为jsp视图
+	/*@RequestMapping("/{pageName:^(?!favicon.ico).*$}")//此正则用于排除@RequestMapping("favicon.ico")将favicon.ico也解析为jsp视图
 	public String toPage(@PathVariable String pageName,HttpServletRequest request,HttpServletResponse response){
 			return pageName;
-	}
+	}*/
 	
 	/*@RequestMapping("/favicon.ico")
     public String returnFavicon() {
