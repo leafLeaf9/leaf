@@ -1,6 +1,9 @@
 package com.gousade.scheduler;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.springframework.scheduling.annotation.Async;
@@ -41,7 +44,9 @@ public class SchedulerTask {
 	@Async
 	@Scheduled(cron = "0 0/3 * * * *")
 	public void pushDataScheduled(){
-		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		log.info("现在时间：" + dateFormat.format(new Date()));
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z");
+		String dateNow = LocalDateTime.now()
+				/*.atZone(ZoneOffset.UTC)*/.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS 'CST'"));
+		log.info("now time ：" + dateNow/*dateFormat.format(new Date())*/);
 	}
 }
