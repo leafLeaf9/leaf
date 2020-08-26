@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>首页</title>
+<title>GisardAdminLTE 3.0.5 | Index</title>
 <%@ include file="/template/commons/basejs.jsp"%>
 <style>
 .gisard-icon-up_to_top,.img-circle,.user-avatar{
@@ -378,6 +378,19 @@ $(function(){
 		}
 	});
 // 	getUserAvatar();
+	var OriginTitile = document.title;
+	var titleTime;
+	document.addEventListener('visibilitychange', function() {
+	    if (document.hidden) {
+	    	document.title = '其实你点击不到我的。';
+	        clearTimeout(titleTime);
+	    } else {
+	    	document.title = '食驚！';
+	        titleTime = setTimeout(function() {
+	            document.title = OriginTitile;
+	        }, 1500);
+	    }
+	});
 });
 
 function changeUrlWithoutFlush(){

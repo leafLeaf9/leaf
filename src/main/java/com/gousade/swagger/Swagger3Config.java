@@ -16,11 +16,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 * @author woxigsd@gmail.com
 * @date 2020-8-25 16:54:43
 * Description: Swagger3配置类
+* http://springfox.github.io/springfox/docs/current/#configuration-explained
 */
 @Configuration
 public class Swagger3Config {
     @Bean
-    public Docket createRestApi() {
+    public Docket petApi() {
         return new Docket(DocumentationType.OAS_30)
         		.groupName("gousade")
                 .apiInfo(apiInfo())

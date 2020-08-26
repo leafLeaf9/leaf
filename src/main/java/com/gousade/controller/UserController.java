@@ -51,6 +51,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -180,7 +181,7 @@ public class UserController extends BaseController{
 	
 	@CacheEvict(allEntries=true,beforeInvocation=true)
 	@RequestMapping(value="/deleteUserByid",method=RequestMethod.POST)
-	public Object deleteUserByid(@RequestParam Map<String,Object> map){
+	public Object deleteUserByid(@ApiParam(name="map",value="map中包含要删除的用户id",required=false) @RequestParam Map<String,Object> map){
 		boolean b = userService.deleteUserByid(map);
 		return renderBoolean(b);
 	}

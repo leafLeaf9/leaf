@@ -43,14 +43,14 @@
     delete from role
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.gousade.pojo.Role" >
+  <!-- <insert id="insert" parameterType="com.gousade.pojo.Role" >
     insert into role (id, name, remarks, seq, 
       create_time, update_time, delflag
       )
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, 
       sysdate(), #{updateTime,jdbcType=TIMESTAMP}, 0
       )
-  </insert>
+  </insert> -->
   <insert id="insertSelective" parameterType="com.gousade.pojo.Role" >
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides="," >

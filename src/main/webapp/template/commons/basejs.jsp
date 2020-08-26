@@ -16,8 +16,8 @@
 <!-- <script src ="canvas-nest.js-2.0.1/dist/newnest.js"></script> -->
 <script defer="defer" src="${staticPath}/static/echarts/echarts.min.js"></script>
 <%-- <script defer="defer" src="${staticPath}/static/echarts/echarts-gl.min.js"></script> --%>
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/>
+<!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
+<!-- <link rel="bookmark" href="/favicon.ico" type="image/x-icon"　/> -->
 <!-- Bootstrap 4.5.0 如果你使用的是我们编译过的 JavaScript，不要忘记在它之前引入 jQuery 和 Popper.js jQuery在前,Popper在中间,Bootstrap最后 -->
 <script defer="defer" src="${staticPath}/static/popper.js-1.6.1/popper.min.js"></script>
 <link rel="stylesheet" href="${staticPath}/static/bootstrap-4.5.0-dist/css/bootstrap.min.css">

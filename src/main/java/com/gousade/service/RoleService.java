@@ -52,7 +52,7 @@ public class RoleService {
 	@Transactional
 	public Map<String, Object> insertrole(Role role) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		role.setId(SaltUtil.getUUId());
+//		role.setId(SaltUtil.getUUId());
 		int i=roleMapper.insert(role);
 		/*if (true) {//测试@Transactional注解是否生效，默认只回滚RuntimeException和Error
 	        throw new RuntimeException("save 抛异常了");

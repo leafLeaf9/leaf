@@ -1,6 +1,8 @@
 package com.gousade.jasypt;
 
 import org.jasypt.encryption.StringEncryptor;
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,38 @@ public class JasyptUtil {
 	}
 	
 	public String decypt(String value){
+    	String result = encryptor.decrypt(value);
+    	return result;
+	}
+	
+	public SimpleStringPBEConfig cryptor(String password){
+    	SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+    	config.setPassword(password);
+    	config.setAlgorithm("PBEWithMD5AndDES");
+    	config.setKeyObtentionIterations("1000");
+    	config.setPoolSize("1");
+    	config.setProviderName("SunJCE");
+    	config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+    	config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
+    	config.setStringOutputType("base64");
+    	return config;
+	}
+	
+	/**
+	 * @param password
+	 * @param value
+	 * @return 上面的加解密方法是使用bean中的混淆盐值，下面两个加解密方法使用传入的盐值
+	 */
+	public String encyptwithSalt(String password,String value){
+    	PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+    	encryptor.setConfig(cryptor(password));
+    	String result = encryptor.encrypt(value);
+    	return result;
+	}
+	
+	public String decyptwithSalt(String password,String value){
+    	PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+    	encryptor.setConfig(cryptor(password));
     	String result = encryptor.decrypt(value);
     	return result;
 	}

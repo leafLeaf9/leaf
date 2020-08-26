@@ -4,18 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.cache.annotation.Cacheable;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gousade.pojo.Resource;
 import com.gousade.pojo.Role;
 
-public interface RoleMapper {
+public interface RoleMapper extends BaseMapper<Role>{
 	
 	List<Role> selectRoleList(Map<String,Object> map);
 	
     int deleteByPrimaryKey(String id);
 
-    int insert(Role record);
+//    int insert(Role record);
 
     int insertSelective(Role record);
 
