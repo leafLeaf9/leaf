@@ -14,12 +14,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gousade.config.ShiroRealm;
 import com.gousade.mapper.UserMapper;
 import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.User;
 import com.gousade.pojo.UserRole;
 import com.gousade.pojo.util.AttachmentGeneral;
+import com.gousade.shiro.ShiroRealm;
 import com.gousade.utils.DataTablesPageUtil;
 import com.gousade.utils.SaltUtil;
 

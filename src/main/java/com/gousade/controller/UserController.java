@@ -26,6 +26,8 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -163,10 +165,10 @@ public class UserController extends BaseController{
 
 	@ApiOperation(value = "创建或编辑用户", notes = "根据User对象创建或编辑用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "phoneNumber", value = "手机号", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "roleIds", value = "角色", required = false, dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataTypeClass = String.class, paramType = "query"),
+            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataTypeClass = String.class, paramType = "query"),
+            @ApiImplicitParam(name = "phoneNumber", value = "手机号", required = true, dataTypeClass = String.class, paramType = "query"),
+            @ApiImplicitParam(name = "roleIds", value = "角色", required = false, dataTypeClass = String.class, paramType = "query")
     })
 	@RequestMapping(value = "/userEdit", method = RequestMethod.POST)
 	public Object userEdit(@ApiIgnore User user){
@@ -181,7 +183,7 @@ public class UserController extends BaseController{
 	
 	@CacheEvict(allEntries=true,beforeInvocation=true)
 	@RequestMapping(value="/deleteUserByid",method=RequestMethod.POST)
-	public Object deleteUserByid(@ApiParam(name="map",value="map中包含要删除的用户id",required=false) @RequestParam Map<String,Object> map){
+	public Object deleteUserByid(@ApiParam(name="map",value="map中包含要删除的用户id") @RequestParam Map<String,Object> map){
 		boolean b = userService.deleteUserByid(map);
 		return renderBoolean(b);
 	}
@@ -233,6 +235,9 @@ public class UserController extends BaseController{
 	    }
 	}
 	
+	@SuppressWarnings("unused")
+	@RequiresRoles({"超级管理员"})
+	@RequiresPermissions({"/admin/user/userManage","/admin/user/tabs"})
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
 	public Object fileUpload(@RequestParam(value = "attachments") MultipartFile[] attachments) throws IOException {
 		if (attachments.length > 0 && attachments[0].getOriginalFilename() != "") {

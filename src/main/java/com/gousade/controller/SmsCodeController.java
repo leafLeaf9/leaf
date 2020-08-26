@@ -1,18 +1,13 @@
 package com.gousade.controller;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.gousade.config.ShiroRealm;
 import com.gousade.controller.common.BaseController;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisUtil;
@@ -37,9 +32,6 @@ public class SmsCodeController extends BaseController{
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private ShiroRealm shiroRealm;
 	
 	@RequestMapping(value="/sendSmsCode",method=RequestMethod.POST)
 	public Object sendSmsCode(String phoneNumber) throws ClientException{

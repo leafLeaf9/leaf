@@ -8,8 +8,11 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+@ApiModel(/*value = "User",*/ description = "用户实体类")
 @Data
 public class User implements Serializable{
 	
@@ -45,6 +48,7 @@ public class User implements Serializable{
 
     private Integer delflag;
     
+    @ApiModelProperty(value = "用户头像路径")
     private String avatarPath;
     
     private String userRoles;

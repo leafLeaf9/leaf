@@ -1,4 +1,4 @@
-package com.gousade.config;
+package com.gousade.shiro;
 
 
 import java.util.HashSet;
