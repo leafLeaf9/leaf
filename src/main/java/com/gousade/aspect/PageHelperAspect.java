@@ -27,16 +27,14 @@ public class PageHelperAspect {
 	 */
 
 	@Pointcut("execution(com.gousade.utils.DataTablesPageUtil com.gousade.service.*.*(com.gousade.utils.DataTablesPageUtil))")
-	private void pointCutMethod() {
+	private void pointCutPagination() {
 	}
 
 	// 声明环绕通知
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Around("pointCutMethod()")
+	@Around("pointCutPagination()")
 	public Object process(ProceedingJoinPoint point) throws Throwable {
-		//System.out.println("@Around：执行目标方法之前...");
+		log.info("PageHelper AOP Pagination start.");
 		// 访问目标方法的参数：
-		log.info("进入PageHelper AOP");
 		Object[] args = point.getArgs();
 		DataTablesPageUtil dataTable = null;
 		if (args != null && args.length > 0 && args[0].getClass() == DataTablesPageUtil.class) {
@@ -50,7 +48,7 @@ public class PageHelperAspect {
 		dataTable=DataTablesResultUtil.packageResult(dataTable, pageInfo);
 		//System.out.println("@Around：执行目标方法之后...");
 		//System.out.println("@Around：被织入的目标对象为：" + point.getTarget());
-		log.info("PageHelper AOP分页执行完毕");
+		log.info("PageHelper AOP Pagination succeeded.");
 		return dataTable;
 	}
 
