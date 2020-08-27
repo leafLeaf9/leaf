@@ -4,9 +4,10 @@
   <groupId>com.gousade</groupId>
   <artifactId>gousade</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>gousade Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <version>1.1.0-SNAPSHOT</version>
+  <name>GisardAdminLTE - SpringBoot</name>
+  <description>SpringBoot Project.</description>
+  <url>https://github.com/woxigousade/gousade</url>
   <parent>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-parent</artifactId>
@@ -19,6 +20,7 @@
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	<java.version>11</java.version>
   </properties>
+  
   <dependencies>
 	<!-- <dependency>
 	    <groupId>org.springframework.boot</groupId>
@@ -38,7 +40,10 @@
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-thymeleaf</artifactId>
 	</dependency> -->
-    <!--对数据库的支持-->
+	<dependency>  
+	    <groupId>org.springframework.boot</groupId>  
+	    <artifactId>spring-boot-starter-freemarker</artifactId>  
+	</dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -210,10 +215,6 @@
 	    <groupId>com.rabbitmq</groupId>
 	    <artifactId>amqp-client</artifactId>
 	    </dependency>
-	<dependency>  
-	    <groupId>org.springframework.boot</groupId>  
-	    <artifactId>spring-boot-starter-freemarker</artifactId>  
-	</dependency>
 	<!--exportExcel easypoi-->
 	<dependency>
 	    <groupId>cn.afterturn</groupId>
