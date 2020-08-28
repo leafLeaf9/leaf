@@ -41,7 +41,7 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
         return new SimpleHash(algorithmName, source, salt, hashIterations).toHex();
     }
     @Test
-    public void test() throws UnknownHostException {
+    public void test() {
         /*String saltstr= getsalt();
         String uidstr=getUUId();
         String uuidstr=DigestUtils.md5Hex(uidstr);
@@ -56,22 +56,6 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
 		System.err.println("无byte加密："+nobyte);
 		System.err.println("有byte加密："+havebyte);
 		System.err.println(ByteSource.Util.bytes("salt").toString());*/
-    	/*double otherNum=Math.ceil(5/(7/2));
-    	double test =5/3;
-    	double test1 =7/2;
-    	System.out.println("otherNum："+otherNum);
-    	System.out.println("test："+test);
-    	System.out.println("test1："+test1);
-    	BigDecimal five = new BigDecimal(String.valueOf(5));
-    	BigDecimal seven = new BigDecimal(String.valueOf(7));
-    	BigDecimal two = new BigDecimal(String.valueOf(2));
-    	BigDecimal bigresult=five.divide(seven.divide(two, 2, BigDecimal.ROUND_HALF_UP), 2, BigDecimal.ROUND_HALF_UP);
-    	int result=(int) Math.ceil(bigresult.doubleValue());
-    	System.out.println("result："+result);*/
-    	String str1="亲，您可以通过点击这里进行宽带线路检测，你的宽带出现了以下哪种问题，请选择：[1]自助排障宝典. [2]无法上网. [3]网速慢. [4]经常断线. [5]WiFi上网问题 .";
-    	String str2="亲，您可以通过点击这里进行宽带线路检测，你的宽带出现了以下哪种问题，请选择：[1]自助排障宝典. [2]无法上网. [3]网速慢. [4]经常断线. [5]WiFi上网问题 .";
-    	System.out.println(str1.equals(str2));
-    	String[] zone={"话务运营组","话务预备组","工单投诉组","客服支撑组","无","",null};
     	Date date=new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);

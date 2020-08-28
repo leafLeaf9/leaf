@@ -6,9 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gousade.pojo.util.AttachmentGeneral;
@@ -41,7 +38,6 @@ public class AttachmentUtil {
 			try {
 				file.transferTo(absoluteFile);//此方法代替下面的文件工具类将文件写入磁盘
 			} catch (IllegalStateException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 //			FileUtils.SaveFileFromInputStream(file.getInputStream(), base, filename);

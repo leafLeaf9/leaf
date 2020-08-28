@@ -3,7 +3,7 @@ package com.gousade.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RandomnumUtil {
+public class RandomNumUtil {
 	public static String generateId(){
 		Date date=new Date();
 		SimpleDateFormat dateformat=new SimpleDateFormat("yyyyMMddHHmmssSSS");

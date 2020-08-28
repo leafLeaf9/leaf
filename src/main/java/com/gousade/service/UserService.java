@@ -33,9 +33,6 @@ public class UserService {
 	@Autowired
 	private UserRoleMapper userRoleMapper;
 	
-	@Autowired
-	private ShiroRealm shiroRealm;
-	
 	public User selectByPrimaryKey(String id) {
 		User user = userMapper.selectByPrimaryKey(id);
 		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
@@ -60,14 +57,11 @@ public class UserService {
 			int i=userMapper.regist(map);
 			
 				if(i>=1) {
-					//retMap.put("success", true);
 					retMap.put("result", "注册成功,跳转到登录页面");
 				}else {
-				//	retMap.put("success", false);
 					retMap.put("result", "注册失败");
 				}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -75,7 +69,6 @@ public class UserService {
 	}
 	
 	public Map<String, Object> ShiroRegist(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		try {
 			String firstpsd=(String) map.get("password");
@@ -86,14 +79,11 @@ public class UserService {
 			int i=userMapper.regist(map);
 			
 				if(i>=1) {
-					//retMap.put("success", true);
 					retMap.put("result", "注册成功,跳转到登录页面。");
 				}else {
-				//	retMap.put("success", false);
 					retMap.put("result", "注册失败");
 				}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -111,7 +101,6 @@ public class UserService {
 	}
 	
 	public long queryuserlistcnt(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return userMapper.queryuserlistcnt(map);
 	}
 	

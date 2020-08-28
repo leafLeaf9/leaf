@@ -6,12 +6,10 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-//import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-//import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import com.alibaba.fastjson.support.config.FastJsonConfig;
@@ -23,13 +21,13 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 /** 
 * @author 作者: woxi-Gisard
 * @version 创建时间:2018年12月25日 下午12:25:52 
-* 类说明:SpringBoot启动类
+* @description SpringBoot Starter
 */
-@SpringBootApplication
-@MapperScan("com.*.mapper")
-@EnableEncryptableProperties
 @EnableOpenApi
-public class GousadeApplication extends SpringBootServletInitializer{
+@EnableEncryptableProperties
+@MapperScan("com.gousade.mapper")
+@SpringBootApplication
+public class GousadeApplication extends SpringBootServletInitializer {
 	
 	/** 
 	*项目部署到外部Tomcat时需要重写的方法

@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.controller.common.BaseController;
 import com.gousade.pojo.User;
+import com.gousade.redis.RedisSmsCodeUtil;
 import com.gousade.redis.RedisUtil;
 import com.gousade.service.UserService;
 import com.gousade.utils.SaltUtil;
-import com.gousade.utils.SmsCodeUtil;
 
 /**
 * @author woxigsd@gmail.com
@@ -25,7 +25,7 @@ import com.gousade.utils.SmsCodeUtil;
 public class SmsCodeController extends BaseController{
 	
 	@Autowired
-	private SmsCodeUtil smsCodeUtil;
+	private RedisSmsCodeUtil smsCodeUtil;
 	
 	@Resource
     private RedisUtil redisUtil;
@@ -34,7 +34,7 @@ public class SmsCodeController extends BaseController{
 	private UserService userService;
 	
 	@RequestMapping(value="/sendSmsCode",method=RequestMethod.POST)
-	public Object sendSmsCode(String phoneNumber) throws ClientException{
+	public Object sendSmsCode(String phoneNumber) throws ClientException {
 		return smsCodeUtil.sendSmsCode(phoneNumber);
 	}
 	
@@ -48,10 +48,6 @@ public class SmsCodeController extends BaseController{
 				user.setId(getShiroSessionUser() != null?getShiroSessionUser().getId():user.getId());
 				user.setSalt(SaltUtil.getUUId());
 				user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));
-				/*Cache<Object,AuthenticationInfo> authentication=shiroRealm.getAuthenticationCache();
-				if (authentication!=null){
-					authentication.remove(user.getId());
-				}*/
 				return userService.updateOwnPasswordById(user)?renderSuccess("重置密码成功。"):renderError("重置密码失败。");
 			}else {
 				return renderError("验证码错误，请重新输入。");

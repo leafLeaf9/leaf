@@ -203,12 +203,7 @@
 	<dependency>
 	    <groupId>com.aliyun</groupId>
 	    <artifactId>aliyun-java-sdk-core</artifactId>
-	    <version>3.3.1</version> <!-- 注：如提示报错，先升级基础包版，无法解决可联系技术支持 -->
-	</dependency>
-	<dependency>
-		<groupId>com.aliyun</groupId>
-		<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-		<version>1.0.0</version>
+	    <version>4.5.3</version> <!-- 注：如提示报错，先升级基础包版，无法解决可联系技术支持 -->
 	</dependency>
 	<!--RabbitMQ支持-->
 	<dependency>

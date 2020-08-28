@@ -1,33 +1,34 @@
-package com.gousade.utils;
-
-import java.util.Map;
+package com.gousade.redis;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
 import com.aliyuncs.exceptions.ClientException;
+import com.gousade.annotation.OperationRecord;
 import com.gousade.controller.common.BaseController;
-import com.gousade.redis.RedisUtil;
-import com.gousade.service.SmsDemo;
-
+import com.gousade.utils.SendSmsUtil;
 /**
 * @author woxigsd@gmail.com
 * @date 2020-8-14 10:07:20
 * Description:短信验证码工具类
 */
 @Component
-public class SmsCodeUtil extends BaseController{
+public class RedisSmsCodeUtil extends BaseController{
 	
 	@Resource
     private RedisUtil redisUtil;
 	
+	@Resource
+    private SendSmsUtil sendSmsUtil;
+	
+	@OperationRecord(operationNum=9999,operationMethodName="短信验证码发送")
 	public Object sendSmsCode(String phoneNumber) throws ClientException {
 		int randomCode = (int)((Math.random()*9+1)*100000);
 		Object redisGetSentCode =redisUtil.get(phoneNumber);
 		if(redisGetSentCode == null) {
 			redisUtil.set(phoneNumber,randomCode,180L);
-			SmsDemo.sendSms(phoneNumber, randomCode);
+			sendSmsUtil.sendSms(phoneNumber, randomCode);
 			return renderSuccess("验证码发送成功。");
 		}else {
 			return renderError("验证码已存在，到期前请勿重复发送。");
