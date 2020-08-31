@@ -1,10 +1,5 @@
 package com.gousade.utils;
 
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.aliyuncs.CommonRequest;
 import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
@@ -15,10 +10,13 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.gousade.jasypt.JasyptUtil;
-import com.gousade.mapper.SmsResponseMapper;
-import com.gousade.pojo.SmsResponse;
-
+import com.gousade.mapper.SmsResponseLogMapper;
+import com.gousade.pojo.SmsResponseLog;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Created on 17/6/7.
@@ -39,7 +37,7 @@ public class SendSmsUtil {
     private JasyptUtil jasyptUtil;
 	
 	@Autowired
-	private SmsResponseMapper smsResponseMapper;
+	private SmsResponseLogMapper smsResponseLogMapper;
 
     //产品名称:云通信短信API产品,开发者无需替换
     static final String product = "Dysmsapi";
@@ -64,14 +62,14 @@ public class SendSmsUtil {
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", mobile);
         request.putQueryParameter("SignName", "GisardLTE");
-        request.putQueryParameter("TemplateCode", "SMS_200721670z");
+        request.putQueryParameter("TemplateCode", "SMS_200721670");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
             log.info("aliyun sendSms response: "+response.getData());
-            SmsResponse entity = new SmsResponse();
+            SmsResponseLog entity = new SmsResponseLog();
             entity.setResponse(response.getData());
-            smsResponseMapper.insert(entity);
+            smsResponseLogMapper.insert(entity);
         } catch (ServerException e) {
             e.printStackTrace();
         } catch (ClientException e) {

@@ -1,16 +1,14 @@
 package com.gousade.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.gousade.controller.common.BaseController;
 import com.gousade.pojo.OperationRecordLog;
-import com.gousade.pojo.SmsResponse;
-
+import com.gousade.pojo.SmsResponseLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * @author woxigsd@gmail.com
@@ -25,7 +23,7 @@ public class Swagger3Controller extends BaseController {
 	
 	@ApiOperation("仅用于在swagger文档中显示SmsResponse实体类信息")
 	@RequestMapping(value="/getSmsResponse",method=RequestMethod.POST)
-	public SmsResponse getSmsResponse() {
+	public SmsResponseLog getSmsResponse() {
 		log.info("getSmsResponse");
 		return null;
 	}
