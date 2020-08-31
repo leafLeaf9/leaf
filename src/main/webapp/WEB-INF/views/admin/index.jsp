@@ -547,7 +547,7 @@ $('#user-avatar-form').submit(function(e){
         dataType: 'json',
         success: function (result) {
         	$('#user-avatar-modal').modal('hide');
-        	$(".user-avatar").attr('src',"${ctx}/admin/sysUser/getUserAvatar");
+        	$(".user-avatar").attr('src',"${ctx}/admin/sysUser/getUserAvatar"+'?'+Math.random());//加随机数防止浏览器缓存导致不发起请求
        		layer.open({
    				content : result.msg,
    				shadeClose : true,

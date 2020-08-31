@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +36,7 @@ public class RoleController {
 	@Autowired
 	private RoleService roleService;
 	
-	@OperationRecord(operationNum=0,operationMethodName="查询角色列表")
+	@OperationRecord(operationNum=0,operationDescription="查询角色列表")
 	@RequestMapping(value="/selectRoleList",method=RequestMethod.POST)
 	public Map<String,Object> selectRoleList(@RequestParam(value="page", required=false) String page, 
             @RequestParam(value="rows", required=false) String rows,HttpServletRequest request){

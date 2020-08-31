@@ -31,6 +31,7 @@ public class PageHelperAspect {
 	}
 
 	// 声明环绕通知
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Around("pointCutPagination()")
 	public Object process(ProceedingJoinPoint point) throws Throwable {
 		log.info("PageHelper AOP Pagination start.");

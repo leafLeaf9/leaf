@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 @Data
-public class Role implements Serializable{
+public class Role implements Serializable {
     /**
 	 * 
 	 */
@@ -37,6 +37,6 @@ public class Role implements Serializable{
     private Date updateTime;
 
     @TableField(fill = FieldFill.INSERT)
-    private String delflag;
+    private boolean delflag;
 
 }

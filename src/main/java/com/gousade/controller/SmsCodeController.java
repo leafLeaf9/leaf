@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.controller.common.BaseController;
+import com.gousade.pojo.SmsResponse;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisSmsCodeUtil;
 import com.gousade.redis.RedisUtil;

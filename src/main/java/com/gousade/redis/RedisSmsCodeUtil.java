@@ -22,7 +22,7 @@ public class RedisSmsCodeUtil extends BaseController{
 	@Resource
     private SendSmsUtil sendSmsUtil;
 	
-	@OperationRecord(operationNum=9999,operationMethodName="短信验证码发送")
+	@OperationRecord(operationNum=9999,operationDescription="短信验证码发送")
 	public Object sendSmsCode(String phoneNumber) throws ClientException {
 		int randomCode = (int)((Math.random()*9+1)*100000);
 		Object redisGetSentCode =redisUtil.get(phoneNumber);

@@ -1,16 +1,21 @@
 package com.gousade.service;
 
-import java.awt.Menu;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +24,6 @@ import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.User;
 import com.gousade.pojo.UserRole;
 import com.gousade.pojo.util.AttachmentGeneral;
-import com.gousade.shiro.ShiroRealm;
 import com.gousade.utils.DataTablesPageUtil;
 import com.gousade.utils.SaltUtil;
 
@@ -34,7 +38,7 @@ public class UserService {
 	private UserRoleMapper userRoleMapper;
 	
 	public User selectByPrimaryKey(String id) {
-		User user = userMapper.selectByPrimaryKey(id);
+		User user = userMapper.selectById(id);
 		List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
 		user.setRoleIds(String.join(",", roleIdList));
 		return user;
@@ -122,7 +126,7 @@ public class UserService {
 		if (authentication!=null){
 			authentication.remove(entity.getId());
 		}*/
-		return userMapper.updateUserById(entity)>0;
+		return userMapper.updateById(entity)>0;
 	}
 
 	private void insertUserRole(User entity) {
@@ -139,7 +143,6 @@ public class UserService {
 	}
 
 	public boolean insert(User user) {
-		user.setId(SaltUtil.generateUUId());
 		user.setSalt(SaltUtil.getUUId());
 		user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));
 		return userMapper.insert(user)>0;
@@ -151,6 +154,34 @@ public class UserService {
 
 	public boolean uploadUserAvatar(AttachmentGeneral attachmentGeneral) {
 		return userMapper.uploadUserAvatar(attachmentGeneral)>0;
+	}
+	
+	public void getUserAvatar(HttpServletResponse response, HttpServletRequest request, User user) {
+		user = userMapper.selectByPrimaryKey(user.getId());
+		String rootPath=request.getServletContext().getRealPath("/");
+		File file = new File(rootPath+"/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg");
+		if(user.getAvatarPath()!=null) {
+			file = new File(user.getAvatarPath());
+		}
+		response.setContentType("image/jpeg"); // 设置返回内容格式
+	    if (file.exists()) { // 如果文件存在
+	        InputStream in;
+	        try {
+	            in = new FileInputStream(file);
+	            OutputStream os = response.getOutputStream(); // 创建输出流
+	            byte[] b = new byte[1024];
+	            while (in.read(b) != -1) {
+	                os.write(b);
+	            }
+	            in.close();
+	            os.flush();
+	            os.close();
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 
 	public boolean updateOwnPasswordById(User user) {

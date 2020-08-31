@@ -98,7 +98,7 @@
     delete from user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.gousade.pojo.User">
+  <!-- <insert id="insert" parameterType="com.gousade.pojo.User">
     insert into user (id, user_id, user_name, 
       password, salt, create_time, 
       update_time, remark, phone_number, 
@@ -107,7 +107,7 @@
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, sysdate(), 
       #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
       #{lastlogintime,jdbcType=TIMESTAMP}, 0)
-  </insert>
+  </insert> -->
 
   <update id="updateByPrimaryKeySelective" parameterType="com.gousade.pojo.User">
     update user

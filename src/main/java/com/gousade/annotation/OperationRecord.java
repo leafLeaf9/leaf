@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 public @interface OperationRecord {
 	 int operationNum() default 0;
 	 
-	 String operationMethodName() default "";
+	 String operationDescription() default "";
 }

@@ -42,6 +42,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gousade.annotation.OperationRecord;
 import com.gousade.controller.common.BaseController;
 import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
@@ -61,7 +62,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Slf4j
 @CacheConfig(cacheNames="redis@Cacheable")
 @RestController//添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new ModelAndView("main"); return mv;
-@RequestMapping(value = "/admin/sysUser", method = RequestMethod.POST)
+@RequestMapping(value = "/admin/sysUser")
 public class UserController extends BaseController{
 	
 	@Autowired
@@ -85,25 +86,25 @@ public class UserController extends BaseController{
 			result.put("msg", "/admin/index");//{}特殊符号要转义
 //    		ModelAndView mv = new ModelAndView("redirect:/admin/index");
 //    		return mv;
-        }catch(UnknownAccountException uae){  
+        }catch(UnknownAccountException uae){
             log.info("对用户[" + userId + "]进行登录验证..验证未通过,未知账户");
 			result.put("status", false);
 			result.put("msg", "账号不存在");
-        }catch(IncorrectCredentialsException ice){  
+        }catch(IncorrectCredentialsException ice){
             log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误的凭证");
 			result.put("status", false);
 			result.put("msg", "密码不正确");
             /*request.setAttribute("msg", "密码不正确");
 			return renderError("密码不正确");*/
-        }catch(LockedAccountException lae){  
+        }catch(LockedAccountException lae){
             log.info("对用户[" + userId + "]进行登录验证..验证未通过,账户已锁定");
 			result.put("status", false);
 			result.put("msg", "账号被锁定");
-        }catch(ExcessiveAttemptsException eae){  
+        }catch(ExcessiveAttemptsException eae){
             log.info("对用户[" + userId + "]进行登录验证..验证未通过,错误次数过多");
 			result.put("status", false);
 			result.put("msg", "密码错误错误次数过多");
-        }catch(AuthenticationException ae){  
+        }catch(AuthenticationException ae){
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
             log.info("对用户[" + userId + "]进行登录验证..验证未通过,堆栈轨迹如下");
             ae.printStackTrace();
@@ -188,6 +189,7 @@ public class UserController extends BaseController{
 		return renderBoolean(b);
 	}
 	
+	@OperationRecord(operationNum=1,operationDescription="上传头像")
 	@RequestMapping(value = "/userAvatorUpload", method = RequestMethod.POST)
 	public Object userAvatorUpload(@RequestParam(value = "attachments") MultipartFile attachments) throws IOException {
 		String filType = attachments.getOriginalFilename().substring(attachments.getOriginalFilename().lastIndexOf('.') + 1).toLowerCase();
@@ -205,34 +207,11 @@ public class UserController extends BaseController{
 		return renderSuccess("上传头像成功");
 	}
 	
+	@OperationRecord(operationNum=2,operationDescription="获取头像")
 	@RequestMapping(value="/getUserAvatar",method=RequestMethod.GET)
 	public void getUserAvatar(HttpServletResponse response,HttpServletRequest request){
 		User user = getShiroSessionUser();
-		user = userService.selectByPrimaryKey(user.getId());
-		String rootPath=request.getServletContext().getRealPath("/");
-		File file = new File(rootPath+"/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg");
-		if(user.getAvatarPath()!=null) {
-			file = new File(user.getAvatarPath());
-		}
-		response.setContentType("image/jpeg"); // 设置返回内容格式
-	    if (file.exists()) { // 如果文件存在
-	        InputStream in;
-	        try {
-	            in = new FileInputStream(file);
-	            OutputStream os = response.getOutputStream(); // 创建输出流
-	            byte[] b = new byte[1024];
-	            while (in.read(b) != -1) {
-	                os.write(b);
-	            }
-	            in.close();
-	            os.flush();
-	            os.close();
-	        } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
+		userService.getUserAvatar(response, request, user);
 	}
 	
 	@SuppressWarnings("unused")
