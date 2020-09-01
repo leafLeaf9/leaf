@@ -203,7 +203,7 @@ $('#EditResourceForm').form({
     	$('#insertResourceDialog').dialog('close');
     	$('#AllResourceTree').treegrid('reload');
     	$('#AllResourceTree').treegrid('unselectAll');
-    	$.messager.alert('提示', result.msg, 'info');
+    	$.messager.alert('提示', result.message, 'info');
     }
 });
 })

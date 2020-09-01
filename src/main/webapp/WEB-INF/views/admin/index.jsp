@@ -262,7 +262,7 @@ cursor:pointer;
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title su-modal-title">上传头像</h4>
+			<h5 class="modal-title su-modal-title">上传头像</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -292,7 +292,7 @@ cursor:pointer;
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title su-modal-title">上传头像</h4>
+			<h5 class="modal-title su-modal-title">上传头像</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -514,7 +514,7 @@ function logout(){
 	layer.confirm('是否退出当前用户?', {icon: 3, title:'退出确认'}, function(index){
 		$.post('${ctx}/admin/sysUser/logout', function (result) {
 			if (result.status) {
-				$('body').append(result.msg)
+				$('body').append(result.message)
 				window.location.href = '${ctx}';
 			} else {
 				window.location.href = '${ctx}';
@@ -549,7 +549,7 @@ $('#user-avatar-form').submit(function(e){
         	$('#user-avatar-modal').modal('hide');
         	$(".user-avatar").attr('src',"${ctx}/admin/sysUser/getUserAvatar"+'?'+Math.random());//加随机数防止浏览器缓存导致不发起请求
        		layer.open({
-   				content : result.msg,
+   				content : result.message,
    				shadeClose : true,
    			});
         },
@@ -584,7 +584,7 @@ function sendCheckCode(phoneNumber){
 		success : function(result) {
 			if(result.status){
 				layer.open({
-	   				content : result.msg,
+	   				content : result.message,
 	   				shadeClose : true,
 	   			});
 				$("#getCheckCode").html("<span id='secondTip'>180</span>秒后重新获取");
@@ -592,7 +592,7 @@ function sendCheckCode(phoneNumber){
 				setTimeout("clockCheckCode()",1000);
 			}else{
 				layer.open({
-	   				content : result.msg,
+	   				content : result.message,
 	   				shadeClose : true,
 	   			});
 			}
@@ -652,12 +652,12 @@ $('#userEditOwnPasswordForm').submit(function(e){
         	if(result.status){
         		$('#user-editOwnPassword-modal').modal('hide');
 				layer.open({
-	   				content : result.msg,
+	   				content : result.message,
 	   				shadeClose : true,
 	   			});
 			}else{
 				layer.open({
-	   				content : result.msg,
+	   				content : result.message,
 	   				shadeClose : true,
 	   			});
 			}

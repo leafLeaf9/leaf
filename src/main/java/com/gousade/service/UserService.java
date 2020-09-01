@@ -162,6 +162,9 @@ public class UserService {
 		File file = new File(rootPath+"/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg");
 		if(user.getAvatarPath()!=null) {
 			file = new File(user.getAvatarPath());
+			if (!file.exists()) {
+				file = new File(rootPath+"/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg");
+			}
 		}
 		response.setContentType("image/jpeg"); // 设置返回内容格式
 	    if (file.exists()) { // 如果文件存在

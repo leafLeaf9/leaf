@@ -60,7 +60,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title su-modal-title">编辑信息</h4>
+			<h5 class="modal-title su-modal-title">编辑信息</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -117,7 +117,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title su-modal-title">上传文件</h4>
+			<h5 class="modal-title su-modal-title">上传文件</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -246,7 +246,7 @@ $('#user-insert-form').submit(function(e){
         success: function (result) {
         	$.user_datagrid.draw(false);
         	$('#user-insert-modal').modal('hide');
-        	layer.msg(result.msg, {
+        	layer.msg(result.message, {
 				icon : 1,
 				time : 1000,
 			});
@@ -274,7 +274,7 @@ $('#file-upload-form').submit(function(e){
         success: function (result) {
         	$('#file-upload-modal').modal('hide');
        		layer.open({
-   				content : result.msg,
+   				content : result.message,
    				shadeClose : true,
    			});
         },
@@ -305,7 +305,7 @@ function sysUserDelete(id){
 	        dataType: 'json',
 	        success: function (result) {
 	        	$.user_datagrid.draw(false);
-	        	layer.msg(result.msg, {
+	        	layer.msg(result.message, {
 					icon : 1,
 					time : 1000,
 				});

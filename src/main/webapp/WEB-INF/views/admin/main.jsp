@@ -122,7 +122,7 @@ $('.exitDialog input[type=button]').click(function(e) {
 		$.post('${ctx}/logout', function (result) {
 			if (result.status) {
 				//progressClose(); 添加一个加载动画，
-				$('body').append(result.msg)
+				$('body').append(result.message)
 				window.location.href ='${ctx}/login';
 				//isOpen=false;
 			} else {
@@ -136,7 +136,7 @@ $("#in-logout").on("click", function () {
 	$.post('${ctx}/logout', function (result) {
 		if (result.status) {
 			//progressClose(); 添加一个加载动画，
-			$('body').append(result.msg)
+			$('body').append(result.message)
 			window.location.href ='${ctx}';
 			//isOpen=false;
 		} else {
