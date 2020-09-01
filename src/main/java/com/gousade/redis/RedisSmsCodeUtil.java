@@ -1,20 +1,19 @@
 package com.gousade.redis;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.annotation.OperationRecord;
-import com.gousade.controller.common.BaseController;
+import com.gousade.commonutils.ResponseResult;
 import com.gousade.utils.SendSmsUtil;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 /**
 * @author woxigsd@gmail.com
 * @date 2020-8-14 10:07:20
 * Description:短信验证码工具类
 */
 @Component
-public class RedisSmsCodeUtil extends BaseController{
+public class RedisSmsCodeUtil {
 	
 	@Resource
     private RedisUtil redisUtil;
@@ -29,9 +28,9 @@ public class RedisSmsCodeUtil extends BaseController{
 		if(redisGetSentCode == null) {
 			redisUtil.set(phoneNumber,randomCode,180L);
 			sendSmsUtil.sendSms(phoneNumber, randomCode);
-			return renderSuccess("验证码发送成功。");
+			return ResponseResult.renderSuccess().message("验证码发送成功。");
 		}else {
-			return renderError("验证码已存在，到期前请勿重复发送。");
+			return ResponseResult.renderError().message("验证码已存在，到期前请勿重复发送。");
 		}
 	}
 	

@@ -1,31 +1,30 @@
 package com.gousade.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
+import com.gousade.pojo.Resource;
+import com.gousade.pojo.Tree;
+import com.gousade.pojo.User;
+import com.gousade.service.ResourceService;
+import com.gousade.shiro.ShiroUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gousade.controller.common.BaseController;
-import com.gousade.pojo.Resource;
-import com.gousade.pojo.Tree;
-import com.gousade.pojo.User;
-import com.gousade.service.ResourceService;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/admin/resource", method = RequestMethod.POST)
-public class ResourceController extends BaseController{
+public class ResourceController {
 	
 	@Autowired
 	private ResourceService resourceService;
 	
 	@RequestMapping(value="/tree",method=RequestMethod.POST)
 	public Object tree(){
-		User user = getShiroSessionUser();
+		User user = ShiroUtil.getShiroSessionUser();
 		List<Resource> list = resourceService.selectTree(user);
 		return list;
 	}

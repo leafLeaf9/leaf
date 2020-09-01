@@ -1,6 +1,5 @@
 package com.gousade.controller;
 
-import com.gousade.controller.common.BaseController;
 import com.gousade.entity.SecretJasypt;
 import com.gousade.pojo.OperationRecordLog;
 import com.gousade.pojo.SmsResponseLog;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/swagger")
-public class Swagger3Controller extends BaseController {
+public class Swagger3Controller {
 	
 	@ApiOperation("仅用于在swagger文档中显示SmsResponse实体类信息")
 	@RequestMapping(value="/getSmsResponse",method=RequestMethod.POST)

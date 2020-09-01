@@ -182,7 +182,7 @@ $('#EditRoleForm').submit(function(e){
     		$('#EditRoleForm')[0].reset();
         	$('#insertRoleDialog').dialog('close');
     		$('#role-datagrid').datagrid('reload');
-    		$.messager.alert('提示', result.msg, 'info');
+    		$.messager.alert('提示', result.message, 'info');
     	}  
 	});
 // 	return false;//此处和表单处的 onsubmit="return false;" 只写一个即可阻止表单提交后页面跳转

@@ -62,7 +62,7 @@ public class SendSmsUtil {
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", mobile);
         request.putQueryParameter("SignName", "GisardLTE");
-        request.putQueryParameter("TemplateCode", "SMS_200721670");
+        request.putQueryParameter("TemplateCode", "SMS_200721670z");
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);

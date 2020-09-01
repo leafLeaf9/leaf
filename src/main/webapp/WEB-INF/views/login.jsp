@@ -121,11 +121,11 @@ $('#user-login-form').submit(function(e){
     dataType: 'json',
     success: function (result) {
       if(result.status){
-        console.log(result.msg);
-        window.location.href = result.msg;
+        console.log(result.message);
+        window.location.href = result.message;
       }else {
         layer.open({
-          content: result.msg,
+          content: result.message,
           shadeClose: true,
         });
       }

@@ -1,11 +1,12 @@
 package com.gousade.controller;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.gousade.controller.common.BaseController;
+import com.gousade.commonutils.ResponseResult;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisSmsCodeUtil;
 import com.gousade.redis.RedisUtil;
 import com.gousade.service.UserService;
+import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.SaltUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import javax.annotation.Resource;
 */
 @RestController
 @RequestMapping(value = "/admin/smsCode")
-public class SmsCodeController extends BaseController{
+public class SmsCodeController {
 	
 	@Autowired
 	private RedisSmsCodeUtil smsCodeUtil;
@@ -41,15 +42,17 @@ public class SmsCodeController extends BaseController{
 	public Object validate(String checkCode,User user) {
 		Object redisGetSentCode =redisUtil.get(user.getPhoneNumber());
 		if(redisGetSentCode == null) {
-			return renderError("验证码已失效，请重新获取。");
+			return ResponseResult.renderError().message("验证码已失效，请重新获取。");
 		}else {
 			if(redisGetSentCode.toString().equals(checkCode)) {
-				user.setId(getShiroSessionUser() != null?getShiroSessionUser().getId():user.getId());
+				user.setId(ShiroUtil.getShiroSessionUser() != null? ShiroUtil.getShiroSessionUser().getId():user.getId());
 				user.setSalt(SaltUtil.getUUId());
 				user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));
-				return userService.updateOwnPasswordById(user)?renderSuccess("重置密码成功。"):renderError("重置密码失败。");
+				return userService.updateOwnPasswordById(user)?
+						ResponseResult.renderSuccess().message("重置密码成功。"):
+						ResponseResult.renderError().message("重置密码失败。");
 			}else {
-				return renderError("验证码错误，请重新输入。");
+				return ResponseResult.renderError().message("验证码错误，请重新输入。");
 			}
 		}
 	}
