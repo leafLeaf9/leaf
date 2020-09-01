@@ -42,9 +42,9 @@ public class Swagger3Config {
                 .title("Swagger3-GisardAdminLTE 3.0.5接口API文档")
                 .description("文档描述")
                 .contact(new Contact("java", "https://github.com/woxigousade/gousade", "woxigsd@gmail.com"))
-                .version("1.1.0")
+                .version("1.1.1")
                 .license("MIT License")
-                .licenseUrl("https://github.com/woxigousade")
+                .licenseUrl("https://github.com/woxigousade/gousade/blob/master/LICENSE")
                 .build();
     }
 }

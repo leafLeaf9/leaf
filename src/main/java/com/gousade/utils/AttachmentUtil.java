@@ -31,7 +31,7 @@ public class AttachmentUtil {
 			String oriName = file.getOriginalFilename();
 			String ext = oriName.substring(oriName.lastIndexOf('.') + 1).toLowerCase();
 
-			String filename = UUID.randomUUID().toString();
+			String filename = UUID.randomUUID().toString().replace("-", "");
 			filename += "." + ext;
 			String absolutePath = base+File.separator+filename;
 			File absoluteFile = new File(absolutePath);

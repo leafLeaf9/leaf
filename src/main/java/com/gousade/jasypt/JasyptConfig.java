@@ -5,6 +5,7 @@ import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
 * @author woxigsd@gmail.com
@@ -14,11 +15,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JasyptConfig {
 	
+	/*@Primary
 	@Bean("jasyptStringEncryptor")
 	public StringEncryptor stringEncryptor() {
 	    PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
 	    SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-	    config.setPassword("52ad73833a754219b9770e712f17e639");//混淆盐值 you can input any string
+		config.setPassword("52ad73833a754219b9770e712f17ezzz");//混淆盐值 you can input any string
 	    config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
 	    config.setKeyObtentionIterations("1000");
 	    config.setPoolSize("1");
@@ -28,6 +30,6 @@ public class JasyptConfig {
 	    config.setStringOutputType("base64");
 	    encryptor.setConfig(config);
 	    return encryptor;
-	}
+	}*/
 
 }

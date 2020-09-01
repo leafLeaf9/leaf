@@ -1,6 +1,7 @@
 package com.gousade.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 /**
  * @author woxigsd@gmail.com
  * @date 2020年7月31日 上午9:36:12
@@ -64,7 +65,7 @@ public class BigDecimalCalculator {
 	public static double divide(double a,double b){
 		 BigDecimal a1 = new BigDecimal(Double.toString(a));
 	     BigDecimal b1 = new BigDecimal(Double.toString(b));
-	     a1=a1.divide(b1, 2, BigDecimal.ROUND_HALF_UP);
+	     a1=a1.divide(b1, 2, RoundingMode.HALF_UP);
 	     return a1.doubleValue();
 	 }
 }

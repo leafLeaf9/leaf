@@ -1,5 +1,7 @@
 package com.gousade.controller.advice;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -46,9 +48,10 @@ public class GlobalExceptionHandler extends BaseController{
 	
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
-    public Object handleException(Exception e) {
+    public Object handleException(Exception e, HttpServletResponse response) {
 		log.error(e.getMessage(), e);
 //		e.printStackTrace();
+		response.setContentType("text/html;charset=utf-8");
         return renderError("发生未知异常："+e.getMessage());
     }
 

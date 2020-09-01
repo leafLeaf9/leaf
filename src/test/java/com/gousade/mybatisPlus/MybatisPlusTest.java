@@ -1,26 +1,30 @@
 package com.gousade.mybatisPlus;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.gousade.mapper.RoleMapper;
-import com.gousade.mapper.UserMapper;
-import com.gousade.pojo.Role;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-import java.util.List;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.gousade.mapper.RoleMapper;
+import com.gousade.mapper.UserMapper;
+import com.gousade.pojo.Role;
+import com.gousade.pojo.User;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MybatisPlusTest {
 
-    @SuppressWarnings("unused")
-	@Autowired
+    @Autowired
     private UserMapper userMapper;
     
     @Autowired
@@ -28,7 +32,10 @@ public class MybatisPlusTest {
     
     @Test
     public void findAll() {
-    	roleMapper.selectList(null);
+    	userMapper.selectList(
+    	        new QueryWrapper<User>().lambda().like(User::getUserName, "测试")
+    	);
+    	
     }
     
     @Test
@@ -41,12 +48,24 @@ public class MybatisPlusTest {
     }
     
     @Test
-    public void updaterole() {
+    public void updateroleById() {
     	Role role = new Role();
     	role.setId("27f83817878649cb941b2c4fe71de12e");
     	role.setRemarks("测试mp remarks");
     	role.setSeq(99);
     	roleMapper.updateById(role);
+    }
+    
+    @Test
+    public void updaterole() {
+    	Role role = new Role();
+    	role.setId("27f83817878649cb941b2c4fe71de12e");
+    	role.setRemarks("测试mp remarks");
+    	role.setSeq(99);
+    	role.setName("测试seta");
+    	roleMapper.update(role, Wrappers.<Role>lambdaUpdate()
+                .set(Role::getName, "测试setz")
+                .eq(Role::getId, "27f83817878649cb941b2c4fe71de12e"));
     }
 
     @Test
@@ -70,5 +89,37 @@ public class MybatisPlusTest {
         wrapper.select("id","name","seq","create_time");
         List<Role> list= roleMapper.selectList(wrapper);
         log.info(list.toString());
+    }
+    
+    @Test
+    public void testOptimisticLocker() {
+        //根据id查询数据
+        User user = userMapper.selectById("d1411e5c58a70c44d72ca016d1acc183");
+        //进行修改
+        user.setRemark("备注");
+        userMapper.updateById(user);
+    }
+    
+    /**
+     * 批量更新带乐观锁
+     * <p>
+     * update(et,ew) et:必须带上version的值才会触发乐观锁
+     */
+    @Test
+    public void testUpdateByEntitySucc() {
+        QueryWrapper<User> ew = new QueryWrapper<>();
+        ew.eq("version", 2);
+        int count = userMapper.selectCount(ew);
+
+        User entity = new User();
+        entity.setVersion(2);
+
+        Assert.assertEquals("updated records should be same", count, userMapper.update(entity, null));
+        ew = new QueryWrapper<>();
+        ew.eq("version", 2);
+        Assert.assertEquals("No records found with version=1", 0, userMapper.selectCount(ew).intValue());
+        ew = new QueryWrapper<>();
+        ew.eq("version", 3);
+        Assert.assertEquals("All records with version=1 should be updated to version=2", count, userMapper.selectCount(ew).intValue());
     }
 }

@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.Version;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -57,6 +58,10 @@ public class User implements Serializable {
     
     @ApiModelProperty(value = "用户头像路径")
     private String avatarPath;
+    
+    @TableField(fill = FieldFill.INSERT)
+    @Version
+    private Integer version;
     
     @TableField(exist = false)
 	private Set<String> roles;

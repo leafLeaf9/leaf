@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 public class JasyptUtil {
 	
 	@Autowired
-	@Qualifier("jasyptStringEncryptor")
+//	@Qualifier("jasyptStringEncryptor")
 	/**表明使用的是JasyptConfig中的bean Field encryptor in com.gousade.jasypt.JasyptUtil required a single bean, but 2 were found
 	 *和在bean上加@Primary效果类似
 	 */
-    StringEncryptor encryptor;
+    private StringEncryptor encryptor;
 	
 	public String encypt(String value){
     	String result = encryptor.encrypt(value);

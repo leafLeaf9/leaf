@@ -4,7 +4,7 @@
   <groupId>com.gousade</groupId>
   <artifactId>gousade</artifactId>
   <packaging>war</packaging>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.1-SNAPSHOT</version>
   <name>GisardAdminLTE - SpringBoot</name>
   <description>SpringBoot Project.</description>
   <url>https://github.com/woxigousade/gousade</url>
@@ -105,24 +105,22 @@
 	    <artifactId>mybatis-plus-boot-starter</artifactId>
 	    <version>3.4.0</version>
 	</dependency>
+	<dependency>
+	    <groupId>com.baomidou</groupId>
+	    <artifactId>mybatis-plus-generator</artifactId>
+	    <version>3.4.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.velocity</groupId>
+	    <artifactId>velocity-engine-core</artifactId>
+	    <version>2.2</version>
+	</dependency>
     <!--mybatis与springboot整合-->
     <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
         <version>2.1.3</version>
     </dependency>
-    <!--通用mapper,tk.mapper-->
-    <dependency>
-        <groupId>tk.mybatis</groupId>
-        <artifactId>mapper-spring-boot-starter</artifactId>
-        <version>1.1.4</version>
-    </dependency>
-    <!-- 通用Mapper -->
-	<dependency>
-		<groupId>com.github.abel533</groupId>
-		<artifactId>mapper</artifactId>
-		<version>2.3.2</version>
-	</dependency>
     <!--pagehelper-->
     <dependency>
         <groupId>com.github.pagehelper</groupId>

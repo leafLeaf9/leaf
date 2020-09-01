@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +46,7 @@ import com.gousade.annotation.OperationRecord;
 import com.gousade.controller.common.BaseController;
 import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
+import com.gousade.service.AttachmentGeneralService;
 import com.gousade.service.UserService;
 import com.gousade.utils.AttachmentUtil;
 import com.gousade.utils.DataTablesPageUtil;
@@ -67,6 +68,9 @@ public class UserController extends BaseController{
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AttachmentGeneralService attachmentGeneralService;
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/loginShiroUser",method = RequestMethod.POST)
@@ -189,6 +193,7 @@ public class UserController extends BaseController{
 		return renderBoolean(b);
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
 	@OperationRecord(operationNum=1,operationDescription="上传头像")
 	@RequestMapping(value = "/userAvatorUpload", method = RequestMethod.POST)
 	public Object userAvatorUpload(@RequestParam(value = "attachments") MultipartFile attachments) throws IOException {
@@ -201,6 +206,8 @@ public class UserController extends BaseController{
 		if(attachments.getOriginalFilename() != "") {
 			AttachmentGeneral attachmentGeneral = AttachmentUtil.AttachmentUpload(attachments);
 			User user = getShiroSessionUser();
+			attachmentGeneral.setAttachId(user.getId());
+			attachmentGeneralService.save(attachmentGeneral);
 			attachmentGeneral.setId(user.getId());
 			userService.uploadUserAvatar(attachmentGeneral);
 		}
@@ -214,7 +221,6 @@ public class UserController extends BaseController{
 		userService.getUserAvatar(response, request, user);
 	}
 	
-	@SuppressWarnings("unused")
 	@RequiresRoles({"超级管理员"})
 	@RequiresPermissions({"/admin/user/userManage","/admin/user/tabs"})
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
@@ -222,6 +228,7 @@ public class UserController extends BaseController{
 		if (attachments.length > 0 && attachments[0].getOriginalFilename() != "") {
 			for (int i = 0; i < attachments.length; i++) {
 				AttachmentGeneral attachmentGeneral = AttachmentUtil.AttachmentUpload(attachments[i]);
+				attachmentGeneralService.save(attachmentGeneral);
 			}
 		}
 		return renderSuccess("操作成功");
@@ -252,7 +259,6 @@ public class UserController extends BaseController{
 //                i = bis.read(buffer);
 //            }
 //        }
-
 		InputStream fis = new BufferedInputStream(new FileInputStream(path));
 		byte[] buffer = new byte[fis.available()];
 		fis.read(buffer);

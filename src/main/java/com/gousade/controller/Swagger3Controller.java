@@ -1,6 +1,7 @@
 package com.gousade.controller;
 
 import com.gousade.controller.common.BaseController;
+import com.gousade.entity.SecretJasypt;
 import com.gousade.pojo.OperationRecordLog;
 import com.gousade.pojo.SmsResponseLog;
 import io.swagger.annotations.Api;
@@ -30,6 +31,11 @@ public class Swagger3Controller extends BaseController {
 	
 	@RequestMapping(value="/getOperationRecordLog",method=RequestMethod.POST)
 	public OperationRecordLog getOperationRecordLog() {
+		return null;
+	}
+	
+	@RequestMapping(value="/getSecretJasypt",method=RequestMethod.POST)
+	public SecretJasypt getSecretJasypt() {
 		return null;
 	}
 
