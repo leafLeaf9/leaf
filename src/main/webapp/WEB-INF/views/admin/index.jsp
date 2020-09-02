@@ -587,6 +587,7 @@ function sendCheckCode(phoneNumber){
 	   				content : result.message,
 	   				shadeClose : true,
 	   			});
+				$("#getCheckCode").removeClass("btn-primary").addClass("btn-secondary");
 				$("#getCheckCode").html("<span id='secondTip'>180</span>秒后重新获取");
 				$("#getCheckCode").unbind("click");
 				setTimeout("clockCheckCode()",1000);
@@ -613,6 +614,7 @@ function clockCheckCode(){
 		setTimeout("clockCheckCode()",1000);
 	}else{
 		var phoneNumber=$("#userEditOwnPasswordForm input[name=phoneNumber]").val();
+		$("#getCheckCode").addClass("btn-primary").removeClass("btn-secondary");
 		$("#getCheckCode").html("获取验证码(三分钟内)");
 		$("#getCheckCode").on("click",function(){
 			sendCheckCode(phoneNumber);

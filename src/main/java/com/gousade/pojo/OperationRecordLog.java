@@ -1,15 +1,19 @@
 package com.gousade.pojo;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModel;
-import lombok.Data;
 
-import java.io.Serializable;
-import java.util.Date;
+import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
 * @author woxigsd@gmail.com
@@ -17,6 +21,9 @@ import java.util.Date;
 * @description 
 */
 @Data
+@AllArgsConstructor//全参构造
+@NoArgsConstructor//无参构造
+@Builder//链式风格创建对象
 @ApiModel(description="接口调用日志实体类")
 public class OperationRecordLog implements Serializable {
 

@@ -47,12 +47,13 @@ public class OperationRecordAspect {
 			+point.getSignature().getName()
 			+",接口序号:"+operationRecord.operationNum()+",接口描述："+operationRecord.operationDescription()
 			+",参数："+operationParam+"。");
-			OperationRecordLog operationRecordLog = new OperationRecordLog();
-			operationRecordLog.setOperationPerson(user.getUserName());
-			operationRecordLog.setOperationNum(operationRecord.operationNum());
-			operationRecordLog.setOperationDescription(operationRecord.operationDescription());
-			operationRecordLog.setOperationInterface(point.getSignature().getDeclaringTypeName()+"."+point.getSignature().getName());
-			operationRecordLog.setOperationParam(operationParam);
+			OperationRecordLog operationRecordLog = OperationRecordLog.builder()
+					.operationPerson(user.getUserName())
+					.operationNum(operationRecord.operationNum())
+					.operationDescription(operationRecord.operationDescription())
+					.operationInterface(point.getSignature().getDeclaringTypeName()+"."+point.getSignature().getName())
+					.operationParam(operationParam)
+					.build();
 			operationRecordLogMapper.insert(operationRecordLog);
 		}
 	}

@@ -1,18 +1,30 @@
 package com.gousade.controller;
 
-import com.gousade.annotation.OperationRecord;
-import com.gousade.commonutils.ResponseResult;
-import com.gousade.pojo.User;
-import com.gousade.pojo.util.AttachmentGeneral;
-import com.gousade.service.AttachmentGeneralService;
-import com.gousade.service.UserService;
-import com.gousade.shiro.ShiroUtil;
-import com.gousade.utils.AttachmentUtil;
-import com.gousade.utils.DataTablesPageUtil;
-import io.swagger.annotations.*;
-import lombok.extern.slf4j.Slf4j;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
@@ -22,17 +34,30 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.gousade.annotation.OperationRecord;
+import com.gousade.commonutils.ResponseResult;
+import com.gousade.pojo.User;
+import com.gousade.pojo.util.AttachmentGeneral;
+import com.gousade.service.AttachmentGeneralService;
+import com.gousade.service.UserService;
+import com.gousade.shiro.ShiroUtil;
+import com.gousade.utils.AttachmentUtil;
+import com.gousade.utils.DataTablesPageUtil;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags="用户管理")
 @Slf4j

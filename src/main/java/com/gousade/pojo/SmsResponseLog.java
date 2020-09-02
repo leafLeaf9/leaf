@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.Date;
 * @description sms_response entity
 */
 @Data
+@Builder
 @ApiModel(description="短信日志实体类")
 public class SmsResponseLog implements Serializable {
 	/**

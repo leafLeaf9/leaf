@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 * @description 实现mybatis-plus自动填充
 */
 @Component
-public class MyMetaObjectHandler implements MetaObjectHandler {
+public class MyBatisPlusMetaObjectHandler implements MetaObjectHandler {
 
 	@Override
 	public void insertFill(MetaObject metaObject) {

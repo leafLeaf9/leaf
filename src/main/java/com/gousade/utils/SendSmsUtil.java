@@ -67,8 +67,7 @@ public class SendSmsUtil {
         try {
             CommonResponse response = client.getCommonResponse(request);
             log.info("aliyun sendSms response: "+response.getData());
-            SmsResponseLog entity = new SmsResponseLog();
-            entity.setResponse(response.getData());
+            SmsResponseLog entity = SmsResponseLog.builder().response(response.getData()).build();
             smsResponseLogMapper.insert(entity);
         } catch (ServerException e) {
             e.printStackTrace();
