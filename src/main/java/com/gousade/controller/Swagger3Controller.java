@@ -1,14 +1,17 @@
 package com.gousade.controller;
 
-import com.gousade.entity.SecretJasypt;
-import com.gousade.pojo.OperationRecordLog;
-import com.gousade.pojo.SmsResponseLog;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gousade.commonutils.ResponseResult;
+import com.gousade.entity.SecretJasypt;
+import com.gousade.pojo.OperationRecordLog;
+import com.gousade.pojo.SmsResponseLog;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 /**
 * @author woxigsd@gmail.com
@@ -35,6 +38,11 @@ public class Swagger3Controller {
 	
 	@RequestMapping(value="/getSecretJasypt",method=RequestMethod.POST)
 	public SecretJasypt getSecretJasypt() {
+		return null;
+	}
+	
+	@RequestMapping(value="/getResponseResult",method=RequestMethod.POST)
+	public ResponseResult getResponseResult() {
 		return null;
 	}
 

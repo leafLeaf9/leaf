@@ -50,13 +50,11 @@ public class TimerTaskDynamicCron {
     	ScheduledFuture<?> future = threadPoolTaskScheduler.schedule(new Runnable() {
 			@Override
 			public void run() {
-				log.warn("Task...........run..{}");
-				//获取最近的batchId，看里面还有多少数据可以去获取
+				log.warn("ThreadPoolTaskScheduler run.");
 			}
 		},new Trigger(){
             @Override
             public Date nextExecutionTime(TriggerContext triggerContext){
-            	//0/30 * * * * ?
             	CronTrigger trigger = new CronTrigger("0 0/3 * * * *");
                 Date nextExec = trigger.nextExecutionTime(triggerContext);
                 return nextExec;
@@ -79,7 +77,7 @@ public class TimerTaskDynamicCron {
             }
         }
         robotFutureList.clear();
-        log.error("DynamicTask.stopTask()");
+        log.error("ThreadPoolTaskScheduler stop.");
     }
 
 }

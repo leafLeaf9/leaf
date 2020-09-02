@@ -292,7 +292,23 @@
   
   <build>
     <finalName>gousade</finalName>
-    <plugins>  
+    <!--打jar包时需要添加以打包webapp静态资源文件-->
+    <!-- <resources>
+	    <resource>
+	        <directory>${basedir}/src/main/webapp</directory>
+	        <targetPath>META-INF/resources</targetPath> 
+	        <includes>
+	            <include>**/**</include>
+	        </includes>
+	    </resource>
+	    <resource>
+	        <directory>${basedir}/src/main/resources</directory>
+	        <includes>
+	            <include>**/**</include>
+	        </includes>
+	    </resource>
+    </resources> -->
+    <plugins>
         <!-- <plugin>  
        		<groupId>org.springframework.boot</groupId>  
             <artifactId>spring-boot-maven-plugin</artifactId>  
@@ -308,7 +324,7 @@
                 </dependency>  
             </dependencies>  
         </plugin> -->
-        <plugin>
+		<plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>

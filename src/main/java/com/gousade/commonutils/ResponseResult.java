@@ -1,5 +1,6 @@
 package com.gousade.commonutils;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.Map;
  * @date: 2020/9/1/0001 20:35
  * @description: response common result class
  */
+@ApiModel(description="公共相应类")
 @Data
 public class ResponseResult {
 
