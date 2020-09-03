@@ -4,7 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"> -->
-<script src="${staticPath}/static/jquery/jquery-3.4.1.min.js"></script>
+<script src="${staticPath}/static/jquery/jquery-3.5.1.min.js"></script>
 <%-- <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/default/easyui.css"> --%>
 <%-- <link rel="stylesheet" type="text/css" href="${staticPath}/static/jquery-easyui-1.7.0/themes/icon.css"> --%>
 <link rel="stylesheet" href="${staticPath}/static/img/icon-font/iconfont.css"><!-- 阿里巴巴矢量图标 -->

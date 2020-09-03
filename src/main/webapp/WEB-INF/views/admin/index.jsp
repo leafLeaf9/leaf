@@ -494,9 +494,9 @@ function cancel_shield() {
 // });
 
 //$('.content-wrapper').scroll()不生效，原因不明，用$(window).scroll()代替后可行
-$(window).scroll(function (event) {
+$(window).scroll(function () {
 	var ctop = $(window).scrollTop();
-// 	console.log(ctop);
+	// console.log(ctop);
 	// 判断滚动条距离是否大于导航条顶部距离
 	if (ctop > 300) {
 		$('.gisard-icon-up_to_top').css('display', 'block');
