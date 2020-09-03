@@ -27,14 +27,13 @@ public class JasyptTest {
 	
 	@Test
 	public void stringEncryptor() {
-        String url = encryptor.encrypt("jdbc:mysql://101.132.118.130:9733/gousade?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false");
-        String ip = encryptor.encrypt("101.132.118.130");
-        log.info("url: ENC("+url+")");
+        String url = encryptor.encrypt("jdbc:mysql://ip:port/databaseName?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false");
+        String ip = encryptor.encrypt("ip");
         log.info("ip: ENC("+ip+")");
-        String accessKeyId = encryptor.encrypt("LTAI4GJHBUVyi5DtcpiqHbKR");
-        String accessKeySecret = encryptor.encrypt("8B507cR8awNE3i3vBUQNJFOpk41kxz");
-        log.info("accessKeyId: ENC("+accessKeyId+")");
-        log.info("accessKeySecret: ENC("+accessKeySecret+")");
+        String a = encryptor.encrypt("a");
+        String b = encryptor.encrypt("b");
+        log.info("accessKeyId: ENC("+a+")");
+        log.info("accessKeySecret: ENC("+b+")");
         Assert.assertTrue(url.length() > 0);
         Assert.assertTrue(ip.length() > 0);
     }
