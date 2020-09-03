@@ -678,6 +678,26 @@ $('#userEditOwnPasswordForm').submit(function(e){
 $('#user-editOwnPassword-modal').on('hide.bs.modal', function () {
 	 $('#userEditOwnPasswordForm')[0].reset();
 });
+
+$("#content-iframe").on('load',function(){//https://blog.csdn.net/qq_21570029/article/details/79358845 .load()已经废弃
+	changeFrameHeight();
+});
+
+function changeFrameHeight(){
+    var ifm= document.getElementById("content-iframe");
+    ifm.height=document.documentElement.clientHeight - 150;
+}
+
+window.onresize=function(){
+    var ua = navigator.userAgent.toLowerCase();
+    var screenwidth = window.screen.width;
+    // console.log("屏幕宽度为", screenwidth);
+    if (!/iphone|ipad|ipod/.test(ua)) {
+    } else {
+        document.getElementById("content-iframe").width = screenwidth;
+    }
+    changeFrameHeight();
+}
 </script>
 </body>
 </html>
