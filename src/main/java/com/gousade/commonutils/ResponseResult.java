@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,11 +13,16 @@ import java.util.Map;
  * @date: 2020/9/1/0001 20:35
  * @description: response common result class
  */
-@ApiModel(description="公共相应类")
+@ApiModel(description="公共响应类")
 @Data
-public class ResponseResult {
+public class ResponseResult implements Serializable {
 
-    @ApiModelProperty(value = "响应状态")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5352331298926161615L;
+
+	@ApiModelProperty(value = "响应状态")
     private Boolean status;
 
     @ApiModelProperty(value = "响应码")

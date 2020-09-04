@@ -1,5 +1,6 @@
 package com.gousade.mybatisPlus;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInt
 * @date 2020-9-1 11:34:27
 * @description 
 */
+@MapperScan("com.gousade.mapper")
 @Configuration
 public class MybatisPlusConfig {
 	
