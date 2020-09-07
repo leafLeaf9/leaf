@@ -29,11 +29,7 @@ public class JasyptTest {
 	public void stringEncryptor() {
         String url = encryptor.encrypt("jdbc:mysql://ip:port/databaseName?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false");
         String ip = encryptor.encrypt("ip");
-        String mail = encryptor.encrypt("1207366201@qq.com");
-        String mailpass = encryptor.encrypt("stylddqyvxxzghjj");
         log.info("ip: ENC("+ip+")");
-        log.info("mail: ENC("+mail+")");
-        log.info("mailpass: ENC("+mailpass+")");
         Assert.assertTrue(url.length() > 0);
         Assert.assertTrue(ip.length() > 0);
     }
