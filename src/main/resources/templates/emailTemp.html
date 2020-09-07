@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GisardAdminLTE - SpringBoot</title>
+    <style>
+        body {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #welcome {
+            text-align: center;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="welcome">
+    <h3>欢迎使用 <span th:text="${project}"></span> -By <span th:text=" ${author}"></span></h3>
+    <span th:text="${url}"></span>
+    <div style="text-align: center; padding: 10px">
+        <a style="text-decoration: none;" href="#" th:href="@{${url}}" target="_bank">
+            <strong>GisardAdminLTE - SpringBoot</strong>
+        </a>
+    </div>
+    <div style="text-align: center; padding: 4px">
+        Spring Boot Template Email.
+    </div>
+    <img width="180px" height="180px"
+         src="https://i0.hdslb.com/bfs/album/6d1ed1848611db806d7d40660d84fd1af0e7dfda.jpg">
+</div>
+</body>
+</html>

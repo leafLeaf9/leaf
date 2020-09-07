@@ -22,18 +22,18 @@ import lombok.extern.slf4j.Slf4j;
 public class JasyptTest {
 	
 	@Autowired
-	@Qualifier("jasyptStringEncryptor")
+//	@Qualifier("jasyptStringEncryptor")
     StringEncryptor encryptor;
 	
 	@Test
 	public void stringEncryptor() {
         String url = encryptor.encrypt("jdbc:mysql://ip:port/databaseName?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false");
         String ip = encryptor.encrypt("ip");
+        String mail = encryptor.encrypt("1207366201@qq.com");
+        String mailpass = encryptor.encrypt("stylddqyvxxzghjj");
         log.info("ip: ENC("+ip+")");
-        String a = encryptor.encrypt("a");
-        String b = encryptor.encrypt("b");
-        log.info("accessKeyId: ENC("+a+")");
-        log.info("accessKeySecret: ENC("+b+")");
+        log.info("mail: ENC("+mail+")");
+        log.info("mailpass: ENC("+mailpass+")");
         Assert.assertTrue(url.length() > 0);
         Assert.assertTrue(ip.length() > 0);
     }

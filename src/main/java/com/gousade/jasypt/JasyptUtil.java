@@ -35,7 +35,7 @@ public class JasyptUtil {
 	public SimpleStringPBEConfig cryptor(String password){
     	SimpleStringPBEConfig config = new SimpleStringPBEConfig();
     	config.setPassword(password);
-    	config.setAlgorithm("PBEWithMD5AndDES");
+    	config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
     	config.setKeyObtentionIterations("1000");
     	config.setPoolSize("1");
     	config.setProviderName("SunJCE");
