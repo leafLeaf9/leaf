@@ -302,7 +302,7 @@
   <build>
     <finalName>gousade</finalName>
     <!--打jar包时需要添加以打包webapp静态资源文件-->
-    <!-- <resources>
+    <resources>
 	    <resource>
 	        <directory>${basedir}/src/main/webapp</directory>
 	        <targetPath>META-INF/resources</targetPath> 
@@ -316,7 +316,7 @@
 	            <include>**/**</include>
 	        </includes>
 	    </resource>
-    </resources> -->
+    </resources>
     <plugins>
         <!-- <plugin>  
        		<groupId>org.springframework.boot</groupId>  

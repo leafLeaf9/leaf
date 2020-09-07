@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2020-9-4 14:24:23
  * @description 
  */
-@Api(tags="RabbitMQ")
+@Api(tags="rabbitMQ")
 @Slf4j
 @RestController
 @RequestMapping(value = "/rabbitmq")
