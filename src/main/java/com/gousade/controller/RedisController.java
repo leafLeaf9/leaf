@@ -37,6 +37,7 @@ public class RedisController {
 
     @RequestMapping("set")
     public boolean redisset(String key){
+    	redisUtil.selectDB(5);
         User userEntity =new User();
         userEntity.setId(SaltUtil.generateUUId());
         userEntity.setUserName("reidsuser");

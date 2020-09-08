@@ -1,5 +1,11 @@
 package com.gousade.mybatisPlus;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -9,15 +15,22 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import org.junit.Test;
 
 /**
  * @author
  * @since 2018/12/13
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class CodeGenerator {
 
-    @Test
+	@Value("${spring.datasource.url}")
+    private String url;
+	
+	@Value("${spring.datasource.username}")
+    private String username;
+	
+	@Test
     public void run() {
 
         // 1、创建代码生成器
@@ -25,8 +38,8 @@ public class CodeGenerator {
 
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
-//        String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("D:\\sl\\zhyy\\gitgousade" + "/src/main/java");
+        String projectPath = System.getProperty("user.dir");
+        gc.setOutputDir(projectPath + "/src/main/java");
 
         gc.setAuthor("woxigousade<woxigsd@gmail.com>");
         gc.setOpen(false); //生成后是否打开资源管理器

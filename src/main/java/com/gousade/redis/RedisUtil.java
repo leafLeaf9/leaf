@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,25 @@ public class RedisUtil {
 	public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
+	
+	/**
+	 * @param index
+	 * 切换redis数据库
+	 *setDatabase是线程不安全的，并发下会有问题，可能导致数据在不同数据库中混淆。
+	 * 解决方案：
+	 * 1、加锁
+	 * 2、配置实现多个RedisTemplate实例，每个实例负责访问一个数据库，这样也不需要切换数据库了
+	 * 3、把所有数据都存在一个数据库，使用前缀区分不同的业务key
+	 */
+	//FIXME 此方法无效 待修改
+	public synchronized void selectDB(int index){
+	    LettuceConnectionFactory lettuceConnectionFactory = (LettuceConnectionFactory) redisTemplate.getConnectionFactory();
+	    if (lettuceConnectionFactory != null && index != lettuceConnectionFactory.getDatabase()) {
+	    lettuceConnectionFactory.setDatabase(index);
+	    redisTemplate.setConnectionFactory(lettuceConnectionFactory);
+	    lettuceConnectionFactory.resetConnection();
+	    }
+	}
 	
 	/**
      * 指定缓存失效时间

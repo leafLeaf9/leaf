@@ -1,8 +1,8 @@
 package com.gousade.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +12,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -81,6 +83,19 @@ public class SaltUtil {//toHex和bytetoHex方法得到的结果是相同的，By
 		for(int i=10;i<9;i++) {
 			log.info(i+"");
 		}
+		String rootpath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+		log.info("rootpath={}",rootpath);
+		try {
+			String classpath = ResourceUtils.getURL("classpath:").getPath();
+			log.info("classpath={}",classpath);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String dir = System.getProperty("user.dir");
+		log.info("dir={}",dir);
+		File file = new File("");
+		log.info("file={}",file.getAbsolutePath());
     }
 
 }
