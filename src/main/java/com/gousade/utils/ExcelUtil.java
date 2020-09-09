@@ -49,6 +49,7 @@ public class ExcelUtil {
 	 * @param msg
 	 * @throws Exception
 	 */
+	@SuppressWarnings("rawtypes")
 	public static void getWrongInfo(StringBuilder sb,List list,int i,Object obj,String name,String msg) throws Exception{
 		Class clazz=obj.getClass();
 		Object str=null;

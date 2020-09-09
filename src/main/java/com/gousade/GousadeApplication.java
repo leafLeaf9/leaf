@@ -5,15 +5,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.PropertySource;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
 /** 
-* @author 作者: woxi-Gisard
-* @version 创建时间:2018年12月25日 下午12:25:52 
+* @author woxigousade <woxigsd@gmail.com>
+* @date 2018-12-25 23:25:52
 * @description SpringBoot Starter
 */
 @EnableEncryptableProperties
+@PropertySource(name="EncryptedProperties", value={"classpath:application.properties"})
 @SpringBootApplication
 public class GousadeApplication extends SpringBootServletInitializer {
 	

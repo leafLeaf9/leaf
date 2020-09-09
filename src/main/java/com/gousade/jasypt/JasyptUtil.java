@@ -22,12 +22,12 @@ public class JasyptUtil {
 	 */
     private StringEncryptor encryptor;
 	
-	public String encypt(String value){
+	public String encrypt(String value){
     	String result = encryptor.encrypt(value);
     	return result;
 	}
 	
-	public String decypt(String value){
+	public String decrypt(String value){
     	String result = encryptor.decrypt(value);
     	return result;
 	}
@@ -50,14 +50,14 @@ public class JasyptUtil {
 	 * @param value
 	 * @return 上面的加解密方法是使用bean中的混淆盐值，下面两个加解密方法使用传入的盐值
 	 */
-	public String encyptwithSalt(String password,String value){
+	public String encryptWithSalt(String password,String value){
     	PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
     	encryptor.setConfig(cryptor(password));
     	String result = encryptor.encrypt(value);
     	return result;
 	}
 	
-	public String decyptwithSalt(String password,String value){
+	public String decryptWithSalt(String password,String value){
     	PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
     	encryptor.setConfig(cryptor(password));
     	String result = encryptor.decrypt(value);

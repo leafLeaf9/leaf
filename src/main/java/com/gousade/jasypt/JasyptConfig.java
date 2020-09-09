@@ -20,7 +20,7 @@ public class JasyptConfig {
 	public StringEncryptor stringEncryptor() {
 	    PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
 	    SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-		config.setPassword("52ad73833a754219b9770e712f17ezzz");//混淆盐值 you can input any string
+		config.setPassword("yourSalt");//混淆盐值 you can input any string
 	    config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
 	    config.setKeyObtentionIterations("1000");
 	    config.setPoolSize("1");

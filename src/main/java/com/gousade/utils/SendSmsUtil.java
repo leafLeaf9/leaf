@@ -39,20 +39,18 @@ public class SendSmsUtil {
 	@Autowired
 	private SmsResponseLogMapper smsResponseLogMapper;
 
-    //产品名称:云通信短信API产品,开发者无需替换
-    static final String product = "Dysmsapi";
-    //产品域名,开发者无需替换
-    static final String domain = "dysmsapi.aliyuncs.com";
-
-    static final String accessKeyId = "3r+jh0UcQMkX9SJ9U8ble7Ms75W+mMJz9HkigkJvwS81jsNLgsy6LCujmmP57Kr8HVCkNIP4d/Bz5Dv1ZkgHhQ==";
-    static final String accessKeySecret = "PWwlMV42eZWkghZvThz/uX/4lTEruJRVVvIQqEVO9/6Pr0REqZu+tf32dMN7pg1BgwfWIMHX73D7n+AAQ0mQpQ==";
+	private static final String accessKeyId = "3r+jh0UcQMkX9SJ9U8ble7Ms75W+mMJz9HkigkJvwS81jsNLgsy6LCujmmP57Kr8HVCkNIP4d/Bz5Dv1ZkgHhQ==";
+	private static final String accessKeySecret = 
+			"PWwlMV42eZWkghZvThz/uX/4lTEruJRVVvIQqEVO9/6Pr0REqZu+tf32dMN7pg1BgwfWIMHX73D7n+AAQ0mQpQ==";
+	private static final String SignName = "HrhfSLEriq7HCvkMG88vhQ60AJ9U5mR6GtFRoKVHj9XGdJgrSuvvQL/MNEoiFsPD";
+	private static final String TemplateCode = "JP+XAHjZfZW1a1gb4ugXGqHwr80IQxbFKma0pzt54oQoMC66Srm+roFA68b6wLyF";
 
     public void sendSms(String mobile,int code) {
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou",
-        		jasyptUtil.decypt(accessKeyId), jasyptUtil.decypt(accessKeySecret));
+        		jasyptUtil.decrypt(accessKeyId), jasyptUtil.decrypt(accessKeySecret));
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
@@ -61,8 +59,8 @@ public class SendSmsUtil {
         request.setSysAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", mobile);
-        request.putQueryParameter("SignName", "GisardLTE");
-        request.putQueryParameter("TemplateCode", "SMS_200721670z");
+        request.putQueryParameter("SignName", jasyptUtil.decrypt(SignName));
+        request.putQueryParameter("TemplateCode", jasyptUtil.decrypt(TemplateCode));
         request.putQueryParameter("TemplateParam", "{\"code\":"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);

@@ -68,6 +68,7 @@ public class RedisJavaTest {
 	可以简单的理解在 Java 的正则表达式中，两个 \\ 代表其他语言中的一个 \，这也就是为什么表示一位数字的正则表达式是 \\d，而表示一个普通的反斜杠是 \\\\。
 	标准郑泽中\d代表数字字符，在java中就需要写成\\d，所以只要把标准正则中的所有\都变成\\就可以在java中同义
 	*/
+	@SuppressWarnings("unused")
 	@Test
 	public void patterntest(){
 		 String content = "Swift1 Swift2 Swift3Swift4Swift4Swift4";		
