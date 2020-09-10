@@ -36,21 +36,21 @@ public class ShiroConfig {
 		//authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
 		map.put("/login", "anon");
 		map.put("/regist", "anon");
-		map.put("/redis/**", "anon");
-		map.put("/jasypt/**", "anon");
+		/*map.put("/redis/**", "anon");
+		map.put("/jasypt/**", "anon");*/
 		map.put("/favicon.ico", "anon");//防止favicon.ico图标被拦截
 		map.put("/admin/smsCode/**", "anon");
 		map.put("/admin/sysUser/ShiroRegist", "anon");
 		map.put("/admin/sysUser/loginShiroUser", "anon");
         map.put("/", "anon");
-        map.put("/index", "anon");
-        map.put("/static/**", "anon");
-        map.put("/template/**", "anon");
+		/*map.put("/index", "anon");*/
+		map.put("/static/**", "anon");
+		/*map.put("/template/**", "anon");*/
         //下面四条都是swagger3过滤
-        map.put("/swagger-ui/**", "anon");
-        map.put("/webjars/**", "anon");
-        map.put("/swagger-resources/**", "anon");
-        map.put("/v3/api-docs", "anon");
+		/*map.put("/swagger-ui/**", "anon");
+		map.put("/webjars/**", "anon");
+		map.put("/swagger-resources/**", "anon");
+		map.put("/v3/api-docs", "anon");*/
 		map.put("/**", "authc");
 		return map;
 	}

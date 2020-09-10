@@ -24,7 +24,8 @@
 <script defer="defer" src="${staticPath}/static/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
 <!-- font-awesome-4.7.0 -->
 <link rel="stylesheet" href="${staticPath}/static/font-awesome-4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="${staticPath}/static/font-awesome-4.7.0/css/all.min.css">
+<!-- AdminLTE专用图标 需要区分fab far fas等等 -->
+<%-- <link rel="stylesheet" href="${staticPath}/static/font-awesome-4.7.0/css/all.min.css"> --%>
 <link rel="stylesheet" href="${staticPath}/static/ionicons-5.0.0/docs/css/ionicons.min.css">
 <!-- AdminLTE -->
 <link rel="stylesheet" href="${staticPath}/static/AdminLTE-3.0.5/dist/css/adminlte.min.css">

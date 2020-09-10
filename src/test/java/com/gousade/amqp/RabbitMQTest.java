@@ -53,10 +53,36 @@ public class RabbitMQTest {
 	
 	/**
 	 * exchange.fanout广播
+	 * fanout直接给所有绑定的队列发送消息 所以不填路由键也一样
 	 */
 	@Test
-	public void sendMsg(){
+	public void fanoutSendMsg(){
 		rabbitTemplate.convertAndSend("exchange.fanout","",ResponseResult.renderError().message("调用exchange.fanout发送广播消息"));
+	}
+	
+	/**
+	 * topic
+	 * 匹配路由键为gousade.#的所有队列 #代表0-多个单词
+	 */
+	@Test
+	public void topicSend1() {
+		String context = "hi, i am topic message 1";
+		log.info("topicSender : " + context);
+		rabbitTemplate.convertAndSend("exchange.topic", "gousade.", context);
+		rabbitTemplate.convertAndSend("exchange.topic", "gousade.xxx.sss", context);
+	}
+	
+	/**
+	 * topic
+	 * 匹配路由键为*.news的所有队列 *代表1个单词 以.为分界 sss.xxx.news中代表sss.xxx代表两个单词 而sss-xxx是一个单词
+	 */
+	@Test
+	public void topicSend2() {
+		String context = "hi, i am topic message 2 to sss-xxx.news";
+		String context2 = "hi, i am topic message 2 to sss.xxx.news";
+		log.info("topicSender2 : " + context);
+		rabbitTemplate.convertAndSend("exchange.topic", "sss-xxx.news", context);
+		rabbitTemplate.convertAndSend("exchange.topic", "sss.xxx.news", context2);//没有接收者 因为没有对应的路由键绑定信息
 	}
 
 }

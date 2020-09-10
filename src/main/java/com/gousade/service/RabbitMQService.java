@@ -21,8 +21,8 @@ public class RabbitMQService {
 	
 	@RabbitListener(queues = "gousade.news")
     public void receiveObject(Object responseResult){
-		log.info("类型："+responseResult.getClass());
-        log.info("收到ResponseResult消息："+responseResult);
+		log.info("队列gousade.news,收到消息类型：{}",responseResult.getClass());
+        log.info("队列gousade.news,收到ResponseResult消息体：{}",responseResult);
     }
 	
 	/*@RabbitListener(queues = "gousade.news")
@@ -43,8 +43,8 @@ public class RabbitMQService {
 
     @RabbitListener(queues = "gousade")
     public void receiveMessage(Message message){
-    	log.info(message.getBody().toString());
-    	log.info(message.getMessageProperties().toString());
+    	log.info("队列gousade，接收消息体-{}",message.getBody().toString());
+    	log.info("队列gousade，接收消息属性-{}",message.getMessageProperties().toString());
     }
 
 }

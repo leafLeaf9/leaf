@@ -1131,7 +1131,7 @@
 			name = setting.view.nameIsHTML ? nameStr : nameStr.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 			var icoStr = view.makeNodeIco(setting, node)
 			var childStr = view.makeChildNode(node);
-			html.push("<i class='nav-icon fa ",(icoStr != null && icoStr.length > 0)? icoStr:"fa-circle-o-notch","'></i><span class='tree-name'>",name,"</span>",(tip != null && tip > 0) ? "<span class='badge badge-info right'>"+ tip +"</span>": "", (tip != null && tip == 0) ? (childStr ? "<i class='right fas fa-angle-left'></i>": "") : (childStr ? "<i class='right fas fa-angle-left'></i>": ""));
+			html.push("<i class='nav-icon fa ",(icoStr != null && icoStr.length > 0)? icoStr:"fa-circle-o","'></i><span class='tree-name'>",name,"</span>",(tip != null && tip > 0) ? "<span class='badge badge-info right'>"+ tip +"</span>": "", (tip != null && tip == 0) ? (childStr ? "<i class='right fa fa-angle-left'></i>": "") : (childStr ? "<i class='right fa fa-angle-left'></i>": ""));
 		},
 		makeDOMNodeLine: function(html, setting, node) {
 			html.push("");

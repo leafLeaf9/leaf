@@ -67,10 +67,13 @@
       <div class="social-auth-links text-center mb-3">
         <p>- OR -</p>
         <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-qq mr-2"></i> Sign in using QQ
+          <i class="fa fa-qq  mr-2"></i> Sign in using QQ
         </a>
         <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+          <i class="fa fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+        <a href="#" class="btn btn-block btn-dark">
+          <i class="fa fa-github mr-2"></i> Sign in using github
         </a>
       </div>
       <!-- /.social-auth-links -->
