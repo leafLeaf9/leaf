@@ -20,6 +20,7 @@
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	<!-- <java.version>11</java.version> -->
 	<java.version>1.8</java.version>
+	<skipTests>true</skipTests>
   </properties>
   
   <dependencies>
@@ -291,6 +292,7 @@
 	    <groupId>io.springfox</groupId>
 	    <artifactId>springfox-boot-starter</artifactId>
 	    <version>3.0.0</version>
+	    <scope>${swagger.scope}</scope>
 	</dependency>
 	<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
 	<dependency>
@@ -299,6 +301,34 @@
 	    <optional>true</optional>
 	</dependency>
   </dependencies>
+  
+  <profiles>
+  	<profile>
+		<id>development</id>
+		<properties>
+			<profiles.active>development</profiles.active>
+			<swagger.scope>provided</swagger.scope>
+		</properties>
+		<activation>
+			<!-- 通过<activeByDefault>true</activeByDefault>设置默认激活的profile -->
+			<activeByDefault>true</activeByDefault>
+		</activation>
+	</profile>
+	<profile>
+		<id>test</id>
+		<properties>
+			<profiles.active>test</profiles.active>
+			<swagger.scope>compile</swagger.scope>
+		</properties>
+	</profile>
+	<profile>
+		<id>production</id>
+		<properties>
+			<profiles.active>production</profiles.active>
+			<swagger.scope>provided</swagger.scope>
+		</properties>
+	</profile>
+  </profiles>
   
   <build>
     <finalName>gousade</finalName>
@@ -311,12 +341,29 @@
 	            <include>**/**</include>
 	        </includes>
 	    </resource>
-	    <resource>
+	    <!-- <resource>
 	        <directory>${basedir}/src/main/resources</directory>
 	        <includes>
 	            <include>**/**</include>
 	        </includes>
-	    </resource>
+	    </resource> -->
+	    <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>${profiles.active}/application*.yml</include>
+          <include>${profiles.active}/application*.yaml</include>
+          <include>${profiles.active}/application*.properties</include>
+        </includes>
+      	</resource>
+      	<resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <excludes>
+          <exclude>**/application*.yml</exclude>
+          <exclude>**/application*.yaml</exclude>
+          <exclude>**/application*.properties</exclude>
+        </excludes>
+      	</resource>
     </resources>
     <plugins>
         <!-- <plugin>  

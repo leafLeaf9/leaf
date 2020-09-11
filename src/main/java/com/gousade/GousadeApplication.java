@@ -15,7 +15,7 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 * @description SpringBoot Starter
 */
 @EnableEncryptableProperties
-@PropertySource(name="EncryptedProperties", value={"classpath:application.properties"})
+//@PropertySource(name="EncryptedProperties", value={"classpath:application.properties"})
 @SpringBootApplication
 public class GousadeApplication extends SpringBootServletInitializer {
 	
