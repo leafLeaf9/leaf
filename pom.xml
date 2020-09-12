@@ -18,8 +18,8 @@
   <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	<!-- <java.version>11</java.version> -->
-	<java.version>1.8</java.version>
+	 <java.version>11</java.version>
+	<!--<java.version>1.8</java.version>-->
 	<skipTests>true</skipTests>
   </properties>
   
@@ -304,9 +304,9 @@
   
   <profiles>
   	<profile>
-		<id>development</id>
+		<id>dev</id>
 		<properties>
-			<profiles.active>development</profiles.active>
+			<profiles.active>dev</profiles.active>
 			<swagger.scope>provided</swagger.scope>
 		</properties>
 		<activation>
@@ -322,9 +322,9 @@
 		</properties>
 	</profile>
 	<profile>
-		<id>production</id>
+		<id>prod</id>
 		<properties>
-			<profiles.active>production</profiles.active>
+			<profiles.active>prod</profiles.active>
 			<swagger.scope>provided</swagger.scope>
 		</properties>
 	</profile>
@@ -354,6 +354,7 @@
           <include>${profiles.active}/application*.yml</include>
           <include>${profiles.active}/application*.yaml</include>
           <include>${profiles.active}/application*.properties</include>
+			<include>**/application*.properties</include>
         </includes>
       	</resource>
       	<resource>

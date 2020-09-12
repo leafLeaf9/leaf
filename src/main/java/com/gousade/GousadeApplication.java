@@ -1,5 +1,6 @@
 package com.gousade;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,15 +8,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.PropertySource;
 
-import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
-
 /** 
 * @author woxigousade <woxigsd@gmail.com>
 * @date 2018-12-25 23:25:52
 * @description SpringBoot Starter
 */
 @EnableEncryptableProperties
-//@PropertySource(name="EncryptedProperties", value={"classpath:application.properties"})
+@PropertySource(name="EncryptedProperties", value={"classpath:application.properties", "classpath:/dev/application-dev.properties", "classpath:/prod/application-prod.properties"})
 @SpringBootApplication
 public class GousadeApplication extends SpringBootServletInitializer {
 	
