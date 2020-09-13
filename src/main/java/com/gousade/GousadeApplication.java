@@ -14,7 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 * @description SpringBoot Starter
 */
 @EnableEncryptableProperties
-@PropertySource(name="EncryptedProperties", value={"classpath:application.properties", "classpath:/dev/application-dev.properties", "classpath:/prod/application-prod.properties"})
+@PropertySource(name="EncryptedProperties", value={"classpath:application.properties", "classpath:/${spring.profiles.active}/application-${spring.profiles.active}.properties"})
 @SpringBootApplication
 public class GousadeApplication extends SpringBootServletInitializer {
 	

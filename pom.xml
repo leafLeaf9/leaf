@@ -4,7 +4,7 @@
   <groupId>com.gousade</groupId>
   <artifactId>gousade</artifactId>
   <packaging>war</packaging>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <name>GisardAdminLTE - SpringBoot</name>
   <description>SpringBoot Project.</description>
   <url>https://github.com/woxigousade/gousade</url>
@@ -292,7 +292,6 @@
 	    <groupId>io.springfox</groupId>
 	    <artifactId>springfox-boot-starter</artifactId>
 	    <version>3.0.0</version>
-	    <scope>${swagger.scope}</scope>
 	</dependency>
 	<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
 	<dependency>
@@ -307,7 +306,8 @@
 		<id>dev</id>
 		<properties>
 			<profiles.active>dev</profiles.active>
-			<swagger.scope>provided</swagger.scope>
+			<logback.logdir>D:\\gousadelogs\\dev</logback.logdir>
+			<logback.appname>gousade-dev</logback.appname>
 		</properties>
 		<activation>
 			<!-- 通过<activeByDefault>true</activeByDefault>设置默认激活的profile -->
@@ -318,14 +318,16 @@
 		<id>test</id>
 		<properties>
 			<profiles.active>test</profiles.active>
-			<swagger.scope>compile</swagger.scope>
+			<logback.logdir>D:\\gousadelogs\\test</logback.logdir>
+			<logback.appname>gousade-test</logback.appname>
 		</properties>
 	</profile>
 	<profile>
 		<id>prod</id>
 		<properties>
 			<profiles.active>prod</profiles.active>
-			<swagger.scope>provided</swagger.scope>
+			<logback.logdir>C:\\gousadelogs\\prod</logback.logdir>
+			<logback.appname>gousade-prod</logback.appname>
 		</properties>
 	</profile>
   </profiles>
@@ -351,10 +353,10 @@
         <directory>${basedir}/src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>${profiles.active}/application*.yml</include>
-          <include>${profiles.active}/application*.yaml</include>
-          <include>${profiles.active}/application*.properties</include>
-			<include>**/application*.properties</include>
+          	<include>${profiles.active}/application*.yml</include>
+          	<include>${profiles.active}/application*.yaml</include>
+          	<include>${profiles.active}/application*.properties</include>
+			<include>**/application.properties</include>
         </includes>
       	</resource>
       	<resource>

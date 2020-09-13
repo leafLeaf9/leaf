@@ -1,21 +1,19 @@
 package com.gousade.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.gousade.commonutils.ResponseResult;
+import com.gousade.mail.MailManage;
+import com.gousade.mail.MailManageImpl;
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gousade.commonutils.ResponseResult;
-import com.gousade.mail.MailManage;
-import com.gousade.mail.MailManageImpl;
-
-import io.swagger.annotations.Api;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author woxigsd@gmail.com
@@ -34,10 +32,13 @@ public class MailController {
 	
 	@Autowired
     private MailManageImpl mailManageImpl;
+
+	@Value("${spring.mail.username}")
+	private String receiveName;
 	
 	@RequestMapping(value="/mailSend",method=RequestMethod.GET)
 	public ResponseResult mailSend() {
-		mailManageImpl.sendSimpleMail("sendtoqq@qq.com","test simple mail"," hello this is simple mail");
+		mailManageImpl.sendSimpleMail(receiveName,"test simple mail"," hello this is simple mail");
 		log.info("发送消息成功。");
 		return ResponseResult.renderSuccess().message("发送消息成功。");
 	}
@@ -56,7 +57,7 @@ public class MailController {
                 + "		<img width=\"180px\" height=\"180px\"\n"
                 + "			src=\"https://i0.hdslb.com/bfs/album/6d1ed1848611db806d7d40660d84fd1af0e7dfda.jpg\">\n"
                 + "	</div>\n" + "</body>";
-		mailManage.sendHtmlMail("sendtoqq@qq.com","test html mail",htmlContent);
+		mailManage.sendHtmlMail(receiveName,"test html mail",htmlContent);
 		log.info("发送消息成功。");
 		return ResponseResult.renderSuccess().message("发送消息成功。");
 	}
@@ -65,7 +66,7 @@ public class MailController {
 	public ResponseResult attachmentsMailSend(HttpServletRequest request) {
 		String rootPath=request.getServletContext().getRealPath("/");
 		String filePath = rootPath+"\\static\\AdminLTE-3.0.5\\dist\\img\\Tohsaka Rin.jpg";
-		mailManage.sendAttachmentsMail("sendtoqq@qq.com","test simple mail","邮件中有附件，请注意查收！", filePath);
+		mailManage.sendAttachmentsMail(receiveName,"test simple mail","邮件中有附件，请注意查收！", filePath);
 		log.info("发送消息成功。");
 		return ResponseResult.renderSuccess().message("发送消息成功。");
 	}
@@ -77,7 +78,7 @@ public class MailController {
         	context.put("project", "gousadeadminlte");
         	context.put("author", "woxigousade");
         	context.put("url", "https://github.com/woxigousade/gousade");
-            mailManage.sendTemplateMail("sendtoqq@qq.com", "这是模板邮件", context, "emailTemp");
+            mailManage.sendTemplateMail(receiveName, "这是模板邮件", context, "emailTemp");
         }catch (Exception ex){
             ex.printStackTrace();
             return ResponseResult.renderError().message("发送消息失败。");

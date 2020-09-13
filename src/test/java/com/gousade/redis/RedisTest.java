@@ -1,7 +1,6 @@
 package com.gousade.redis;
 
-import java.util.concurrent.TimeUnit;
-
+import com.gousade.pojo.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +11,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.gousade.pojo.User;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,7 +21,7 @@ public class RedisTest {
     private StringRedisTemplate stringRedisTemplate;
     
 	@Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, User> redisTemplate;
 
     @Test
     public void test() throws Exception {
