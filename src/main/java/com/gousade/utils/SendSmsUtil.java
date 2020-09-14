@@ -39,9 +39,9 @@ public class SendSmsUtil {
 	@Autowired
 	private SmsResponseLogMapper smsResponseLogMapper;
 
-	private static final String accessKeyId = "3r+jh0UcQMkX9SJ9U8ble7Ms75W+mMJz9HkigkJvwS81jsNLgsy6LCujmmP57Kr8HVCkNIP4d/Bz5Dv1ZkgHhQ==";
+	private static final String accessKeyId = "M6o8JNrzxIO7zI2S4LrWRdaNdCNACo9/1v5/DqfDdFJEb3MlrXU+2aJi2oRxieUDQKCCIC2rJvw6HDVR9zEdgQ==";
 	private static final String accessKeySecret = 
-			"PWwlMV42eZWkghZvThz/uX/4lTEruJRVVvIQqEVO9/6Pr0REqZu+tf32dMN7pg1BgwfWIMHX73D7n+AAQ0mQpQ==";
+			"bFfybIAXktU8bitG/bRkA36bEHW/RcNBuheCoJeEzG8nz8UgTaNYWEilha5sMiKuF/k/1IRKn88xh+0g4x09pw==";
 	private static final String SignName = "HrhfSLEriq7HCvkMG88vhQ60AJ9U5mR6GtFRoKVHj9XGdJgrSuvvQL/MNEoiFsPD";
 	private static final String TemplateCode = "JP+XAHjZfZW1a1gb4ugXGqHwr80IQxbFKma0pzt54oQoMC66Srm+roFA68b6wLyF";
 
