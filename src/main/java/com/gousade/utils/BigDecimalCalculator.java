@@ -2,6 +2,9 @@ package com.gousade.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author woxigsd@gmail.com
  * @date 2020年7月31日 上午9:36:12
@@ -68,4 +71,15 @@ public class BigDecimalCalculator {
 	     a1=a1.divide(b1, 2, RoundingMode.HALF_UP);
 	     return a1.doubleValue();
 	 }
+
+	public static String generateId(){
+		Date date=new Date();
+		SimpleDateFormat dateformat=new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String id=dateformat.format(date);
+		for(int i=0;i<4;i++){
+			int num=(int)(Math.random()*10);
+			id=id+num;
+		}
+		return id;
+	}
 }
