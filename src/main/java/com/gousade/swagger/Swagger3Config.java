@@ -26,7 +26,7 @@ public class Swagger3Config {
     private boolean enable;
 
     @Bean
-    public Docket petApi() {
+    public Docket adminApi() {
         return new Docket(DocumentationType.OAS_30)
                 .enable(enable)
         		.groupName("gousade")
@@ -42,13 +42,25 @@ public class Swagger3Config {
                 .paths(PathSelectors.any())
                 .build();
     }
+    
+    @Bean
+    public Docket publicApi() {
+        return new Docket(DocumentationType.OAS_30)
+                .enable(enable)
+        		.groupName("public")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
+    }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Swagger3-GisardAdminLTE 3.0.5接口API文档")
-                .description("文档描述")
-                .contact(new Contact("java", "https://github.com/woxigousade/gousade", "woxigsd@gmail.com"))
-                .version("1.1.1")
+                .title("GisardAdminLTE - SpringBoot v1.1.2 API")
+                .description("Documentation Description")
+                .contact(new Contact("GisardAdminLTE", "https://github.com/woxigousade/gousade", "woxigsd@gmail.com"))
+                .version("v1.1.2")
                 .license("MIT License")
                 .licenseUrl("https://github.com/woxigousade/gousade/blob/master/LICENSE")
                 .build();

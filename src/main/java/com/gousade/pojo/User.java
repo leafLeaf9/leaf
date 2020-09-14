@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.annotation.Version;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @ApiModel(/*value = "User",*/ description = "用户实体类")
@@ -34,9 +35,11 @@ public class User implements Serializable {
 	
 	@JSONField(serialize = false)
 	@TableField(updateStrategy = FieldStrategy.NOT_EMPTY)
+	@Schema(hidden = true)//swagger文档中隐藏此属性
 	private String password;
 	
 	@JSONField(serialize = false)
+	@Schema(hidden = true)
 	private String salt;
 
 	@TableField(fill = FieldFill.INSERT)

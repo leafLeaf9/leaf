@@ -23,10 +23,10 @@ public class PageJumpController {
 	public String login(HttpServletRequest request){
 		User obj = (User) SecurityUtils.getSubject().getPrincipal();
         if (obj == null) {       	
-        	log.warn("当前shiro无subject");
+        	log.warn("login");
             return "/login";
         }
-        log.info("当前shiro-subject:"+obj.getUserName());
+        log.info("current subject:"+obj.getUserName());
 		return "redirect:/admin/index";
 	}
 	
