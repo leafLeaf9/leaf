@@ -47,6 +47,6 @@ public class SchedulerTask {
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z");
 		String dateNow = LocalDateTime.now()
 				/*.atZone(ZoneOffset.UTC)*/.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS 'CST'"));
-		log.info("now time ：" + dateNow/*dateFormat.format(new Date())*/);
+		log.info("Current Time : {}", dateNow/*dateFormat.format(new Date())*/);
 	}
 }

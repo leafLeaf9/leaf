@@ -37,11 +37,12 @@ public class RedisUtil {
 	 * 2、配置实现多个RedisTemplate实例，每个实例负责访问一个数据库，这样也不需要切换数据库了
 	 * 3、把所有数据都存在一个数据库，使用前缀区分不同的业务key
 	 */
-	//FIXME 此方法无效 待修改
 	public synchronized void selectDB(int index){
 	    LettuceConnectionFactory lettuceConnectionFactory = (LettuceConnectionFactory) redisTemplate.getConnectionFactory();
+	    lettuceConnectionFactory.setShareNativeConnection(false);//是否允许多个线程操作共用同一个缓存连接，默认 true，false 时每个操作都将开辟新的连接
 	    if (lettuceConnectionFactory != null && index != lettuceConnectionFactory.getDatabase()) {
 	    lettuceConnectionFactory.setDatabase(index);
+	    lettuceConnectionFactory.afterPropertiesSet();//此行代码不能少，否则无法切换
 	    redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 	    lettuceConnectionFactory.resetConnection();
 	    }
@@ -178,11 +179,11 @@ public class RedisUtil {
      * @param delta 要减少几(小于0)
      * @return
      */
-    public long decr(String key, long delta){
+    public void decr(String key, long delta){
         if(delta<0){
             throw new RuntimeException("递减因子必须大于0");
         }
-        return redisTemplate.opsForValue().increment(key, -delta);
+         redisTemplate.opsForValue().increment(key, -delta);
     }
 
     //================================Map=================================
