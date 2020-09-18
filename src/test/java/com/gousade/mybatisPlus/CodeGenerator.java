@@ -1,10 +1,8 @@
 package com.gousade.mybatisPlus;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -20,7 +18,6 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * @author
  * @since 2018/12/13
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class CodeGenerator {
 
@@ -41,7 +38,7 @@ public class CodeGenerator {
 		String projectPath = System.getProperty("user.dir");
 		gc.setOutputDir(projectPath + "/src/main/java");
 
-		gc.setAuthor("woxigousade<woxigsd@gmail.com>");
+		gc.setAuthor("woxigousade <woxigsd@gmail.com>");
 		gc.setOpen(false); // 生成后是否打开资源管理器
 		gc.setFileOverride(false); // 重新生成时文件是否覆盖
 

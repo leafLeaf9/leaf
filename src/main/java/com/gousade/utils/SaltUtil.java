@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
 

@@ -1,14 +1,13 @@
 package com.gousade.mybatisPlus;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -20,7 +19,6 @@ import com.gousade.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class MybatisPlusTest {
 
@@ -112,13 +110,13 @@ public class MybatisPlusTest {
 		User entity = new User();
 		entity.setVersion(2);
 
-		Assert.assertEquals("updated records should be same", count, userMapper.update(entity, null));
+		assertEquals(count, userMapper.update(entity, null), "updated records should be same");
 		ew = new QueryWrapper<>();
 		ew.eq("version", 2);
-		Assert.assertEquals("No records found with version=1", 0, userMapper.selectCount(ew).intValue());
+		assertEquals(0, userMapper.selectCount(ew).intValue(), "No records found with version=1");
 		ew = new QueryWrapper<>();
 		ew.eq("version", 3);
-		Assert.assertEquals("All records with version=1 should be updated to version=2", count,
-				userMapper.selectCount(ew).intValue());
+		assertEquals(count, userMapper.selectCount(ew).intValue(),
+				"All records with version=1 should be updated to version=2");
 	}
 }

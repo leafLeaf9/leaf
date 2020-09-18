@@ -1,10 +1,11 @@
 package com.gousade.amqp;
 
-import org.junit.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeoutException;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author ucs_fuqing
