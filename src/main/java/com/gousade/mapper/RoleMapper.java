@@ -8,27 +8,27 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gousade.pojo.Resource;
 import com.gousade.pojo.Role;
 
-public interface RoleMapper extends BaseMapper<Role>{
-	
-	List<Role> selectRoleList(Map<String,Object> map);
-	
-    int deleteByPrimaryKey(String id);
+public interface RoleMapper extends BaseMapper<Role> {
+
+	List<Role> selectRoleList(Map<String, Object> map);
+
+	int deleteByPrimaryKey(String id);
 
 //    int insert(Role record);
 
-    int insertSelective(Role record);
+	int insertSelective(Role record);
 
-    Role selectByPrimaryKey(String id);
+	Role selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Role record);
+	int updateByPrimaryKeySelective(Role record);
 
-    int updateByPrimaryKey(Role record);
-    
-    int deleteBatchIds(List<? extends Serializable> idList);
-    
-    List<String> selectResourceIdListByRoleId(String id);
+	int updateByPrimaryKey(Role record);
 
-    List<Role> getRoles();
+	int deleteBatchIds(List<? extends Serializable> idList);
+
+	List<String> selectResourceIdListByRoleId(String id);
+
+	List<Role> getRoles();
 
 	List<Role> findByIds(List<String> roleIdList);
 

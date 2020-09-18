@@ -6,18 +6,21 @@
 	<sql id="Base_Column_List">
 	</sql>
 
-	<select id="findRoleIdsByUserId" resultType="java.lang.String" parameterType="java.lang.String">
-		SELECT ROLEID FROM user_role  WHERE USERID = #{id} and DELFLAG = 0
+	<select id="findRoleIdsByUserId" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		SELECT ROLEID FROM user_role WHERE USERID = #{id} and
+		DELFLAG = 0
 	</select>
-	
+
 	<insert id="insert">
 		insert into user_role
-			(ID,USERID,ROLEID,CREATE_TIME,UPDATE_TIME,DELFLAG)
+		(ID,USERID,ROLEID,CREATE_TIME,UPDATE_TIME,DELFLAG)
 		values(#{id},#{userId},#{roleId},sysdate(),sysdate(),0)
 	</insert>
-	
+
 	<delete id="deleteByUserId">
-		update user_role set DELFLAG=1,UPDATE_TIME=sysdate() where USERID=#{id} and DELFLAG=0
+		update user_role set DELFLAG=1,UPDATE_TIME=sysdate()
+		where USERID=#{id} and DELFLAG=0
 	</delete>
-	
+
 </mapper>

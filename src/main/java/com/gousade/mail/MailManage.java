@@ -5,18 +5,18 @@ import java.util.Map;
 /**
  * @author woxigsd@gmail.com
  * @date 2020-9-4 17:07:46
- * @description 
+ * @description
  */
 public interface MailManage {
-	
+
 	void sendSimpleMail(String to, String subject, String content);
-	
+
 	void sendHtmlMail(String to, String subject, String content);
 
-    void sendAttachmentsMail(String to, String subject, String content, String filePath);
+	void sendAttachmentsMail(String to, String subject, String content, String filePath);
 
-    void sendInlineResourceMail(String to, String subject, String content, String rscPath, String rscId);
-    
-    void sendTemplateMail(String to, String subject, Map<String, Object> paramMap, String template);
+	void sendInlineResourceMail(String to, String subject, String content, String rscPath, String rscId);
+
+	void sendTemplateMail(String to, String subject, Map<String, Object> paramMap, String template);
 
 }

@@ -1,4 +1,5 @@
 package com.gousade.annotation;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -25,28 +26,29 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = { ZoneValidator.class })
 public @interface Zone {
 
-    String message() default "不在有效范围内";
-    /**
-     * @return the regular expression to match
-     */
-    
-    String[] zone() default { };
+	String message() default "不在有效范围内";
 
-    Class<?>[] groups() default { };
-    
-    Class<? extends Payload>[] payload() default { };
+	/**
+	 * @return the regular expression to match
+	 */
 
-    /**
-     * Defines several {@link Size} annotations on the same element.
-     *
-     * @see Size
-     */
-    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
-    @Retention(RUNTIME)
-    @Documented
-    @interface List {
+	String[] zone() default {};
 
-    	Zone[] value();
-    }
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
+
+	/**
+	 * Defines several {@link Size} annotations on the same element.
+	 *
+	 * @see Size
+	 */
+	@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
+	@Retention(RUNTIME)
+	@Documented
+	@interface List {
+
+		Zone[] value();
+	}
 
 }

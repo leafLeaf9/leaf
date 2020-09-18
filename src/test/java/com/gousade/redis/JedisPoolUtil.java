@@ -7,7 +7,7 @@ import redis.clients.jedis.JedisPoolConfig;
 /**
  * @author woxigsd@gmail.com
  * @date 2020-9-16 15:34:43
- * @description 
+ * @description
  */
 public class JedisPoolUtil {
 	private static volatile JedisPool jedisPool = null;

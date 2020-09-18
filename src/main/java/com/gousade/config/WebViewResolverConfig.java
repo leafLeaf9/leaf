@@ -21,17 +21,17 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 @EnableWebMvc
 public class WebViewResolverConfig implements WebMvcConfigurer {
-	
+
 	@Bean
 	public ViewResolver viewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
-        resolver.setViewNames("*");
-        resolver.setOrder(2);
-        return resolver;
-    }
-	
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/views/");
+		resolver.setSuffix(".jsp");
+		resolver.setViewNames("*");
+		resolver.setOrder(2);
+		return resolver;
+	}
+
 	/*@Bean
 	public ITemplateResolver templateResolver() {
 	    SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -62,20 +62,18 @@ public class WebViewResolverConfig implements WebMvcConfigurer {
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	    configurer.enable();
+		configurer.enable();
 	}
-    
-    /**
+
+	/**
 	 * Locations of static resources. Defaults to classpath:[/META-INF/resources/,
 	 * /resources/, /static/, /public/].
 	 */
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry){
-		registry.addResourceHandler("/**")
-		.addResourceLocations("classpath:/static/")
-		.addResourceLocations("classpath:/public/")
-		.addResourceLocations("classpath:/resources/")
-		.addResourceLocations("classpath:/META-INF/resources/");
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
+				.addResourceLocations("classpath:/public/").addResourceLocations("classpath:/resources/")
+				.addResourceLocations("classpath:/META-INF/resources/");
 	}
 
 }

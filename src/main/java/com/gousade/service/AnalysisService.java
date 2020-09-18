@@ -18,113 +18,113 @@ import com.gousade.mapper.AnalysisMapper;
 public class AnalysisService {
 	@Autowired
 	private AnalysisMapper analysisMapper;
-	
+
 	public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.querywordslist(map);
 	}
-	
+
 	public List<Map<String, Object>> pagewordslist(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.selectwordslist(map);
 	}
-	
+
 	public List<WordsVO> expertwords(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.expertwords(map);
 	}
-	
+
 	public long querywordslistcnt(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.querywordslistcnt(map);
 	}
-	
+
 	public Map<String, Object> insertwords(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		try {
-			
-			int i=analysisMapper.insertwords(map);
-			
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "新增词语成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "新增词语失败");
-				}
+
+			int i = analysisMapper.insertwords(map);
+
+			if (i >= 1) {
+				// retMap.put("success", true);
+				retMap.put("result", "新增词语成功");
+			} else {
+				// retMap.put("success", false);
+				retMap.put("result", "新增词语失败");
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return retMap;
 	}
-	
+
 	public Map<String, Object> updatewords(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		try {
-			
-			int i=analysisMapper.updatewords(map);
-			
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "修改词表信息成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "修改词表信息失败");
-				}
+
+			int i = analysisMapper.updatewords(map);
+
+			if (i >= 1) {
+				// retMap.put("success", true);
+				retMap.put("result", "修改词表信息成功");
+			} else {
+				// retMap.put("success", false);
+				retMap.put("result", "修改词表信息失败");
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return retMap;
 	}
-	
+
 	public Map<String, Object> delwords(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		try {
-			int i=analysisMapper.delwords(map);
-			
-				if(i>=1) {
-					//retMap.put("success", true);
-					retMap.put("result", "删除用户信息成功");
-				}else {
-				//	retMap.put("success", false);
-					retMap.put("result", "删除用户信息失败");
-				}
+			int i = analysisMapper.delwords(map);
+
+			if (i >= 1) {
+				// retMap.put("success", true);
+				retMap.put("result", "删除用户信息成功");
+			} else {
+				// retMap.put("success", false);
+				retMap.put("result", "删除用户信息失败");
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return retMap;
 	}
-	
+
 	public Map<String, Object> getssrlink(Map<String, Object> map) {
 		Map<String, Object> retMap = new HashMap<String, Object>();
-		retMap=analysisMapper.getssrlink(map);
+		retMap = analysisMapper.getssrlink(map);
 		retMap.put("status", true);
 		retMap.put("msg", "获取SSR链接成功。");
 		return retMap;
 	}
-	
+
 	public List<Map<String, Object>> querycomments(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return analysisMapper.querycomments(map);
 	}
-	
+
 	/*public Map<String, Object> segment(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		  Segmentor sentenceSplitApp= new Segmentor();
 		  Postagger postaggerApp=new Postagger();
-//		  NER   nerApp=new NER();
-//		  String nerpath=this.getClass().getClassLoader().getResource("./ner.model").getPath();
-//		  System.out.println(nerpath);
-//		  if(nerApp.create(nerpath.substring(1))<0){//去掉/E:/textanalysis/target/classes/ner.model的第一个/
-//		      System.err.println("ner load failed");		
-//		    }
+	//		  NER   nerApp=new NER();
+	//		  String nerpath=this.getClass().getClassLoader().getResource("./ner.model").getPath();
+	//		  System.out.println(nerpath);
+	//		  if(nerApp.create(nerpath.substring(1))<0){//去掉/E:/textanalysis/target/classes/ner.model的第一个/
+	//		      System.err.println("ner load failed");		
+	//		    }
 		  
 		  String cwspath=this.getClass().getClassLoader().getResource("./cws.model").getPath();
 		  System.out.println("cwspath:---"+cwspath);	
@@ -136,13 +136,13 @@ public class AnalysisService {
 			      System.err.println("词性标注模型 load failed");			     
 			    }
 		    
-//		    if(sentenceSplitApp.create("C:\\model\\cws.model")<0){
-//			      System.err.println("分词模型 load failed");		
-//			    }
-//			   
-//			    if(postaggerApp.create("C:\\model\\pos.model")<0) {
-//				      System.err.println("词性标注模型 load failed");			     
-//				    }
+	//		    if(sentenceSplitApp.create("C:\\model\\cws.model")<0){
+	//			      System.err.println("分词模型 load failed");		
+	//			    }
+	//			   
+	//			    if(postaggerApp.create("C:\\model\\pos.model")<0) {
+	//				      System.err.println("词性标注模型 load failed");			     
+	//				    }
 		    
 		    String sent = (String) map.get("comment");
 		    List<String> words = new ArrayList<String>();
@@ -181,7 +181,7 @@ public class AnalysisService {
 		    retMap.put("list", needmaplist);
 		return retMap;
 	}
-
+	
 	public Map<String, Object> extract(List<Map<String, Object>> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
@@ -253,29 +253,29 @@ public class AnalysisService {
 				List<Map<String, Object>> isextracted=analysisMapper.extractfromwords(singlemap);
 				if(!isextracted.isEmpty()) {
 					if(wordtype.equals("*")) {//如果该词是动态情感词，提取正则并计算值。
-//						Iterator<String> it = originlist.iterator();
-//		                while(it.hasNext()){
-//		                    String x = it.next();
-//		                    if(x.contains(wordname)){
-//		                        System.err.println(x+"---包含-"+wordname+"-动态情感词");
-//		                    }
-//		                }
+	//						Iterator<String> it = originlist.iterator();
+	//		                while(it.hasNext()){
+	//		                    String x = it.next();
+	//		                    if(x.contains(wordname)){
+	//		                        System.err.println(x+"---包含-"+wordname+"-动态情感词");
+	//		                    }
+	//		                }
 					}
 					result+=singlemap.get("wordname");
 					result+=" ";
 					maplist.add(singlemap);
 					System.err.println(singlemap.get("wordname")+"：是情感词，成功提取。");	
 				}else {//如果再基础词表中没有提取到，就再去大连理工词表进行二次提取。(基础词表适用于本项目数据，大连理工词表适用于所有文本)
-//					List<Map<String, Object>> isextracted1=analysisMapper.extractfromdutirwords(singlemap);	
-//					if(!isextracted1.isEmpty()) {
-//						
-//						result+=singlemap.get("wordname");
-//						result+=" ";
-//						maplist.add(singlemap);
-//						System.err.println(singlemap.get("wordname")+"：是情感词，成功提取。");	
-//					}else {
+	//					List<Map<String, Object>> isextracted1=analysisMapper.extractfromdutirwords(singlemap);	
+	//					if(!isextracted1.isEmpty()) {
+	//						
+	//						result+=singlemap.get("wordname");
+	//						result+=" ";
+	//						maplist.add(singlemap);
+	//						System.err.println(singlemap.get("wordname")+"：是情感词，成功提取。");	
+	//					}else {
 						System.out.println(singlemap.get("wordname")+"：不是情感词，提取失败。");	
-//					}
+	//					}
 					
 			    }
 			}
@@ -330,7 +330,7 @@ public class AnalysisService {
 		retMap.put("list", resultmaplist);
 		return retMap;
 	}
-
+	
 	public Map<String, Object> selectform( List<List<Map<String, Object>>> map) {
 		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
@@ -373,7 +373,7 @@ public class AnalysisService {
 		retMap.put("list", map);
 		return retMap;
 	}
-
+	
 	public String valuetostar(Double value) {
 		String star="";
 		if(value>0.0&&value<=0.2) star="★";
@@ -406,25 +406,25 @@ public class AnalysisService {
 		if(!map.isEmpty()) {
 			for(List<Map<String, Object>> singlelist:map) {
 				if(!singlelist.isEmpty()) {
-
-                Iterator<Map<String, Object>> it = singlelist.iterator();
-                while(it.hasNext()){
-                    Map<String, Object> x = it.next();
-                    if(x.get("wordtype").equals("*")){
-//                    	for(Map<String,Object> singlemap:singlelist) {
-//                    		tempstr+=singlemap.get("wordname");           				
-//            			}                    	 
-//		                 System.err.println(tempstr+":包含-"+(String)x.get("wordname")+"-动态情感词");
-//		                 List<Map<String, Object>> regexlist=analysisMapper.selectdynamicwords(x);   //根据动态情感词查询它需要匹配的正则表达式集合，依次匹配以选择情感值
-//		                 for(Map<String,Object> regexmap:regexlist) {
-//		                	 if(tempstr.matches((String) regexmap.get("regex"))) {
-//		                		 resultvalue+=Double.parseDouble((String) regexmap.get("value"));
-//		                	 }
-//		                 }
-//                    	 tempstr="";
-                        it.remove();
-                    }
-                }
+	
+	            Iterator<Map<String, Object>> it = singlelist.iterator();
+	            while(it.hasNext()){
+	                Map<String, Object> x = it.next();
+	                if(x.get("wordtype").equals("*")){
+	//                    	for(Map<String,Object> singlemap:singlelist) {
+	//                    		tempstr+=singlemap.get("wordname");           				
+	//            			}                    	 
+	//		                 System.err.println(tempstr+":包含-"+(String)x.get("wordname")+"-动态情感词");
+	//		                 List<Map<String, Object>> regexlist=analysisMapper.selectdynamicwords(x);   //根据动态情感词查询它需要匹配的正则表达式集合，依次匹配以选择情感值
+	//		                 for(Map<String,Object> regexmap:regexlist) {
+	//		                	 if(tempstr.matches((String) regexmap.get("regex"))) {
+	//		                		 resultvalue+=Double.parseDouble((String) regexmap.get("value"));
+	//		                	 }
+	//		                 }
+	//                    	 tempstr="";
+	                    it.remove();
+	                }
+	            }
 				String switchstr="";
 				
 				for(Map<String, Object> singlemap:singlelist) {

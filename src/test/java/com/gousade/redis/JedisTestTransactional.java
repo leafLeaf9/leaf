@@ -9,11 +9,11 @@ import redis.clients.jedis.Transaction;
 /**
  * @author woxigsd@gmail.com
  * @date 2020-9-16 9:06:16
- * @description 
+ * @description
  */
 @Slf4j
 public class JedisTestTransactional {
-	
+
 	@Test
 	public void test() {
 		Jedis jedis = new Jedis("127.0.0.1", 6379);
@@ -24,7 +24,7 @@ public class JedisTestTransactional {
 		transaction.discard();
 		jedis.close();
 	}
-	
+
 	public boolean transMethod() throws InterruptedException {
 		Jedis jedis = new Jedis("127.0.0.1", 6379);
 		int balance;// 可用余额
@@ -54,11 +54,11 @@ public class JedisTestTransactional {
 			return true;
 		}
 	}
-	
+
 	@Test
 	public void testTransMethod() throws InterruptedException {
 		boolean result = transMethod();
-		log.info("result:{}",result);
+		log.info("result:{}", result);
 	}
 
 }

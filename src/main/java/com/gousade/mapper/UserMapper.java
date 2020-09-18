@@ -7,29 +7,29 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
 
-public interface UserMapper extends BaseMapper<User>{
-	
-    int deleteByPrimaryKey(String id);
+public interface UserMapper extends BaseMapper<User> {
 
-    User selectByPrimaryKey(String id);
+	int deleteByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(User record);
+	User selectByPrimaryKey(String id);
 
-    int updateByPrimaryKey(User record);
-	
+	int updateByPrimaryKeySelective(User record);
+
+	int updateByPrimaryKey(User record);
+
 	public User SelectUserByLoginName(String userId);
 
 	public int regist(Map<String, Object> map);
 
 	public List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap);
-	
+
 //	@Cacheable(value="redis@Cacheable")
 	public List<User> selectUserList(Map<String, Object> searchMap);
-	
+
 	public long queryuserlistcnt(Map<String, Object> map);
-	
+
 	/**
-	 * 更新登录时间	 
+	 * 更新登录时间
 	 */
 	public int updateLoginTime(String id);
 

@@ -8,23 +8,25 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 
 /**
-* @author woxigsd@gmail.com
-* @date 2020-9-1 11:34:27
-* @description 
-*/
+ * @author woxigsd@gmail.com
+ * @date 2020-9-1 11:34:27
+ * @description
+ */
 @MapperScan("com.gousade.mapper")
 @Configuration
 public class MybatisPlusConfig {
-	
+
 	/**
 	 * 乐观锁插件 since 3.4.0
-	 * @return please use {@link MybatisPlusInterceptor} {@link OptimisticLockerInnerInterceptor} since 3.4.0
+	 * 
+	 * @return please use {@link MybatisPlusInterceptor}
+	 *         {@link OptimisticLockerInnerInterceptor} since 3.4.0
 	 */
 	@Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-        return interceptor;
-    }
-	
+	public MybatisPlusInterceptor mybatisPlusInterceptor() {
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+		return interceptor;
+	}
+
 }

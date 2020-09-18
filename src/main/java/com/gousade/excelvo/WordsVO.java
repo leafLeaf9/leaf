@@ -5,23 +5,23 @@ import java.io.Serializable;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.handler.inter.IExcelModel;
 
-public class WordsVO implements IExcelModel,Serializable{
-	
+public class WordsVO implements IExcelModel, Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	private String errorMsg;
-	
+
 	@Excel(name = "词名")
 	private String wordname;
-	
+
 	@Excel(name = "情感值")
-    private String value;
-	
+	private String value;
+
 	@Excel(name = "词性")
-    private String wordtype;
-	
+	private String wordtype;
+
 	@Excel(name = "公式类型")
-    private String formtype;
+	private String formtype;
 
 	public String getWordname() {
 		return wordname;

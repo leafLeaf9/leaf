@@ -10,17 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gousade.pojo.util.AttachmentGeneral;
 
-/** 
-* @author 作者: woxi-Gisard
-* @version 创建时间:2020年8月11日 下午9:38:44 
-* 类说明:
-*/
+/**
+ * @author woxi-Gisard
+ * @date 2020年8月11日 下午9:38:44
+ */
 public class AttachmentUtil {
-	
-	public static AttachmentGeneral AttachmentUpload(MultipartFile file){
+
+	public static AttachmentGeneral AttachmentUpload(MultipartFile file) {
 		AttachmentGeneral attachmentGeneral = new AttachmentGeneral();
 		if (!file.isEmpty()) {
-			String base = "D:"+File.separator+"gousadeFiles"+File.separator;
+			String base = "D:" + File.separator + "gousadeFiles" + File.separator;
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 			base += "generalfile" + File.separator;
 			String dateDtr = df.format(new Date());
@@ -33,10 +32,10 @@ public class AttachmentUtil {
 
 			String filename = UUID.randomUUID().toString().replace("-", "");
 			filename += "." + ext;
-			String absolutePath = base+File.separator+filename;
+			String absolutePath = base + File.separator + filename;
 			File absoluteFile = new File(absolutePath);
 			try {
-				file.transferTo(absoluteFile);//此方法代替下面的文件工具类将文件写入磁盘
+				file.transferTo(absoluteFile);// 此方法代替下面的文件工具类将文件写入磁盘
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}

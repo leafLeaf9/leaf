@@ -1,15 +1,19 @@
 package com.gousade.redis;
 
+import org.junit.Test;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 /**
  * @author woxigsd@gmail.com
  * @date 2020-9-16 15:44:02
- * @description 
+ * @description
  */
 public class TestPool {
-	public static void main(String[] args) {
+
+	@Test
+	public void testPool() {
 		JedisPool jedisPool = JedisPoolUtil.getJedisPoolInstance();
 		JedisPool jedisPool2 = JedisPoolUtil.getJedisPoolInstance();
 

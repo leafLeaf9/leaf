@@ -1,6 +1,5 @@
 package com.gousade.shiro;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,40 +24,38 @@ import com.gousade.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Configuration //在@Configuration注解中是包含@Component注解的
+@Configuration // 在@Configuration注解中是包含@Component注解的
 public class ShiroRealm extends AuthorizingRealm {
-	
-	@Lazy//不加此注解会导致userService无法被AOP拦截，似乎是shiro和aspect冲突 https://www.jermey.cn/2020/03/03/1.html
+
+	@Lazy // 不加此注解会导致userService无法被AOP拦截，似乎是shiro和aspect冲突
+			// https://www.jermey.cn/2020/03/03/1.html
 	@Autowired
 	private UserService userService;
-	
+
 	@Lazy
 	@Autowired
 	private RoleService roleService;
-	
+
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) 
-			throws AuthenticationException {
-        log.info(".......................................ShiroRealm");
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		log.info(".......................................ShiroRealm");
 		// 1. 把 AuthenticationToken 拆箱转换为 UsernamePasswordToken
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 		// 2. 从 UsernamePasswordToken 中来获取 username
 		String username = upToken.getUsername();
 		/**
-		 * 3. 调用数据库的方法, 从数据库中查询 username对应的用户记录
-		 *    注:一般的 , 用户名  什么的   最好唯一  
-		 * 4. 若用户不存在, 则可以抛出 UnknownAccountException 异常
-		 * 5. 根据用户信息的情况, 决定是否需要抛出其他的 AuthenticationException 异常.
-		 * 6. principal:认证的用户实体信息.(可以为 username、手机号、邮箱等，也可以是一个携带用户信息的对象模型)
-		 *  注:也可以是数据表对应的用户的实体类对象,在鉴权时可以冲这个对象中回去到其对应有哪些权限.
-		 *  注:用户对象信息本应该是从数据库中查询出来的,这里为了快速测试，直接new一个
-		 *  注:用于存放用户信息的模型,必须能够实例化。即:必须实现Serializable接口
-		 *  注: 这里假设从数据库查出来了某个用户的数据,假设User类的实例principal中的就是查出来的数据
-		 *  注:如果我们想要在程序中，获取到我们在Realm里面方式的自定义的用户对象实例(即上图中的User principal)，那么可以这么获得:
-         *    User u = (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
-         */		
+		 * 3. 调用数据库的方法, 从数据库中查询 username对应的用户记录 注:一般的 , 用户名 什么的 最好唯一 4. 若用户不存在, 则可以抛出
+		 * UnknownAccountException 异常 5. 根据用户信息的情况, 决定是否需要抛出其他的 AuthenticationException
+		 * 异常. 6. principal:认证的用户实体信息.(可以为 username、手机号、邮箱等，也可以是一个携带用户信息的对象模型)
+		 * 注:也可以是数据表对应的用户的实体类对象,在鉴权时可以冲这个对象中回去到其对应有哪些权限.
+		 * 注:用户对象信息本应该是从数据库中查询出来的,这里为了快速测试，直接new一个
+		 * 注:用于存放用户信息的模型,必须能够实例化。即:必须实现Serializable接口 注:
+		 * 这里假设从数据库查出来了某个用户的数据,假设User类的实例principal中的就是查出来的数据
+		 * 注:如果我们想要在程序中，获取到我们在Realm里面方式的自定义的用户对象实例(即上图中的User principal)，那么可以这么获得: User u
+		 * = (User)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
+		 */
 		User user = userService.SelectUserByLoginName(username);
-		//此处还要再通过service查询到user所拥有的角色和资源并set给user，后续完善
+		// 此处还要再通过service查询到user所拥有的角色和资源并set给user，后续完善
 		if (user == null) {
 			return null;
 		}
@@ -70,7 +67,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *  7.credentials: 凭证(一般都是密码).
 		 *    credentials本应该是查询出来的;这里为了快速测试,我们直接写
 		 */
-		Object credentials = user.getPassword(); 
+		Object credentials = user.getPassword();
 		/*
 		 *  8.realmName: 当前 realm 对象的 name. 调用父类的 getName() 方法即可
 		 *    这里获取到的是:com.aspire.shiro.realms.ShiroRealm_0
@@ -91,11 +88,11 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *     所以,这里的加密并不是对从数据库取出来的credentials进行加密!从数据库取出来的credentials应该是
 		 *     之前录入数据库时已经加密好了的.
 		 */
-		SimpleAuthenticationInfo info = null; 
+		SimpleAuthenticationInfo info = null;
 		info = new SimpleAuthenticationInfo(user, credentials, credentialsSalt, realmName);
 		return info;
 	}
- 
+
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		log.info("...................ShiroRealm获取鉴权");
@@ -113,7 +110,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		 *  而ShiroReaml中的principal,我们传的是User对象
 		 *  所以这里获取到的principal即为该User对象,并获取到对应其角色信息
 		 */
-		User user = (User)principal;
+		User user = (User) principal;
 		// 3.创建 SimpleAuthorizationInfo, 角色和权限Set放入.
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setRoles(user.getRoles() == null ? new HashSet<String>() : user.getRoles());
@@ -121,7 +118,7 @@ public class ShiroRealm extends AuthorizingRealm {
 		return info;
 	}
 }
- 
+
 ///**
 //* 我们可以这样获取:盐值加密后的结果
 //*

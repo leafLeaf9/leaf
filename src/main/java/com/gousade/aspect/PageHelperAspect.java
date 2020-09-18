@@ -39,16 +39,16 @@ public class PageHelperAspect {
 		Object[] args = point.getArgs();
 		DataTablesPageUtil dataTable = null;
 		if (args != null && args.length > 0 && args[0].getClass() == DataTablesPageUtil.class) {
-			dataTable=(DataTablesPageUtil)args[0];
-			PageHelper.startPage(dataTable.getPage_num(),dataTable.getPage_size());
+			dataTable = (DataTablesPageUtil) args[0];
+			PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		}
 		// 用改变后的参数执行目标方法
 		DataTablesPageUtil returnValue = (DataTablesPageUtil) point.proceed(args);
 		PageInfo pageInfo = new PageInfo(returnValue.getData());
-		//封装数据给DataTables
-		dataTable=DataTablesResultUtil.packageResult(dataTable, pageInfo);
-		//System.out.println("@Around：执行目标方法之后...");
-		//System.out.println("@Around：被织入的目标对象为：" + point.getTarget());
+		// 封装数据给DataTables
+		dataTable = DataTablesResultUtil.packageResult(dataTable, pageInfo);
+		// System.out.println("@Around：执行目标方法之后...");
+		// System.out.println("@Around：被织入的目标对象为：" + point.getTarget());
 		log.info("PageHelper AOP Pagination succeeded.");
 		return dataTable;
 	}
@@ -82,6 +82,6 @@ public class PageHelperAspect {
 				"@After：目标方法为：" + point.getSignature().getDeclaringTypeName() + "." + point.getSignature().getName());
 		System.out.println("@After：参数为：" + Arrays.toString(point.getArgs()));
 		System.out.println("@After：被织入的目标对象为：" + point.getTarget());
-
+	
 	}*/
 }

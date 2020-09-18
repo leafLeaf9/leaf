@@ -18,39 +18,39 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/admin/resource", method = RequestMethod.POST)
 public class ResourceController {
-	
+
 	@Autowired
 	private ResourceService resourceService;
-	
-	@RequestMapping(value="/tree",method=RequestMethod.POST)
-	public Object tree(){
+
+	@RequestMapping(value = "/tree", method = RequestMethod.POST)
+	public Object tree() {
 		User user = ShiroUtil.getShiroSessionUser();
 		List<Resource> list = resourceService.selectTree(user);
 		return list;
 	}
-	
-	@RequestMapping(value="/selectResourceList",method=RequestMethod.POST)
-	public List<Resource> selectResourceList(){
+
+	@RequestMapping(value = "/selectResourceList", method = RequestMethod.POST)
+	public List<Resource> selectResourceList() {
 		return resourceService.selectResourceList();
 	}
-	
-	@RequestMapping(value="/selectAllTree",method=RequestMethod.POST)
-	public List<Tree> selectAllTree(){
+
+	@RequestMapping(value = "/selectAllTree", method = RequestMethod.POST)
+	public List<Tree> selectAllTree() {
 		return resourceService.selectAllTree();
 	}
-	
-	@RequestMapping(value="/saveresource",method=RequestMethod.POST)
-	public Map<String,Object> saveresource(Resource resource){
-		if(StringUtils.isBlank(resource.getId())){
+
+	@RequestMapping(value = "/saveresource", method = RequestMethod.POST)
+	public Map<String, Object> saveresource(Resource resource) {
+		if (StringUtils.isBlank(resource.getId())) {
 			return resourceService.insertresource(resource);
-		}else{
+		} else {
 			return resourceService.updateresource(resource);
-		}		
+		}
 	}
-	
-	@RequestMapping(value="/deleteresource",method=RequestMethod.POST)
-	public Map<String,Object> deleteresource(String[] ids){
-		List<String> list=Arrays.asList(ids);
+
+	@RequestMapping(value = "/deleteresource", method = RequestMethod.POST)
+	public Map<String, Object> deleteresource(String[] ids) {
+		List<String> list = Arrays.asList(ids);
 		return resourceService.deleteBatchIds(list);
 	}
 }
