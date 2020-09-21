@@ -1,14 +1,14 @@
 package com.gousade.mapper;
 
-import java.util.List;
-
 import com.gousade.pojo.RoleResource;
+
+import java.util.List;
 
 public interface RoleResourceMapper {
 
-	int insert(RoleResource record);
+    int insert(RoleResource record);
 
-	int insertBatch(List<RoleResource> list);
+    int insertBatch(List<RoleResource> list);
 
-	int deleteByRoleId(String roleId);
+    int deleteByRoleId(String roleId);
 }

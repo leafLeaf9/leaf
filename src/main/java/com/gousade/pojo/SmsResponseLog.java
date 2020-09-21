@@ -19,22 +19,22 @@ import java.util.Date;
 @Builder
 @ApiModel(description = "短信日志实体类")
 public class SmsResponseLog implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -281509376203163622L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -281509376203163622L;
 
-	@TableId(type = IdType.ASSIGN_ID)
-	private String id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
 
-	private String response;
+    private String response;
 
-	@TableField(fill = FieldFill.INSERT)
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
-	private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
-	@TableLogic
-	@ApiModelProperty(value = "逻辑删除 1(true)已删除， 0(false)未删除")
-	private boolean delflag;
+    @TableLogic
+    @ApiModelProperty(value = "逻辑删除 1(true)已删除， 0(false)未删除")
+    private boolean delflag;
 
 }

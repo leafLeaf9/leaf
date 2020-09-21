@@ -1,17 +1,19 @@
 package com.gousade.config;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ITemplateResolver;
+
+import java.util.List;
 
 /**
  * @author woxigsd@gmail.com
@@ -22,15 +24,15 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @EnableWebMvc
 public class WebViewResolverConfig implements WebMvcConfigurer {
 
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-		resolver.setViewNames("*");
-		resolver.setOrder(2);
-		return resolver;
-	}
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        resolver.setViewNames("*");
+        resolver.setOrder(2);
+        return resolver;
+    }
 
 	/*@Bean
 	public ITemplateResolver templateResolver() {
@@ -60,20 +62,30 @@ public class WebViewResolverConfig implements WebMvcConfigurer {
 	    return viewResolver;
 	}*/
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-	}
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
 
-	/**
-	 * Locations of static resources. Defaults to classpath:[/META-INF/resources/,
-	 * /resources/, /static/, /public/].
-	 */
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
-				.addResourceLocations("classpath:/public/").addResourceLocations("classpath:/resources/")
-				.addResourceLocations("classpath:/META-INF/resources/");
-	}
+    /**
+     * Locations of static resources. Defaults to classpath:[/META-INF/resources/,
+     * /resources/, /static/, /public/].
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/")
+                .addResourceLocations("classpath:/public/").addResourceLocations("classpath:/resources/")
+                .addResourceLocations("classpath:/META-INF/resources/");
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter fastJsonConverter = new FastJsonHttpMessageConverter();
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        fastJsonConverter.setFastJsonConfig(fastJsonConfig);
+//		converters.add(fastJsonConverter);//这会让fastJsonConverter排在消息转换器管道列表的最后，可能会轮不到它处理消息转换
+        converters.add(0, fastJsonConverter);//要显示指明将fastJsonConverter排在消息转换器管道列表的首位
+    }
 
 }

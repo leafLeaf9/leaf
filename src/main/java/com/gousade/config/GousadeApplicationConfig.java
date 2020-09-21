@@ -1,10 +1,6 @@
 package com.gousade.config;
 
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
-import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,31 +13,36 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GousadeApplicationConfig {
 
-	/**
-	 * 此方法使得@JSONField(format = "yyyy-MM-dd HH:mm:ss")注解可以正确地给前端返回日期格式数据，而不是时间戳
-	 * 无此方法时需要使用Jackson的@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone =
-	 * "GMT+8")，不能使用fastjson
-	 */
-	@Bean
+    /**
+     * 此方法使得@JSONField(format = "yyyy-MM-dd HH:mm:ss")注解可以正确地给前端返回日期格式数据，而不是时间戳
+     * 无此方法时需要使用Jackson的@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone =
+     * "GMT+8")，不能使用fastjson
+     * 引入thymeleaf,添加WebViewResolverConfig类后导致此bean失效,需要在WebViewResolverConfig中重写configureMessageConverters才能继续使用fastjson
+     *
+     * @see https://segmentfault.com/a/1190000015975405
+     * @see https://github.com/spring-projects/spring-boot/issues/12389
+     */
+	/*@Bean
 	public HttpMessageConverters fastJsonHttpMessageConverters() {
 		FastJsonHttpMessageConverter fasHttpMessageConverter = new FastJsonHttpMessageConverter();
 		FastJsonConfig fastJsonConfig = new FastJsonConfig();
+		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
 		fasHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
-		return new HttpMessageConverters(fasHttpMessageConverter);
+		HttpMessageConverter<?> converter = fasHttpMessageConverter;
+		return new HttpMessageConverters(converter);
+	}*/
 
-	}
-
-	// Tomcat large file upload connection reset
-	@Bean
-	public TomcatServletWebServerFactory tomcatEmbedded() {
-		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-		tomcat.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> {
-			if ((connector.getProtocolHandler() instanceof AbstractHttp11Protocol<?>)) {
-				// -1 means unlimited tomcatEmbedded 这段代码是为了解决，上传文件大于10M出现连接重置的问题。此异常内容
-				// GlobalException 也捕获不到。
-				((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
-			}
-		});
-		return tomcat;
-	}
+    // Tomcat large file upload connection reset
+    @Bean
+    public TomcatServletWebServerFactory tomcatEmbedded() {
+        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+        tomcat.addConnectorCustomizers(connector -> {
+            if ((connector.getProtocolHandler() instanceof AbstractHttp11Protocol<?>)) {
+                // -1 means unlimited tomcatEmbedded 这段代码是为了解决，上传文件大于10M出现连接重置的问题。此异常内容
+                // GlobalException 也捕获不到。
+                ((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
+            }
+        });
+        return tomcat;
+    }
 }

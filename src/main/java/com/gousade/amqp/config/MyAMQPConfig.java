@@ -8,8 +8,9 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author woxigsd@gmail.com
  * @date 2020-9-4 10:40:09
- * @description 
+ * @description
  */
+
 /**
  * 自动配置 1、RabbitAutoConfiguration 2、有自动配置了连接工厂ConnectionFactory；
  * 3、RabbitProperties 封装了 RabbitMQ的配置 4、 RabbitTemplate ：给RabbitMQ发送和接受消息； 5、
@@ -21,9 +22,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MyAMQPConfig {
 
-	@Bean
-	public MessageConverter messageConverter() {
-		return new Jackson2JsonMessageConverter();
-	}
+    @Bean
+    public MessageConverter messageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
 
 }

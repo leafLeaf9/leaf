@@ -15,23 +15,23 @@ import javax.annotation.Resource;
 @Component
 public class RedisSmsCodeUtil {
 
-	@Resource
-	private RedisUtil redisUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
-	@Resource
-	private SendSmsUtil sendSmsUtil;
+    @Resource
+    private SendSmsUtil sendSmsUtil;
 
-	@OperationRecord(operationNum = 9999, operationDescription = "短信验证码发送")
-	public Object sendSmsCode(String phoneNumber) throws ClientException {
-		int randomCode = (int) ((Math.random() * 9 + 1) * 100000);
-		Object redisGetSentCode = redisUtil.get(phoneNumber);
-		if (redisGetSentCode == null) {
-			redisUtil.set(phoneNumber, randomCode, 180L);
-			sendSmsUtil.sendSms(phoneNumber, randomCode);
-			return ResponseResult.renderSuccess().message("验证码发送成功。");
-		} else {
-			return ResponseResult.renderError().message("验证码已存在，到期前请勿重复发送。");
-		}
-	}
+    @OperationRecord(operationNum = 9999, operationDescription = "短信验证码发送")
+    public Object sendSmsCode(String phoneNumber) throws ClientException {
+        int randomCode = (int) ((Math.random() * 9 + 1) * 100000);
+        Object redisGetSentCode = redisUtil.get(phoneNumber);
+        if (redisGetSentCode == null) {
+            redisUtil.set(phoneNumber, randomCode, 180L);
+            sendSmsUtil.sendSms(phoneNumber, randomCode);
+            return ResponseResult.renderSuccess().message("验证码发送成功。");
+        } else {
+            return ResponseResult.renderError().message("验证码已存在，到期前请勿重复发送。");
+        }
+    }
 
 }

@@ -1,16 +1,12 @@
 package com.gousade.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface OperationRecord {
-	int operationNum() default 0;
+    int operationNum() default 0;
 
-	String operationDescription() default "";
+    String operationDescription() default "";
 }

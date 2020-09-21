@@ -1,14 +1,13 @@
 package com.gousade.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.gousade.excelvo.WordsVO;
+import com.gousade.mapper.AnalysisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gousade.excelvo.WordsVO;
-import com.gousade.mapper.AnalysisMapper;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //import edu.hit.ir.ltp4j.NER;
 //import edu.hit.ir.ltp4j.Postagger;
@@ -16,103 +15,103 @@ import com.gousade.mapper.AnalysisMapper;
 
 @Service
 public class AnalysisService {
-	@Autowired
-	private AnalysisMapper analysisMapper;
+    @Autowired
+    private AnalysisMapper analysisMapper;
 
-	public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return analysisMapper.querywordslist(map);
-	}
+    public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        return analysisMapper.querywordslist(map);
+    }
 
-	public List<Map<String, Object>> pagewordslist(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return analysisMapper.selectwordslist(map);
-	}
+    public List<Map<String, Object>> pagewordslist(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        return analysisMapper.selectwordslist(map);
+    }
 
-	public List<WordsVO> expertwords(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return analysisMapper.expertwords(map);
-	}
+    public List<WordsVO> expertwords(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        return analysisMapper.expertwords(map);
+    }
 
-	public long querywordslistcnt(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return analysisMapper.querywordslistcnt(map);
-	}
+    public long querywordslistcnt(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        return analysisMapper.querywordslistcnt(map);
+    }
 
-	public Map<String, Object> insertwords(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
+    public Map<String, Object> insertwords(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        try {
 
-			int i = analysisMapper.insertwords(map);
+            int i = analysisMapper.insertwords(map);
 
-			if (i >= 1) {
-				// retMap.put("success", true);
-				retMap.put("result", "新增词语成功");
-			} else {
-				// retMap.put("success", false);
-				retMap.put("result", "新增词语失败");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-	}
+            if (i >= 1) {
+                // retMap.put("success", true);
+                retMap.put("result", "新增词语成功");
+            } else {
+                // retMap.put("success", false);
+                retMap.put("result", "新增词语失败");
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return retMap;
+    }
 
-	public Map<String, Object> updatewords(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
+    public Map<String, Object> updatewords(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        try {
 
-			int i = analysisMapper.updatewords(map);
+            int i = analysisMapper.updatewords(map);
 
-			if (i >= 1) {
-				// retMap.put("success", true);
-				retMap.put("result", "修改词表信息成功");
-			} else {
-				// retMap.put("success", false);
-				retMap.put("result", "修改词表信息失败");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-	}
+            if (i >= 1) {
+                // retMap.put("success", true);
+                retMap.put("result", "修改词表信息成功");
+            } else {
+                // retMap.put("success", false);
+                retMap.put("result", "修改词表信息失败");
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return retMap;
+    }
 
-	public Map<String, Object> delwords(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		try {
-			int i = analysisMapper.delwords(map);
+    public Map<String, Object> delwords(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        try {
+            int i = analysisMapper.delwords(map);
 
-			if (i >= 1) {
-				// retMap.put("success", true);
-				retMap.put("result", "删除用户信息成功");
-			} else {
-				// retMap.put("success", false);
-				retMap.put("result", "删除用户信息失败");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return retMap;
-	}
+            if (i >= 1) {
+                // retMap.put("success", true);
+                retMap.put("result", "删除用户信息成功");
+            } else {
+                // retMap.put("success", false);
+                retMap.put("result", "删除用户信息失败");
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return retMap;
+    }
 
-	public Map<String, Object> getssrlink(Map<String, Object> map) {
-		Map<String, Object> retMap = new HashMap<String, Object>();
-		retMap = analysisMapper.getssrlink(map);
-		retMap.put("status", true);
-		retMap.put("msg", "获取SSR链接成功。");
-		return retMap;
-	}
+    public Map<String, Object> getssrlink(Map<String, Object> map) {
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap = analysisMapper.getssrlink(map);
+        retMap.put("status", true);
+        retMap.put("msg", "获取SSR链接成功。");
+        return retMap;
+    }
 
-	public List<Map<String, Object>> querycomments(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return analysisMapper.querycomments(map);
-	}
+    public List<Map<String, Object>> querycomments(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        return analysisMapper.querycomments(map);
+    }
 
 	/*public Map<String, Object> segment(Map<String, Object> map) {
 		// TODO Auto-generated method stub
