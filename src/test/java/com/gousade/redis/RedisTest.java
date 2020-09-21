@@ -20,7 +20,7 @@ class RedisTest {
 	private StringRedisTemplate stringRedisTemplate;
 
 	@Autowired
-	private RedisTemplate<String, User> redisTemplate;
+	private RedisTemplate<String, Object> redisTemplate;
 
 	@Test
 	public void test() throws Exception {
@@ -31,7 +31,7 @@ class RedisTest {
 	@Test
 	public void testObj() throws Exception {
 		User user = new User("testredisid");
-		ValueOperations<String, User> operations = redisTemplate.opsForValue();
+		ValueOperations<String, Object> operations = redisTemplate.opsForValue();
 		operations.set("user-key", user);
 		operations.set("user-key-f", user, 10000, TimeUnit.SECONDS);
 		Thread.sleep(1000);
