@@ -30,7 +30,7 @@ class RedisTest {
 
 	@Test
 	public void testObj() throws Exception {
-		User user = new User("testredisid");
+		User user = User.builder().userId("sss").userName("name").build();
 		ValueOperations<String, Object> operations = redisTemplate.opsForValue();
 		operations.set("user-key", user);
 		operations.set("user-key-f", user, 10000, TimeUnit.SECONDS);

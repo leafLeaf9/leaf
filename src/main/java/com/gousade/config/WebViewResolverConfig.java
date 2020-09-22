@@ -5,6 +5,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,12 +80,25 @@ public class WebViewResolverConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/META-INF/resources/");
     }
 
+    /**
+     * @see com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter
+     * super(MediaType.ALL); Content-Type cannot contain wildcard type '*'
+     */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter fastJsonConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+        fastJsonConfig.setSerializerFeatures(
+        		SerializerFeature.DisableCircularReferenceDetect,//消除对同一对象循环引用的问题，默认为false(如果不配置有可能会进入死循环)
+        		SerializerFeature.WriteMapNullValue,//是否输出值为null的字段，,默认为false
+        		SerializerFeature.PrettyFormat,
+        		SerializerFeature.WriteDateUseDateFormat,
+        		SerializerFeature.WriteNullStringAsEmpty,
+        		SerializerFeature.WriteNullListAsEmpty);
         fastJsonConverter.setFastJsonConfig(fastJsonConfig);
+        List<MediaType> fastMediaTypes = new ArrayList<>();
+        fastMediaTypes.add(MediaType.APPLICATION_JSON);
+        fastJsonConverter.setSupportedMediaTypes(fastMediaTypes);
 //		converters.add(fastJsonConverter);//这会让fastJsonConverter排在消息转换器管道列表的最后，可能会轮不到它处理消息转换
         converters.add(0, fastJsonConverter);//要显示指明将fastJsonConverter排在消息转换器管道列表的首位
     }

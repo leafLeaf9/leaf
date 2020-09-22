@@ -36,8 +36,8 @@ import java.util.*;
 @Api(tags = "用户管理")
 @Slf4j
 @CacheConfig(cacheNames = "redis@Cacheable")
-@RestController // 添加restcontroller注解之后，return"main"不能再返回main.jsp，需要改写成ModelAndView mv = new
-// ModelAndView("main"); return mv;
+@RestController
+@CrossOrigin
 @RequestMapping(value = "/admin/sysUser")
 public class UserController {
 

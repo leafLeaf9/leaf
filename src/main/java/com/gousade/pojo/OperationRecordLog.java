@@ -1,6 +1,5 @@
 package com.gousade.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -42,7 +41,6 @@ public class OperationRecordLog implements Serializable {
     private String operationParam;
 
     @TableField(fill = FieldFill.INSERT)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private boolean delflag;

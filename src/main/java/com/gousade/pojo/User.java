@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +16,9 @@ import java.util.Set;
 
 @ApiModel(/*value = "User",*/ description = "用户实体类")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     /**
@@ -37,18 +43,16 @@ public class User implements Serializable {
     private String salt;
 
     @TableField(fill = FieldFill.INSERT)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     private String remark;
 
     private String phoneNumber;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date lastlogintime;
 
     private boolean delflag;
@@ -61,42 +65,15 @@ public class User implements Serializable {
     private Integer version;
 
     @TableField(exist = false)
+    @JSONField(serialize = false)
     private Set<String> roles;
 
     @TableField(exist = false)
+    @JSONField(serialize = false)
     private Set<String> urls;
 
     @TableField(exist = false) // 不在数据库表中 但java逻辑中需要使用
+    @JSONField(serialize = false)
     private String roleIds;
-
-    /**
-     * 无参构造
-     */
-    public User() {
-        super();
-    }
-
-    public User(String id) {
-        this.userId = id;
-    }
-
-    /**
-     * 全参构造
-     */
-    public User(String userId, String username, String password, String salt) {
-        super();
-        this.userId = userId;
-        this.userName = username;
-        this.password = password;
-        this.salt = salt;
-    }
-
-    public User(String userId, String userName, String phonenumber, Set<String> urls, Set<String> roles) {
-        this.userId = userId;
-        this.userName = userName;
-        this.phoneNumber = phonenumber;
-        this.urls = urls;
-        this.roles = roles;
-    }
 
 }

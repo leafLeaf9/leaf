@@ -107,7 +107,7 @@ public class MybatisPlusTest {
 		ew.eq("version", 2);
 		int count = userMapper.selectCount(ew);
 
-		User entity = new User();
+		User entity = User.builder().build();
 		entity.setVersion(2);
 
 		assertEquals(count, userMapper.update(entity, null), "updated records should be same");

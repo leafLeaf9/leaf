@@ -1,6 +1,5 @@
 package com.gousade.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,7 +29,6 @@ public class SmsResponseLog implements Serializable {
     private String response;
 
     @TableField(fill = FieldFill.INSERT)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @TableLogic

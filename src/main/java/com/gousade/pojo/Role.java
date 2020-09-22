@@ -1,6 +1,5 @@
 package com.gousade.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -28,11 +27,9 @@ public class Role implements Serializable {
     private Integer seq;
 
     @TableField(fill = FieldFill.INSERT)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @TableField(fill = FieldFill.INSERT)
