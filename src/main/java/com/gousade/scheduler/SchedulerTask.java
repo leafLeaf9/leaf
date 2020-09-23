@@ -1,14 +1,15 @@
 package com.gousade.scheduler;
 
-import lombok.extern.slf4j.Slf4j;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author woxi-Gisard
@@ -38,10 +39,10 @@ public class SchedulerTask {
 
     @Async
     @Scheduled(cron = "0 0/3 * * * *")
-    public void pushDataScheduled() {
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z");
-        String dateNow = LocalDateTime.now()
-                /*.atZone(ZoneOffset.UTC)*/.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS 'CST'"));
-        log.info("Current Time : {}", dateNow/*dateFormat.format(new Date())*/);
+    public void logCurrentTimeScheduled() {
+		String currentTime = ZonedDateTime
+				.now(/*ZoneId.of("Asia/Shanghai")*/)
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ 'CST'"));
+        log.info("Current Time : {}", currentTime);
     }
 }

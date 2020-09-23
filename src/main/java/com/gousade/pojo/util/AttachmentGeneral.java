@@ -1,20 +1,27 @@
 package com.gousade.pojo.util;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
 
-import java.io.Serializable;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author woxi-Gisard
  * @date 2020年8月11日 下午9:46:30
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class AttachmentGeneral implements Serializable {
 
     /**

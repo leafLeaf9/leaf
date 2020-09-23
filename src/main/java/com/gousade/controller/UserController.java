@@ -9,6 +9,8 @@ import com.gousade.service.UserService;
 import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.AttachmentUtil;
 import com.gousade.utils.DataTablesPageUtil;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -158,8 +160,8 @@ public class UserController {
 
     @Transactional(rollbackFor = Exception.class)
     @OperationRecord(operationNum = 1, operationDescription = "上传头像")
-    @RequestMapping(value = "/userAvatorUpload", method = RequestMethod.POST)
-    public Object userAvatorUpload(@RequestParam(value = "attachments") MultipartFile attachments) throws IOException {
+    @RequestMapping(value = "/userAvatarUpload", method = RequestMethod.POST)
+    public Object userAvatarUpload(@RequestParam(value = "attachments") MultipartFile attachments) throws IOException {
         String filType = attachments.getOriginalFilename()
                 .substring(attachments.getOriginalFilename().lastIndexOf('.') + 1).toLowerCase();
         String[] imageTypes = {"jpg", "png", "bmp", "gif", "jpeg"};
@@ -177,12 +179,30 @@ public class UserController {
         }
         return ResponseResult.renderSuccess().message("上传头像成功");
     }
+    
+    @Transactional(rollbackFor = Exception.class)
+    @OperationRecord(operationNum = 1, operationDescription = "上传oss头像")
+    @RequestMapping(value = "/uploadOssAvatar", method = RequestMethod.POST)
+    public ResponseResult uploadOssAvatar(@RequestParam(value = "attachments") MultipartFile attachments) {
+    	User user = ShiroUtil.getShiroSessionUser();
+    	boolean b = userService.uploadOssAvatar(attachments, user);
+    	return ResponseResult.renderBoolean(b);
+    }
 
     @OperationRecord(operationNum = 2, operationDescription = "获取头像")
     @RequestMapping(value = "/getUserAvatar", method = RequestMethod.GET)
     public void getUserAvatar(HttpServletResponse response, HttpServletRequest request) {
         User user = ShiroUtil.getShiroSessionUser();
         userService.getUserAvatar(response, request, user);
+    }
+    
+    @OperationRecord(operationNum = 2, operationDescription = "获取oss头像")
+    @RequestMapping(value = "/getOssAvatar", method = RequestMethod.GET)
+    public String getOssAvatar() {
+        User user = ShiroUtil.getShiroSessionUser();
+        String url = userService.getOssAvatar(user);
+//        return ResponseResult.renderSuccess().message("获取oss头像成功").data("url", url);
+        return url;
     }
 
     @RequiresRoles({"超级管理员"})

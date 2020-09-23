@@ -26,7 +26,7 @@ public class RedisSmsCodeUtil {
         int randomCode = (int) ((Math.random() * 9 + 1) * 100000);
         Object redisGetSentCode = redisUtil.get(phoneNumber);
         if (redisGetSentCode == null) {
-            redisUtil.set(phoneNumber, randomCode, 180L);
+//            redisUtil.set(phoneNumber, randomCode, 180L);
             sendSmsUtil.sendSms(phoneNumber, randomCode);
             return ResponseResult.renderSuccess().message("验证码发送成功。");
         } else {

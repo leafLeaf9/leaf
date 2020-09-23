@@ -6,13 +6,16 @@ import com.gousade.pojo.User;
 import com.gousade.pojo.UserRole;
 import com.gousade.pojo.util.AttachmentGeneral;
 import com.gousade.utils.DataTablesPageUtil;
+import com.gousade.utils.OssUtil;
 import com.gousade.utils.SaltUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -28,6 +31,9 @@ public class UserService {
 
     @Autowired
     private UserRoleMapper userRoleMapper;
+    
+    @Resource
+    private OssUtil ossUtil;
 
     public User selectByPrimaryKey(String id) {
         User user = userMapper.selectById(id);
@@ -147,6 +153,12 @@ public class UserService {
     public boolean uploadUserAvatar(AttachmentGeneral attachmentGeneral) {
         return userMapper.uploadUserAvatar(attachmentGeneral) > 0;
     }
+    
+    public boolean uploadOssAvatar(MultipartFile attachments, User user) {
+    	String url = ossUtil.uploadAvatarFile(attachments);
+    	AttachmentGeneral attachmentGeneral = AttachmentGeneral.builder().id(user.getId()).attachPath(url).build();
+    	return userMapper.uploadUserAvatar(attachmentGeneral) > 0;
+	}
 
     public void getUserAvatar(HttpServletResponse response, HttpServletRequest request, User user) {
         user = userMapper.selectByPrimaryKey(user.getId());
@@ -178,8 +190,14 @@ public class UserService {
             }
         }
     }
+    
+    public String getOssAvatar(User user) {
+    	User currentUser = userMapper.selectById(user.getId());
+		return currentUser.getAvatarPath();
+	}
 
     public boolean updateOwnPasswordById(User user) {
         return userMapper.updateOwnPasswordById(user) > 0;
     }
+
 }

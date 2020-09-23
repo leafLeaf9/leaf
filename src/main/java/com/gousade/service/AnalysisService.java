@@ -19,82 +19,66 @@ public class AnalysisService {
     private AnalysisMapper analysisMapper;
 
     public List<Map<String, Object>> querywordslist(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         return analysisMapper.querywordslist(map);
     }
 
     public List<Map<String, Object>> pagewordslist(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         return analysisMapper.selectwordslist(map);
     }
 
     public List<WordsVO> expertwords(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         return analysisMapper.expertwords(map);
     }
 
     public long querywordslistcnt(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         return analysisMapper.querywordslistcnt(map);
     }
 
     public Map<String, Object> insertwords(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         Map<String, Object> retMap = new HashMap<String, Object>();
         try {
 
             int i = analysisMapper.insertwords(map);
 
             if (i >= 1) {
-                // retMap.put("success", true);
                 retMap.put("result", "新增词语成功");
             } else {
-                // retMap.put("success", false);
                 retMap.put("result", "新增词语失败");
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return retMap;
     }
 
     public Map<String, Object> updatewords(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         Map<String, Object> retMap = new HashMap<String, Object>();
         try {
 
             int i = analysisMapper.updatewords(map);
 
             if (i >= 1) {
-                // retMap.put("success", true);
                 retMap.put("result", "修改词表信息成功");
             } else {
-                // retMap.put("success", false);
                 retMap.put("result", "修改词表信息失败");
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return retMap;
     }
 
     public Map<String, Object> delwords(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         Map<String, Object> retMap = new HashMap<String, Object>();
         try {
             int i = analysisMapper.delwords(map);
 
             if (i >= 1) {
-                // retMap.put("success", true);
                 retMap.put("result", "删除用户信息成功");
             } else {
-                // retMap.put("success", false);
                 retMap.put("result", "删除用户信息失败");
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return retMap;
@@ -109,12 +93,10 @@ public class AnalysisService {
     }
 
     public List<Map<String, Object>> querycomments(Map<String, Object> map) {
-        // TODO Auto-generated method stub
         return analysisMapper.querycomments(map);
     }
 
 	/*public Map<String, Object> segment(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		  Segmentor sentenceSplitApp= new Segmentor();
 		  Postagger postaggerApp=new Postagger();
@@ -182,7 +164,6 @@ public class AnalysisService {
 	}
 	
 	public Map<String, Object> extract(List<Map<String, Object>> map) {
-		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		String result="";
 		String tempstr="";
@@ -331,7 +312,6 @@ public class AnalysisService {
 	}
 	
 	public Map<String, Object> selectform( List<List<Map<String, Object>>> map) {
-		// TODO Auto-generated method stub
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		Map<String, Object> tempMap = new HashMap<String, Object>();
 		List<String> stringlist=new ArrayList<String>();
@@ -391,7 +371,6 @@ public class AnalysisService {
 	}
 	
 	public Map<String, Object> calculate(Map<String, Object> qarammap) {
-		// TODO Auto-generated method stub
 		List<List<Map<String, Object>>> map=(List<List<Map<String, Object>>>) qarammap.get("formlist");
 		String comment=(String) qarammap.get("comment");
 		System.out.println(comment);

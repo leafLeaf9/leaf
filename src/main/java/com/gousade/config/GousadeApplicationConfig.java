@@ -22,7 +22,8 @@ public class GousadeApplicationConfig {
      * @see https://segmentfault.com/a/1190000015975405
      * @see https://github.com/spring-projects/spring-boot/issues/12389
      */
-	/*@Bean
+	/*@Deprecated
+	@Bean
 	public HttpMessageConverters fastJsonHttpMessageConverters() {
 		FastJsonHttpMessageConverter fasHttpMessageConverter = new FastJsonHttpMessageConverter();
 		FastJsonConfig fastJsonConfig = new FastJsonConfig();

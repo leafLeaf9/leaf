@@ -10,7 +10,6 @@ public class Producer extends PointToPoint {
 
     public Producer(String pointName) throws IOException, TimeoutException {
         super(pointName);
-        // TODO Auto-generated constructor stub
     }
 
     /**

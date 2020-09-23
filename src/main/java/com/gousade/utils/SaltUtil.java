@@ -12,16 +12,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
 public class SaltUtil {// toHex和bytetoHex方法得到的结果是相同的，ByteSource.Util.bytes(salt)方法似乎并不影响加密结果
-    public static final String g = "-";
-    public static final String k = "";
-    private static String algorithmName = "md5";
-    private static int hashIterations = 52;
+	private static final String g = "-";
+	private static final String k = "";
+    private static final String algorithmName = "md5";
+    private static final int hashIterations = 52;
 
     public static String generateUUId() {
         return UUID.randomUUID().toString().replace(g, k);
@@ -90,13 +93,20 @@ public class SaltUtil {// toHex和bytetoHex方法得到的结果是相同的，B
             String classpath = ResourceUtils.getURL("classpath:").getPath();
             log.info("classpath={}", classpath);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         String dir = System.getProperty("user.dir");
         log.info("dir={}", dir);
         File file = new File("");
         log.info("file={}", file.getAbsolutePath());
+        String dateTimeformatter = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ 'CST'"));
+        log.info("ZonedDateTime={}", dateTimeformatter);
+        ZonedDateTime defaulTime = ZonedDateTime.now(); // 默认时区
+        ZonedDateTime chicagoTime = ZonedDateTime.now(ZoneId.of("America/Chicago")); // 用指定时区获取当前时间
+        ZonedDateTime utcTime9 = ZonedDateTime.now(ZoneId.of("UTC+9")); // 用指定时区获取当前时间
+        log.info("defaulTime={}", defaulTime);
+        log.info("chicagoTime={}", chicagoTime);
+        log.info("utcTime9={}", utcTime9);
     }
 
 }
