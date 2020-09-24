@@ -33,7 +33,7 @@ public class OssUtil {
 	@Value("${aliyun.oss.endpoint}")
     private String endpoint;
 	
-	public String uploadAvatarFile(MultipartFile file) {
+	public String uploadOssFile(MultipartFile file) {
 		try {
 		// 创建OSSClient实例。
 		OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);

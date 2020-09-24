@@ -136,10 +136,10 @@ $('#AllResourceTree').treegrid({
             title : '排序',
 		},
 		{
-			field : 'resourceType',
-            title : '资源类型',
+			field : 'status',
+            title : '资源状态',
             formatter : function(value, row, index) {
-                if (value == '1') {
+                if (value == '0') {
                     return '打开';
                 } else {
                     return '关闭';
@@ -147,8 +147,8 @@ $('#AllResourceTree').treegrid({
             },
 		},
 		{
-			field : 'status',
-            title : '资源状态',
+			field : 'resourceType',
+            title : '资源类型',
             formatter : function (value, row, index) {
                 if (value === 1) {
                     return '目录-非外链';
@@ -235,6 +235,7 @@ function readyupdateresource(){
 		$("#EditResourceForm input[name=seq]").val(rows[0].seq);
 		$("#EditResourceForm select[name=status]").val(rows[0].status);
 		$("#EditResourceForm input[name=remarks]").val(rows[0].remarks);
+		$("#EditResourceForm input[name=resourceType]").val(rows[0].resourceType);
 		$('#resourceEditPid').combotree({
 	        url : '${ctx}/admin/resource/selectAllTree',
 	        parentField : 'pid',

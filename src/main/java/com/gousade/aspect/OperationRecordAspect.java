@@ -40,7 +40,7 @@ public class OperationRecordAspect {
                 stringBuilder.append(param.toString());
                 stringBuilder.append(",");
             }
-            String operationParam = stringBuilder.toString().substring(0, stringBuilder.length() - 1);
+            String operationParam = stringBuilder.length() > 0 ? stringBuilder.toString().substring(0, stringBuilder.length() - 1) : null;
             log.info("操作人：" + user.getUserName() + ",调用接口：" + point.getSignature().getDeclaringTypeName() + "."
                     + point.getSignature().getName() + ",接口序号:" + operationRecord.operationNum() + ",接口描述："
                     + operationRecord.operationDescription() + ",参数：" + operationParam + "。");

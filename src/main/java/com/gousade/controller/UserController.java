@@ -9,7 +9,6 @@ import com.gousade.service.UserService;
 import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.AttachmentUtil;
 import com.gousade.utils.DataTablesPageUtil;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +48,6 @@ public class UserController {
     @Autowired
     private AttachmentGeneralService attachmentGeneralService;
 
-    @SuppressWarnings("unused")
     @RequestMapping(value = "/loginShiroUser", method = RequestMethod.POST)
     public ResponseResult loginShiroUser(@RequestParam(value = "userId") String userId,
                                          @RequestParam(value = "password") String password,
@@ -59,7 +57,6 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(usernamePasswordToken); // 完成shiro登录验证
-            User user = (User) subject.getPrincipal();
             String url = request.getContextPath() + "/admin/index";
             return ResponseResult.renderSuccess().message(url);
         } catch (UnknownAccountException uae) {
@@ -198,11 +195,10 @@ public class UserController {
     
     @OperationRecord(operationNum = 2, operationDescription = "获取oss头像")
     @RequestMapping(value = "/getOssAvatar", method = RequestMethod.GET)
-    public String getOssAvatar() {
+    public ResponseResult getOssAvatar() {
         User user = ShiroUtil.getShiroSessionUser();
         String url = userService.getOssAvatar(user);
-//        return ResponseResult.renderSuccess().message("获取oss头像成功").data("url", url);
-        return url;
+        return ResponseResult.renderSuccess().message("获取oss头像成功").data("url", url);
     }
 
     @RequiresRoles({"超级管理员"})

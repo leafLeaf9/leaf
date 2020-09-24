@@ -34,7 +34,7 @@ public class ResourceService {
     @Autowired
     private RoleResourceMapper roleResourceMapper;
 
-    @Cacheable(value = "redis@Cacheable", key = "#root.methodName+'_'+#p0.id")
+    @Cacheable(value = "redis@Tree", key = "#root.methodName+'_'+#p0.id")
     public List<Resource> selectTree(User user) {
         List<String> roleIdList = userRoleMapper.findRoleIdsByUserId(user.getId());
         if (roleIdList == null || roleIdList.size() == 0) {
@@ -83,10 +83,10 @@ public class ResourceService {
         int j = roleResourceMapper.insert(roleResource);
         if (i >= 1 && j > 0) {
             map.put("status", true);
-            map.put("msg", "新增资源成功");
+            map.put("message", "新增资源成功");
         } else {
             map.put("status", false);
-            map.put("msg", "新增资源失败");
+            map.put("message", "新增资源失败");
         }
         return map;
     }
@@ -96,10 +96,10 @@ public class ResourceService {
         int i = resourceMapper.updateByPrimaryKeySelective(resource);
         if (i >= 1) {
             map.put("status", true);
-            map.put("msg", "编辑资源成功");
+            map.put("message", "编辑资源成功");
         } else {
             map.put("status", false);
-            map.put("msg", "编辑资源失败");
+            map.put("message", "编辑资源失败");
         }
         return map;
     }
@@ -109,10 +109,10 @@ public class ResourceService {
         int i = resourceMapper.deleteBatchIds(idList);
         if (i >= 1) {
             map.put("status", true);
-            map.put("msg", "删除资源成功");
+            map.put("message", "删除资源成功");
         } else {
             map.put("status", false);
-            map.put("msg", "删除资源失败");
+            map.put("message", "删除资源失败");
         }
         return map;
     }

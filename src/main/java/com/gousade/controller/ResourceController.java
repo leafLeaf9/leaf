@@ -7,6 +7,8 @@ import com.gousade.service.ResourceService;
 import com.gousade.shiro.ShiroUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/admin/resource", method = RequestMethod.POST)
 public class ResourceController {
 
@@ -39,6 +42,10 @@ public class ResourceController {
         return resourceService.selectAllTree();
     }
 
+    /**
+     * 删除redis@Tree缓存下的所有值
+     */
+    @CacheEvict(value = "redis@Tree", allEntries = true)
     @RequestMapping(value = "/saveresource", method = RequestMethod.POST)
     public Map<String, Object> saveresource(Resource resource) {
         if (StringUtils.isBlank(resource.getId())) {

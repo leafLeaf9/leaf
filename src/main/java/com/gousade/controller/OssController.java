@@ -2,7 +2,6 @@ package com.gousade.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,11 +27,15 @@ public class OssController {
 	@Autowired
 	private OssService ossService;
 	
-//	@RequestMapping(value = "/uploadOssFile", method = RequestMethod.POST)
-	@PostMapping
-	public ResponseResult uploadOssFile(/*@RequestParam(value = "file")*/ MultipartFile file) {
-		String url = ossService.uploadAvatarFile(file);
-        return ResponseResult.renderSuccess().data("url",url);
+	/**
+	 * swagger3不生效，接收到的文件为null
+	 * @param file
+	 * @return
+	 */
+	@RequestMapping(value = "/uploadOssAvatar", method = RequestMethod.POST)
+	public ResponseResult uploadOssAvatar(@RequestParam(value = "file") MultipartFile file) {
+		String url = ossService.uploadOssAvatar(file);
+        return ResponseResult.renderSuccess().message("上传oss文件成功").data("url",url);
 	}
 
 }

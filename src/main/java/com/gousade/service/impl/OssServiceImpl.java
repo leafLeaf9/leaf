@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gousade.service.OssService;
 import com.gousade.utils.OssUtil;
-import com.gousade.utils.SendSmsUtil;
 
 /**
  * @author woxigsd@gmail.com
@@ -21,8 +20,8 @@ public class OssServiceImpl implements OssService {
     private OssUtil ossUtil;
 
 	@Override
-	public String uploadAvatarFile(MultipartFile file) {
-		return ossUtil.uploadAvatarFile(file);
+	public String uploadOssAvatar(MultipartFile file) {
+		return ossUtil.uploadOssFile(file);
 	}
 
 }

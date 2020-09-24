@@ -5,6 +5,7 @@ import com.gousade.jasypt.JasyptUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RequestMapping("/jasypt")
 @RestController
+@CrossOrigin
 public class JasyptController {
 
     @Resource

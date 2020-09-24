@@ -155,13 +155,13 @@ public class UserService {
     }
     
     public boolean uploadOssAvatar(MultipartFile attachments, User user) {
-    	String url = ossUtil.uploadAvatarFile(attachments);
+    	String url = ossUtil.uploadOssFile(attachments);
     	AttachmentGeneral attachmentGeneral = AttachmentGeneral.builder().id(user.getId()).attachPath(url).build();
     	return userMapper.uploadUserAvatar(attachmentGeneral) > 0;
 	}
 
     public void getUserAvatar(HttpServletResponse response, HttpServletRequest request, User user) {
-        user = userMapper.selectByPrimaryKey(user.getId());
+        user = userMapper.selectById(user.getId());
         String rootPath = request.getServletContext().getRealPath("/");
         File file = new File(rootPath + "/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg");
         if (user.getAvatarPath() != null) {

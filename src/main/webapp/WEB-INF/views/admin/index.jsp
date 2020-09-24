@@ -47,7 +47,8 @@ cursor:pointer;
       
       <li class="nav-item dropdown user user-menu">
 		<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-		<img src="${ctx}/admin/sysUser/getUserAvatar" class="user-image user-avatar" alt="User Image">
+		<img src="<shiro:principal property='avatarPath'></shiro:principal>" class="user-image user-avatar"
+			alt="<shiro:principal property='userName'></shiro:principal>">
               <span class="hidden-xs">当前登录：
               <shiro:principal property='userName'></shiro:principal>
               </span>
@@ -56,11 +57,11 @@ cursor:pointer;
         <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="${ctx}/admin/sysUser/getUserAvatar" class="img-circle user-avatar user-avatar-edit" alt="User Image">
-
+                <img src="<shiro:principal property='avatarPath'></shiro:principal>" class="img-circle user-avatar user-avatar-edit"
+                	alt="<shiro:principal property='userName'></shiro:principal>">
                 <p>
                   Tohsaka Rin - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <small>Member since Nov. 2018</small>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -84,7 +85,8 @@ cursor:pointer;
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="https://gousade.oss-cn-beijing.aliyuncs.com/Tohsaka%20Rin/Tohsaka%20Rin.jpg"
+              alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -100,7 +102,7 @@ cursor:pointer;
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="https://gousade.oss-cn-beijing.aliyuncs.com/Tohsaka%20Rin/Tohsaka%20Rin.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   John Pierce
@@ -116,7 +118,7 @@ cursor:pointer;
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="https://gousade.oss-cn-beijing.aliyuncs.com/Tohsaka%20Rin/Tohsaka%20Rin.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -172,7 +174,7 @@ cursor:pointer;
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="${ctx}/admin/index" class="brand-link">
-      <img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="https://gousade.oss-cn-beijing.aliyuncs.com/Tohsaka%20Rin/Tohsaka%20Rin.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">GisardAdminLTE 3.0.5</span>
     </a>
@@ -182,7 +184,7 @@ cursor:pointer;
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="${staticPath}/static/AdminLTE-3.0.5/dist/img/Tohsaka Rin.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="https://gousade.oss-cn-beijing.aliyuncs.com/Tohsaka%20Rin/Tohsaka%20Rin.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Tohsaka Rin</a>
@@ -547,7 +549,8 @@ $('#user-avatar-form').submit(function(e){
         dataType: 'json',
         success: function (result) {
         	$('#user-avatar-modal').modal('hide');
-        	$(".user-avatar").attr('src',"${ctx}/admin/sysUser/getOssAvatar"+'?'+Math.random());//加随机数防止浏览器缓存导致不发起请求
+//         	$(".user-avatar").attr('src',"${ctx}/admin/sysUser/getOssAvatar"+'?'+Math.random());//加随机数防止浏览器缓存导致不发起请求
+        	getOssAvatar();
        		layer.open({
    				content : result.message,
    				shadeClose : true,
@@ -562,6 +565,27 @@ $('#user-avatar-form').submit(function(e){
 	});
 	return false;
 });
+
+function getOssAvatar(){
+	$.ajax({
+        url: "${ctx}/admin/sysUser/getOssAvatar",
+        dataType: 'json',
+        success: function (result) {
+        	$(".user-avatar").attr('src',result.data.url);
+        	$(".user-avatar").attr('alt',"oss");
+       		/* layer.open({
+   				content : result.message,
+   				shadeClose : true,
+   			}); */
+        },
+        error: function () {
+        	layer.msg('ajax error', {
+				icon : 2,
+				time : 1000,
+			});
+        },
+	});
+}
 
 function editOwnPassword(){
 	var phoneNumber = $('#userEditOwnPasswordForm input[name=phoneNumber]').val()
