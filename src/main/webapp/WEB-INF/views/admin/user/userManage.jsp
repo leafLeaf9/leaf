@@ -11,7 +11,8 @@
 <div class="nav-tabs-custom">
 	<ul class="nav nav-tabs">
 	    <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab" aria-expanded="false">用户管理</a></li>
-	    <li class="nav-item"><a class="nav-link" href="#custom-tabs-one-profile" data-toggle="tab" aria-expanded="false">Profile</a></li>
+	    <li class="nav-item"><a class="nav-link" href="#custom-tabs-one-profile" data-toggle="tab" aria-expanded="false">
+	    Profile</a></li>
 	    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab" aria-expanded="false">Tab 3</a></li>
     </ul>
 	<div class="tab-content">
@@ -28,6 +29,7 @@
 		<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#user-insert-modal">新增</button>
 		<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#file-upload-modal">上传文件测试</button>
 		<button type="button" class="btn btn-dark btn-sm" onclick="fileDownload()">下载文件测试</button>
+		<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#excel-upload-modal">上传excel</button>
 	</form>
 
 	<table id="user-datagrid" class="table table-bordered table-hover table-striped">
@@ -46,7 +48,8 @@
 	</table>
 	</div>
 	<div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor,vulputate metus facilisis.
+    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor,
+    vulputate metus facilisis.
     </div>
     <div class="tab-pane" id="tab_3">
 	D:/AdminLTE-3.0.5/pages/UI/navbar.html
@@ -128,7 +131,39 @@
 					<div class="input-group mb-3">
 						<label class="col-sm-3 control-label">文件：</label>
 						<div class="col-sm-9">
-							<input type="file" name="attachments" class="form-control input-sm" multiple="multiple" required="required">
+							<input type="file" name="attachments" class="form-control input-sm"
+							multiple="multiple" required="required">
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light pull-left" data-dismiss="modal">关闭</button>
+				<button type="submit" class="btn btn-primary">保存</button>
+			</div>
+			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade " id="excel-upload-modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title su-modal-title">上传文件</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form class="form-horizontal" id="excel-upload-form">
+			<div class="modal-body">
+				
+					<div class="input-group mb-3">
+						<label class="col-sm-3 control-label">文件：</label>
+						<div class="col-sm-9">
+							<input type="file" name="file" class="form-control input-sm"
+							required="required">
 						</div>
 					</div>
 			</div>
@@ -295,6 +330,37 @@ function fileDownload(){
 	myform.attr('method', 'post');
 	myform.appendTo('body').submit();
 }
+
+$('#excel-upload-form').submit(function(e){
+	open_shield();
+	$('#excel-upload-modal').modal('hide');
+	var fileUploadForm = new FormData($("#excel-upload-form")[0]);
+	$.ajax({
+        url: "${ctx}/easy-excel-data/upload",
+        type: "POST",
+        data: fileUploadForm,
+        cache : false,
+		processData : false,// 告诉jQuery不要去处理发送的数据
+		contentType : false,// 告诉jQuery不要去设置Content-Type请求头
+        dataType: 'json',
+        success: function (result) {
+        	cancel_shield();
+       		layer.open({
+   				content : result.message,
+   				shadeClose : true,
+   			});
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	console.log(XMLHttpRequest);
+        	cancel_shield();
+        	layer.open({
+   				content : XMLHttpRequest.responseJSON.message,
+   				shadeClose : true,
+   			});
+        },
+	});
+	return false;
+});
 
 function sysUserDelete(id){
 	layer.confirm('是否删除该用户?', {icon: 3, title:'删除用户确认'}, function(index){

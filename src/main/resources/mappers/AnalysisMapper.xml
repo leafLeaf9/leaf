@@ -49,7 +49,7 @@
 
 	<!-- 导出情感词列表 -->
 	<select id="expertwords" parameterType="map"
-		resultType="com.gousade.excelvo.WordsVO">
+		resultType="com.gousade.excel.WordsVO">
 		select wordname,value,wordtype,formtype
 		from words where 1=1
 		<if test="wordname != null and wordname != ''">

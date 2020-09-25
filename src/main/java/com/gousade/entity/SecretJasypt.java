@@ -40,6 +40,6 @@ public class SecretJasypt implements Serializable {
     private Date createTime;
 
     @ApiModelProperty(value = "逻辑删除")
-    private Boolean delflag;
+    private boolean delflag;
 
 }

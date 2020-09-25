@@ -1,4 +1,4 @@
-package com.gousade.excelvo;
+package com.gousade.excel;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.handler.inter.IExcelModel;

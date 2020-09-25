@@ -4,7 +4,7 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.gousade.excelvo.WordsVO;
+import com.gousade.excel.WordsVO;
 import com.gousade.pojo.Page;
 import com.gousade.service.AnalysisService;
 import com.gousade.utils.ExcelUtil;

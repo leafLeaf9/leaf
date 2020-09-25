@@ -1,9 +1,9 @@
 package com.gousade.mapper;
 
-import com.gousade.excelvo.WordsVO;
-
 import java.util.List;
 import java.util.Map;
+
+import com.gousade.excel.WordsVO;
 
 public interface AnalysisMapper {
 

@@ -89,6 +89,7 @@ public class SaltUtil {// toHex和bytetoHex方法得到的结果是相同的，B
         }
         String rootpath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
         log.info("rootpath={}", rootpath);
+        log.info("thispath={}", this.getClass().getResource("/").getPath());
         try {
             String classpath = ResourceUtils.getURL("classpath:").getPath();
             log.info("classpath={}", classpath);

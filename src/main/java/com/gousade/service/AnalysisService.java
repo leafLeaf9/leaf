@@ -1,6 +1,6 @@
 package com.gousade.service;
 
-import com.gousade.excelvo.WordsVO;
+import com.gousade.excel.WordsVO;
 import com.gousade.mapper.AnalysisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
