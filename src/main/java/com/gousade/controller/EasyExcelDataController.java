@@ -3,20 +3,19 @@ package com.gousade.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.excel.EasyExcel;
 import com.gousade.annotation.OperationRecord;
 import com.gousade.commonutils.ResponseResult;
-import com.gousade.entity.EasyExcelData;
-import com.gousade.entity.listener.EasyExcelDataListener;
 import com.gousade.service.EasyExcelDataService;
 
 import io.swagger.annotations.Api;
@@ -29,9 +28,9 @@ import io.swagger.annotations.Api;
  * @author woxigousade <woxigsd@gmail.com>
  * @since 2020-09-25
  */
-@Api(tags = "EasyExcelData")
+@Api(tags = "easyExcelData")
 @RestController
-@RequestMapping("/easy-excel-data")
+@RequestMapping("/easyExcelData")
 @CrossOrigin
 public class EasyExcelDataController {
 	
@@ -51,8 +50,20 @@ public class EasyExcelDataController {
     @PostMapping("upload")
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult upload(MultipartFile file) throws IOException {
-        EasyExcel.read(file.getInputStream(), EasyExcelData.class, new EasyExcelDataListener(easyExcelDataService)).sheet().doRead();
-        return ResponseResult.renderSuccess().message("上传成功");
+		/*EasyExcel.read(file.getInputStream(), EasyExcelData.class, new EasyExcelDataListener(easyExcelDataService)).sheet().doRead();
+		return ResponseResult.renderSuccess().message("上传成功");*/
+        return easyExcelDataService.upload(file, easyExcelDataService);
+    }
+	
+	@OperationRecord(operationNum = 2, operationDescription = "下载excel测试")
+    @PostMapping("download")
+	public void download(HttpServletResponse response) throws IOException {
+		easyExcelDataService.download(response, easyExcelDataService);
+	}
+	
+	@GetMapping("downloadNoFailure")
+    public void downloadNoFailure(HttpServletResponse response) throws IOException {
+		easyExcelDataService.downloadNoFailure(response, easyExcelDataService);
     }
 
 }

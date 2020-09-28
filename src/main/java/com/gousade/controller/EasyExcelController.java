@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,10 +24,10 @@ import io.swagger.annotations.Api;
  * @date 2020-9-25 14:12:18
  * @description 
  */
-@Api(tags = "EasyExcel")
+@Api(tags = "easyExcel")
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/admin/EasyExcel")
+@RequestMapping(value = "/admin/easyExcel")
 public class EasyExcelController {
 	
 	@GetMapping("download")
@@ -60,9 +58,6 @@ public class EasyExcelController {
             response.reset();
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("status", "failure");
-            map.put("message", "下载文件失败" + e.getMessage());
             response.getWriter().println(ResponseResult.renderError().message("下载文件失败,"+ e.getMessage()));
         }
     }

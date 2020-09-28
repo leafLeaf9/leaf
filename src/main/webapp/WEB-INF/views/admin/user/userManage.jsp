@@ -336,7 +336,7 @@ $('#excel-upload-form').submit(function(e){
 	$('#excel-upload-modal').modal('hide');
 	var fileUploadForm = new FormData($("#excel-upload-form")[0]);
 	$.ajax({
-        url: "${ctx}/easy-excel-data/upload",
+        url: "${ctx}/easyExcelData/upload",
         type: "POST",
         data: fileUploadForm,
         cache : false,

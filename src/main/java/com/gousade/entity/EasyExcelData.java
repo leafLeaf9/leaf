@@ -48,8 +48,8 @@ public class EasyExcelData implements Serializable {
 
     @ApiModelProperty(value = "日期标题")
     @ExcelProperty("日期标题")
-    @TableField(fill = FieldFill.INSERT)
-    private Date date;
+    @TableField(value = "date", fill = FieldFill.INSERT)
+    private Date createTime;
 
     private boolean delflag;
 
