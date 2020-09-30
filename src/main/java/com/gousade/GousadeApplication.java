@@ -14,19 +14,19 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class GousadeApplication extends SpringBootServletInitializer {
 
+    public static void main(String[] args) {
+//		SpringApplication.run(StarterManage.class, args);
+        SpringApplication app = new SpringApplication(GousadeApplication.class);
+        app.setBannerMode(Banner.Mode.LOG);// 使得自定义横幅可以输出到日志文件中,横幅内容在resources/banner.txt中控制
+        app.run(args);
+    }
+
     /**
      * 项目部署到外部Tomcat时需要重写的方法
      */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(GousadeApplication.class);
-    }
-
-    public static void main(String[] args) {
-//		SpringApplication.run(StarterManage.class, args);
-        SpringApplication app = new SpringApplication(GousadeApplication.class);
-        app.setBannerMode(Banner.Mode.LOG);// 使得自定义横幅可以输出到日志文件中,横幅内容在resources/banner.txt中控制
-        app.run(args);
     }
 
 }

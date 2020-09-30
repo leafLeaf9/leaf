@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class RedisController {
 
-    private static int ExpireTime = 600; // redis中存储的过期时间60s
+    private static final int ExpireTime = 600; // redis中存储的过期时间60s
 
     @Resource
     private RedisUtil redisUtil;

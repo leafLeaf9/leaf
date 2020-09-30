@@ -89,12 +89,12 @@ public class WebViewResolverConfig implements WebMvcConfigurer {
         FastJsonHttpMessageConverter fastJsonConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(
-        		SerializerFeature.DisableCircularReferenceDetect,//消除对同一对象循环引用的问题，默认为false(如果不配置有可能会进入死循环)
-        		SerializerFeature.WriteMapNullValue,//是否输出值为null的字段，,默认为false
-        		SerializerFeature.PrettyFormat,
-        		SerializerFeature.WriteDateUseDateFormat,
-        		SerializerFeature.WriteNullStringAsEmpty,
-        		SerializerFeature.WriteNullListAsEmpty);
+                SerializerFeature.DisableCircularReferenceDetect,//消除对同一对象循环引用的问题，默认为false(如果不配置有可能会进入死循环)
+                SerializerFeature.WriteMapNullValue,//是否输出值为null的字段，,默认为false
+                SerializerFeature.PrettyFormat,
+                SerializerFeature.WriteDateUseDateFormat,
+                SerializerFeature.WriteNullStringAsEmpty,
+                SerializerFeature.WriteNullListAsEmpty);
         fastJsonConverter.setFastJsonConfig(fastJsonConfig);
         List<MediaType> fastMediaTypes = new ArrayList<>();
         fastMediaTypes.add(MediaType.APPLICATION_JSON);

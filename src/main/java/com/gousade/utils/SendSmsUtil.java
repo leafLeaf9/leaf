@@ -30,30 +30,26 @@ import javax.annotation.Resource;
 @Component
 public class SendSmsUtil {
 
-    @Resource
-    private JasyptUtil jasyptUtil;
-
-    @Autowired
-    private SmsResponseLogMapper smsResponseLogMapper;
-    
-    private static String accessKeyId;
-    
-    @Value("${aliyun.accessKeyId}")
-    public void setAccessKeyId(String accessKeyId) {
-    	SendSmsUtil.accessKeyId= accessKeyId;
-    }
-    
-    private static String accessKeySecret;
-    
-    @Value("${aliyun.accessKeySecret}")
-    public void setAccessKeySecret(String accessKeySecret) {
-    	SendSmsUtil.accessKeySecret= accessKeySecret;
-    }
-
-	/*private static final String accessKeyId = "M6o8JNrzxIO7zI2S4LrWRdaNdCNACo9/1v5/DqfDdFJEb3MlrXU+2aJi2oRxieUDQKCCIC2rJvw6HDVR9zEdgQ==";
-	private static final String accessKeySecret = "bFfybIAXktU8bitG/bRkA36bEHW/RcNBuheCoJeEzG8nz8UgTaNYWEilha5sMiKuF/k/1IRKn88xh+0g4x09pw==";*/
+    /*private static final String accessKeyId = "M6o8JNrzxIO7zI2S4LrWRdaNdCNACo9/1v5/DqfDdFJEb3MlrXU+2aJi2oRxieUDQKCCIC2rJvw6HDVR9zEdgQ==";
+    private static final String accessKeySecret = "bFfybIAXktU8bitG/bRkA36bEHW/RcNBuheCoJeEzG8nz8UgTaNYWEilha5sMiKuF/k/1IRKn88xh+0g4x09pw==";*/
     private static final String SignName = "HrhfSLEriq7HCvkMG88vhQ60AJ9U5mR6GtFRoKVHj9XGdJgrSuvvQL/MNEoiFsPD";
     private static final String TemplateCode = "JP+XAHjZfZW1a1gb4ugXGqHwr80IQxbFKma0pzt54oQoMC66Srm+roFA68b6wLyF";
+    private static String accessKeyId;
+    private static String accessKeySecret;
+    @Resource
+    private JasyptUtil jasyptUtil;
+    @Autowired
+    private SmsResponseLogMapper smsResponseLogMapper;
+
+    @Value("${aliyun.accessKeyId}")
+    public void setAccessKeyId(String accessKeyId) {
+        SendSmsUtil.accessKeyId = accessKeyId;
+    }
+
+    @Value("${aliyun.accessKeySecret}")
+    public void setAccessKeySecret(String accessKeySecret) {
+        SendSmsUtil.accessKeySecret = accessKeySecret;
+    }
 
     public void sendSms(String mobile, int code) {
         // 可自助调整超时时间

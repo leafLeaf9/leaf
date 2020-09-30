@@ -18,11 +18,11 @@ public abstract class Status {
         /**
          * 过期时间
          */
-        private Long time;
+        private final Long time;
         /**
          * 时间单位
          */
-        private TimeUnit timeUnit;
+        private final TimeUnit timeUnit;
 
         ExpireEnum(Long time, TimeUnit timeUnit) {
             this.time = time;

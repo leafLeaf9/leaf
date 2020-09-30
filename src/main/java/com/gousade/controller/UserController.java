@@ -9,7 +9,6 @@ import com.gousade.service.UserService;
 import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.AttachmentUtil;
 import com.gousade.utils.DataTablesPageUtil;
-
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -176,14 +175,14 @@ public class UserController {
         }
         return ResponseResult.renderSuccess().message("上传头像成功");
     }
-    
+
     @Transactional(rollbackFor = Exception.class)
     @OperationRecord(operationNum = 1, operationDescription = "上传oss头像")
     @RequestMapping(value = "/uploadOssAvatar", method = RequestMethod.POST)
     public ResponseResult uploadOssAvatar(@RequestParam(value = "attachments") MultipartFile attachments) {
-    	User user = ShiroUtil.getShiroSessionUser();
-    	boolean b = userService.uploadOssAvatar(attachments, user);
-    	return ResponseResult.renderBoolean(b);
+        User user = ShiroUtil.getShiroSessionUser();
+        boolean b = userService.uploadOssAvatar(attachments, user);
+        return ResponseResult.renderBoolean(b);
     }
 
     @OperationRecord(operationNum = 2, operationDescription = "获取头像")
@@ -192,7 +191,7 @@ public class UserController {
         User user = ShiroUtil.getShiroSessionUser();
         userService.getUserAvatar(response, request, user);
     }
-    
+
     @OperationRecord(operationNum = 2, operationDescription = "获取oss头像")
     @RequestMapping(value = "/getOssAvatar", method = RequestMethod.GET)
     public ResponseResult getOssAvatar() {

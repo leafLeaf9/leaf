@@ -53,7 +53,7 @@ public class QueueConsumer extends PointToPoint implements Runnable, Consumer {
     @Override
     public void handleDelivery(String consumerTag, Envelope env, BasicProperties props, byte[] body)
             throws IOException {
-        Map map = (HashMap) SerializationUtils.deserialize(body);
+        Map map = SerializationUtils.deserialize(body);
         System.out.println("Message Number " + map.get("tagId") + " received.");
 //        channel.basicAck(env.getDeliveryTag(), false);
     }

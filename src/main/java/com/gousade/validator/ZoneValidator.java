@@ -20,7 +20,7 @@ public class ZoneValidator implements ConstraintValidator<Zone, String> {
         if (value == null || "".equals(value)) {
             return false;
         } else {
-			return Arrays.asList(zone).contains(value);
+            return Arrays.asList(zone).contains(value);
         }
     }
 

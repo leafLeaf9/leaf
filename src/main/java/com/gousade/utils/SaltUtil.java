@@ -21,8 +21,8 @@ import java.util.UUID;
 
 @Slf4j
 public class SaltUtil {// toHex和bytetoHex方法得到的结果是相同的，ByteSource.Util.bytes(salt)方法似乎并不影响加密结果
-	private static final String g = "-";
-	private static final String k = "";
+    private static final String g = "-";
+    private static final String k = "";
     private static final String algorithmName = "md5";
     private static final int hashIterations = 52;
 

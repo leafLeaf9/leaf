@@ -1,9 +1,9 @@
 package com.gousade.mapper;
 
+import com.gousade.excel.WordsVO;
+
 import java.util.List;
 import java.util.Map;
-
-import com.gousade.excel.WordsVO;
 
 public interface AnalysisMapper {
 
@@ -13,7 +13,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	List<Map<String, Object>> extractfromwords(Map<String, Object> singlemap);
+    List<Map<String, Object>> extractfromwords(Map<String, Object> singlemap);
 
     /**
      * 提取情感词(from大连理工词表dutirwords)
@@ -21,7 +21,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	List<Map<String, Object>> extractfromdutirwords(Map<String, Object> singlemap);
+    List<Map<String, Object>> extractfromdutirwords(Map<String, Object> singlemap);
 
     /**
      * 根据情感词和词性查询所属公式类型和情感值
@@ -29,7 +29,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	Map<String, Object> selectform(Map<String, Object> singlemap);
+    Map<String, Object> selectform(Map<String, Object> singlemap);
 
     /**
      * 查询词表
@@ -37,7 +37,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	List<Map<String, Object>> querywordslist(Map<String, Object> map);
+    List<Map<String, Object>> querywordslist(Map<String, Object> map);
 
     List<Map<String, Object>> selectwordslist(Map<String, Object> map);
 
@@ -49,7 +49,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	long querywordslistcnt(Map<String, Object> map);
+    long querywordslistcnt(Map<String, Object> map);
 
     /**
      * 新增情感词
@@ -57,7 +57,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	int insertwords(Map<String, Object> map);
+    int insertwords(Map<String, Object> map);
 
     /**
      * 修改词表信息
@@ -65,7 +65,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	int updatewords(Map<String, Object> map);
+    int updatewords(Map<String, Object> map);
 
     /**
      * 删除词表信息
@@ -73,7 +73,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	int delwords(Map<String, Object> map);
+    int delwords(Map<String, Object> map);
 
     Map<String, Object> getssrlink(Map<String, Object> map);
 
@@ -83,7 +83,7 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	List<Map<String, Object>> querycomments(Map<String, Object> map);
+    List<Map<String, Object>> querycomments(Map<String, Object> map);
 
     /**
      * 查询动态情感词表
@@ -91,6 +91,6 @@ public interface AnalysisMapper {
      * @param map
      * @return
      */
-	List<Map<String, Object>> selectdynamicwords(Map<String, Object> map);
+    List<Map<String, Object>> selectdynamicwords(Map<String, Object> map);
 
 }

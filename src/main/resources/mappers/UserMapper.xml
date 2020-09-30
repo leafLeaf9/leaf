@@ -1,202 +1,202 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gousade.mapper.UserMapper">
-	<resultMap id="BaseResultMap" type="com.gousade.pojo.User">
-		<id column="id" property="id" jdbcType="VARCHAR" />
-		<result column="user_id" property="userId" jdbcType="VARCHAR" />
-		<result column="user_name" property="userName"
-			jdbcType="VARCHAR" />
-		<result column="password" property="password"
-			jdbcType="VARCHAR" />
-		<result column="salt" property="salt" jdbcType="VARCHAR" />
-		<result column="create_time" property="createTime"
-			jdbcType="TIMESTAMP" />
-		<result column="update_time" property="updateTime"
-			jdbcType="TIMESTAMP" />
-		<result column="remark" property="remark" jdbcType="VARCHAR" />
-		<result column="phone_number" jdbcType="VARCHAR"
-			property="phoneNumber" />
-		<result column="lastlogintime" property="lastlogintime"
-			jdbcType="TIMESTAMP" />
-		<result column="delflag" property="delflag" jdbcType="INTEGER" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		id, user_id, user_name, password, salt, create_time,
-		update_time, remark,
-		phone_number,
-		lastlogintime, delflag,avatar_path
-	</sql>
+    <resultMap id="BaseResultMap" type="com.gousade.pojo.User">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName"
+                jdbcType="VARCHAR"/>
+        <result column="password" property="password"
+                jdbcType="VARCHAR"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime"
+                jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime"
+                jdbcType="TIMESTAMP"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="phone_number" jdbcType="VARCHAR"
+                property="phoneNumber"/>
+        <result column="lastlogintime" property="lastlogintime"
+                jdbcType="TIMESTAMP"/>
+        <result column="delflag" property="delflag" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, user_name, password, salt, create_time,
+        update_time, remark,
+        phone_number,
+        lastlogintime, delflag,avatar_path
+    </sql>
 
-	<select id="SelectUserByLoginName"
-		parameterType="java.lang.String" resultType="com.gousade.pojo.User">
-		select * from user where
-		user_id=#{userId}
-	</select>
-	<!-- 注册新用户 -->
-	<insert id="regist" parameterType="map">
-		insert into user
-		(user_id,password,salt,user_name,created,state,role_id)
-		values
-		(#{user_id},#{password},#{salt},#{user_name},NOW(),'1','1')
-	</insert>
-	<!-- 根据用户ID获取角色ID -->
-	<select id="getroleidByuid" parameterType="map" resultType="map">
-		select role_id roleid
-		from user
-		where
-		user_id=#{user_id}
-	</select>
+    <select id="SelectUserByLoginName"
+            parameterType="java.lang.String" resultType="com.gousade.pojo.User">
+        select * from user where
+        user_id=#{userId}
+    </select>
+    <!-- 注册新用户 -->
+    <insert id="regist" parameterType="map">
+        insert into user
+        (user_id,password,salt,user_name,created,state,role_id)
+        values
+        (#{user_id},#{password},#{salt},#{user_name},NOW(),'1','1')
+    </insert>
+    <!-- 根据用户ID获取角色ID -->
+    <select id="getroleidByuid" parameterType="map" resultType="map">
+        select role_id roleid
+        from user
+        where
+        user_id=#{user_id}
+    </select>
 
-	<!-- 查询用户列表 -->
-	<select id="queryuserlist" parameterType="map" resultType="map">
-		select user_id,password,user_name,state,
-		DATE_FORMAT(created, '%Y-%m-%d
-		%H:%i:%S') created,
-		DATE_FORMAT(updated, '%Y-%m-%d %H:%i:%S') updated,
-		remark,role_id from user
-		<if test="roleid!=null and roleid!=''">
-			where role_id=#{roleid}
-		</if>
-		limit #{firstPage},#{rows}
-	</select>
+    <!-- 查询用户列表 -->
+    <select id="queryuserlist" parameterType="map" resultType="map">
+        select user_id,password,user_name,state,
+        DATE_FORMAT(created, '%Y-%m-%d
+        %H:%i:%S') created,
+        DATE_FORMAT(updated, '%Y-%m-%d %H:%i:%S') updated,
+        remark,role_id from user
+        <if test="roleid!=null and roleid!=''">
+            where role_id=#{roleid}
+        </if>
+        limit #{firstPage},#{rows}
+    </select>
 
-	<select id="queryuserlistcnt" parameterType="map"
-		resultType="long">
-		select count(*) from user where 1=1
-	</select>
+    <select id="queryuserlistcnt" parameterType="map"
+            resultType="long">
+        select count(*) from user where 1=1
+    </select>
 
-	<select id="selectUserList" parameterType="java.util.Map"
-		resultType="com.gousade.pojo.User">
-		select t.* from user t
-		where t.delflag=0
-		<if test="userName!=null and userName!=''">
-			and (t.user_name like concat('%',#{userName},'%') or
-			t.user_id like
-			concat('%',#{userName},'%'))
-		</if>
-		order by t.user_name
-	</select>
+    <select id="selectUserList" parameterType="java.util.Map"
+            resultType="com.gousade.pojo.User">
+        select t.* from user t
+        where t.delflag=0
+        <if test="userName!=null and userName!=''">
+            and (t.user_name like concat('%',#{userName},'%') or
+            t.user_id like
+            concat('%',#{userName},'%'))
+        </if>
+        order by t.user_name
+    </select>
 
-	<update id="updateLoginTime">
-		update user
-		set lastlogintime=sysdate()
-		where id=#{id}
-		and delflag=0
-	</update>
+    <update id="updateLoginTime">
+        update user
+        set lastlogintime=sysdate()
+        where id=#{id}
+        and delflag=0
+    </update>
 
-	<update id="updateUserById"
-		parameterType="com.gousade.pojo.User">
-		update user t
-		set t.user_id=#{userId},
-		user_name=#{userName},
-		phone_number=#{phoneNumber},
-		<if test="password!=null and password!=''">
-			password=#{password},
-			salt=#{salt},
-		</if>
-		update_time=sysdate()
-		where id=#{id}
-		and DELFLAG = 0
-	</update>
+    <update id="updateUserById"
+            parameterType="com.gousade.pojo.User">
+        update user t
+        set t.user_id=#{userId},
+        user_name=#{userName},
+        phone_number=#{phoneNumber},
+        <if test="password!=null and password!=''">
+            password=#{password},
+            salt=#{salt},
+        </if>
+        update_time=sysdate()
+        where id=#{id}
+        and DELFLAG = 0
+    </update>
 
-	<update id="deleteUserByid" parameterType="java.util.Map">
-		update user
-		set
-		delflag=1
-		where id=#{id}
-		and delflag = 0
-	</update>
+    <update id="deleteUserByid" parameterType="java.util.Map">
+        update user
+        set
+        delflag=1
+        where id=#{id}
+        and delflag = 0
+    </update>
 
-	<select id="selectByPrimaryKey" parameterType="java.lang.String"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from user
-		where id = #{id,jdbcType=VARCHAR}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from user
-		where id = #{id,jdbcType=VARCHAR}
-	</delete>
-	<!-- <insert id="insert" parameterType="com.gousade.pojo.User"> insert into 
-		user (id, user_id, user_name, password, salt, create_time, update_time, remark, 
-		phone_number, lastlogintime, delflag) values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-		#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
-		sysdate(), #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
-		#{phoneNumber,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, 0) 
-		</insert> -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from user
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <!-- <insert id="insert" parameterType="com.gousade.pojo.User"> insert into
+        user (id, user_id, user_name, password, salt, create_time, update_time, remark,
+        phone_number, lastlogintime, delflag) values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR},
+        sysdate(), #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
+        #{phoneNumber,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, 0)
+        </insert> -->
 
-	<update id="updateByPrimaryKeySelective"
-		parameterType="com.gousade.pojo.User">
-		update user
-		<set>
-			<if test="userId != null">
-				user_id = #{userId,jdbcType=VARCHAR},
-			</if>
-			<if test="userName != null">
-				user_name = #{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="password != null">
-				password = #{password,jdbcType=VARCHAR},
-			</if>
-			<if test="salt != null">
-				salt = #{salt,jdbcType=VARCHAR},
-			</if>
-			<if test="createTime != null">
-				create_time = #{createTime,jdbcType=TIMESTAMP},
-			</if>
-			update_time = sysdate(),
-			<if test="remark != null">
-				remark = #{remark,jdbcType=VARCHAR},
-			</if>
-			<if test="phoneNumber != null">
-				phone_number = #{phoneNumber,jdbcType=VARCHAR},
-			</if>
-			<if test="lastlogintime != null">
-				lastlogintime = #{lastlogintime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="delflag != null">
-				delflag = #{delflag,jdbcType=INTEGER},
-			</if>
-		</set>
-		where id = #{id,jdbcType=VARCHAR}
-	</update>
-	<update id="updateByPrimaryKey"
-		parameterType="com.gousade.pojo.User">
-		update user
-		set user_id = #{userId,jdbcType=VARCHAR},
-		user_name = #{userName,jdbcType=VARCHAR},
-		password =
-		#{password,jdbcType=VARCHAR},
-		salt = #{salt,jdbcType=VARCHAR},
-		create_time = #{createTime,jdbcType=TIMESTAMP},
-		update_time =
-		#{updateTime,jdbcType=TIMESTAMP},
-		remark = #{remark,jdbcType=VARCHAR},
-		phone_number = #{phoneNumber,jdbcType=VARCHAR},
-		lastlogintime =
-		#{lastlogintime,jdbcType=TIMESTAMP},
-		delflag =
-		#{delflag,jdbcType=INTEGER}
-		where id = #{id,jdbcType=VARCHAR}
-	</update>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.gousade.pojo.User">
+        update user
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            update_time = sysdate(),
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="lastlogintime != null">
+                lastlogintime = #{lastlogintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delflag != null">
+                delflag = #{delflag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.gousade.pojo.User">
+        update user
+        set user_id = #{userId,jdbcType=VARCHAR},
+        user_name = #{userName,jdbcType=VARCHAR},
+        password =
+        #{password,jdbcType=VARCHAR},
+        salt = #{salt,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time =
+        #{updateTime,jdbcType=TIMESTAMP},
+        remark = #{remark,jdbcType=VARCHAR},
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+        lastlogintime =
+        #{lastlogintime,jdbcType=TIMESTAMP},
+        delflag =
+        #{delflag,jdbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 
-	<update id="uploadUserAvatar"
-		parameterType="com.gousade.pojo.util.AttachmentGeneral">
-		update user
-		set avatar_path =
-		#{attachPath,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=VARCHAR}
-	</update>
+    <update id="uploadUserAvatar"
+            parameterType="com.gousade.pojo.util.AttachmentGeneral">
+        update user
+        set avatar_path =
+        #{attachPath,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 
-	<update id="updateOwnPasswordById"
-		parameterType="com.gousade.pojo.User">
-		update user t
-		set t.password = #{password},
-		t.salt =
-		#{salt}
-		where t.id = #{id,jdbcType=VARCHAR}
-		and t.delflag=0
-	</update>
+    <update id="updateOwnPasswordById"
+            parameterType="com.gousade.pojo.User">
+        update user t
+        set t.password = #{password},
+        t.salt =
+        #{salt}
+        where t.id = #{id,jdbcType=VARCHAR}
+        and t.delflag=0
+    </update>
 
 </mapper>

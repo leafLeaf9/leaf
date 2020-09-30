@@ -25,7 +25,7 @@ public class TimerTaskDynamicCron {
     @Autowired
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
-    private List<ScheduledFuture<?>> robotFutureList = new CopyOnWriteArrayList<ScheduledFuture<?>>();
+    private final List<ScheduledFuture<?>> robotFutureList = new CopyOnWriteArrayList<ScheduledFuture<?>>();
 
     @Bean
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {

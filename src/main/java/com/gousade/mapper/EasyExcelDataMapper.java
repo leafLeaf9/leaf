@@ -1,11 +1,11 @@
 package com.gousade.mapper;
 
-import com.gousade.entity.EasyExcelData;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gousade.entity.EasyExcelData;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author woxigousade <woxigsd@gmail.com>

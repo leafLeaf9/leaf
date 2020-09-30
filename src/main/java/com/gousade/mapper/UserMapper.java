@@ -24,14 +24,14 @@ public interface UserMapper extends BaseMapper<User> {
     List<Map<String, Object>> queryuserlist(Map<String, Object> paraMap);
 
     //	@Cacheable(value="redis@Cacheable")
-	List<User> selectUserList(Map<String, Object> searchMap);
+    List<User> selectUserList(Map<String, Object> searchMap);
 
     long queryuserlistcnt(Map<String, Object> map);
 
     /**
      * 更新登录时间
      */
-	int updateLoginTime(String id);
+    int updateLoginTime(String id);
 
     int updateUserById(User entity);
 

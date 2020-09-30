@@ -31,7 +31,7 @@ public class UserService {
 
     @Autowired
     private UserRoleMapper userRoleMapper;
-    
+
     @Resource
     private OssUtil ossUtil;
 
@@ -153,12 +153,12 @@ public class UserService {
     public boolean uploadUserAvatar(AttachmentGeneral attachmentGeneral) {
         return userMapper.uploadUserAvatar(attachmentGeneral) > 0;
     }
-    
+
     public boolean uploadOssAvatar(MultipartFile attachments, User user) {
-    	String url = ossUtil.uploadOssFile(attachments);
-    	AttachmentGeneral attachmentGeneral = AttachmentGeneral.builder().id(user.getId()).attachPath(url).build();
-    	return userMapper.uploadUserAvatar(attachmentGeneral) > 0;
-	}
+        String url = ossUtil.uploadOssFile(attachments);
+        AttachmentGeneral attachmentGeneral = AttachmentGeneral.builder().id(user.getId()).attachPath(url).build();
+        return userMapper.uploadUserAvatar(attachmentGeneral) > 0;
+    }
 
     public void getUserAvatar(HttpServletResponse response, HttpServletRequest request, User user) {
         user = userMapper.selectById(user.getId());
@@ -190,11 +190,11 @@ public class UserService {
             }
         }
     }
-    
+
     public String getOssAvatar(User user) {
-    	User currentUser = userMapper.selectById(user.getId());
-		return currentUser.getAvatarPath();
-	}
+        User currentUser = userMapper.selectById(user.getId());
+        return currentUser.getAvatarPath();
+    }
 
     public boolean updateOwnPasswordById(User user) {
         return userMapper.updateOwnPasswordById(user) > 0;

@@ -1,12 +1,11 @@
 package com.gousade.service.impl;
 
-import javax.annotation.Resource;
-
+import com.gousade.service.OssService;
+import com.gousade.utils.OssUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.gousade.service.OssService;
-import com.gousade.utils.OssUtil;
+import javax.annotation.Resource;
 
 /**
  * @author woxigsd@gmail.com
@@ -15,13 +14,13 @@ import com.gousade.utils.OssUtil;
  */
 @Service
 public class OssServiceImpl implements OssService {
-	
-	@Resource
+
+    @Resource
     private OssUtil ossUtil;
 
-	@Override
-	public String uploadOssAvatar(MultipartFile file) {
-		return ossUtil.uploadOssFile(file);
-	}
+    @Override
+    public String uploadOssAvatar(MultipartFile file) {
+        return ossUtil.uploadOssFile(file);
+    }
 
 }

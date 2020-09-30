@@ -1,19 +1,16 @@
 package com.gousade.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.gousade.commonutils.ResponseResult;
 import com.gousade.entity.EasyExcelData;
-
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.web.multipart.MultipartFile;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author woxigousade <woxigsd@gmail.com>
@@ -21,10 +18,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EasyExcelDataService extends IService<EasyExcelData> {
 
-	ResponseResult upload(MultipartFile file, EasyExcelDataService easyExcelDataService) throws IOException;
+    ResponseResult upload(MultipartFile file, EasyExcelDataService easyExcelDataService) throws IOException;
 
-	void download(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
+    void download(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
 
-	void downloadNoFailure(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
+    void downloadNoFailure(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
 
 }
