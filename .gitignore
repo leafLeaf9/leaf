@@ -31,3 +31,4 @@ generatorConfig.xml
 [Bb]in/
 target
 .settings/
+*.iml

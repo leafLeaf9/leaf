@@ -24,22 +24,22 @@ import java.util.Date;
 //@Schema(description="SecretJasypt对象")
 public class SecretJasypt implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "id")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
-    private String id;
+	@ApiModelProperty(value = "id")
+	@TableId(value = "id", type = IdType.ASSIGN_UUID)
+	private String id;
 
-    @ApiModelProperty(value = "混淆盐值")
-    private String jasypt;
+	@ApiModelProperty(value = "混淆盐值")
+	private String jasypt;
 
-    @ApiModelProperty(value = "启动参数")
-    private String vmOptions;
+	@ApiModelProperty(value = "启动参数")
+	private String vmOptions;
 
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+	@ApiModelProperty(value = "创建时间")
+	private Date createTime;
 
-    @ApiModelProperty(value = "逻辑删除")
-    private boolean delflag;
+	@ApiModelProperty(value = "逻辑删除")
+	private boolean delflag;
 
 }

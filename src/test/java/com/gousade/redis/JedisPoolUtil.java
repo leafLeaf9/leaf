@@ -10,31 +10,31 @@ import redis.clients.jedis.JedisPoolConfig;
  * @description
  */
 public class JedisPoolUtil {
-    private static volatile JedisPool jedisPool = null;
+	private static volatile JedisPool jedisPool = null;
 
-    private JedisPoolUtil() {
-    }
+	private JedisPoolUtil() {
+	}
 
-    public static JedisPool getJedisPoolInstance() {
-        if (null == jedisPool) {
-            synchronized (JedisPoolUtil.class) {
-                if (null == jedisPool) {
-                    JedisPoolConfig poolConfig = new JedisPoolConfig();
-                    poolConfig.setMaxTotal(1000);
-                    poolConfig.setMaxIdle(32);
-                    poolConfig.setMaxWaitMillis(100 * 1000);
-                    poolConfig.setTestOnBorrow(true);
-                    jedisPool = new JedisPool(poolConfig, "127.0.0.1", 6379);
-                }
-            }
-        }
-        return jedisPool;
-    }
+	public static JedisPool getJedisPoolInstance() {
+		if (null == jedisPool) {
+			synchronized (JedisPoolUtil.class) {
+				if (null == jedisPool) {
+					JedisPoolConfig poolConfig = new JedisPoolConfig();
+					poolConfig.setMaxTotal(1000);
+					poolConfig.setMaxIdle(32);
+					poolConfig.setMaxWaitMillis(100 * 1000);
+					poolConfig.setTestOnBorrow(true);
+					jedisPool = new JedisPool(poolConfig, "127.0.0.1", 6379);
+				}
+			}
+		}
+		return jedisPool;
+	}
 
-    public static void release(JedisPool jedisPool, Jedis jedis) {
-        if (null != jedis) {
-            jedis.close();
-        }
-    }
+	public static void release(JedisPool jedisPool, Jedis jedis) {
+		if (null != jedis) {
+			jedis.close();
+		}
+	}
 
 }

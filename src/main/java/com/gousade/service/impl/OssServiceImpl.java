@@ -15,12 +15,12 @@ import javax.annotation.Resource;
 @Service
 public class OssServiceImpl implements OssService {
 
-    @Resource
-    private OssUtil ossUtil;
+	@Resource
+	private OssUtil ossUtil;
 
-    @Override
-    public String uploadOssAvatar(MultipartFile file) {
-        return ossUtil.uploadOssFile(file);
-    }
+	@Override
+	public String uploadOssAvatar(MultipartFile file) {
+		return ossUtil.uploadOssFile(file);
+	}
 
 }

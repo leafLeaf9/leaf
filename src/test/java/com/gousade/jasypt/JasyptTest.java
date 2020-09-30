@@ -15,18 +15,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class JasyptTest {
 
-    @Autowired
+	@Autowired
 //	@Qualifier("jasyptStringEncryptor")
-    StringEncryptor encryptor;
+	StringEncryptor encryptor;
 
-    @Test
-    public void stringEncryptor() {
-        String url = encryptor.encrypt(
-                "jdbc:mysql://ip:port/databaseName?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false");
-        String ip = encryptor.encrypt("ip");
-        log.info("ip: ENC(" + ip + ")");
-        Assertions.assertTrue(url.length() > 0);
-        Assertions.assertTrue(ip.length() > 0);
-    }
+	@Test
+	public void stringEncryptor() {
+		String url = encryptor.encrypt(
+				"jdbc:mysql://ip:port/databaseName?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false");
+		String ip = encryptor.encrypt("ip");
+		log.info("ip: ENC(" + ip + ")");
+		Assertions.assertTrue(url.length() > 0);
+		Assertions.assertTrue(ip.length() > 0);
+	}
 
 }

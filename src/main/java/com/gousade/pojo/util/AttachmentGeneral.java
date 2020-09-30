@@ -23,38 +23,38 @@ import java.util.Date;
 @Builder
 public class AttachmentGeneral implements Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -5456864622650142492L;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -5456864622650142492L;
 
-    @TableId(type = IdType.ASSIGN_ID)
-    private String id;
-    /**
-     * 关联id
-     */
-    private String attachId;
-    /**
-     * 附件名称
-     */
-    private String attachName;
-    /**
-     * 附件类型
-     */
-    private String attachType;
-    /**
-     * 附件大小
-     */
-    private String attachSize;
-    /**
-     * 附件路径
-     */
-    private String attachPath;
+	@TableId(type = IdType.ASSIGN_ID)
+	private String id;
+	/**
+	 * 关联id
+	 */
+	private String attachId;
+	/**
+	 * 附件名称
+	 */
+	private String attachName;
+	/**
+	 * 附件类型
+	 */
+	private String attachType;
+	/**
+	 * 附件大小
+	 */
+	private String attachSize;
+	/**
+	 * 附件路径
+	 */
+	private String attachPath;
 
-    @TableField(fill = FieldFill.INSERT)
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+	@TableField(fill = FieldFill.INSERT)
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private Date createTime;
 
-    private boolean delflag;
+	private boolean delflag;
 
 }

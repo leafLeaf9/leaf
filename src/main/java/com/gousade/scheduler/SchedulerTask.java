@@ -36,12 +36,12 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class SchedulerTask {
 
-    @Async
-    @Scheduled(cron = "0 0/3 * * * *")
-    public void logCurrentTimeScheduled() {
-        String currentTime = ZonedDateTime
-                .now(/*ZoneId.of("Asia/Shanghai")*/)
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ 'CST'"));
-        log.info("Current Time : {}", currentTime);
-    }
+	@Async
+	@Scheduled(cron = "0 0/3 * * * *")
+	public void logCurrentTimeScheduled() {
+		String currentTime = ZonedDateTime
+				.now(/*ZoneId.of("Asia/Shanghai")*/)
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ 'CST'"));
+		log.info("Current Time : {}", currentTime);
+	}
 }

@@ -9,14 +9,14 @@ import java.util.Map;
  */
 public interface MailManage {
 
-    void sendSimpleMail(String to, String subject, String content);
+	void sendSimpleMail(String to, String subject, String content);
 
-    void sendHtmlMail(String to, String subject, String content);
+	void sendHtmlMail(String to, String subject, String content);
 
-    void sendAttachmentsMail(String to, String subject, String content, String filePath);
+	void sendAttachmentsMail(String to, String subject, String content, String filePath);
 
-    void sendInlineResourceMail(String to, String subject, String content, String rscPath, String rscId);
+	void sendInlineResourceMail(String to, String subject, String content, String rscPath, String rscId);
 
-    void sendTemplateMail(String to, String subject, Map<String, Object> paramMap, String template);
+	void sendTemplateMail(String to, String subject, Map<String, Object> paramMap, String template);
 
 }

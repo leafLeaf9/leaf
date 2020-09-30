@@ -1,133 +1,133 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gousade.mapper.RoleMapper">
-    <resultMap id="BaseResultMap" type="com.gousade.pojo.Role">
-        <id column="id" property="id" jdbcType="VARCHAR"/>
-        <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
-        <result column="seq" property="seq" jdbcType="INTEGER"/>
-        <result column="create_time" property="createTime"
-                jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime"
-                jdbcType="TIMESTAMP"/>
-        <result column="delflag" property="delflag" jdbcType="VARCHAR"/>
-    </resultMap>
-    <sql id="Base_Column_List">
+	<resultMap id="BaseResultMap" type="com.gousade.pojo.Role">
+		<id column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+		<result column="seq" property="seq" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime"
+				jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime"
+				jdbcType="TIMESTAMP"/>
+		<result column="delflag" property="delflag" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
         id, name, remarks, seq, create_time, update_time, delflag
     </sql>
 
-    <select id="selectRoleList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from role t
-        where t.delflag=0
-        <if test="name != null and name != ''">
-            and t.name like concat('%',#{name},'%')
-        </if>
-        order by create_time
-    </select>
+	<select id="selectRoleList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from role t
+		where t.delflag=0
+		<if test="name != null and name != ''">
+			and t.name like concat('%',#{name},'%')
+		</if>
+		order by create_time
+	</select>
 
-    <select id="getRoles" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from role t
-        where t.delflag=0
-        order by t.seq
-    </select>
+	<select id="getRoles" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from role t
+		where t.delflag=0
+		order by t.seq
+	</select>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
-            parameterType="java.lang.String">
-        select
-        <include refid="Base_Column_List"/>
-        from role
-        where id = #{id,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List"/>
+		from role
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from role
         where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <!-- <insert id="insert" parameterType="com.gousade.pojo.Role" > insert
-        into role (id, name, remarks, seq, create_time, update_time, delflag ) values
-        (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR},
-        #{seq,jdbcType=INTEGER}, sysdate(), #{updateTime,jdbcType=TIMESTAMP}, 0 )
-        </insert> -->
-    <insert id="insertSelective"
-            parameterType="com.gousade.pojo.Role">
-        insert into role
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="remarks != null">
-                remarks,
-            </if>
-            <if test="seq != null">
-                seq,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-            <if test="delflag != null">
-                delflag,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=VARCHAR},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="remarks != null">
-                #{remarks,jdbcType=VARCHAR},
-            </if>
-            <if test="seq != null">
-                #{seq,jdbcType=INTEGER},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="delflag != null">
-                #{delflag,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective"
-            parameterType="com.gousade.pojo.Role">
-        update role
-        <set>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="remarks != null">
-                remarks = #{remarks,jdbcType=VARCHAR},
-            </if>
-            <if test="seq != null">
-                seq = #{seq,jdbcType=INTEGER},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="delflag != null">
-                delflag = #{delflag,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey"
-            parameterType="com.gousade.pojo.Role">
+	<!-- <insert id="insert" parameterType="com.gousade.pojo.Role" > insert
+		into role (id, name, remarks, seq, create_time, update_time, delflag ) values
+		(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR},
+		#{seq,jdbcType=INTEGER}, sysdate(), #{updateTime,jdbcType=TIMESTAMP}, 0 )
+		</insert> -->
+	<insert id="insertSelective"
+			parameterType="com.gousade.pojo.Role">
+		insert into role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="seq != null">
+				seq,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="delflag != null">
+				delflag,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="seq != null">
+				#{seq,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delflag != null">
+				#{delflag,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+			parameterType="com.gousade.pojo.Role">
+		update role
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="seq != null">
+				seq = #{seq,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delflag != null">
+				delflag = #{delflag,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+			parameterType="com.gousade.pojo.Role">
         update role
         set name = #{name,jdbcType=VARCHAR},
         remarks = #{remarks,jdbcType=VARCHAR},
@@ -136,18 +136,18 @@
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
-    <delete id="deleteBatchIds">
-        update role set delflag=1,update_time=sysdate()
-        where delflag=0
-        and id in
-        <foreach item="item" index="index" collection="list" open="("
-                 separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
+	<delete id="deleteBatchIds">
+		update role set delflag=1,update_time=sysdate()
+		where delflag=0
+		and id in
+		<foreach item="item" index="index" collection="list" open="("
+				 separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
 
-    <select id="selectResourceIdListByRoleId"
-            resultType="java.lang.String" parameterType="java.lang.String">
+	<select id="selectResourceIdListByRoleId"
+			resultType="java.lang.String" parameterType="java.lang.String">
         select re.resourceid as id from
         role r left join role_resource re on r.id=re.roleid
         and r.delflag=0
@@ -155,51 +155,51 @@
         where r.id=#{id}
     </select>
 
-    <select id="findByIds" resultType="com.gousade.pojo.Role"
-            parameterType="java.lang.String">
-        select t.* from role t
-        where t.id in
-        <foreach item="item" index="index" collection="list" open="("
-                 separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
+	<select id="findByIds" resultType="com.gousade.pojo.Role"
+			parameterType="java.lang.String">
+		select t.* from role t
+		where t.id in
+		<foreach item="item" index="index" collection="list" open="("
+				 separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
 
-    <select id="findAllResourcesByRoleIds"
-            resultType="com.gousade.pojo.Resource"
-            parameterType="java.lang.String">
-        select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks,
-        s.seq, s.status, s.resource_type, s.tip, s.create_time
-        from role r
-        right join role_resource rre on r.id=rre.roleid and r.delflag=0 and
-        rre.delflag=0
-        right join resource s on rre.resourceid=s.id and s.delflag=0
-        where r.id in
-        <foreach item="item" index="index" collection="list" open="("
-                 separator="," close=")">
-            #{item}
-        </foreach>
-        and r.delflag=0
-        order by s.seq
-    </select>
+	<select id="findAllResourcesByRoleIds"
+			resultType="com.gousade.pojo.Resource"
+			parameterType="java.lang.String">
+		select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks,
+		s.seq, s.status, s.resource_type, s.tip, s.create_time
+		from role r
+		right join role_resource rre on r.id=rre.roleid and r.delflag=0 and
+		rre.delflag=0
+		right join resource s on rre.resourceid=s.id and s.delflag=0
+		where r.id in
+		<foreach item="item" index="index" collection="list" open="("
+				 separator="," close=")">
+			#{item}
+		</foreach>
+		and r.delflag=0
+		order by s.seq
+	</select>
 
-    <select id="findResourcesByRoleIds"
-            resultType="com.gousade.pojo.Resource"
-            parameterType="java.lang.String">
-        select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks,
-        s.seq, s.status, s.resource_type, s.tip, s.create_time
-        from role r
-        right join role_resource rre on r.id=rre.roleid and r.delflag=0 and
-        rre.delflag=0
-        right join resource s on rre.resourceid=s.id and s.delflag=0
-        where r.id in
-        <foreach item="item" index="index" collection="list" open="("
-                 separator="," close=")">
-            #{item}
-        </foreach>
-        and r.delflag=0
-        and s.status=0
-        and s.resource_type!=7
-        order by s.seq
-    </select>
+	<select id="findResourcesByRoleIds"
+			resultType="com.gousade.pojo.Resource"
+			parameterType="java.lang.String">
+		select distinct s.id, s.pid, s.name, s.url, s.icon, s.remarks,
+		s.seq, s.status, s.resource_type, s.tip, s.create_time
+		from role r
+		right join role_resource rre on r.id=rre.roleid and r.delflag=0 and
+		rre.delflag=0
+		right join resource s on rre.resourceid=s.id and s.delflag=0
+		where r.id in
+		<foreach item="item" index="index" collection="list" open="("
+				 separator="," close=")">
+			#{item}
+		</foreach>
+		and r.delflag=0
+		and s.status=0
+		and s.resource_type!=7
+		order by s.seq
+	</select>
 </mapper>

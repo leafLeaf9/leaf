@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.gousade.mapper.RoleResourceMapper">
-    <resultMap id="BaseResultMap"
-               type="com.gousade.pojo.RoleResource">
-        <id column="id" property="id" jdbcType="VARCHAR"/>
-        <result column="roleid" property="roleid" jdbcType="VARCHAR"/>
-        <result column="resourceid" property="resourceid"
-                jdbcType="VARCHAR"/>
-        <result column="create_time" property="createTime"
-                jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime"
-                jdbcType="TIMESTAMP"/>
-        <result column="delflag" property="delflag" jdbcType="VARCHAR"/>
-    </resultMap>
-    <sql id="Base_Column_List">
+	<resultMap id="BaseResultMap"
+			   type="com.gousade.pojo.RoleResource">
+		<id column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="roleid" property="roleid" jdbcType="VARCHAR"/>
+		<result column="resourceid" property="resourceid"
+				jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime"
+				jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime"
+				jdbcType="TIMESTAMP"/>
+		<result column="delflag" property="delflag" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
         id, roleid, resourceid, create_time, update_time, delflag
     </sql>
 
-    <insert id="insert"
-            parameterType="com.gousade.pojo.RoleResource">
+	<insert id="insert"
+			parameterType="com.gousade.pojo.RoleResource">
         insert into role_resource (id, roleid, resourceid,
         create_time, update_time, delflag
         )
@@ -28,18 +28,18 @@
         )
     </insert>
 
-    <insert id="insertBatch" parameterType="java.util.List">
-        insert into role_resource
-        (id, roleid, resourceid, create_time, update_time, delflag)
-        <foreach collection="list" item="item" index="index"
-                 separator="UNION ALL">
-            select
-            #{item.id},#{item.roleid},#{item.resourceid},sysdate(),#{item.updateTime},0
-            from dual
-        </foreach>
-    </insert>
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into role_resource
+		(id, roleid, resourceid, create_time, update_time, delflag)
+		<foreach collection="list" item="item" index="index"
+				 separator="UNION ALL">
+			select
+			#{item.id},#{item.roleid},#{item.resourceid},sysdate(),#{item.updateTime},0
+			from dual
+		</foreach>
+	</insert>
 
-    <delete id="deleteByRoleId">
+	<delete id="deleteByRoleId">
         update role_resource set delflag=1,update_time=sysdate()
         where roleid=#{roleid} and delflag=0
     </delete>

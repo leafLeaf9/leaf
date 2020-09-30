@@ -18,19 +18,19 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping(value = "/admin/oss")
 public class OssController {
 
-    @Autowired
-    private OssService ossService;
+	@Autowired
+	private OssService ossService;
 
-    /**
-     * swagger3不生效，接收到的文件为null
-     *
-     * @param file
-     * @return
-     */
-    @RequestMapping(value = "/uploadOssAvatar", method = RequestMethod.POST)
-    public ResponseResult uploadOssAvatar(@RequestParam(value = "file") MultipartFile file) {
-        String url = ossService.uploadOssAvatar(file);
-        return ResponseResult.renderSuccess().message("上传oss文件成功").data("url", url);
-    }
+	/**
+	 * swagger3不生效，接收到的文件为null
+	 *
+	 * @param file
+	 * @return
+	 */
+	@RequestMapping(value = "/uploadOssAvatar", method = RequestMethod.POST)
+	public ResponseResult uploadOssAvatar(@RequestParam(value = "file") MultipartFile file) {
+		String url = ossService.uploadOssAvatar(file);
+		return ResponseResult.renderSuccess().message("上传oss文件成功").data("url", url);
+	}
 
 }

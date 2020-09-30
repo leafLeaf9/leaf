@@ -15,22 +15,22 @@ import java.util.List;
  */
 public class EasyExcelTest {
 
-    @Test
-    public void simpleWrite() {
-        String fileName = this.getClass().getResource("/").getPath() + "easytest.xlsx";
-        EasyExcel.write(fileName, EasyExcelDemoData.class).sheet("sheet0").doWrite(data());
-    }
+	@Test
+	public void simpleWrite() {
+		String fileName = this.getClass().getResource("/").getPath() + "easytest.xlsx";
+		EasyExcel.write(fileName, EasyExcelDemoData.class).sheet("sheet0").doWrite(data());
+	}
 
-    private List<EasyExcelDemoData> data() {
-        List<EasyExcelDemoData> list = new ArrayList<EasyExcelDemoData>();
-        for (int i = 0; i < 10; i++) {
-            EasyExcelDemoData data = new EasyExcelDemoData();
-            data.setString("字符串" + i);
-            data.setDate(new Date());
-            data.setDoubleData(0.56);
-            list.add(data);
-        }
-        return list;
-    }
+	private List<EasyExcelDemoData> data() {
+		List<EasyExcelDemoData> list = new ArrayList<EasyExcelDemoData>();
+		for (int i = 0; i < 10; i++) {
+			EasyExcelDemoData data = new EasyExcelDemoData();
+			data.setString("字符串" + i);
+			data.setDate(new Date());
+			data.setDoubleData(0.56);
+			list.add(data);
+		}
+		return list;
+	}
 
 }
