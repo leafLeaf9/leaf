@@ -1,11 +1,13 @@
 package com.gousade.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.util.CollectionUtils;
 
 import com.gousade.entity.Gift;
 
@@ -22,27 +24,34 @@ public class GiftDrawUtil {
 	
 	@Test
 	public void random() {
-		int[] count = new int[] {0,0,0,0};
-		for(int i =0;i<999999;i++) {
-			String result = test();
-			switch(result) {
-			case "gift1": count[0]++;break;
-			case "gift2": count[1]++;break;
-			case "gift3": count[2]++;break;
-			case "gift4": count[3]++;break;
-			}
-		}
-		log.info("result is {}",Arrays.toString(count));
-	}
-	
-	@Test
-	public String test() {
-//		log.info("random gift start.");
 		List<Gift> list = new ArrayList<>();
         list.add(new Gift(1,"gift1",0.1));
         list.add(new Gift(3,"gift3",0.3));
         list.add(new Gift(2,"gift2",0.2));
         list.add(new Gift(4,"gift4",0.4));
+        list.sort((item1,item2)->item1.getProb().compareTo(item2.getProb()));
+        Map<String, Integer> countMap = new LinkedHashMap<>();
+        list.forEach(item->{countMap.put(item.getName(), 0);});
+        countMap.put("null", 0);
+		for(int i =0;i<999999;i++) {
+			Gift gift = draw(list);
+			String name = "null";
+			if (gift != null) {
+				name = gift.getName();
+            }
+			int count = countMap.get(name);
+			countMap.put(gift.getName(), ++count);
+		}
+		countMap.forEach((k, v)->{
+			log.info("Draw {} {} times.", k, v);
+		});
+	}
+	
+	public Gift draw(List<Gift> list) {
+//		log.info("random gift start.");
+        if(CollectionUtils.isEmpty(list)) {
+        	return null;
+        }
 //        log.info("list={}",list);
         list.sort((item1,item2)->item1.getProb().compareTo(item2.getProb()));
 //        log.info("list={}",list);
@@ -52,7 +61,10 @@ public class GiftDrawUtil {
         list.forEach((item)->{
         	sumProbArr[0] += item.getProb();
         	});
-//        	归一化概率端点，因为可能给出的概率加起来不等于1，这里换算为总和为1
+        if (sumProbArr[0] <= 0) {
+            return null;
+        }
+//        归一化概率端点，因为可能给出的概率加起来不等于1，这里换算为总和为1
 //        Double rate = 0D;
         Double [] rateArr = new Double[] {0D};
         list.forEach((item)->{
@@ -66,9 +78,9 @@ public class GiftDrawUtil {
         int index = probLists.indexOf(random);
         if (index >= 0) {
 //            log.info("{}",list.get(index).getName());
-            return list.get(index).getName();
+            return list.get(index);
         }
-        return "";
+        return null;
 	}
 
 }
