@@ -85,11 +85,10 @@ public class RedisController {
 	}
 
 	/**
-	 * @param key
 	 * @return 在事务中(multi - exec)使用redisUtil.incr()会报空指针异常，原因不明，使用开启事务的enableTransactionRedisTemplate来操作却不会异常
 	 */
 	@RequestMapping(value = "increment", method = RequestMethod.POST)
-	public ResponseResult increment(String key) {
+	public ResponseResult increment() {
 		redisTemplate.multi();
 //        redisUtil.incr("increment", 1);
 		redisTemplate.opsForValue().increment("increment", 1);
@@ -98,10 +97,9 @@ public class RedisController {
 	}
 
 	/**
-	 * @param key
 	 * @return 由于 enableTransactionSupport 属性的默认值是 false，导致了每一个 RedisConnection
 	 * 都是重新获取的。
-	 * @see 开启事务后也许会导致空指针异常的问题
+	 * @description 开启事务后也许会导致空指针异常的问题
 	 */
 	@RequestMapping(value = "/multi", method = RequestMethod.POST)
 	public ResponseResult multi(String key) {
@@ -117,13 +115,12 @@ public class RedisController {
 	}
 
 	/**
-	 * @param key
 	 * @return 可以通过使用 SessionCallback，该接口保证其内部所有操作都是在同一个Session中。
 	 */
 	@RequestMapping(value = "/testSessionCallback", method = RequestMethod.POST)
 	public ResponseResult testSessionCallback(String key) {
-		SessionCallback<Object> callback = new SessionCallback<Object>() {
-			@SuppressWarnings({"rawtypes", "unchecked"})
+		SessionCallback<Object> callback = new SessionCallback<>() {
+			@SuppressWarnings({"unchecked"})
 			@Override
 			public Object execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
@@ -137,23 +134,18 @@ public class RedisController {
 	}
 
 	public SessionCallback<Object> createSessionCallback(Map<String, Object> map) {
-		SessionCallback<Object> callback = new SessionCallback<Object>() {
-			@SuppressWarnings({"rawtypes", "unchecked"})
+		return new SessionCallback<>() {
+			@SuppressWarnings({"unchecked"})
 			@Override
 			public Object execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
-				map.forEach((k, v) -> {
-					operations.opsForValue().set(k, v, 1800L, TimeUnit.SECONDS);
-				});
+				map.forEach((k, v) -> operations.opsForValue().set(k, v, 1800L, TimeUnit.SECONDS));
 				return operations.exec();
 			}
 		};
-		return callback;
 	}
 
 	/**
-	 * @param key
-	 * @return
 	 * @throws InterruptedException
 	 * @description 借款场景使用watch监控命令实现乐观锁机制
 	 */
@@ -173,17 +165,14 @@ public class RedisController {
 		int balance;// 可用余额
 		int debt;// 欠额
 		int amtToSubtract = 10;// 实刷额度
-		new Thread() {
-			@Override
-			public void run() {
-				redisUtil.set("balance", 5, 1800L);
-				log.warn("另一个线程修改balance为5");
-				redisUtil.set("balance", 60, 1800L);
-				log.warn("另一个线程修改balance为60");
-				redisUtil.set("balance", 100, 1800L);
-				log.warn("另一个线程修改balance为100");
-			}
-		}
+		new Thread(() -> {
+			redisUtil.set("balance", 5, 1800L);
+			log.warn("另一个线程修改balance为5");
+			redisUtil.set("balance", 60, 1800L);
+			log.warn("另一个线程修改balance为60");
+			redisUtil.set("balance", 100, 1800L);
+			log.warn("另一个线程修改balance为100");
+		})
 		// 线程开启时修改了balance会导致借款失败，关闭时可成功借款。
 //		.start()
 		;
