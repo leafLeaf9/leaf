@@ -1,7 +1,6 @@
 package com.gousade.utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +29,13 @@ public class GiftDrawUtil {
 		list.add(new Gift(2, "gift2", 0.2));
 		list.add(new Gift(4, "gift4", 0.4));
 		list.sort((item1, item2) -> item1.getProb().compareTo(item2.getProb()));
+		/*list.sort((item1, item2) -> {
+			log.info("item1={}, item2={}", item1, item2);
+			return item1.getProb().compareTo(item2.getProb());
+		});*/
+		list.forEach(System.out::println);
+		list.stream().filter((e) -> e.getId() > 1).limit(2).forEach(System.out::println);
+		list.stream().map(Gift::getName).forEach(item -> log.info(item));
 		Map<String, Integer> countMap = new LinkedHashMap<>();
 		list.forEach(item -> {
 			countMap.put(item.getName(), 0);
@@ -47,6 +53,7 @@ public class GiftDrawUtil {
 		countMap.forEach((k, v) -> {
 			log.info("Draw {} {} times.", k, v);
 		});
+		System.out.println(countMap.toString());
 	}
 
 	public Gift draw(List<Gift> list) {
@@ -55,7 +62,11 @@ public class GiftDrawUtil {
 			return null;
 		}
 //        log.info("list={}",list);
-		list.sort((item1, item2) -> item1.getProb().compareTo(item2.getProb()));
+//		list.sort((item1, item2) -> item1.getProb().compareTo(item2.getProb()));
+		list.sort((item1, item2) -> {
+//			log.info("item1={}, item2={}", item1, item2);
+			return item1.getProb().compareTo(item2.getProb());
+		});
 //        log.info("list={}",list);
 		List<Double> probLists = new ArrayList<>(list.size());
 //        Double sumProb = 0D;
@@ -76,7 +87,8 @@ public class GiftDrawUtil {
 		});
 		double random = Math.random();
 		probLists.add(random);
-		Collections.sort(probLists);
+//		Collections.sort(probLists);
+		probLists.sort(null);
 		int index = probLists.indexOf(random);
 		if (index >= 0) {
 //            log.info("{}",list.get(index).getName());

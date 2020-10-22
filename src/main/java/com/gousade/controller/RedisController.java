@@ -119,8 +119,8 @@ public class RedisController {
 	 */
 	@RequestMapping(value = "/testSessionCallback", method = RequestMethod.POST)
 	public ResponseResult testSessionCallback(String key) {
-		SessionCallback<Object> callback = new SessionCallback<>() {
-			@SuppressWarnings({"unchecked"})
+		SessionCallback<Object> callback = new SessionCallback<Object>() {
+			@SuppressWarnings({"unchecked", "rawtypes"})
 			@Override
 			public Object execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
@@ -134,8 +134,8 @@ public class RedisController {
 	}
 
 	public SessionCallback<Object> createSessionCallback(Map<String, Object> map) {
-		return new SessionCallback<>() {
-			@SuppressWarnings({"unchecked"})
+		return new SessionCallback<Object>() {
+			@SuppressWarnings({"unchecked", "rawtypes"})
 			@Override
 			public Object execute(RedisOperations operations) throws DataAccessException {
 				operations.multi();
