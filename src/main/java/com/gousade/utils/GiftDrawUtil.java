@@ -65,7 +65,11 @@ public class GiftDrawUtil {
 //		list.sort((item1, item2) -> item1.getProb().compareTo(item2.getProb()));
 		list.sort((item1, item2) -> {
 //			log.info("item1={}, item2={}", item1, item2);
-			return item1.getProb().compareTo(item2.getProb());
+			if(Double.doubleToRawLongBits(item1.getProb()) == Double.doubleToLongBits(item2.getProb())) {
+				return item1.getName().compareTo(item2.getName());
+			}else {
+				return item1.getProb().compareTo(item2.getProb());
+			}
 		});
 //        log.info("list={}",list);
 		List<Double> probLists = new ArrayList<>(list.size());
