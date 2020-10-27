@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 */
 
 @Slf4j
-@SuppressWarnings("unused")
 public class StreamTest2 {
 
 	List<Gift> giftList = Arrays.asList(new Gift(1, "gift1", 0.1), new Gift(3, "gift3", 0.3), new Gift(2, "gift2", 0.2),

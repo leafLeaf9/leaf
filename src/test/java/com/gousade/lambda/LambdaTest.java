@@ -2,6 +2,7 @@ package com.gousade.lambda;
 
 import java.util.Comparator;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author woxigsd@gmail.com
@@ -92,6 +93,20 @@ public class LambdaTest {
 		consumer.accept(new Gift(1, "gift1", 0.1));
 		Consumer<String> consumer2 = (e) -> log.info(e)/*log::info*/;
 		consumer2.accept("lambda for void accept(T t)");
+	}
+	
+	public String strHandler(String str, Function<String, String> fun){
+		return fun.apply(str);
+	}
+	
+	//Function<T, R> 函数型接口：
+	@Test
+	public void test21(){
+		String newStr = strHandler("\t\t\t 测试字符串测试字符串   ", (str) -> str.trim());
+		System.out.println(newStr);
+		
+		String subStr = strHandler("测试字符串测试字符串", (str) -> str.substring(2, 5));
+		System.out.println(subStr);
 	}
 
 	@Test
