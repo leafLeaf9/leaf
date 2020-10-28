@@ -107,6 +107,8 @@ public class LambdaTest {
 		
 		String subStr = strHandler("测试字符串测试字符串", (str) -> str.substring(2, 5));
 		System.out.println(subStr);
+		Function<String, Integer> function = (str) -> str.length();
+		System.out.println(function.apply("测试字符串测试字符串"));
 	}
 
 	@Test
