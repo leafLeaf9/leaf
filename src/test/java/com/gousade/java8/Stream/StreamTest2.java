@@ -1,4 +1,4 @@
-package com.gousade.Stream;
+package com.gousade.java8.Stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,8 +86,7 @@ public class StreamTest2 {
 	}
 
 	/**
-	 * sorted()——自然排序
-	 * sorted(Comparator com)——定制排序
+	 * sorted()——自然排序 sorted(Comparator com)——定制排序
 	 */
 	@Test
 	public void test5() {
@@ -95,9 +94,9 @@ public class StreamTest2 {
 		list.stream().sorted().forEach(System.out::println);
 //		giftList.stream().sorted().forEach(System.out::println);//Gift类没有实现Comparable接口，会报错
 		giftList.stream().sorted((item1, item2) -> {
-			if(Double.doubleToRawLongBits(item1.getProb()) == Double.doubleToLongBits(item2.getProb())) {
+			if (Double.doubleToRawLongBits(item1.getProb()) == Double.doubleToLongBits(item2.getProb())) {
 				return item1.getName().compareTo(item2.getName());
-			}else {
+			} else {
 				return item1.getProb().compareTo(item2.getProb());
 			}
 		}).forEach(System.out::println);

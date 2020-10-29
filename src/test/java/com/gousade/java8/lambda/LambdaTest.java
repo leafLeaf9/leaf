@@ -1,4 +1,4 @@
-package com.gousade.lambda;
+package com.gousade.java8.lambda;
 
 import java.util.Comparator;
 import java.util.function.Consumer;
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import com.gousade.entity.Gift;
 
 import lombok.extern.slf4j.Slf4j;
+
 /*
  * 一、Lambda 表达式的基础语法：Java8中引入了一个新的操作符 "->" 该操作符称为箭头操作符或 Lambda 操作符
  * 						    箭头操作符将 Lambda 表达式拆分成两部分：
@@ -94,17 +95,17 @@ public class LambdaTest {
 		Consumer<String> consumer2 = (e) -> log.info(e)/*log::info*/;
 		consumer2.accept("lambda for void accept(T t)");
 	}
-	
-	public String strHandler(String str, Function<String, String> fun){
+
+	public String strHandler(String str, Function<String, String> fun) {
 		return fun.apply(str);
 	}
-	
-	//Function<T, R> 函数型接口：
+
+	// Function<T, R> 函数型接口：
 	@Test
-	public void test21(){
+	public void test21() {
 		String newStr = strHandler("\t\t\t 测试字符串测试字符串   ", (str) -> str.trim());
 		System.out.println(newStr);
-		
+
 		String subStr = strHandler("测试字符串测试字符串", (str) -> str.substring(2, 5));
 		System.out.println(subStr);
 		Function<String, Integer> function = (str) -> str.length();

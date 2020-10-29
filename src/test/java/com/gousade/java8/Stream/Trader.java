@@ -1,4 +1,5 @@
-package com.gousade.Stream;
+package com.gousade.java8.Stream;
+
 //交易员类
 public class Trader {
 

@@ -1,4 +1,4 @@
-package com.gousade.Stream;
+package com.gousade.java8.Stream;
 
 /**
  * @author woxigsd@gmail.com
@@ -28,11 +28,8 @@ import com.gousade.entity.Gift;
 public class StreamTest1 {
 
 	/**
-	 * 创建Stream的多种方式
-	 * 1. Collection 提供了两个方法  stream() 与 parallelStream()
-	 * 2.通过 Arrays 中的 stream() 获取一个数组流
-	 * 3. 通过 Stream 类中静态方法 of()
-	 * 4. 创建无限流
+	 * 创建Stream的多种方式 1. Collection 提供了两个方法 stream() 与 parallelStream() 2.通过 Arrays
+	 * 中的 stream() 获取一个数组流 3. 通过 Stream 类中静态方法 of() 4. 创建无限流
 	 */
 	@Test
 	public void test1() {

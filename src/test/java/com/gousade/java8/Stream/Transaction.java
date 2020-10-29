@@ -1,4 +1,5 @@
-package com.gousade.Stream;
+package com.gousade.java8.Stream;
+
 //交易类
 public class Transaction {
 
@@ -41,8 +42,7 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [trader=" + trader + ", year=" + year + ", value="
-				+ value + "]";
+		return "Transaction [trader=" + trader + ", year=" + year + ", value=" + value + "]";
 	}
 
 }

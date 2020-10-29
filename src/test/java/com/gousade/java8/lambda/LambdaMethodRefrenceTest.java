@@ -1,4 +1,4 @@
-package com.gousade.lambda;
+package com.gousade.java8.lambda;
 
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author woxigsd@gmail.com
  * @date 2020-10-23 14:40:57
- * @description 
+ * @description
  */
 /*
  * 一、方法引用：若 Lambda 体中的功能，已经有方法提供了实现，可以使用方法引用
@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SuppressWarnings("unused")
 public class LambdaMethodRefrenceTest {
-	
+
 	@Test
 	public void testMethodRefrence() {
 		Consumer<String> consumer = (x) -> System.out.println(x);
@@ -52,19 +52,19 @@ public class LambdaMethodRefrenceTest {
 		consumer3.accept("zeze");
 //		Consumer<Gift> consumer4 = log::info;//log中没有info(Gift t)方法
 	}
-	
+
 	@Test
 	public void test2() {
 		Supplier<String> supplier = () -> SaltUtil.generateUUId();
 		Supplier<String> supplier2 = SaltUtil::generateUUId;
 	}
-	
+
 	@Test
 	public void test3() {
 		BiPredicate<String, String> biPredicate = (x, y) -> x.equals(y);
 		BiPredicate<String, String> biPredicate2 = String::equals;
 	}
-	
+
 	@Test
 	public void test4() {
 		Supplier<Gift> supplier = () -> new Gift();
