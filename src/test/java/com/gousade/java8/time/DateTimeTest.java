@@ -7,9 +7,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -118,6 +121,39 @@ public class DateTimeTest {
 
 	}
 
+	// 5. DateTimeFormatter : 解析和格式化日期或时间
+	@Test
+	public void test5() {
+//			DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE;
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss E");
+
+		LocalDateTime ldt = LocalDateTime.now();
+		String strDate = ldt.format(dtf);
+
+		System.out.println(dtf.format(ldt));
+		System.out.println(strDate);
+
+		LocalDateTime newLdt = LocalDateTime.parse(strDate, dtf);
+		System.out.println(newLdt);
+	}
+
+	@Test
+	public void test6() {
+		Set<String> set = ZoneId.getAvailableZoneIds();
+		set.forEach(System.out::println);
+	}
+
+	// 6.ZonedDate、ZonedTime、ZonedDateTime ： 带时区的时间或日期
+	@Test
+	public void test7() {
+		LocalDateTime ldt = LocalDateTime.now(ZoneId.of("Asia/Shanghai"));
+		System.out.println(ldt);
+
+		ZonedDateTime zdt = ZonedDateTime.now(ZoneId.of("US/Pacific"));
+		System.out.println(zdt);
+	}
+
 	@Test
 	public void test9() {
 		System.out.println(LocalDateTime.now());
@@ -137,6 +173,9 @@ public class DateTimeTest {
 			}
 		});
 		System.out.println(nexTime);
+		String currentTime = ZonedDateTime.now(/*ZoneId.of("Asia/Shanghai")*/)
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ E 'CST'"));
+		System.out.println("Current Time : " + currentTime);
 	}
 
 }

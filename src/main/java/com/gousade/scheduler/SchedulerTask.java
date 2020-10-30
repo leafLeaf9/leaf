@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
  * http://www.manongjc.com/detail/15-zlvwmipbrrbfjht.html
  */
 @Component
-@EnableScheduling // 此做法和将@EnableScheduling这个注解写在springboot入口处的效果是一样的，两个写一个即可。
+@EnableScheduling
 @EnableAsync
 @Slf4j
 public class SchedulerTask {
@@ -41,7 +41,7 @@ public class SchedulerTask {
 	public void logCurrentTimeScheduled() {
 		String currentTime = ZonedDateTime
 				.now(/*ZoneId.of("Asia/Shanghai")*/)
-				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ 'CST'"));
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ E 'CST'"));
 		log.info("Current Time : {}", currentTime);
 	}
 }
