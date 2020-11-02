@@ -121,6 +121,10 @@ public class LambdaTest {
 		log.info("result = {}", comparator.compare(9, 20));
 		Comparator<Integer> comparator2 = (x, y) -> x.compareTo(y);
 		log.info("result = {}", comparator2.compare(20, 9));
+		Comparator<Integer> comparator3 = Integer::compare;
+		log.info("result = {}", comparator3.compare(20, 9));
+		Comparator<Integer> comparator4 = Integer::compareTo;
+		log.info("result = {}", comparator4.compare(20, 9));
 	}
 
 	public Integer operation(Integer o1, Integer o2, Comparator<Integer> comparator) {

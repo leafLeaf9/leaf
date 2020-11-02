@@ -2,6 +2,7 @@ package com.gousade.java8.lambda;
 
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
@@ -58,17 +59,55 @@ public class LambdaMethodRefrenceTest {
 		Supplier<String> supplier = () -> SaltUtil.generateUUId();
 		Supplier<String> supplier2 = SaltUtil::generateUUId;
 	}
+	
+	@Test
+	public void test22() {
+		Employee employee = new Employee(0, "Tom", 16, 9999.9, null);
+		Supplier<String> supplier = () -> SaltUtil.generateUUId();
+		Supplier<String> supplier2 = SaltUtil::generateUUId;
+		Supplier<String> supplier3 = () -> employee.getName();
+		Supplier<String> supplier4 = employee::getName;
+//		Supplier<String> supplier5 = Employee::getName;//报错
+	}
+	
+	@Test
+	public void test222() {
+		Employee employee = new Employee(0, "Tom", 16, 9999.9, null);
+		Function<Employee, String> function = e -> e.getName();
+		System.out.println(function.apply(employee));
+		System.out.println("--------------------------");
+		Function<Employee, String> function2 = Employee::getName;
+		System.out.println(function2.apply(employee));
+	}
 
 	@Test
 	public void test3() {
 		BiPredicate<String, String> biPredicate = (x, y) -> x.equals(y);
+		System.out.println(biPredicate.test("abc", "abcd"));
+		System.out.println("--------------------------");
 		BiPredicate<String, String> biPredicate2 = String::equals;
+		System.out.println(biPredicate2.test("abc", "abc"));
 	}
 
+	//构造器引用
 	@Test
 	public void test4() {
 		Supplier<Gift> supplier = () -> new Gift();
 		Supplier<Gift> supplier2 = Gift::new;
+	}
+
+	// 数组引用
+	@Test
+	public void test5() {
+		Function<Integer, String[]> fun = (args) -> new String[args];
+		String[] strs = fun.apply(10);
+		System.out.println(strs.length);
+
+		System.out.println("--------------------------");
+
+		Function<Integer, Employee[]> fun2 = Employee[]::new;
+		Employee[] emps = fun2.apply(20);
+		System.out.println(emps.length);
 	}
 
 }
