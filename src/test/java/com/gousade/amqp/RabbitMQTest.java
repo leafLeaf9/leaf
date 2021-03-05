@@ -71,6 +71,7 @@ public class RabbitMQTest {
 	/**
 	 * topic 匹配路由键为*.news的所有队列 *代表1个单词 以.为分界 sss.xxx.news中代表sss.xxx代表两个单词
 	 * 而sss-xxx是一个单词
+	 * 被点号.分隔开的每一段独立的字符串称为一个单词
 	 */
 	@Test
 	public void topicSend2() {
