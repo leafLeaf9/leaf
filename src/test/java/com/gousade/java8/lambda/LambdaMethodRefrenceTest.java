@@ -1,21 +1,18 @@
 package com.gousade.java8.lambda;
 
+import com.gousade.entity.Gift;
+import com.gousade.utils.SaltUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import org.junit.jupiter.api.Test;
-
-import com.gousade.entity.Gift;
-import com.gousade.utils.SaltUtil;
-
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author woxigsd@gmail.com
  * @date 2020-10-23 14:40:57
- * @description
  */
 /*
  * 一、方法引用：若 Lambda 体中的功能，已经有方法提供了实现，可以使用方法引用

@@ -3,6 +3,8 @@ package com.gousade.java8.Stream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -100,6 +102,16 @@ public class StreamTest2 {
 				return item1.getProb().compareTo(item2.getProb());
 			}
 		}).forEach(System.out::println);
+	}
+
+	/**
+	 * stream 将list里的对象根据指定成员变量进行分组
+	 */
+	@Test
+	public void groupTest(){
+		Map<Double, List<Gift>> probMap = giftList.stream()
+				.collect(Collectors.groupingBy(Gift::getProb));
+		probMap.forEach((k, v) -> System.out.println(v));
 	}
 
 }

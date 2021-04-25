@@ -3,8 +3,6 @@ package com.gousade.scheduler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.Trigger;
-import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
@@ -36,27 +34,17 @@ public class TimerTaskDynamicCron {
 	 */
 	@PostConstruct
 	public void init() throws Exception {
-		startRobotTask();
+		startSchedulerTask();
 	}
 
 	/**
 	 * 开启定时任务
-	 *
-	 * @param task
 	 */
-	public void startRobotTask() {
-		ScheduledFuture<?> future = threadPoolTaskScheduler.schedule(new Runnable() {
-			@Override
-			public void run() {
-				log.warn("ThreadPoolTaskScheduler run.");
-			}
-		}, new Trigger() {
-			@Override
-			public Date nextExecutionTime(TriggerContext triggerContext) {
-				CronTrigger trigger = new CronTrigger("0 0/3 * * * *");
-				Date nextExec = trigger.nextExecutionTime(triggerContext);
-				return nextExec;
-			}
+	public void startSchedulerTask() {
+		ScheduledFuture<?> future = threadPoolTaskScheduler.schedule(() -> log.warn("ThreadPoolTaskScheduler run."), triggerContext -> {
+			CronTrigger trigger = new CronTrigger("0 0/3 * * * *");
+			Date nextExec = trigger.nextExecutionTime(triggerContext);
+			return nextExec;
 		});
 		robotFutureList.add(future);
 	}
@@ -64,7 +52,7 @@ public class TimerTaskDynamicCron {
 	/**
 	 * 停止定时任务
 	 */
-	public void stopRobotTask() {
+	public void stopSchedulerTask() {
 		for (ScheduledFuture<?> future : robotFutureList) {
 			if (future != null) {
 				/**

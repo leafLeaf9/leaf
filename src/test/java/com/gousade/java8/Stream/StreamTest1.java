@@ -23,6 +23,8 @@ import com.gousade.entity.Gift;
  * 2. 中间操作
  * 
  * 3. 终止操作(终端操作)
+ *
+ * Stream的sorted等操作不会改变原list，但如果在map之类的方法中对list中的对象做了set等操作还是会改变原来的list
  */
 @SuppressWarnings("unused")
 public class StreamTest1 {

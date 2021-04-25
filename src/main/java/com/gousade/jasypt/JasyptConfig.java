@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * @author woxigsd@gmail.com
  * @date 2020-8-21 15:40:42 Description: jasypt配置类
+ * jdk1.8使用jasypt需要在jdk\jre\lib\security目录下放入jce_policy-8的jar包
  */
 @EnableEncryptableProperties
 @PropertySource(name = "EncryptedProperties", value = {"classpath:application.properties",
@@ -24,7 +25,8 @@ public class JasyptConfig {
 	    config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
 	    config.setKeyObtentionIterations("1000");
 	    config.setPoolSize("1");
-	    config.setProviderName("SunJCE");
+	    config.setProviderName(null);
+		config.setProviderClassName(null);
 	    config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
 	    config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
 	    config.setStringOutputType("base64");

@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * 使用shiro-spring-boot-starter会报缺失bean的错误，所以还是使用shiro-spring 1.7.1
+ */
 @Slf4j
 @Configuration
 public class ShiroConfig {
@@ -56,8 +59,6 @@ public class ShiroConfig {
 
 	/**
 	 * 凭证匹配器 （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了 ）
-	 *
-	 * @return
 	 */
 	@Bean
 	public HashedCredentialsMatcher hashedCredentialsMatcher() {
@@ -84,12 +85,8 @@ public class ShiroConfig {
 	}
 
 	/**
-	 * 开启shiro
-	 * aop注解支持.--开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
+	 * 开启shiro aop注解支持.--开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
 	 * 使用代理方式;所以需要开启代码支持; 配置以下bean即可实现此功能
-	 *
-	 * @param securityManager
-	 * @return
 	 */
 	@Bean
 	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {

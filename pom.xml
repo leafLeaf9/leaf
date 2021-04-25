@@ -169,20 +169,15 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!--<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring-boot-starter</artifactId>
+			<version>1.7.1</version>
+		</dependency>-->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
-			<version>1.4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-			<version>1.4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-			<version>1.4.2</version>
+			<version>1.7.1</version>
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -204,11 +199,11 @@
             <artifactId>aliyun-sdk-vod-upload</artifactId>
             <version>1.4.13</version>
         </dependency>
-		<dependency>
+		<!--<dependency>
 	        <groupId>org.json</groupId>
 	        <artifactId>json</artifactId>
 	        <version>20200518</version>
-    	</dependency>
+    	</dependency>-->
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>

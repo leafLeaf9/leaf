@@ -1,8 +1,9 @@
 package com.gousade.swagger;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,11 +22,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class Swagger3Config {
 
-	@Value("${swagger.enable}")
-	private boolean enable;
+	/*@Value("${swagger.enable}")
+	private boolean enable;*/
 
 	@Bean
-	public Docket adminApi() {
+	public Docket adminApi(Environment environment) {
+		Profiles profiles = Profiles.of("dev" ,"test");
+		boolean enable = environment.acceptsProfiles(profiles);
 		return new Docket(DocumentationType.OAS_30).enable(enable).groupName("gousade").apiInfo(apiInfo()).select()
 				/**
 				 * apis() allows selection of RequestHandler's using a predicate. The example
@@ -37,7 +40,9 @@ public class Swagger3Config {
 	}
 
 	@Bean
-	public Docket publicApi() {
+	public Docket publicApi(Environment environment) {
+		Profiles profiles = Profiles.of("dev" ,"test");
+		boolean enable = environment.acceptsProfiles(profiles);
 		return new Docket(DocumentationType.OAS_30).enable(enable).groupName("public").apiInfo(apiInfo()).select()
 				.apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build();
 	}
