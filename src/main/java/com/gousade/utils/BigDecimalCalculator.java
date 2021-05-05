@@ -11,74 +11,47 @@ import java.util.Date;
  */
 public class BigDecimalCalculator {
 
-	public static float add(float[] array) {
-		BigDecimal b1 = new BigDecimal(Float.toString(0f));
-		BigDecimal b2 = null;
-		for (float f : array) {
-			b2 = new BigDecimal(Float.toString(f));
+	public static double add(double... array) {
+		BigDecimal b1 = new BigDecimal(Double.toString(0));
+		BigDecimal b2;
+		for (double augend : array) {
+			b2 = BigDecimal.valueOf(augend);
 			b1 = b1.add(b2);
 		}
-		return b1.floatValue();
+		return b1.doubleValue();
 
 	}
 
-	public static float add(Float[] array) {
-		BigDecimal b1 = new BigDecimal(Float.toString(0f));
-		BigDecimal b2 = null;
-		for (Float f : array) {
-			b2 = new BigDecimal(Float.toString(f));
-			b1 = b1.add(b2);
-		}
-		return b1.floatValue();
-
-	}
-
-	public static float subtract(float b, float[] array) {
-		BigDecimal b1 = new BigDecimal(Float.toString(b));
-		BigDecimal b2 = null;
-		for (float f : array) {
-			b2 = new BigDecimal(Float.toString(f));
+	public static double subtract(double b, double... array) {
+		BigDecimal b1 = BigDecimal.valueOf(b);
+		BigDecimal b2;
+		for (double subtrahend : array) {
+			b2 = BigDecimal.valueOf(subtrahend);
 			b1 = b1.subtract(b2);
 		}
-		return b1.floatValue();
-
+		return b1.doubleValue();
 	}
 
-	public static float multiply(int b, float f) {
-		BigDecimal b1 = new BigDecimal(Float.toString(b));
-		BigDecimal b2 = new BigDecimal(Float.toString(f));
-
+	public static double multiply(int a, double b) {
+		BigDecimal b1 = BigDecimal.valueOf(a);
+		BigDecimal b2 = BigDecimal.valueOf(b);
 		b1 = b1.multiply(b2);
-		return b1.floatValue();
+		b1.compareTo(b2);
+		return b1.doubleValue();
 	}
 
 	public static double multiply(double a, double b) {
-		BigDecimal a1 = new BigDecimal(Double.toString(a));
-		BigDecimal b1 = new BigDecimal(Double.toString(b));
+		BigDecimal a1 = BigDecimal.valueOf(a);
+		BigDecimal b1 = BigDecimal.valueOf(b);
 		a1 = a1.multiply(b1);
 		return a1.doubleValue();
 	}
 
-	/**
-	 * @param a
-	 * @param b
-	 * @return 四舍五入 保留2位
-	 */
-	public static double divide(double a, double b) {
-		BigDecimal a1 = new BigDecimal(Double.toString(a));
-		BigDecimal b1 = new BigDecimal(Double.toString(b));
-		a1 = a1.divide(b1, 2, RoundingMode.HALF_UP);
+	public static double divide(double a, double b, int scale) {
+		BigDecimal a1 = BigDecimal.valueOf(a);
+		BigDecimal b1 = BigDecimal.valueOf(b);
+		a1 = a1.divide(b1, scale, RoundingMode.HALF_UP);
 		return a1.doubleValue();
 	}
 
-	public static String generateId() {
-		Date date = new Date();
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		String id = dateformat.format(date);
-		for (int i = 0; i < 4; i++) {
-			int num = (int) (Math.random() * 10);
-			id = id + num;
-		}
-		return id;
-	}
 }

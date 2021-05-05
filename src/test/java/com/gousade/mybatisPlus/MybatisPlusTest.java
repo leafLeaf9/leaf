@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -116,5 +117,15 @@ public class MybatisPlusTest {
 		ew.eq("version", 3);
 		assertEquals(count, userMapper.selectCount(ew).intValue(),
 				"All records with version=1 should be updated to version=2");
+	}
+
+	@Test
+	public void testSort(){
+		List<User> list = userMapper.selectList(null);
+		list.sort(Comparator.comparing(User::getId));
+		list.forEach(System.out::println);
+		User nearestCamera = list.get(0);
+		list.remove(nearestCamera);
+		System.out.println(list.size());
 	}
 }

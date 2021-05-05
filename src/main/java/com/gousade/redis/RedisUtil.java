@@ -1,11 +1,14 @@
 package com.gousade.redis;
 
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.DigestUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @author woxigsd@gmail.com
  * @date 2020-8-12 15:06:51
  */
+@Slf4j
 @Component
 public class RedisUtil {
 
@@ -25,6 +29,24 @@ public class RedisUtil {
 
 	public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
 		this.redisTemplate = redisTemplate;
+	}
+
+	/**
+	 * redis实现防止10秒内重复提交
+	 */
+	public void checkRepeatRequest(Object object) {
+		//对象转换为唯一MD5
+		String jsonString = JSON.toJSONString(object);
+		String md5 = DigestUtils.md5DigestAsHex(jsonString.getBytes()).toUpperCase();
+		//把md5设置为分布式锁的key
+		//setIfAbsent 的作用就相当于 SET key value [NX] [XX] [EX <seconds>] [PX [millSeconds]]
+		Boolean aBoolean = redisTemplate.opsForValue().setIfAbsent(md5, "1", 10, TimeUnit.SECONDS);
+		if (!aBoolean) {
+			log.info("{}拿锁失败", md5);
+			throw new RuntimeException("请不要重复点击");
+//            return CommonResult.error().message("请不要重复点击");
+		}
+//        return CommonResult.ok();
 	}
 
 	/**
