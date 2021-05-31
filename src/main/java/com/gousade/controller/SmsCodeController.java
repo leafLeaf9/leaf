@@ -2,13 +2,16 @@ package com.gousade.controller;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.commonutils.ResponseResult;
+import com.gousade.mapper.SmsResponseLogMapper;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisSmsCodeUtil;
 import com.gousade.redis.RedisUtil;
+import com.gousade.service.SmsResponseLogService;
 import com.gousade.service.UserService;
 import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.SaltUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +35,9 @@ public class SmsCodeController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private SmsResponseLogService smsResponseLogService;
+
 	@RequestMapping(value = "/sendSmsCode", method = RequestMethod.POST)
 	public Object sendSmsCode(String phoneNumber) throws ClientException {
 		return smsCodeUtil.sendSmsCode(phoneNumber);
@@ -54,6 +60,12 @@ public class SmsCodeController {
 				return ResponseResult.renderError().message("验证码错误，请重新输入。");
 			}
 		}
+	}
+
+	@GetMapping("/testTransactional")
+	public ResponseResult testTransactional() {
+		smsResponseLogService.testTransactional();
+		return ResponseResult.renderSuccess();
 	}
 
 }
