@@ -41,6 +41,7 @@ public class SmsResponseLogServiceImpl extends ServiceImpl<SmsResponseLogMapper,
     }
 
     /**
+     * 测试嵌套事务-内层方法抛出异常，外层方法捕获
      * 直接调用同类下方法@Transactional不生效，可以通过三种方法解决
      * 1、@Autowired自己
      * 2、启动类添加@EnableAspectJAutoProxy(exposeProxy = true)，使用((Class)AopContext.currentProxy()).method();使用@Async时，可能失效
@@ -50,13 +51,13 @@ public class SmsResponseLogServiceImpl extends ServiceImpl<SmsResponseLogMapper,
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void testTransactionalRequiredTryCatch() {
+    public void testRequiredCatchInOuterTransaction() {
         easyExcelDataService.save(EasyExcelData.builder().id(SaltUtil.generateUUId()).build());
         try {
             //smsResponseLogService.testTransactionalTryCatch();
             //((SmsResponseLogServiceImpl)AopContext.currentProxy()).testTransactionalTryCatch();
             SmsResponseLogService smsResponseLogService = SpringBeanUtil.getBean(SmsResponseLogService.class);
-            smsResponseLogService.testTransactionalTryCatch();
+            smsResponseLogService.testTransactionalThrowException();
         } catch (Exception e) {
             log.error("捕获异常", e);
         }
@@ -64,7 +65,7 @@ public class SmsResponseLogServiceImpl extends ServiceImpl<SmsResponseLogMapper,
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void testTransactionalTryCatch() {
+    public void testTransactionalThrowException() {
             SmsResponseLog smsResponseLog = SmsResponseLog.builder().id(SaltUtil.generateUUId()).build();
             baseMapper.insert(smsResponseLog);
             throw new RuntimeException("抛出异常测试回滚");

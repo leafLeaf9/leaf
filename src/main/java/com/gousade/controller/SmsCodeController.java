@@ -2,7 +2,6 @@ package com.gousade.controller;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.commonutils.ResponseResult;
-import com.gousade.entity.EasyExcelData;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisSmsCodeUtil;
 import com.gousade.redis.RedisUtil;
@@ -13,8 +12,6 @@ import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +20,7 @@ import javax.annotation.Resource;
 
 /**
  * @author woxigsd@gmail.com
- * @date 2020-8-14 11:05:31 Description:
+ * @date 2020-8-14 11:05:31
  */
 @Slf4j
 @RestController
@@ -67,30 +64,6 @@ public class SmsCodeController {
 				return ResponseResult.renderError().message("验证码错误，请重新输入。");
 			}
 		}
-	}
-
-	@GetMapping("/testTransactional")
-	public ResponseResult testTransactional() {
-		smsResponseLogService.testTransactional();
-		return ResponseResult.renderSuccess();
-	}
-
-	@GetMapping("/testTransactionalRequiredTryCatch")
-	public ResponseResult testTransactionalRequiredTryCatch() {
-		smsResponseLogService.testTransactionalRequiredTryCatch();
-		return ResponseResult.renderSuccess();
-	}
-
-	@GetMapping("/requiredTryCatch")
-	@Transactional
-	public ResponseResult requiredTryCatch() {
-		easyExcelDataService.save(EasyExcelData.builder().id(SaltUtil.generateUUId()).build());
-		try {
-			smsResponseLogService.testTransactionalTryCatch();
-		} catch (Exception e) {
-			log.error("捕获异常", e);
-		}
-		return ResponseResult.renderSuccess();
 	}
 
 }
