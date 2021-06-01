@@ -3,12 +3,14 @@ package com.gousade.service.impl;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.gousade.commonutils.ResponseResult;
 import com.gousade.entity.EasyExcelData;
 import com.gousade.entity.listener.EasyExcelDataListener;
 import com.gousade.mapper.EasyExcelDataMapper;
 import com.gousade.service.EasyExcelDataService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,12 @@ import java.util.List;
  */
 @Service
 public class EasyExcelDataServiceImpl extends ServiceImpl<EasyExcelDataMapper, EasyExcelData> implements EasyExcelDataService {
+
+	@Transactional
+	@Override
+	public boolean save(EasyExcelData entity) {
+		return SqlHelper.retBool(getBaseMapper().insert(entity));
+	}
 
 	@Override
 	public ResponseResult upload(MultipartFile file, EasyExcelDataService easyExcelDataService) throws IOException {

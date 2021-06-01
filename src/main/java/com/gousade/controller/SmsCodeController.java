@@ -2,15 +2,18 @@ package com.gousade.controller;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.commonutils.ResponseResult;
-import com.gousade.mapper.SmsResponseLogMapper;
+import com.gousade.entity.EasyExcelData;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisSmsCodeUtil;
 import com.gousade.redis.RedisUtil;
+import com.gousade.service.EasyExcelDataService;
 import com.gousade.service.SmsResponseLogService;
 import com.gousade.service.UserService;
 import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.SaltUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +25,7 @@ import javax.annotation.Resource;
  * @author woxigsd@gmail.com
  * @date 2020-8-14 11:05:31 Description:
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/admin/smsCode")
 public class SmsCodeController {
@@ -37,6 +41,9 @@ public class SmsCodeController {
 
 	@Autowired
 	private SmsResponseLogService smsResponseLogService;
+
+	@Autowired
+	private EasyExcelDataService easyExcelDataService;
 
 	@RequestMapping(value = "/sendSmsCode", method = RequestMethod.POST)
 	public Object sendSmsCode(String phoneNumber) throws ClientException {
@@ -65,6 +72,24 @@ public class SmsCodeController {
 	@GetMapping("/testTransactional")
 	public ResponseResult testTransactional() {
 		smsResponseLogService.testTransactional();
+		return ResponseResult.renderSuccess();
+	}
+
+	@GetMapping("/testTransactionalRequiredTryCatch")
+	public ResponseResult testTransactionalRequiredTryCatch() {
+		smsResponseLogService.testTransactionalRequiredTryCatch();
+		return ResponseResult.renderSuccess();
+	}
+
+	@GetMapping("/requiredTryCatch")
+	@Transactional
+	public ResponseResult requiredTryCatch() {
+		easyExcelDataService.save(EasyExcelData.builder().id(SaltUtil.generateUUId()).build());
+		try {
+			smsResponseLogService.testTransactionalTryCatch();
+		} catch (Exception e) {
+			log.error("捕获异常", e);
+		}
 		return ResponseResult.renderSuccess();
 	}
 

@@ -4,12 +4,14 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * @author woxigousade <woxigsd@gmail.com>
  * @date 2018-12-25 23:25:52
  * @description SpringBoot Starter
  */
+@EnableAspectJAutoProxy(exposeProxy = true)
 @SpringBootApplication
 public class GousadeApplication extends SpringBootServletInitializer {
 

@@ -7,4 +7,7 @@ public interface SmsResponseLogService  extends IService<SmsResponseLog> {
 
     void testTransactional();
 
+    void testTransactionalRequiredTryCatch();
+
+    void testTransactionalTryCatch();
 }
