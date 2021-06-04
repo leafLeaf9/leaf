@@ -9,18 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author: woxigousade <woxigsd@gmail.com>
- * @date: 2020/9/1/0001 20:35
- * @description: response common result class
+ * @author woxigousade <woxigsd@gmail.com>
+ * @date 2020/9/1/0001 20:35
+ * response common result class
  */
 @ApiModel(description = "公共响应类")
 @Data
 public class ResponseResult implements Serializable {
-
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -5352331298926161615L;
 
 	@ApiModelProperty(value = "响应状态")
 	private Boolean status;
@@ -32,7 +27,7 @@ public class ResponseResult implements Serializable {
 	private String message;
 
 	@ApiModelProperty(value = "响应数据")
-	private Map<String, Object> data = new HashMap<String, Object>();
+	private Map<String, Object> data = new HashMap<>();
 
 	// 把构造方法私有
 	private ResponseResult() {
