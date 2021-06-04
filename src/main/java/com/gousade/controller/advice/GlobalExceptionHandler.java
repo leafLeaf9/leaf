@@ -10,17 +10,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartException;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author woxigsd@gmail.com
- * @date 2020-8-12 8:53:01 类说明：全局异常处理
+ * @date 2020-8-12 8:53:01
  */
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
 	/**
-	 * @param e
+	 * @param e exception
 	 * @return 文件异常
 	 */
 	@ResponseBody
@@ -40,6 +41,20 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(AuthorizationException.class)
 	public Object handleAuthorizationException(AuthorizationException e) {
 		return ResponseResult.renderError().message("发生权限异常：未认证。" + e.getCause().getMessage());
+	}
+
+	@ResponseBody
+	@ExceptionHandler(IOException.class)
+	public ResponseResult handleIOException(IOException e) {
+		log.error("发生IO异常", e);
+		return ResponseResult.renderError().message("发生IO异常：" + e.getCause().getMessage());
+	}
+
+	@ResponseBody
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseResult handleNullPointerException(NullPointerException e) {
+		log.error("发生空指针异常", e);
+		return ResponseResult.renderError().message("发生空指针异常：" + e.getCause().getMessage());
 	}
 
 	@ResponseBody

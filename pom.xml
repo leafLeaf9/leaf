@@ -203,6 +203,11 @@
             <artifactId>aliyun-sdk-vod-upload</artifactId>
             <version>1.4.13</version>
         </dependency>
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-afs</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 		<!--<dependency>
 	        <groupId>org.json</groupId>
 	        <artifactId>json</artifactId>
