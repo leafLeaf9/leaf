@@ -1,5 +1,6 @@
 package com.gousade.utils;
 
+import com.gousade.pojo.SliderCaptchaDto;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
@@ -9,8 +10,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -24,8 +23,7 @@ public class ImageUtil {
 
     private static final String PNG = "png";
 
-    public static Map<String, Object> getSliderCaptcha(File backgroundImageFile, File templateImageFile) throws IOException {
-        Map<String, Object> resultMap = new HashMap<>();
+    public static SliderCaptchaDto getSliderCaptcha(File backgroundImageFile, File templateImageFile) throws IOException {
         BufferedImage templateImage = ImageIO.read(templateImageFile);
         int templateWidth = templateImage.getWidth();
         int templateHeight = templateImage.getHeight();
@@ -46,12 +44,13 @@ public class ImageUtil {
         graphics.setStroke(new BasicStroke(BOLD, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
         graphics.drawImage(sliderImage, 0, 0, null);
         graphics.dispose();
-        resultMap.put("backgroundImage", toDataUri(sliderImage, PNG));
-        resultMap.put("sliderImage", toDataUri(backgroundImage, PNG));
-        resultMap.put("randomX", randomX);
-        resultMap.put("randomY", randomY);
-        resultMap.put("backgroundImageWidth", backgroundWidth);
-        return resultMap;
+        return SliderCaptchaDto.builder()
+                .backgroundImage(toDataUri(backgroundImage, PNG))
+                .sliderImage(toDataUri(sliderImage, PNG))
+                .randomX(randomX)
+                .randomY(randomY)
+                .backgroundImageWidth(backgroundWidth)
+                .build();
     }
 
     /**
@@ -69,12 +68,13 @@ public class ImageUtil {
         int templateWidth = templateImage.getWidth();
         int templateHeight = templateImage.getHeight();
         //spreadImage(backgroundImage, /*templateImage, x, y,*/ 19);
+        //这里把原图的样式复制到滑块图片中，对原图缺口处做模糊处理并添加灰色描边
         for (int i = 0; i < templateWidth; i++) {
             for (int j = 0; j < templateHeight; j++) {
                 int rgb = templateImage.getRGB(i, j);
                 if (rgb < 0) {
                     sliderImage.setRGB(i, j, backgroundImage.getRGB(x + i, y + j));
-                    //抠图区域高斯模糊
+                    //缺口区域高斯模糊
                     readPixel(backgroundImage, x + i, y + j, pixels);
                     fillMatrix(matrixArray, pixels);
                     backgroundImage.setRGB(x + i, y + j, avgMatrix(matrixArray));
@@ -188,7 +188,7 @@ public class ImageUtil {
                 try {
                     bimg.setRGB(x, y, image.getRGB(x + x_distance, y + y_distance));
                 } catch (Exception e) {
-
+                    log.error("毛玻璃化图片时发生异常", e);
                 }
             }
         }
