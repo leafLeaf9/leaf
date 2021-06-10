@@ -25,12 +25,13 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (body == null) {
-            return ResponseResult.renderSuccess();
-        }
         if (body instanceof ResponseResult) {
             return body;
         }
-        return ResponseResult.renderSuccess().data(DATA, body);
+        if (body == null) {
+            return ResponseResult.renderSuccess();
+        }
+        //return ResponseResult.renderSuccess().data(DATA, body);
+        return body;
     }
 }
