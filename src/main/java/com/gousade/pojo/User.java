@@ -2,6 +2,7 @@ package com.gousade.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,6 +34,7 @@ public class User implements Serializable {
 
 	private String userName;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@JSONField(serialize = false)
 	@TableField(updateStrategy = FieldStrategy.NOT_EMPTY)
 	@Schema(hidden = true) // swagger文档中隐藏此属性

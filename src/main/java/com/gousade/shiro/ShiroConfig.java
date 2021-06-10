@@ -42,6 +42,7 @@ public class ShiroConfig {
 		map.put("/jasypt/**", "anon");*/
 		map.put("/favicon.ico", "anon");// 防止favicon.ico图标被拦截
 		map.put("/admin/smsCode/**", "anon");
+		map.put("/admin/gousadeTest/**", "anon");
 		map.put("/admin/sysUser/ShiroRegist", "anon");
 		map.put("/admin/sysUser/loginShiroUser", "anon");
 		map.put("/", "anon");

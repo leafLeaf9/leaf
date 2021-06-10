@@ -107,8 +107,7 @@ public class UserService {
 	}
 
 	public int updateLoginTime(String id) {
-		int i = userMapper.updateLoginTime(id);
-		return i;
+		return userMapper.updateLoginTime(id);
 	}
 
 	@Transactional(rollbackFor = Exception.class)

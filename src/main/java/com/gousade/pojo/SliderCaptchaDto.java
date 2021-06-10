@@ -16,13 +16,17 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SliderCaptchaDto implements Serializable {
+public class SliderCaptchaDto implements Serializable, TestInterface {
 
     private String id;
 
     private String backgroundImage;
 
     private String sliderImage;
+
+    private String userId;
+
+    private String password;
 
     @JSONField(serialize = false)
     private int randomX;

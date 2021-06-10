@@ -11,6 +11,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
@@ -46,6 +48,21 @@ public class SliderCaptchaController {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @GetMapping("/test")
+    public ResponseResult test() throws IOException {
+        File templateDictionary = new File(ResourceUtils.getURL("classpath:static/sliderImages/template").getPath());
+        File[] templateFiles = templateDictionary.listFiles();
+        for (File templateFile : Objects.requireNonNull(templateFiles)) {
+            BufferedImage templateImage = ImageIO.read(templateFile);
+            int templateWidth = templateImage.getWidth();
+            int templateHeight = templateImage.getHeight();
+            int rgb0 = templateImage.getRGB(0, 0);
+            int rgb = templateImage.getRGB(templateWidth / 2, templateHeight / 2);
+            log.info(templateFile.getName() + "左上角rgb为" + rgb0 + ",中心点的RGB值为" + rgb);
+        }
+        return ResponseResult.renderSuccess();
+    }
 
     @GetMapping("/getSliderCaptcha")
     public ResponseResult getSliderCaptcha() throws IOException {

@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 	@ResponseBody
 	@ExceptionHandler(MultipartException.class)
 	public Object handleMultipartException(MultipartException e) {
-		log.warn(e.getMessage());
+		log.error("发生文件异常", e);
 		return ResponseResult.renderError().message("发生文件异常：" + e.getCause().getMessage());
 	}
 
