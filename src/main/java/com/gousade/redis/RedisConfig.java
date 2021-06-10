@@ -1,9 +1,6 @@
 package com.gousade.redis;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.gousade.utils.SerializerUtil;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -16,7 +13,6 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -31,7 +27,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 	/**
 	 * 配置Jackson2JsonRedisSerializer序列化策略
 	 */
-	private Jackson2JsonRedisSerializer<Object> serializer() {
+	/*private Jackson2JsonRedisSerializer<Object> serializer() {
 		// 使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
 		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(
 				Object.class);
@@ -42,7 +38,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 		objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
 		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
 		return jackson2JsonRedisSerializer;
-	}
+	}*/
 
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
@@ -52,10 +48,10 @@ public class RedisConfig extends CachingConfigurerSupport {
 		// 使用StringRedisSerializer来序列化和反序列化redis的key值
 		template.setKeySerializer(new StringRedisSerializer());
 		// 值采用json序列化
-		template.setValueSerializer(this.serializer());
+		template.setValueSerializer(SerializerUtil.getSerializer());
 		// 设置hash key 和value序列化模式
 		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(this.serializer());
+		template.setHashValueSerializer(SerializerUtil.getSerializer());
 		template.afterPropertiesSet();
 		return template;
 	}
@@ -70,10 +66,10 @@ public class RedisConfig extends CachingConfigurerSupport {
 		// 使用StringRedisSerializer来序列化和反序列化redis的key值
 		template.setKeySerializer(new StringRedisSerializer());
 		// 值采用json序列化
-		template.setValueSerializer(this.serializer());
+		template.setValueSerializer(SerializerUtil.getSerializer());
 		// 设置hash key 和value序列化模式
 		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(this.serializer());
+		template.setHashValueSerializer(SerializerUtil.getSerializer());
 		template.afterPropertiesSet();
 		return template;
 	}
@@ -139,7 +135,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 		redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofSeconds(seconds))
 				.serializeKeysWith(
 						RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-				.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(this.serializer()))
+				.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(SerializerUtil.getSerializer()))
 				.disableCachingNullValues();
 		return redisCacheConfiguration;
 	}
