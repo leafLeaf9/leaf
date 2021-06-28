@@ -16,11 +16,9 @@ public class FileUtil {
         OutputStream os = null;
         try {
             file = File.createTempFile("url", ".png");
-            //下载
             urlFile = new URL(url);
             inStream = urlFile.openStream();
             os = new FileOutputStream(file);
-
             int bytesRead;
             byte[] buffer = new byte[8192];
             while ((bytesRead = inStream.read(buffer, 0, 8192)) != -1) {

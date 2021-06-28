@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * @author woxigsd@gmail.com
@@ -50,6 +51,12 @@ public class GlobalExceptionHandler {
 	public ResponseResult handleNullPointerException(NullPointerException e) {
 		log.error("发生空指针异常", e);
 		return ResponseResult.renderError().message("发生空指针异常：" + e.getCause().getMessage());
+	}
+
+	@ExceptionHandler(SQLException.class)
+	public ResponseResult handleSQLException(SQLException e) {
+		log.error("发生sql异常", e);
+		return ResponseResult.renderError().message("发生数据库异常，请联系系统管理员。");
 	}
 
 	@ExceptionHandler(Exception.class)
