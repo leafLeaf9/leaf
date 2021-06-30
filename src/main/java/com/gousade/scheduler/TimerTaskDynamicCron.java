@@ -58,7 +58,7 @@ public class TimerTaskDynamicCron {
 	 */
 	public void stopSchedulerTask() {
 		//不会马上停止任务,会等任务执行完
-		futureList.stream().filter(Objects::nonNull).forEach(future -> future.cancel(true));
+		futureList.stream().filter(Objects::nonNull).forEach(future -> future.cancel(false));
 		futureList.clear();
 		log.error("ThreadPoolTaskScheduler stop.");
 	}
