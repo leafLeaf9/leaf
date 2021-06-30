@@ -37,7 +37,7 @@ import java.time.format.DateTimeFormatter;
 public class SchedulerTask {
 
 	@Async
-	@Scheduled(cron = "0 0/3 * * * *")
+	@Scheduled(cron = "0 0/3 * * * ?")
 	public void logCurrentTimeScheduled() {
 		String currentTime = ZonedDateTime
 				.now(/*ZoneId.of("Asia/Shanghai")*/)
