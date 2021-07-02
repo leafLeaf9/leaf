@@ -12,6 +12,7 @@ import com.gousade.shiro.ShiroUtil;
 import com.gousade.utils.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,13 @@ public class SmsCodeController {
 
 	@Autowired
 	private EasyExcelDataService easyExcelDataService;
+
+	@GetMapping("/test")
+	public ResponseResult test() throws InterruptedException {
+		log.info("当前线程是：" + Thread.currentThread().getName());
+		Thread.sleep(30000);
+		return ResponseResult.renderSuccess();
+	}
 
 	@RequestMapping(value = "/sendSmsCode", method = RequestMethod.POST)
 	public Object sendSmsCode(String phoneNumber) throws ClientException {

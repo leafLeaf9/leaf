@@ -1,8 +1,9 @@
 package com.gousade.java8;
 
-import com.gousade.pojo.SliderCaptchaDto;
-import com.gousade.pojo.TestInterface;
+import cn.hutool.core.thread.NamedThreadFactory;
+import com.gousade.pojo.User;
 import com.gousade.utils.BigDecimalCalculator;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -10,18 +11,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
+
 
 /**
  * 从每个文件的第二行中提取:之后的数字
  */
+@Slf4j
 public class Test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		System.out.println(EmergencyOrderStatus.valueOf("ARRIVED").getClass());
 		System.out.println(EmergencyOrderStatus.ARRIVED.getStatus());
 		System.out.println(EmergencyOrderStatus.ARRIVED);
@@ -46,20 +47,46 @@ public class Test {
 		ZonedDateTime now = ZonedDateTime.now();
 		ZonedDateTime now2 = now.plusMinutes(5);
 		System.out.println(now.isBefore(now2));
-		/*Optional<EmergencyOrderStatus> first = Arrays.stream(
-				EmergencyOrderStatus.values()).filter(emergencyOrderStatus -> emergencyOrderStatus.getStatus().equals("10"))
-				.findFirst();
-		System.out.println(first);
-		System.out.println(BigDecimalCalculator.multiply(BigDecimalCalculator.divide(4,6,2), 100));
-		System.out.println(BigDecimal.valueOf(400).divide(BigDecimal.valueOf(6),2, RoundingMode.HALF_UP));*/
-		SliderCaptchaDto sliderCaptchaDto = new SliderCaptchaDto();
-		System.out.println(sliderCaptchaDto instanceof TestInterface);
-		System.out.println(sliderCaptchaDto instanceof SliderCaptchaDto);
-		Map<String, Object> someMap = new HashMap<>();
-		someMap.put("jack", "20");
-		someMap.put("bill", "35");
-		someMap.keySet().stream().forEach(System.out::println);
-		someMap.values().stream().forEach(System.out::println);
+		System.out.println(Thread.currentThread().getName());
+		ThreadPoolExecutor threadPool = new ThreadPoolExecutor(3, 5,
+				0L, TimeUnit.MILLISECONDS,
+				new LinkedBlockingQueue<>(3), new NamedThreadFactory("事件状态检测线程", false));
+		ExecutorService executorService = Executors.newSingleThreadExecutor();
+		threadPool.execute(() -> {
+			System.out.println("就这" + Thread.currentThread().getName());
+			System.out.println("是是是");
+		});
+		threadPool.execute(new Thread(() -> {
+			System.out.println(Thread.currentThread().getName());
+			System.out.println("测试");
+		}, "测试线程"));
+		System.out.println(1);
+		threadPool.shutdown();
+		/*threadPool.execute(new Thread(() -> {
+			System.out.println(Thread.currentThread().getName());
+			System.out.println("测试1");
+		},"测试线程1"));*/
+		ThreadLocal<ZonedDateTime> sThreadLocal = new ThreadLocal<>();
+		ZonedDateTime zonedDateTime = sThreadLocal.get();
+
+		User user1 = User.builder().id("user1").build();
+		List<User> list1 = new ArrayList<>();
+		list1.add(user1);
+		List<User> list3 = new ArrayList<>();
+		list3.add(user1);
+		System.out.println(list1);
+		System.out.println(list3);
+		user1.setId("newuser1");
+		System.out.println(list1);
+		System.out.println(list3);
+		List<User> collect = list1.stream().collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+		System.out.println(collect);
+		List<String> list4 = list1.stream().map(User::getId).collect(Collectors.toList());
+		String collect1 = list1.stream().map(User::getId).collect(Collectors.joining(","));
+		String collect2 = String.join(",", list4);
+		String collect3 = list4.stream().collect(Collectors.joining(","));
+		System.out.println("-----------------------------");
+		System.out.println("完成测试");
 	}
 
 	/**
