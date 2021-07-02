@@ -26,7 +26,7 @@ public class StringBuilderTest {
         for (Thread t : ts) {
             t.start();
         }
-        // µÈ´ıËùÓĞÏß³ÌÖ´ĞĞÍê³É
+        // ç­‰å¾…æ‰€æœ‰çº¿ç¨‹æ‰§è¡Œå®Œæˆ
         for (Thread t : ts) {
             try {
                 t.join();
