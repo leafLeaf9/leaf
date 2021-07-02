@@ -6,12 +6,12 @@ class VolatileBarrierExample {
     volatile int v2 = 2;
 
     void readAndWrite() {
-        int i = v1; //µÚÒ»¸övolatile¶Á
-        int j = v2; // µÚ¶þ¸övolatile¶Á
-        a = i + j; //ÆÕÍ¨Ð´
-        v1 = i + 1; // µÚÒ»¸övolatileÐ´
-        v2 = j * 2; //µÚ¶þ¸ö volatileÐ´
+        int i = v1; //ç¬¬ä¸€ä¸ªvolatileè¯»
+        int j = v2; // ç¬¬äºŒä¸ªvolatileè¯»
+        a = i + j; //æ™®é€šå†™
+        v1 = i + 1; // ç¬¬ä¸€ä¸ªvolatileå†™
+        v2 = j * 2; //ç¬¬äºŒä¸ª volatileå†™
     }
 
-    //¡­                 //ÆäËû·½·¨
+    //â€¦                 //å…¶ä»–æ–¹æ³•
 }

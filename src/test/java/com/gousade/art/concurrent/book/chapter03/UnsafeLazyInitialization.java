@@ -4,8 +4,8 @@ public class UnsafeLazyInitialization {
     private static Instance instance;
 
     public static Instance getInstance() {
-        if (instance == null) //1：A线程执行
-            instance = new Instance(); //2：B线程执行
+        if (instance == null) //1锛欰绾跨▼鎵ц
+            instance = new Instance(); //2锛欱绾跨▼鎵ц
         return instance;
     }
 

@@ -21,29 +21,29 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {ZoneValidator.class})
 public @interface Zone {
 
-	String message() default "不在有效范围内";
+    String message() default "不在有效范围内";
 
-	/**
-	 * @return the regular expression to match
-	 */
+    /**
+     * @return the regular expression to match
+     */
 
-	String[] zone() default {};
+    String[] zone() default {};
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-	/**
-	 * Defines several {@link Size} annotations on the same element.
-	 *
-	 * @see Size
-	 */
-	@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
-	@Retention(RUNTIME)
-	@Documented
-	@interface List {
+    /**
+     * Defines several {@link Size} annotations on the same element.
+     *
+     * @see Size
+     */
+    @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
+    @Retention(RUNTIME)
+    @Documented
+    @interface List {
 
-		Zone[] value();
-	}
+        Zone[] value();
+    }
 
 }

@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface OperationRecord {
-	int operationNum() default 0;
+    int operationNum() default 0;
 
-	String operationDescription() default "";
+    String operationDescription() default "";
 }

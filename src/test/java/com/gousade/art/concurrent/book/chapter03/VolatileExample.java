@@ -12,7 +12,7 @@ class VolatileExample {
     public void reader() {
         if (flag) { //3
             int i = a; //4
-            //¡­¡­
+            //â€¦â€¦
         }
     }
 }

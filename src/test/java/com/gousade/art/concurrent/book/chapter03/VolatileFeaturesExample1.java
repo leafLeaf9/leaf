@@ -4,21 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class VolatileFeaturesExample1 {
-    long vl = 0L; // 64Î»µÄlongĞÍÆÕÍ¨±äÁ¿
-
-    public synchronized void set(long l) {//¶Ôµ¥¸öµÄÆÕÍ¨±äÁ¿µÄĞ´ÓÃÍ¬Ò»¸öËøÍ¬²½
-        vl = l;
-    }
-
-    public void getAndIncrement() { //ÆÕÍ¨·½·¨µ÷ÓÃ
-        long temp = get(); //µ÷ÓÃÒÑÍ¬²½µÄ¶Á·½·¨
-        temp += 1L; //ÆÕÍ¨Ğ´²Ù×÷
-        set(temp); //µ÷ÓÃÒÑÍ¬²½µÄĞ´·½·¨
-    }
-
-    public synchronized long get() { //¶Ôµ¥¸öµÄÆÕÍ¨±äÁ¿µÄ¶ÁÓÃÍ¬Ò»¸öËøÍ¬²½
-        return vl;
-    }
+    long vl = 0L; // 64ä½çš„longå‹æ™®é€šå˜é‡
 
     public static void main(String[] args) {
         final VolatileFeaturesExample cas = new VolatileFeaturesExample();
@@ -39,7 +25,7 @@ class VolatileFeaturesExample1 {
             t.start();
 
         }
-        // µÈ´ıËùÓĞÏß³ÌÖ´ĞĞÍê³É
+        // ç­‰å¾…æ‰€æœ‰çº¿ç¨‹æ‰§è¡Œå®Œæˆ
         for (Thread t : ts) {
             try {
                 t.join();
@@ -50,5 +36,19 @@ class VolatileFeaturesExample1 {
         }
         System.out.println(cas.get());
         System.out.println(System.currentTimeMillis() - start);
+    }
+
+    public synchronized void set(long l) {//å¯¹å•ä¸ªçš„æ™®é€šå˜é‡çš„å†™ç”¨åŒä¸€ä¸ªé”åŒæ­¥
+        vl = l;
+    }
+
+    public void getAndIncrement() { //æ™®é€šæ–¹æ³•è°ƒç”¨
+        long temp = get(); //è°ƒç”¨å·²åŒæ­¥çš„è¯»æ–¹æ³•
+        temp += 1L; //æ™®é€šå†™æ“ä½œ
+        set(temp); //è°ƒç”¨å·²åŒæ­¥çš„å†™æ–¹æ³•
+    }
+
+    public synchronized long get() { //å¯¹å•ä¸ªçš„æ™®é€šå˜é‡çš„è¯»ç”¨åŒä¸€ä¸ªé”åŒæ­¥
+        return vl;
     }
 }

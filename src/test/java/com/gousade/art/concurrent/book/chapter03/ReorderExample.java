@@ -12,7 +12,7 @@ class ReorderExample {
     public void reader() {
         if (flag) { //3
             int i = a * a; //4
-            //s¡­¡­
+            //sâ€¦â€¦
         }
     }
 }

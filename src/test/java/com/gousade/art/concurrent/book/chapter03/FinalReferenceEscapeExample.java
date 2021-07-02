@@ -2,12 +2,12 @@ package com.gousade.art.concurrent.book.chapter03;
 
 public class FinalReferenceEscapeExample {
 
-    final int i;
     static FinalReferenceEscapeExample obj;
+    final int i;
 
     public FinalReferenceEscapeExample() {
-        i = 1; //1Ğ´finalÓò
-        obj = this; //2 thisÒıÓÃÔÚ´Ë¡°Òİ³ö¡±
+        i = 1; //1å†™finalåŸŸ
+        obj = this; //2 thiså¼•ç”¨åœ¨æ­¤â€œé€¸å‡ºâ€
     }
 
     public static void writer() {

@@ -30,55 +30,55 @@ import javax.annotation.Resource;
 @Component
 public class SendSmsUtil {
 
-	/*private static final String accessKeyId = "M6o8JNrzxIO7zI2S4LrWRdaNdCNACo9/1v5/DqfDdFJEb3MlrXU+2aJi2oRxieUDQKCCIC2rJvw6HDVR9zEdgQ==";
-	private static final String accessKeySecret = "bFfybIAXktU8bitG/bRkA36bEHW/RcNBuheCoJeEzG8nz8UgTaNYWEilha5sMiKuF/k/1IRKn88xh+0g4x09pw==";*/
-	private static final String SignName = "HrhfSLEriq7HCvkMG88vhQ60AJ9U5mR6GtFRoKVHj9XGdJgrSuvvQL/MNEoiFsPD";
-	private static final String TemplateCode = "JP+XAHjZfZW1a1gb4ugXGqHwr80IQxbFKma0pzt54oQoMC66Srm+roFA68b6wLyF";
-	private static String accessKeyId;
-	private static String accessKeySecret;
-	@Resource
-	private JasyptUtil jasyptUtil;
-	@Autowired
-	private SmsResponseLogMapper smsResponseLogMapper;
+    /*private static final String accessKeyId = "M6o8JNrzxIO7zI2S4LrWRdaNdCNACo9/1v5/DqfDdFJEb3MlrXU+2aJi2oRxieUDQKCCIC2rJvw6HDVR9zEdgQ==";
+    private static final String accessKeySecret = "bFfybIAXktU8bitG/bRkA36bEHW/RcNBuheCoJeEzG8nz8UgTaNYWEilha5sMiKuF/k/1IRKn88xh+0g4x09pw==";*/
+    private static final String SignName = "HrhfSLEriq7HCvkMG88vhQ60AJ9U5mR6GtFRoKVHj9XGdJgrSuvvQL/MNEoiFsPD";
+    private static final String TemplateCode = "JP+XAHjZfZW1a1gb4ugXGqHwr80IQxbFKma0pzt54oQoMC66Srm+roFA68b6wLyF";
+    private static String accessKeyId;
+    private static String accessKeySecret;
+    @Resource
+    private JasyptUtil jasyptUtil;
+    @Autowired
+    private SmsResponseLogMapper smsResponseLogMapper;
 
-	@Value("${aliyun.accessKeyId}")
-	public void setAccessKeyId(String accessKeyId) {
-		SendSmsUtil.accessKeyId = accessKeyId;
-	}
+    @Value("${aliyun.accessKeyId}")
+    public void setAccessKeyId(String accessKeyId) {
+        SendSmsUtil.accessKeyId = accessKeyId;
+    }
 
-	@Value("${aliyun.accessKeySecret}")
-	public void setAccessKeySecret(String accessKeySecret) {
-		SendSmsUtil.accessKeySecret = accessKeySecret;
-	}
+    @Value("${aliyun.accessKeySecret}")
+    public void setAccessKeySecret(String accessKeySecret) {
+        SendSmsUtil.accessKeySecret = accessKeySecret;
+    }
 
-	public void sendSms(String mobile, int code) {
-		// 可自助调整超时时间
-		System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-		System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+    public void sendSms(String mobile, int code) {
+        // 可自助调整超时时间
+        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 		/*IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", jasyptUtil.decrypt(accessKeyId),
 		        jasyptUtil.decrypt(accessKeySecret));*/
-		IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
-		IAcsClient client = new DefaultAcsClient(profile);
-		CommonRequest request = new CommonRequest();
-		request.setSysMethod(MethodType.POST);
-		request.setSysDomain("dysmsapi.aliyuncs.com");
-		request.setSysVersion("2017-05-25");
-		request.setSysAction("SendSms");
-		request.putQueryParameter("RegionId", "cn-hangzhou");
-		request.putQueryParameter("PhoneNumbers", mobile);
-		request.putQueryParameter("SignName", jasyptUtil.decrypt(SignName));
-		request.putQueryParameter("TemplateCode", jasyptUtil.decrypt(TemplateCode));
-		request.putQueryParameter("TemplateParam", "{\"code\":" + code + "}");
-		try {
-			CommonResponse response = client.getCommonResponse(request);
-			log.info("aliyun sendSms response: " + response.getData());
-			SmsResponseLog entity = SmsResponseLog.builder().response(response.getData()).build();
-			smsResponseLogMapper.insert(entity);
-		} catch (ServerException e) {
-			e.printStackTrace();
-		} catch (ClientException e) {
-			e.printStackTrace();
-		}
-	}
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
+        IAcsClient client = new DefaultAcsClient(profile);
+        CommonRequest request = new CommonRequest();
+        request.setSysMethod(MethodType.POST);
+        request.setSysDomain("dysmsapi.aliyuncs.com");
+        request.setSysVersion("2017-05-25");
+        request.setSysAction("SendSms");
+        request.putQueryParameter("RegionId", "cn-hangzhou");
+        request.putQueryParameter("PhoneNumbers", mobile);
+        request.putQueryParameter("SignName", jasyptUtil.decrypt(SignName));
+        request.putQueryParameter("TemplateCode", jasyptUtil.decrypt(TemplateCode));
+        request.putQueryParameter("TemplateParam", "{\"code\":" + code + "}");
+        try {
+            CommonResponse response = client.getCommonResponse(request);
+            log.info("aliyun sendSms response: " + response.getData());
+            SmsResponseLog entity = SmsResponseLog.builder().response(response.getData()).build();
+            smsResponseLogMapper.insert(entity);
+        } catch (ServerException e) {
+            e.printStackTrace();
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

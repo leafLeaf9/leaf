@@ -18,10 +18,10 @@ import java.io.IOException;
  */
 public interface EasyExcelDataService extends IService<EasyExcelData> {
 
-	ResponseResult upload(MultipartFile file, EasyExcelDataService easyExcelDataService) throws IOException;
+    ResponseResult upload(MultipartFile file, EasyExcelDataService easyExcelDataService) throws IOException;
 
-	void download(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
+    void download(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
 
-	void downloadNoFailure(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
+    void downloadNoFailure(HttpServletResponse response, EasyExcelDataService easyExcelDataService) throws IOException;
 
 }

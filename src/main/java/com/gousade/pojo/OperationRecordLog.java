@@ -25,24 +25,24 @@ import java.util.Date;
 @ApiModel(description = "接口调用日志实体类")
 public class OperationRecordLog implements Serializable {
 
-	private static final long serialVersionUID = 3960814623848073582L;
+    private static final long serialVersionUID = 3960814623848073582L;
 
-	@TableId(type = IdType.ASSIGN_ID)
-	private String id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
 
-	private String operationPerson;
+    private String operationPerson;
 
-	private int operationNum;
+    private int operationNum;
 
-	private String operationDescription;
+    private String operationDescription;
 
-	private String operationInterface;
+    private String operationInterface;
 
-	private String operationParam;
+    private String operationParam;
 
-	@TableField(fill = FieldFill.INSERT)
-	private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
-	private boolean delflag;
+    private boolean delflag;
 
 }

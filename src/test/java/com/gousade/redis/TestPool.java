@@ -11,22 +11,22 @@ import redis.clients.jedis.JedisPool;
  */
 public class TestPool {
 
-	@Test
-	public void testPool() {
-		JedisPool jedisPool = JedisPoolUtil.getJedisPoolInstance();
-		JedisPool jedisPool2 = JedisPoolUtil.getJedisPoolInstance();
+    @Test
+    public void testPool() {
+        JedisPool jedisPool = JedisPoolUtil.getJedisPoolInstance();
+        JedisPool jedisPool2 = JedisPoolUtil.getJedisPoolInstance();
 
-		System.out.println(jedisPool == jedisPool2);
+        System.out.println(jedisPool == jedisPool2);
 
-		Jedis jedis = null;
-		try {
-			jedis = jedisPool.getResource();
-			jedis.set("aa", "bb");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			JedisPoolUtil.release(jedisPool, jedis);
-		}
-	}
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            jedis.set("aa", "bb");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JedisPoolUtil.release(jedisPool, jedis);
+        }
+    }
 
 }

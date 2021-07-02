@@ -32,24 +32,24 @@ import java.util.Date;
 @ExcelIgnoreUnannotated
 public class EasyExcelData implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@TableId(value = "id", type = IdType.ASSIGN_UUID)
-	private String id;
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    private String id;
 
-	@ApiModelProperty(value = "字符串标题")
-	@ExcelProperty("字符串标题")
-	private String string;
+    @ApiModelProperty(value = "字符串标题")
+    @ExcelProperty("字符串标题")
+    private String string;
 
-	@ApiModelProperty(value = "数字标题")
-	@ExcelProperty("数字标题")
-	private Double doubleData;
+    @ApiModelProperty(value = "数字标题")
+    @ExcelProperty("数字标题")
+    private Double doubleData;
 
-	@ApiModelProperty(value = "日期标题")
-	@ExcelProperty("日期标题")
-	@TableField(value = "date", fill = FieldFill.INSERT)
-	private Date createTime;
+    @ApiModelProperty(value = "日期标题")
+    @ExcelProperty("日期标题")
+    @TableField(value = "date", fill = FieldFill.INSERT)
+    private Date createTime;
 
-	private boolean delflag;
+    private boolean delflag;
 
 }

@@ -9,6 +9,6 @@ class MonitorExample {
 
     public synchronized void reader() { //4
         int i = a; //5
-        //¡­¡­
+        //â€¦â€¦
     } //6
 }

@@ -28,50 +28,50 @@ import javax.annotation.Resource;
 @RequestMapping(value = "/admin/smsCode")
 public class SmsCodeController {
 
-	@Autowired
-	private RedisSmsCodeUtil smsCodeUtil;
+    @Autowired
+    private RedisSmsCodeUtil smsCodeUtil;
 
-	@Resource
-	private RedisUtil redisUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private SmsResponseLogService smsResponseLogService;
+    @Autowired
+    private SmsResponseLogService smsResponseLogService;
 
-	@Autowired
-	private EasyExcelDataService easyExcelDataService;
+    @Autowired
+    private EasyExcelDataService easyExcelDataService;
 
-	@GetMapping("/test")
-	public ResponseResult test() throws InterruptedException {
-		log.info("当前线程是：" + Thread.currentThread().getName());
-		Thread.sleep(30000);
-		return ResponseResult.renderSuccess();
-	}
+    @GetMapping("/test")
+    public ResponseResult test() throws InterruptedException {
+        log.info("当前线程是：" + Thread.currentThread().getName());
+        Thread.sleep(30000);
+        return ResponseResult.renderSuccess();
+    }
 
-	@RequestMapping(value = "/sendSmsCode", method = RequestMethod.POST)
-	public Object sendSmsCode(String phoneNumber) throws ClientException {
-		return smsCodeUtil.sendSmsCode(phoneNumber);
-	}
+    @RequestMapping(value = "/sendSmsCode", method = RequestMethod.POST)
+    public Object sendSmsCode(String phoneNumber) throws ClientException {
+        return smsCodeUtil.sendSmsCode(phoneNumber);
+    }
 
-	@RequestMapping(value = "/validate", method = RequestMethod.POST)
-	public Object validate(String checkCode, User user) {
-		Object redisGetSentCode = redisUtil.get(user.getPhoneNumber());
-		if (redisGetSentCode == null) {
-			return ResponseResult.renderError().message("验证码已失效，请重新获取。");
-		} else {
-			if (redisGetSentCode.toString().equals(checkCode)) {
-				user.setId(ShiroUtil.getShiroSessionUser() != null ? ShiroUtil.getShiroSessionUser().getId()
-						: user.getId());
-				user.setSalt(SaltUtil.getUUId());
-				user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));
-				return userService.updateOwnPasswordById(user) ? ResponseResult.renderSuccess().message("重置密码成功。")
-						: ResponseResult.renderError().message("重置密码失败。");
-			} else {
-				return ResponseResult.renderError().message("验证码错误，请重新输入。");
-			}
-		}
-	}
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
+    public Object validate(String checkCode, User user) {
+        Object redisGetSentCode = redisUtil.get(user.getPhoneNumber());
+        if (redisGetSentCode == null) {
+            return ResponseResult.renderError().message("验证码已失效，请重新获取。");
+        } else {
+            if (redisGetSentCode.toString().equals(checkCode)) {
+                user.setId(ShiroUtil.getShiroSessionUser() != null ? ShiroUtil.getShiroSessionUser().getId()
+                        : user.getId());
+                user.setSalt(SaltUtil.getUUId());
+                user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));
+                return userService.updateOwnPasswordById(user) ? ResponseResult.renderSuccess().message("重置密码成功。")
+                        : ResponseResult.renderError().message("重置密码失败。");
+            } else {
+                return ResponseResult.renderError().message("验证码错误，请重新输入。");
+            }
+        }
+    }
 
 }

@@ -14,22 +14,22 @@ import java.util.Date;
 @Component
 public class MyBatisPlusMetaObjectHandler implements MetaObjectHandler {
 
-	@Override
-	public void insertFill(MetaObject metaObject) {
-		this.setFieldValByName("createTime", new Date(), metaObject);
-		this.setFieldValByName("updateTime", new Date(), metaObject);
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        this.setFieldValByName("createTime", new Date(), metaObject);
+        this.setFieldValByName("updateTime", new Date(), metaObject);
 //        this.setFieldValByName("delflag",false,metaObject);
-		this.setFieldValByName("version", 1, metaObject);
-	}
+        this.setFieldValByName("version", 1, metaObject);
+    }
 
-	@Override
-	public void updateFill(MetaObject metaObject) {
-		this.setFieldValByName("updateTime", new Date(), metaObject);
-		/**
-		 * 此处setdelflag，但是在调用roleMapper.updateById(role)前未role.setDelflag(1)以及role类中没添加@TableField(fill
-		 * = FieldFill.UPDATE) 的话，最后执行的sql里也不会包含delflag
-		 */
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        this.setFieldValByName("updateTime", new Date(), metaObject);
+        /**
+         * 此处setdelflag，但是在调用roleMapper.updateById(role)前未role.setDelflag(1)以及role类中没添加@TableField(fill
+         * = FieldFill.UPDATE) 的话，最后执行的sql里也不会包含delflag
+         */
 //		this.setFieldValByName("delflag", "1", metaObject);
-	}
+    }
 
 }

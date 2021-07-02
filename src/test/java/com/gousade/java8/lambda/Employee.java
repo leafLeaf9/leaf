@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Employee {
 
-	private int id;
-	private String name;
-	private int age;
-	private double salary;
-	private Status status;
+    private int id;
+    private String name;
+    private int age;
+    private double salary;
+    private Status status;
 
-	public enum Status {
-		FREE, BUSY, VOCATION;
-	}
+    public enum Status {
+        FREE, BUSY, VOCATION;
+    }
 
 }

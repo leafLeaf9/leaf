@@ -15,11 +15,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @SpringBootApplication
 public class GousadeApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 //		SpringApplication.run(StarterManage.class, args);
-		SpringApplication app = new SpringApplication(GousadeApplication.class);
-		app.setBannerMode(Banner.Mode.LOG);// 使得自定义横幅可以输出到日志文件中,横幅内容在resources/banner.txt中控制
-		app.run(args);
-	}
+        SpringApplication app = new SpringApplication(GousadeApplication.class);
+        app.setBannerMode(Banner.Mode.LOG);// 使得自定义横幅可以输出到日志文件中,横幅内容在resources/banner.txt中控制
+        app.run(args);
+    }
 
 }

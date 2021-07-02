@@ -1,9 +1,8 @@
 package com.gousade.config;
 
+import com.gousade.GousadeApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-
-import com.gousade.GousadeApplication;
 
 /**
  * @author woxigousade <woxigsd@gmail.com>
@@ -12,12 +11,12 @@ import com.gousade.GousadeApplication;
  */
 public class ServletInitializer extends SpringBootServletInitializer {
 
-	/**
-	 * 项目部署到外部Tomcat时需要重写的方法
-	 */
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(GousadeApplication.class);
-	}
+    /**
+     * 项目部署到外部Tomcat时需要重写的方法
+     */
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(GousadeApplication.class);
+    }
 
 }

@@ -16,19 +16,19 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @CrossOrigin
 public class PageJumpController {
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@RequestMapping("/login")
-	public String login(HttpServletRequest request) {
-		User obj = (User) SecurityUtils.getSubject().getPrincipal();
-		if (obj == null) {
-			log.warn("login");
-			return "/login";
-		}
-		log.info("current subject:" + obj.getUserName());
-		return "redirect:/admin/index";
-	}
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request) {
+        User obj = (User) SecurityUtils.getSubject().getPrincipal();
+        if (obj == null) {
+            log.warn("login");
+            return "/login";
+        }
+        log.info("current subject:" + obj.getUserName());
+        return "redirect:/admin/index";
+    }
 
 	/*@RequestMapping("/{pageName:^(?!favicon.ico).*$}")//此正则用于排除@RequestMapping("favicon.ico")将favicon.ico也解析为jsp视图
 	public String toPage(@PathVariable String pageName,HttpServletRequest request,HttpServletResponse response){
@@ -41,34 +41,34 @@ public class PageJumpController {
 	    //此方法有错误 不知道应该返回什么才能得到favicon.ico图标 不写此方法的话@RequestMapping("/{pageName}"默认会把获取favicon.ico得请求也解析为jsp视图
 	}*/
 
-	@RequestMapping("/")
-	public String showIndex() {
-		User obj = (User) SecurityUtils.getSubject().getPrincipal();
-		if (obj == null) {
-			return "/login";
-		}
-		return "/admin/index";
-	}
+    @RequestMapping("/")
+    public String showIndex() {
+        User obj = (User) SecurityUtils.getSubject().getPrincipal();
+        if (obj == null) {
+            return "/login";
+        }
+        return "/admin/index";
+    }
 
-	@RequestMapping("/admin/index")
-	public String main() {
-		User obj = (User) SecurityUtils.getSubject().getPrincipal();
-		if (obj != null) {
-			userService.updateLoginTime(obj.getId());
-		}
-		return "/admin/index";
-	}
+    @RequestMapping("/admin/index")
+    public String main() {
+        User obj = (User) SecurityUtils.getSubject().getPrincipal();
+        if (obj != null) {
+            userService.updateLoginTime(obj.getId());
+        }
+        return "/admin/index";
+    }
 
-	@RequestMapping("/admin/{pageName}")
-	public String showAdminJsp(@PathVariable String pageName) {
-		return "/admin/" + pageName;
-	}
+    @RequestMapping("/admin/{pageName}")
+    public String showAdminJsp(@PathVariable String pageName) {
+        return "/admin/" + pageName;
+    }
 
-	@RequestMapping("/admin/{pageType}/{pageName}")
-	public String showAadminUserJsp(@PathVariable("pageType") String pageType,
-									@PathVariable("pageName") String pageName) {
-		return "/admin/" + pageType + "/" + pageName;
-	}
+    @RequestMapping("/admin/{pageType}/{pageName}")
+    public String showAadminUserJsp(@PathVariable("pageType") String pageType,
+                                    @PathVariable("pageName") String pageName) {
+        return "/admin/" + pageType + "/" + pageName;
+    }
 
 //	@RequestMapping("/admin/role/{pageName}")
 //	public String showAadminroleJsp(@PathVariable String pageName){

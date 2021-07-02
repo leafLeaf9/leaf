@@ -21,46 +21,46 @@ import java.util.concurrent.ScheduledFuture;
 @Component
 public class TimerTaskDynamicCron {
 
-	private final List<ScheduledFuture<?>> futureList = new CopyOnWriteArrayList<>();
+    private final List<ScheduledFuture<?>> futureList = new CopyOnWriteArrayList<>();
 
-	@Autowired
-	private ThreadPoolTaskScheduler threadPoolTaskScheduler;
+    @Autowired
+    private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
-	@Bean
-	public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
-		return new ThreadPoolTaskScheduler();
-	}
+    @Bean
+    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+        return new ThreadPoolTaskScheduler();
+    }
 
-	/**
-	 * 项目启动时就运行
-	 */
-	@PostConstruct
-	public void init() throws Exception {
-		List<String> cronList = new ArrayList<>();
-		cronList.add("0 0/3 * * * ?");
-		cronList.add("0 0 0 * * ?");
-		cronList.forEach(this::startSchedulerTask);
-	}
+    /**
+     * 项目启动时就运行
+     */
+    @PostConstruct
+    public void init() throws Exception {
+        List<String> cronList = new ArrayList<>();
+        cronList.add("0 0/3 * * * ?");
+        cronList.add("0 0 0 * * ?");
+        cronList.forEach(this::startSchedulerTask);
+    }
 
-	/**
-	 * 开启定时任务
-	 *
-	 * @param cron 定时表达式
-	 */
-	public void startSchedulerTask(String cron) {
-		ScheduledFuture<?> future = threadPoolTaskScheduler.schedule(() -> log.warn("ThreadPoolTaskScheduler run."),
-				triggerContext -> new CronTrigger(cron).nextExecutionTime(triggerContext));
-		futureList.add(future);
-	}
+    /**
+     * 开启定时任务
+     *
+     * @param cron 定时表达式
+     */
+    public void startSchedulerTask(String cron) {
+        ScheduledFuture<?> future = threadPoolTaskScheduler.schedule(() -> log.warn("ThreadPoolTaskScheduler run."),
+                triggerContext -> new CronTrigger(cron).nextExecutionTime(triggerContext));
+        futureList.add(future);
+    }
 
-	/**
-	 * 停止定时任务
-	 */
-	public void stopSchedulerTask() {
-		//不会马上停止任务,会等任务执行完
-		futureList.stream().filter(Objects::nonNull).forEach(future -> future.cancel(false));
-		futureList.clear();
-		log.error("ThreadPoolTaskScheduler stop.");
-	}
+    /**
+     * 停止定时任务
+     */
+    public void stopSchedulerTask() {
+        //不会马上停止任务,会等任务执行完
+        futureList.stream().filter(Objects::nonNull).forEach(future -> future.cancel(false));
+        futureList.clear();
+        log.error("ThreadPoolTaskScheduler stop.");
+    }
 
 }

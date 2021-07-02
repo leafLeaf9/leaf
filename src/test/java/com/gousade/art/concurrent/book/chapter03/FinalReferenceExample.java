@@ -1,23 +1,23 @@
 package com.gousade.art.concurrent.book.chapter03;
 
 public class FinalReferenceExample {
-    final int[] intArray; //finalÊÇÒýÓÃÀàÐÍ
     static FinalReferenceExample obj;
+    final int[] intArray; //finalæ˜¯å¼•ç”¨ç±»åž‹
 
-    public FinalReferenceExample() { //¹¹Ôìº¯Êý
+    public FinalReferenceExample() { //æž„é€ å‡½æ•°
         intArray = new int[1]; //1
         intArray[0] = 1; //2
     }
 
-    public static void writerOne() { //Ð´Ïß³ÌAÖ´ÐÐ
+    public static void writerOne() { //å†™çº¿ç¨‹Aæ‰§è¡Œ
         obj = new FinalReferenceExample(); //3
     }
 
-    public static void writerTwo() { //Ð´Ïß³ÌBÖ´ÐÐ
+    public static void writerTwo() { //å†™çº¿ç¨‹Bæ‰§è¡Œ
         obj.intArray[0] = 2; //4
     }
 
-    public static void reader() { //¶ÁÏß³ÌCÖ´ÐÐ
+    public static void reader() { //è¯»çº¿ç¨‹Cæ‰§è¡Œ
         if (obj != null) { //5
             int temp1 = obj.intArray[0]; //6
         }

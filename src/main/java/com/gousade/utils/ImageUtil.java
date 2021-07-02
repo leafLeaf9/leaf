@@ -55,10 +55,10 @@ public class ImageUtil {
 
     /**
      * @param backgroundImage 原图
-     * @param templateImage 模板形状图
-     * @param sliderImage 裁剪获得的滑块
-     * @param x 随机x值
-     * @param y 随机y值
+     * @param templateImage   模板形状图
+     * @param sliderImage     裁剪获得的滑块
+     * @param x               随机x值
+     * @param y               随机y值
      */
     private static void clipImageByTemplate(BufferedImage backgroundImage, BufferedImage templateImage, BufferedImage sliderImage,
                                             int x, int y) {
@@ -104,15 +104,13 @@ public class ImageUtil {
                 int tx = i;
                 if (tx < 0) {
                     tx = -tx;
-                }
-                else if (tx >= image.getWidth()) {
+                } else if (tx >= image.getWidth()) {
                     tx = x;
                 }
                 int ty = j;
                 if (ty < 0) {
                     ty = -ty;
-                }
-                else if (ty >= image.getHeight()) {
+                } else if (ty >= image.getHeight()) {
                     ty = y;
                 }
                 pixels[current++] = image.getRGB(tx, ty);

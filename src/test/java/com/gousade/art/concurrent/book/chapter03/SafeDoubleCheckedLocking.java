@@ -7,7 +7,7 @@ public class SafeDoubleCheckedLocking {
         if (instance == null) {
             synchronized (SafeDoubleCheckedLocking.class) {
                 if (instance == null)
-                    instance = new Instance();//instanceÎªvolatile£¬ÏÖÔÚÃ»ÎÊÌâÁË
+                    instance = new Instance();//instanceä¸ºvolatileï¼Œç°åœ¨æ²¡é—®é¢˜äº†
             }
         }
         return instance;

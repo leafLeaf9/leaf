@@ -10,10 +10,10 @@ import org.apache.shiro.SecurityUtils;
  */
 public class ShiroUtil {
 
-	public static User getShiroSessionUser() {
-		if (SecurityUtils.getSubject() == null || SecurityUtils.getSubject().getPrincipal() == null) {
-			return null;
-		}
-		return (User) SecurityUtils.getSubject().getPrincipal();
-	}
+    public static User getShiroSessionUser() {
+        if (SecurityUtils.getSubject() == null || SecurityUtils.getSubject().getPrincipal() == null) {
+            return null;
+        }
+        return (User) SecurityUtils.getSubject().getPrincipal();
+    }
 }

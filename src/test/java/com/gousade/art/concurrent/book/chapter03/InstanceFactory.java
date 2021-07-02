@@ -1,12 +1,12 @@
 package com.gousade.art.concurrent.book.chapter03;
 
 public class InstanceFactory {
-    private static class InstanceHolder {
-        public static Instance instance = new Instance();
+    public static Instance getInstance() {
+        return InstanceHolder.instance; //è¿™é‡Œå°†å¯¼è‡´InstanceHolderç±»è¢«åˆå§‹åŒ–
     }
 
-    public static Instance getInstance() {
-        return InstanceHolder.instance; //ÕâÀï½«µ¼ÖÂInstanceHolderÀà±»³õÊ¼»¯
+    private static class InstanceHolder {
+        public static Instance instance = new Instance();
     }
 
     static class Instance {

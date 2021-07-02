@@ -33,7 +33,7 @@ public class RoleController {
 	@OperationRecord(operationNum = 0, operationDescription = "查询角色列表")
 	@RequestMapping(value = "/selectRoleList", method = RequestMethod.POST)
 	public Map<String, Object> selectRoleList(@RequestParam(value = "page", required = false) String page,
-											  @RequestParam(value = "rows", required = false) String rows, HttpServletRequest request) {
+	                                          @RequestParam(value = "rows", required = false) String rows, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> param = new HashMap<String, Object>();
 		String name = request.getParameter("name");

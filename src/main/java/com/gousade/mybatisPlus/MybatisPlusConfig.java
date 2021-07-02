@@ -15,17 +15,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MybatisPlusConfig {
 
-	/**
-	 * 乐观锁插件 since 3.4.0
-	 *
-	 * @return please use {@link MybatisPlusInterceptor}
-	 * {@link OptimisticLockerInnerInterceptor} since 3.4.0
-	 */
-	@Bean
-	public MybatisPlusInterceptor mybatisPlusInterceptor() {
-		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-		interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-		return interceptor;
-	}
+    /**
+     * 乐观锁插件 since 3.4.0
+     *
+     * @return please use {@link MybatisPlusInterceptor}
+     * {@link OptimisticLockerInnerInterceptor} since 3.4.0
+     */
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+        return interceptor;
+    }
 
 }

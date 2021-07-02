@@ -20,37 +20,37 @@ import java.util.UUID;
 @Component
 public class OssUtil {
 
-	@Value("${aliyun.accessKeyId}")
-	private String accessKeyId;
+    @Value("${aliyun.accessKeyId}")
+    private String accessKeyId;
 
-	@Value("${aliyun.accessKeySecret}")
-	private String accessKeySecret;
+    @Value("${aliyun.accessKeySecret}")
+    private String accessKeySecret;
 
-	@Value("${aliyun.oss.bucketName}")
-	private String bucketName;
+    @Value("${aliyun.oss.bucketName}")
+    private String bucketName;
 
-	@Value("${aliyun.oss.endpoint}")
-	private String endpoint;
+    @Value("${aliyun.oss.endpoint}")
+    private String endpoint;
 
-	public String uploadOssFile(MultipartFile file) {
-		try {
-			// 创建OSSClient实例。
-			OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-			// 上传文件流。
-			InputStream inputStream = file.getInputStream();
-			String fileName = file.getOriginalFilename();
-			String uuid = UUID.randomUUID().toString().replace("-", "");
-			String datePath = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			fileName = datePath + "/" + uuid + fileName;
-			ossClient.putObject(bucketName, fileName, inputStream);
-			// 关闭OSSClient。
-			ossClient.shutdown();
-			String url = "https://" + bucketName + "." + endpoint + "/" + fileName;
-			return url;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public String uploadOssFile(MultipartFile file) {
+        try {
+            // 创建OSSClient实例。
+            OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+            // 上传文件流。
+            InputStream inputStream = file.getInputStream();
+            String fileName = file.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            String datePath = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            fileName = datePath + "/" + uuid + fileName;
+            ossClient.putObject(bucketName, fileName, inputStream);
+            // 关闭OSSClient。
+            ossClient.shutdown();
+            String url = "https://" + bucketName + "." + endpoint + "/" + fileName;
+            return url;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

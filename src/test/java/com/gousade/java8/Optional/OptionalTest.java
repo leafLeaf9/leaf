@@ -1,11 +1,10 @@
 package com.gousade.java8.Optional;
 
-import java.util.Optional;
-
-import org.junit.jupiter.api.Test;
-
 import com.gousade.java8.lambda.Employee;
 import com.gousade.java8.lambda.Employee.Status;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 /**
  * @author woxigsd@gmail.com
@@ -25,45 +24,45 @@ import com.gousade.java8.lambda.Employee.Status;
  */
 public class OptionalTest {
 
-	@Test
-	public void test1() {
-		Optional<Employee> optional = Optional.of(new Employee());
-		System.out.println(optional.get());
-	}
+    @Test
+    public void test1() {
+        Optional<Employee> optional = Optional.of(new Employee());
+        System.out.println(optional.get());
+    }
 
-	@Test
-	public void test2() {
-		Optional<Employee> op = Optional.ofNullable(null);// return value == null ? empty() : of(value);
-		System.out.println(op/*.get()*/);
+    @Test
+    public void test2() {
+        Optional<Employee> op = Optional.ofNullable(null);// return value == null ? empty() : of(value);
+        System.out.println(op/*.get()*/);
 
-		Optional<Employee> op2 = Optional.empty();
-		System.out.println(op2.get());
-	}
+        Optional<Employee> op2 = Optional.empty();
+        System.out.println(op2.get());
+    }
 
-	@Test
-	public void test3() {
-		Optional<Employee> op = Optional.ofNullable(new Employee());
+    @Test
+    public void test3() {
+        Optional<Employee> op = Optional.ofNullable(new Employee());
 
-		if (op.isPresent()) {
-			System.out.println(op.get());
-		}
+        if (op.isPresent()) {
+            System.out.println(op.get());
+        }
 
-		Employee emp = op.orElse(new Employee(0, "张三", 0, 0, null));// return value != null ? value : other;
-		System.out.println(emp);
+        Employee emp = op.orElse(new Employee(0, "张三", 0, 0, null));// return value != null ? value : other;
+        System.out.println(emp);
 
-		Employee emp2 = op.orElseGet(() -> new Employee());
-		System.out.println(emp2);
-	}
+        Employee emp2 = op.orElseGet(() -> new Employee());
+        System.out.println(emp2);
+    }
 
-	@Test
-	public void test4() {
-		Optional<Employee> op = Optional.of(new Employee(101, "张三", 18, 9999.99, Status.FREE));
+    @Test
+    public void test4() {
+        Optional<Employee> op = Optional.of(new Employee(101, "张三", 18, 9999.99, Status.FREE));
 
-		Optional<String> op2 = op.map(Employee::getName);
-		System.out.println(op2.get());
+        Optional<String> op2 = op.map(Employee::getName);
+        System.out.println(op2.get());
 
-		Optional<String> op3 = op.flatMap((e) -> Optional.of(e.getName()));
-		System.out.println(op3.get());
-	}
+        Optional<String> op3 = op.flatMap((e) -> Optional.of(e.getName()));
+        System.out.println(op3.get());
+    }
 
 }

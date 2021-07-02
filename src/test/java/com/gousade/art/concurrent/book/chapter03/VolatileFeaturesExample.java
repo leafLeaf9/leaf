@@ -4,19 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class VolatileFeaturesExample {
-    volatile long vl = 0L; //Ê¹ÓÃvolatileÉùÃ÷64Î»µÄlongĞÍ±äÁ¿
-
-    public void set(long l) {
-        vl = l; //µ¥¸övolatile±äÁ¿µÄĞ´
-    }
-
-    public void getAndIncrement() {
-        vl++; //¸´ºÏ£¨¶à¸ö£©volatile±äÁ¿µÄ¶Á/Ğ´
-    }
-
-    public long get() {
-        return vl; //µ¥¸övolatile±äÁ¿µÄ¶Á
-    }
+    volatile long vl = 0L; //ä½¿ç”¨volatileå£°æ˜64ä½çš„longå‹å˜é‡
 
     public static void main(String[] args) {
         final VolatileFeaturesExample cas = new VolatileFeaturesExample();
@@ -37,7 +25,7 @@ class VolatileFeaturesExample {
             t.start();
 
         }
-        // µÈ´ıËùÓĞÏß³ÌÖ´ĞĞÍê³É
+        // ç­‰å¾…æ‰€æœ‰çº¿ç¨‹æ‰§è¡Œå®Œæˆ
         for (Thread t : ts) {
             try {
                 t.join();
@@ -48,5 +36,17 @@ class VolatileFeaturesExample {
         }
         System.out.println(cas.get());
         System.out.println(System.currentTimeMillis() - start);
+    }
+
+    public void set(long l) {
+        vl = l; //å•ä¸ªvolatileå˜é‡çš„å†™
+    }
+
+    public void getAndIncrement() {
+        vl++; //å¤åˆï¼ˆå¤šä¸ªï¼‰volatileå˜é‡çš„è¯»/å†™
+    }
+
+    public long get() {
+        return vl; //å•ä¸ªvolatileå˜é‡çš„è¯»
     }
 }

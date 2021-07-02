@@ -7,7 +7,7 @@ package com.gousade.commonutils;
  */
 public interface StatusCode {
 
-	Integer SUCCESS = 200;
+    Integer SUCCESS = 200;
 
-	Integer ERROR = 199;
+    Integer ERROR = 199;
 }

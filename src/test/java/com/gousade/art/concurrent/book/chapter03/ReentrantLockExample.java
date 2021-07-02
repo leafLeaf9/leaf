@@ -7,21 +7,21 @@ class ReentrantLockExample {
     ReentrantLock lock = new ReentrantLock();
 
     public void writer() {
-        lock.lock(); //»ñÈ¡Ëø
+        lock.lock(); //è·å–é”
         try {
             a++;
         } finally {
-            lock.unlock(); //ÊÍ·ÅËø
+            lock.unlock(); //é‡Šæ”¾é”
         }
     }
 
     public void reader() {
-        lock.lock(); //»ñÈ¡Ëø
+        lock.lock(); //è·å–é”
         try {
             int i = a;
-            //¡­¡­
+            //â€¦â€¦
         } finally {
-            lock.unlock(); //ÊÍ·ÅËø
+            lock.unlock(); //é‡Šæ”¾é”
         }
     }
 }

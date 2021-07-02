@@ -9,6 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface OssService {
 
-	String uploadOssAvatar(MultipartFile file);
+    String uploadOssAvatar(MultipartFile file);
 
 }

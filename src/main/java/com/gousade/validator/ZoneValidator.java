@@ -8,20 +8,20 @@ import java.util.Arrays;
 
 public class ZoneValidator implements ConstraintValidator<Zone, String> {
 
-	private String[] zone;
+    private String[] zone;
 
-	@Override
-	public void initialize(Zone constraintAnnotation) {
-		this.zone = constraintAnnotation.zone();
-	}
+    @Override
+    public void initialize(Zone constraintAnnotation) {
+        this.zone = constraintAnnotation.zone();
+    }
 
-	@Override
-	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (value == null || "".equals(value)) {
-			return false;
-		} else {
-			return Arrays.asList(zone).contains(value);
-		}
-	}
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null || "".equals(value)) {
+            return false;
+        } else {
+            return Arrays.asList(zone).contains(value);
+        }
+    }
 
 }
