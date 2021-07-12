@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -60,8 +61,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseResult handleException(Exception e) {
+    public ResponseResult handleException(Exception e, HttpServletResponse response) {
         log.error("发生未知异常", e);
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         return ResponseResult.renderError().message("发生未知异常，请联系系统管理员。");
     }
 
