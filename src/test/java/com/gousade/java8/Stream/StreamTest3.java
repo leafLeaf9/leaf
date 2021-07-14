@@ -2,6 +2,7 @@ package com.gousade.java8.Stream;
 
 import com.gousade.java8.lambda.Employee;
 import com.gousade.java8.lambda.Employee.Status;
+import com.gousade.java8.lambda.EmployeeWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -155,9 +156,9 @@ public class StreamTest3 {
      */
     @Test
     public void test6() {
-        Map<Status, List<Employee>> map = employees.stream()
-                .collect(Collectors.groupingBy(/*e->e.getStatus()*/Employee::getStatus));
-        System.out.println(map);
+
+        ArrayList<List<Employee>> collect = employees.stream().collect(
+                Collectors.collectingAndThen(Collectors.groupingBy(Employee::getStatus, Collectors.toList()), map -> new ArrayList<>(map.values())));
     }
 
     /**
@@ -176,6 +177,21 @@ public class StreamTest3 {
                     }
                 })));
         System.out.println(map);
+    }
+
+    /**
+     * list根据某字段分组再聚合为新的嵌套list，通过collectingAndThen可实现
+     */
+    @Test
+    public void testCollectingAndThenGroupingBy() {
+        List<EmployeeWrapper> collect = employees.stream()
+                .collect(Collectors.collectingAndThen(Collectors.groupingBy(Employee::getStatus, Collectors.toList()),
+                        map -> {
+                            List<EmployeeWrapper> list = new ArrayList<>();
+                            map.forEach((k, v) -> list.add(new EmployeeWrapper(k.name(), v)));
+                            return list;
+                        }));
+        System.out.println(collect);
     }
 
     /**
