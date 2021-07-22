@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -89,37 +87,6 @@ public class RoleController {
 		map.put("realName_5", "名字1");
 		map.put("remarksss", "名字1");
 		GeneratePDFUtil.interviewReportPDF(response, templatePath, filePath, map, "费用单.pdf");
-	}
-
-	/**
-	 * 图片预览工具方法
-	 *
-	 * @param response
-	 * @param id
-	 * @throws IOException
-	 */
-	@RequestMapping("/picPreview")
-	public void picPreview(HttpServletResponse response, @RequestParam String id) throws IOException {
-		response.setContentType("text/html; charset=UTF-8");
-		response.setContentType("image/jpeg");
-//		String path = attach.getAttachmentPath();
-		String path = "";
-		FileInputStream fis = new FileInputStream(path);
-		OutputStream os = response.getOutputStream();
-		try {
-			int count = 0;
-			byte[] buffer = new byte[1024 * 1024];
-			while ((count = fis.read(buffer)) != -1)
-				os.write(buffer, 0, count);
-			os.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (os != null)
-				os.close();
-			if (fis != null)
-				fis.close();
-		}
 	}
 
 	@RequestMapping(value = "/saverole", method = RequestMethod.POST)

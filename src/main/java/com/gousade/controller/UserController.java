@@ -29,9 +29,11 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Api(tags = "用户管理")
 @Slf4j
@@ -211,52 +213,6 @@ public class UserController {
             }
         }
         return ResponseResult.renderSuccess().message("操作成功");
-    }
-
-    /**
-     * @param response
-     * @throws IOException 两种方法都可下载 但是上面的方法似乎不能识别中文和空格文件名？ 之后再测试 注意前端form的提交方式
-     *                     不能用ajax
-     */
-    @RequestMapping(value = "/fileDownload", method = RequestMethod.POST)
-    public void fileDownload(HttpServletResponse response) throws IOException {
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-        String dateDtr = df.format(new Date());
-        String filename = "食驚第一暗帝 永恒之海(灵宝：时间真理).png";
-        String path = "D:" + File.separator + "gousadeFiles" + File.separator + "generalfile" + File.separator + dateDtr
-                + File.separator + filename;
-        File file = new File(path);
-//		response.reset();
-//        response.setContentType("application/force-download");
-//        response.addHeader("Content-Disposition", "attachment;fileName=" + filename);
-//        byte[] buffer = new byte[1024];
-//        try (FileInputStream fis = new FileInputStream(file);
-//        BufferedInputStream bis = new BufferedInputStream(fis)) {
-//        	OutputStream os = response.getOutputStream();
-//            int i = bis.read(buffer);
-//            while (i != -1) {
-//                os.write(buffer, 0, i);
-//                i = bis.read(buffer);
-//            }
-//        }
-        InputStream fis = new BufferedInputStream(new FileInputStream(path));
-        byte[] buffer = new byte[fis.available()];
-        fis.read(buffer);
-        fis.close();
-        // 清空response
-        response.reset();
-        // 设置response的Header
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/octet-stream;charset=UTF-8");
-        response.addHeader("Content-Disposition",
-                "attachment;filename=" + new String(filename.getBytes("gb2312"), "ISO8859-1"));
-        response.addHeader("Content-Length", "" + file.length());
-
-        OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
-
-        toClient.write(buffer);
-        toClient.flush();
-        toClient.close();
     }
 
 }

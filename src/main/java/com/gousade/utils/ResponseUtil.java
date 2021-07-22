@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.Objects;
 
 @Slf4j
 public class ResponseUtil {
@@ -33,6 +34,7 @@ public class ResponseUtil {
         try {
             /*InputStream inputStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("word.txt");
             ClassPathResource classPathResource = new ClassPathResource("word.txt");
+            File sourceFile =  classPathResource.getFile();
             InputStream inputStream2 =classPathResource.getInputStream();
             File file = ResourceUtils.getFile("classpath:static/word.txt");*/
             ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -45,7 +47,8 @@ public class ResponseUtil {
             fis.read(buffer);
             fis.close();
             response.reset();
-            String fileName = URLEncoder.encode(resource.getFilename(), "UTF-8").replaceAll("\\+", "%20");
+            String fileName = URLEncoder.encode(Objects.requireNonNull(resource.getFilename()), "UTF-8")
+                    .replaceAll("\\+", "%20");
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition",
