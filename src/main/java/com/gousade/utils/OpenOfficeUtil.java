@@ -3,7 +3,6 @@ package com.gousade.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.JodConverter;
 import org.jodconverter.office.LocalOfficeManager;
-import org.jodconverter.office.OfficeException;
 
 import java.io.File;
 
@@ -18,13 +17,18 @@ public class OpenOfficeUtil {
     private static final String OFFICE_HOME = "C:/Program Files (x86)/OpenOffice 4";
     private static final int PORT = 18101;
     private static volatile OpenOfficeUtil instance;
-    private final LocalOfficeManager officeManager;
+    private LocalOfficeManager officeManager;
 
     private OpenOfficeUtil() {
-        officeManager = LocalOfficeManager.builder().install()
-                /*.officeHome(OFFICE_HOME)*/.portNumbers(PORT).build();
-        //officeManager = LocalOfficeManager.install();
-        startOfficeManager();
+        try {
+            officeManager = LocalOfficeManager.builder().install()
+                    /*.officeHome(OFFICE_HOME)*/.portNumbers(PORT).build();
+            //officeManager = LocalOfficeManager.install();
+            startOfficeManager();
+        } catch (Exception e) {
+            log.error("注册officeManager发生异常。", e);
+        }
+
     }
 
     public static OpenOfficeUtil getInstance() {
@@ -38,17 +42,25 @@ public class OpenOfficeUtil {
     }
 
     public void startOfficeManager() {
+        if (officeManager == null) {
+            log.error("officeManager未注册成功，无法启动。");
+            return;
+        }
         try {
             officeManager.start();
-        } catch (OfficeException e) {
+        } catch (Exception e) {
             log.error("启动officeManager发生异常。", e);
         }
     }
 
     public void stopOfficeManager() {
+        if (officeManager == null) {
+            log.error("officeManager未注册成功，无法启动。");
+            return;
+        }
         try {
             officeManager.stop();
-        } catch (OfficeException e) {
+        } catch (Exception e) {
             log.error("停止officeManager发生异常。", e);
         }
     }
@@ -56,15 +68,15 @@ public class OpenOfficeUtil {
     public void convert(File source, File target) {
         try {
             JodConverter.convert(source).to(target).execute();
-        } catch (OfficeException e) {
+        } catch (Exception e) {
             log.error("officeManager转换文档发生异常。", e);
         }
     }
 
     /*public static void main(String[] args) {
-        File source = new File("C:\\Users\\Administrator\\Desktop\\测试word.docx");
+        File source = new File("D:\\reportFilePath\\测试word.docx");
         String filename = "测试wordLocal.pdf";
-        File convertDictionary = new File("D:/convertToPDFLocalGaoGuanTong");
+        File convertDictionary = new File("D:/reportFilePath/convertToPDFLocal");
         if (!convertDictionary.exists()) {
             convertDictionary.mkdirs();
         }
