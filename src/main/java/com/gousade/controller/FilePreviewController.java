@@ -1,9 +1,8 @@
 package com.gousade.controller;
 
+import com.gousade.utils.OpenOfficeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.DocumentConverter;
-import org.jodconverter.JodConverter;
-import org.jodconverter.office.LocalOfficeManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -58,13 +57,13 @@ public class FilePreviewController {
     }
 
     /**
-     * 文档预览，word、excel、ppt都可以转化为pdf，excel样式可能会出现问题
+     * 文档预览，word、excel、ppt都可以转换为pdf，excel样式可能会出现问题
      */
     @GetMapping("/previewDocument")
     public void previewDocument() {
         String path = "static" + File.separator + "pdf" + File.separator + "测试word1.docx";
         String filename = "测试word.pdf";
-        File convertDictionary = new File("D:/convertToPDF");//转换之后文件生成的地址
+        File convertDictionary = new File("D:/convertToPDF");
         if (!convertDictionary.exists()) {
             convertDictionary.mkdirs();
         }
@@ -89,12 +88,11 @@ public class FilePreviewController {
     }
 
     /**
-     * 只使用local包下的类进行文档转化预览
+     * 只使用local包下的类进行文档转换预览
      */
     @GetMapping("/previewDocumentByLocal")
     private void previewDocumentByLocal() {
-        LocalOfficeManager officeManager = LocalOfficeManager.install();
-        String path = "static" + File.separator + "pdf" + File.separator + "测试word.docx";
+        String path = "static" + File.separator + "pdf" + File.separator + "测试word2.docx";
         String filename = "测试wordLocal.pdf";
         File convertDictionary = new File("D:/convertToPDFLocal");//转换之后文件生成的地址
         if (!convertDictionary.exists()) {
@@ -104,8 +102,7 @@ public class FilePreviewController {
         ClassPathResource classPathResource = new ClassPathResource(path);
         response.reset();
         try (OutputStream output = response.getOutputStream()) {
-            officeManager.start();
-            JodConverter.convert(classPathResource.getFile()).to(convertedFile).execute();
+            OpenOfficeUtil.getInstance().convert(classPathResource.getFile(), convertedFile);
             InputStream input = new FileInputStream(convertedFile);
             byte[] buffer = new byte[input.available()];
             input.read(buffer);
