@@ -1,6 +1,10 @@
 package com.gousade.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jodconverter.DocumentConverter;
+import org.jodconverter.JodConverter;
+import org.jodconverter.office.LocalOfficeManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -23,11 +27,17 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping(value = "/admin/gousadeTest/filePreview")
 public class FilePreviewController {
 
+    @Autowired
+    private DocumentConverter converter;
+
+    @Autowired
+    private HttpServletResponse response;
+
     /**
      * PDF预览
      */
     @GetMapping("/previewPDF")
-    public void previewPDF(HttpServletResponse response) {
+    public void previewPDF() {
         String path = "classpath:static" + File.separator + "pdf" + File.separator + "Java并发编程的艺术.pdf";
         String filename = "Java并发编程的艺术.pdf";
         ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -48,10 +58,70 @@ public class FilePreviewController {
     }
 
     /**
+     * 文档预览，word、excel、ppt都可以转化为pdf，excel样式可能会出现问题
+     */
+    @GetMapping("/previewDocument")
+    public void previewDocument() {
+        String path = "static" + File.separator + "pdf" + File.separator + "测试word1.docx";
+        String filename = "测试word.pdf";
+        File convertDictionary = new File("D:/convertToPDF");//转换之后文件生成的地址
+        if (!convertDictionary.exists()) {
+            convertDictionary.mkdirs();
+        }
+        File convertedFile = new File(convertDictionary.getAbsolutePath() + File.separator + filename);
+        ClassPathResource classPathResource = new ClassPathResource(path);
+        response.reset();
+        try (OutputStream output = response.getOutputStream()) {
+            converter.convert(classPathResource.getFile()).to(convertedFile).execute();
+            InputStream input = new FileInputStream(convertedFile);
+            byte[] buffer = new byte[input.available()];
+            input.read(buffer);
+            input.close();
+            output.write(buffer);
+            output.flush();
+            //需要保存文件用上面的方法，如果不需要保存文件直接预览则直接输出为PDF流，输入的as类型似乎没影响
+            /*converter.convert(classPathResource.getInputStream()).as(DefaultDocumentFormatRegistry.PDF)
+                    .to(output).as(DefaultDocumentFormatRegistry.PDF)
+                    .execute();*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 只使用local包下的类进行文档转化预览
+     */
+    @GetMapping("/previewDocumentByLocal")
+    private void previewDocumentByLocal() {
+        LocalOfficeManager officeManager = LocalOfficeManager.install();
+        String path = "static" + File.separator + "pdf" + File.separator + "测试word.docx";
+        String filename = "测试wordLocal.pdf";
+        File convertDictionary = new File("D:/convertToPDFLocal");//转换之后文件生成的地址
+        if (!convertDictionary.exists()) {
+            convertDictionary.mkdirs();
+        }
+        File convertedFile = new File(convertDictionary.getAbsolutePath() + File.separator + filename);
+        ClassPathResource classPathResource = new ClassPathResource(path);
+        response.reset();
+        try (OutputStream output = response.getOutputStream()) {
+            officeManager.start();
+            JodConverter.convert(classPathResource.getFile()).to(convertedFile).execute();
+            InputStream input = new FileInputStream(convertedFile);
+            byte[] buffer = new byte[input.available()];
+            input.read(buffer);
+            input.close();
+            output.write(buffer);
+            output.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 图片预览
      */
     @GetMapping("/previewImage")
-    public void picPreview(HttpServletResponse response) throws IOException {
+    public void picPreview() throws IOException {
         response.reset();
         response.setContentType("text/html; charset=UTF-8");
         response.setContentType("image/jpeg");
