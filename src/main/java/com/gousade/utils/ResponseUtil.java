@@ -3,13 +3,13 @@ package com.gousade.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gousade.commonutils.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Objects;
 
@@ -28,37 +28,39 @@ public class ResponseUtil {
     }
 
     /**
-     * 下载resource目录下的文件
+     * 下载resource目录下的文件，直接读取流的方法在linux jar包环境下会读取不全，需要循环读取并输出流
+     *
+     * @param response response
+     * @param path     文件路径，从resources目录开始,不需要写classpath:,如static/word.txt
+     * @param filename 输出的文件名
      */
-    public static void resourceFileDownload(HttpServletResponse response, String path) {
-        try {
-            /*InputStream inputStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("word.txt");
-            ClassPathResource classPathResource = new ClassPathResource("word.txt");
-            File sourceFile =  classPathResource.getFile();
+    public static void resourceFileDownload(HttpServletResponse response, String path, String filename) {
+        ClassPathResource classPathResource = new ClassPathResource(path);
+        try (InputStream input = classPathResource.getInputStream(); OutputStream output = response.getOutputStream()) {
+            /*InputStream inputStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("static/word.txt");
             InputStream inputStream2 =classPathResource.getInputStream();
-            File file = ResourceUtils.getFile("classpath:static/word.txt");*/
+            ClassPathResource classPathResource = new ClassPathResource("static/word.txt");
+            //jar包不能getFile，只能通过流的形式读取
+            File sourceFile =  classPathResource.getFile();
+            File file = ResourceUtils.getFile("classpath:static/word.txt");
             ResourceLoader resourceLoader = new DefaultResourceLoader();
             Resource resource = resourceLoader.getResource(path);
-            log.info(resource.toString());
-            InputStream inputStream = resource.getInputStream();
-            //输出文件
-            InputStream fis = new BufferedInputStream(inputStream);
-            byte[] buffer = new byte[fis.available()];
-            fis.read(buffer);
-            fis.close();
+            InputStream inputStream = resource.getInputStream();*/
             response.reset();
-            String fileName = URLEncoder.encode(Objects.requireNonNull(resource.getFilename()), "UTF-8")
+            String fileName = URLEncoder.encode(Objects.requireNonNull(filename), "UTF-8")
                     .replaceAll("\\+", "%20");
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition",
                     "attachment;filename*=utf-8''" + fileName);
-            OutputStream out = new BufferedOutputStream(response.getOutputStream());
-            out.write(buffer);
-            out.flush();
-            out.close();
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = input.read(bytes)) != -1) {
+                output.write(bytes, 0, length);
+                output.flush();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("下载文件时发生异常。", e);
         }
     }
 }

@@ -1,21 +1,18 @@
 package com.gousade.controller;
 
 import com.gousade.utils.OpenOfficeUtil;
+import com.gousade.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.DocumentConverter;
+import org.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author woxigousade
@@ -37,18 +34,19 @@ public class FilePreviewController {
      */
     @GetMapping("/previewPDF")
     public void previewPDF() {
-        String path = "classpath:static" + File.separator + "pdf" + File.separator + "Java并发编程的艺术.pdf";
+        String path = "static" + File.separator + "pdf" + File.separator + "Java并发编程的艺术.pdf";
         String filename = "Java并发编程的艺术.pdf";
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(path);
+        ClassPathResource classPathResource = new ClassPathResource(path);
         response.reset();
-        try (InputStream input = resource.getInputStream(); OutputStream output = response.getOutputStream()) {
+        try (InputStream input = classPathResource.getInputStream(); OutputStream output = response.getOutputStream()) {
 //            String fileName = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
 //            FileInputStream input = new FileInputStream("E:\\document\\PENET协议_R_2015.pdf");
-            byte[] buffer = new byte[input.available()];
-            input.read(buffer);
-            output.write(buffer);
-            output.flush();
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = input.read(bytes)) != -1) {
+                output.write(bytes, 0, length);
+                output.flush();
+            }
             /*response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "inline;filename*=utf-8''" + fileName);*/
         } catch (Exception e) {
@@ -71,13 +69,16 @@ public class FilePreviewController {
         ClassPathResource classPathResource = new ClassPathResource(path);
         response.reset();
         try (OutputStream output = response.getOutputStream()) {
-            converter.convert(classPathResource.getFile()).to(convertedFile).execute();
+            converter.convert(classPathResource.getInputStream()).as(DefaultDocumentFormatRegistry.PDF)
+                    .to(convertedFile).execute();
             InputStream input = new FileInputStream(convertedFile);
-            byte[] buffer = new byte[input.available()];
-            input.read(buffer);
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = input.read(bytes)) != -1) {
+                output.write(bytes, 0, length);
+                output.flush();
+            }
             input.close();
-            output.write(buffer);
-            output.flush();
             //需要保存文件用上面的方法，如果不需要保存文件直接预览则直接输出为PDF流，输入的as类型似乎没影响
             /*converter.convert(classPathResource.getInputStream()).as(DefaultDocumentFormatRegistry.PDF)
                     .to(output).as(DefaultDocumentFormatRegistry.PDF)
@@ -92,7 +93,7 @@ public class FilePreviewController {
      */
     @GetMapping("/previewDocumentByLocal")
     private void previewDocumentByLocal() {
-        String path = "static" + File.separator + "pdf" + File.separator + "测试word2.docx";
+        String path = "static" + File.separator + "pdf" + File.separator + "防汛保畅日报template.docx";
         String filename = "测试wordLocal.pdf";
         File convertDictionary = new File("D:/convertToPDFLocal");//转换之后文件生成的地址
         if (!convertDictionary.exists()) {
@@ -102,13 +103,15 @@ public class FilePreviewController {
         ClassPathResource classPathResource = new ClassPathResource(path);
         response.reset();
         try (OutputStream output = response.getOutputStream()) {
-            OpenOfficeUtil.getInstance().convert(classPathResource.getFile(), convertedFile);
+            OpenOfficeUtil.getInstance().convert(classPathResource.getInputStream(), convertedFile);
             InputStream input = new FileInputStream(convertedFile);
-            byte[] buffer = new byte[input.available()];
-            input.read(buffer);
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = input.read(bytes)) != -1) {
+                output.write(bytes, 0, length);
+                output.flush();
+            }
             input.close();
-            output.write(buffer);
-            output.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,7 +121,7 @@ public class FilePreviewController {
      * 图片预览
      */
     @GetMapping("/previewImage")
-    public void picPreview() throws IOException {
+    public void previewImage() {
         response.reset();
         response.setContentType("text/html; charset=UTF-8");
         response.setContentType("image/jpeg");
@@ -127,10 +130,12 @@ public class FilePreviewController {
         ClassPathResource classPathResource = new ClassPathResource(path);
         try (InputStream input = classPathResource.getInputStream();
              OutputStream output = response.getOutputStream()) {
-            byte[] buffer = new byte[input.available()];
-            input.read(buffer);
-            output.write(buffer);
-            output.flush();
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = input.read(bytes)) != -1) {
+                output.write(bytes, 0, length);
+                output.flush();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,7 +145,7 @@ public class FilePreviewController {
      * 文件下载
      */
     @GetMapping("/fileDownload")
-    public void fileDownload(HttpServletResponse response) throws IOException {
+    public void fileDownload(String filename) throws IOException {
        /* String filename = "食驚第一暗帝 永恒之海(灵宝：时间真理).png";
         String path = "D:" + File.separator + "gousadeFiles" + File.separator + "generalfile" + File.separator + dateDtr
                 + File.separator + filename;*/
@@ -175,24 +180,7 @@ public class FilePreviewController {
         toClient.write(buffer);
         toClient.flush();
         toClient.close();*/
-        String path = "classpath:static" + File.separator + "pdf" + File.separator + "Java并发编程的艺术.pdf";
-        String filename = "Java并发编程的艺术.pdf";
-        ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(path);
-        String fileName = URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20");
-
-        response.reset();
-        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        response.setContentType("application/octet-stream");
-        response.addHeader("Content-Disposition", "attachment;filename*=utf-8''" + fileName);
-//        FileInputStream input = new FileInputStream("E:\\document\\wordDemo.docx");
-        InputStream input = resource.getInputStream();
-        byte[] buffer = new byte[input.available()];
-        input.read(buffer);
-        input.close();
-        OutputStream out = new BufferedOutputStream(response.getOutputStream());
-        out.write(buffer);
-        out.flush();
-        out.close();
+        String path = "static" + File.separator + filename;
+        ResponseUtil.resourceFileDownload(response, path, filename.substring(filename.lastIndexOf("/") + 1));
     }
 }

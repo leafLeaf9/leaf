@@ -2,12 +2,14 @@ package com.gousade.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.JodConverter;
+import org.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.jodconverter.office.LocalOfficeManager;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
- * ÎÄµµ×ª»¯¹¤¾ßÀà
+ * æ–‡æ¡£è½¬åŒ–å·¥å…·ç±»
  *
  * @author woxigousade
  * @date 2021/7/27
@@ -26,7 +28,7 @@ public class OpenOfficeUtil {
             //officeManager = LocalOfficeManager.install();
             startOfficeManager();
         } catch (Exception e) {
-            log.error("×¢²áofficeManager·¢ÉúÒì³£¡£", e);
+            log.error("æ³¨å†ŒofficeManagerå‘ç”Ÿå¼‚å¸¸ã€‚", e);
         }
 
     }
@@ -43,25 +45,25 @@ public class OpenOfficeUtil {
 
     public void startOfficeManager() {
         if (officeManager == null) {
-            log.error("officeManagerÎ´×¢²á³É¹¦£¬ÎŞ·¨Æô¶¯¡£");
+            log.error("officeManageræœªæ³¨å†ŒæˆåŠŸï¼Œæ— æ³•å¯åŠ¨ã€‚");
             return;
         }
         try {
             officeManager.start();
         } catch (Exception e) {
-            log.error("Æô¶¯officeManager·¢ÉúÒì³£¡£", e);
+            log.error("å¯åŠ¨officeManagerå‘ç”Ÿå¼‚å¸¸ã€‚", e);
         }
     }
 
     public void stopOfficeManager() {
         if (officeManager == null) {
-            log.error("officeManagerÎ´×¢²á³É¹¦£¬ÎŞ·¨Æô¶¯¡£");
+            log.error("officeManageræœªæ³¨å†ŒæˆåŠŸï¼Œæ— æ³•å¯åŠ¨ã€‚");
             return;
         }
         try {
             officeManager.stop();
         } catch (Exception e) {
-            log.error("Í£Ö¹officeManager·¢ÉúÒì³£¡£", e);
+            log.error("åœæ­¢officeManagerå‘ç”Ÿå¼‚å¸¸ã€‚", e);
         }
     }
 
@@ -69,13 +71,21 @@ public class OpenOfficeUtil {
         try {
             JodConverter.convert(source).to(target).execute();
         } catch (Exception e) {
-            log.error("officeManager×ª»»ÎÄµµ·¢ÉúÒì³£¡£", e);
+            log.error("officeManagerè½¬æ¢æ–‡æ¡£å‘ç”Ÿå¼‚å¸¸ã€‚", e);
+        }
+    }
+
+    public void convert(InputStream input, File target) {
+        try {
+            JodConverter.convert(input).as(DefaultDocumentFormatRegistry.PDF).to(target).execute();
+        } catch (Exception e) {
+            log.error("officeManagerè½¬æ¢æ–‡æ¡£å‘ç”Ÿå¼‚å¸¸ã€‚", e);
         }
     }
 
     /*public static void main(String[] args) {
-        File source = new File("D:\\reportFilePath\\²âÊÔword.docx");
-        String filename = "²âÊÔwordLocal.pdf";
+        File source = new File("D:\\reportFilePath\\æµ‹è¯•word.docx");
+        String filename = "æµ‹è¯•wordLocal.pdf";
         File convertDictionary = new File("D:/reportFilePath/convertToPDFLocal");
         if (!convertDictionary.exists()) {
             convertDictionary.mkdirs();
