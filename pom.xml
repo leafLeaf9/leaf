@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xmlns="http://maven.apache.org/POM/4.0.0"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gousade</groupId>
 	<artifactId>gousade</artifactId>
 	<packaging>war</packaging>
-	<version>1.1.2-SNAPSHOT</version>
-	<name>GisardAdminLTE - SpringBoot</name>
+	<version>1.1.2</version>
+	<name>spring-boot-gousade</name>
 	<description>SpringBoot Project.</description>
 	<url>https://github.com/woxigousade/gousade</url>
 	<parent>
@@ -20,8 +20,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-<!--		<java.version>11</java.version>-->
-		    <java.version>1.8</java.version>
+		<!--		<java.version>11</java.version>-->
+		<java.version>1.8</java.version>
+		<docker.image.prefix>springboot</docker.image.prefix>
 		<skipTests>true</skipTests>
 	</properties>
 
@@ -284,6 +285,11 @@
 			<artifactId>jodconverter-local</artifactId>
 			<version>4.2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.tencentcloudapi</groupId>
+			<artifactId>tencentcloud-sdk-java</artifactId>
+			<version>3.1.326</version>
+		</dependency>
 		<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -377,6 +383,24 @@
 					<verbose>true</verbose>
 				</configuration>
 			</plugin>
+			<!-- Docker maven plugin -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+			<!-- Docker maven plugin -->
 		</plugins>
 	</build>
 </project>
