@@ -34,7 +34,6 @@ public class BigDecimalCalculator {
         BigDecimal b1 = BigDecimal.valueOf(a);
         BigDecimal b2 = BigDecimal.valueOf(b);
         b1 = b1.multiply(b2);
-        b1.compareTo(b2);
         return b1.doubleValue();
     }
 
@@ -50,6 +49,19 @@ public class BigDecimalCalculator {
         BigDecimal b1 = BigDecimal.valueOf(b);
         a1 = a1.divide(b1, scale, RoundingMode.HALF_UP);
         return a1.doubleValue();
+    }
+
+    public static String getChanges(double a, double b) {
+        double value = BigDecimal.valueOf(a).subtract(BigDecimal.valueOf(b))
+                .divide(BigDecimal.valueOf(b), 4, RoundingMode.HALF_UP)
+                .doubleValue();
+        if (value > 0.0D) {
+            return "上升" + BigDecimal.valueOf(value).multiply(BigDecimal.valueOf(100)).doubleValue() + "%";
+        } else if (value < 0.0D) {
+            return "下降" + BigDecimal.valueOf(Math.abs(value)).multiply(BigDecimal.valueOf(100)).doubleValue() + "%";
+        } else {
+            return "持平";
+        }
     }
 
 }
