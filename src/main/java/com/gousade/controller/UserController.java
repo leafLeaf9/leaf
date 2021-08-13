@@ -93,27 +93,10 @@ public class UserController {
         return res;
     }
 
-    /**
-     * 注册用户
-     *
-     * @param map
-     * @return
-     */
-    @RequestMapping(value = "/ShiroRegist", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/ShiroRegist", method = RequestMethod.POST)
     public Map<String, Object> ShiroRegist(@RequestBody Map<String, Object> map) {
         return userService.ShiroRegist(map);
-    }
-
-    /**
-     * 注册用户
-     *
-     * @param map
-     * @return
-     */
-    @RequestMapping(value = "/regist", method = RequestMethod.POST)
-    public Map<String, Object> regist(@RequestBody Map<String, Object> map) {
-        return userService.regist(map);
-    }
+    }*/
 
     @ApiOperation(value = "获取用户列表", notes = "查询用户列表")
     @RequestMapping(value = "/selectUserList", method = RequestMethod.POST)

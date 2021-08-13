@@ -8,8 +8,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * @author woxigousade <woxigsd@gmail.com>
- * @date 2018-12-25 23:25:52
- * @description SpringBoot Starter
+ * @date 2018/12/25
  */
 @EnableAspectJAutoProxy(exposeProxy = true)
 @SpringBootApplication
