@@ -7,7 +7,6 @@ import com.github.pagehelper.PageInfo;
 import com.gousade.excel.WordsVO;
 import com.gousade.pojo.Page;
 import com.gousade.service.AnalysisService;
-import com.gousade.utils.ExcelUtil;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -222,7 +221,6 @@ public class AnalysisController {
 		FileOutputStream fos = new FileOutputStream("./src/main/webapp/xls/词表导出.xlsx");
 		workbook.write(fos);
 		fos.close();*/
-        ExcelUtil.downloadExcel(response, workbook, "词表导出表");
         Map<String, Object> retMap = new HashMap<String, Object>();
         retMap.put("result", "操作成功");
         return retMap;
