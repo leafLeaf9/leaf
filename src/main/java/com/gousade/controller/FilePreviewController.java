@@ -1,5 +1,6 @@
 package com.gousade.controller;
 
+import com.gousade.annotation.RequestSentinel;
 import com.gousade.utils.OpenOfficeUtil;
 import com.gousade.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -120,6 +121,7 @@ public class FilePreviewController {
     /**
      * 图片预览
      */
+    @RequestSentinel
     @GetMapping("/previewImage")
     public void previewImage() {
         response.reset();

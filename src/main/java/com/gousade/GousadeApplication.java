@@ -11,7 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @date 2018/12/25
  */
 @EnableAspectJAutoProxy(exposeProxy = true)
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.gousade")
 public class GousadeApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

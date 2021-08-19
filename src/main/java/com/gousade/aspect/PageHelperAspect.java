@@ -44,7 +44,9 @@ public class PageHelperAspect {
         DataTablesPageUtil returnValue = (DataTablesPageUtil) point.proceed(args);
         PageInfo pageInfo = new PageInfo(returnValue.getData());
         // 封装数据给DataTables
-        dataTable = DataTablesResultUtil.packageResult(dataTable, pageInfo);
+        if (dataTable != null) {
+            DataTablesResultUtil.packageResult(dataTable, pageInfo);
+        }
         // System.out.println("@Around：执行目标方法之后...");
         // System.out.println("@Around：被织入的目标对象为：" + point.getTarget());
         log.info("PageHelper AOP Pagination succeeded.");
