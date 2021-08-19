@@ -22,7 +22,7 @@ public class JasyptTest {
     @Test
     public void stringEncryptor() {
         String url = encryptor.encrypt(
-                "jdbc:mysql://ip:port/databaseName-ums?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai");
+                "jdbc:mysql://ip:port/databaseName-ums?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true");
         String ip = encryptor.encrypt("ip");
         log.info("ip: ENC(" + ip + ")");
         Assertions.assertTrue(url.length() > 0);

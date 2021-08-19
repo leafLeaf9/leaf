@@ -2,13 +2,15 @@ package com.gousade.config;
 
 import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author: woxigousade <woxigsd@gmail.com>
- * @date: 2020/9/1/0001 20:17
- * @description: spring boot general config bean
+ * @author woxigousade <woxigsd@gmail.com>
+ * @date 2020/9/1
+ * @description spring boot general config bean
  */
 @Configuration
 public class GousadeApplicationConfig {
@@ -45,5 +47,13 @@ public class GousadeApplicationConfig {
             }
         });
         return tomcat;
+    }
+
+    /**
+     * @since spring-boot 2.4.0
+     */
+    @Bean
+    WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> enableDefaultServlet() {
+        return (factory) -> factory.setRegisterDefaultServlet(true);
     }
 }

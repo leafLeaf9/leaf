@@ -25,9 +25,12 @@ public class JasyptController {
     @Resource
     JasyptUtil jasyptUtil;
 
+
     @RequiresRoles(value = {"超级管理员", "jasypt"}, logical = Logical.OR)
     @RequestMapping(value = "/encrypt", method = RequestMethod.POST)
     public Object encrypt(String value) {
+        //Spring mvc框架在给参数赋值的时候调用了URLDecoder, 会把+转换为空格
+        value = value.replace(" ", "+");
         log.info(jasyptUtil.encrypt(value));
         return jasyptUtil.encrypt(value);
     }
@@ -35,6 +38,7 @@ public class JasyptController {
     @RequiresRoles({"超级管理员"})
     @RequestMapping(value = "/decrypt", method = RequestMethod.POST)
     public Object decrypt(String value) {
+        value = value.replace(" ", "+");
         log.info(jasyptUtil.decrypt(value));
         return ResponseResult.renderSuccess().message("解密成功").data("value", jasyptUtil.decrypt(value));
     }
