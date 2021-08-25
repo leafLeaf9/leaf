@@ -24,13 +24,12 @@ public class OpenOfficeUtil {
     private OpenOfficeUtil() {
         try {
             officeManager = LocalOfficeManager.builder().install()
-                    /*.officeHome(OFFICE_HOME)*/.portNumbers(PORT).build();
+                    /*.officeHome(OFFICE_HOME)*/.portNumbers(LocalMachineUtils.getAvailablePort(PORT)).build();
             //officeManager = LocalOfficeManager.install();
             startOfficeManager();
         } catch (Exception e) {
             log.error("注册officeManager发生异常。", e);
         }
-
     }
 
     public static OpenOfficeUtil getInstance() {
