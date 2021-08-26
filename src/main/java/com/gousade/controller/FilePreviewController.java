@@ -4,8 +4,6 @@ import com.gousade.annotation.RequestSentinel;
 import com.gousade.utils.OpenOfficeUtil;
 import com.gousade.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.jodconverter.DocumentConverter;
-import org.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +22,8 @@ import java.io.*;
 @RequestMapping(value = "/admin/gousadeTest/filePreview")
 public class FilePreviewController {
 
-    @Autowired
-    private DocumentConverter converter;
+    /*@Autowired
+    private DocumentConverter converter;*/
 
     @Autowired
     private HttpServletResponse response;
@@ -58,7 +56,7 @@ public class FilePreviewController {
     /**
      * 文档预览，word、excel、ppt都可以转换为pdf，excel样式可能会出现问题
      */
-    @GetMapping("/previewDocument")
+    /*@GetMapping("/previewDocument")
     public void previewDocument() {
         String path = "static" + File.separator + "pdf" + File.separator + "测试word1.docx";
         String filename = "测试word.pdf";
@@ -81,13 +79,13 @@ public class FilePreviewController {
             }
             input.close();
             //需要保存文件用上面的方法，如果不需要保存文件直接预览则直接输出为PDF流，输入的as类型似乎没影响
-            /*converter.convert(classPathResource.getInputStream()).as(DefaultDocumentFormatRegistry.PDF)
+            *//*converter.convert(classPathResource.getInputStream()).as(DefaultDocumentFormatRegistry.PDF)
                     .to(output).as(DefaultDocumentFormatRegistry.PDF)
-                    .execute();*/
+                    .execute();*//*
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /**
      * 只使用local包下的类进行文档转换预览
