@@ -22,8 +22,7 @@ public class Java8DateUtil {
     }
 
     public static String formatZonedDateTime(ZonedDateTime zonedDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(CTT);
-        return zonedDateTime.format(formatter);
+        return formatZonedDateTime(zonedDateTime, "yyyy-MM-dd HH:mm:ss");
     }
 
     public static String formatZonedDateTime(ZonedDateTime zonedDateTime, String format) {
@@ -32,8 +31,7 @@ public class Java8DateUtil {
     }
 
     public static ZonedDateTime dateTimeStrToZonedDateTime(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(CTT);
-        return ZonedDateTime.parse(dateStr, formatter);
+        return dateTimeStrToZonedDateTime(dateStr, "yyyy-MM-dd HH:mm:ss");
     }
 
     public static ZonedDateTime dateTimeStrToZonedDateTime(String dateStr, String format) {

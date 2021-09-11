@@ -1,18 +1,25 @@
 package com.gousade.controller;
 
 import com.gousade.commonutils.ResponseResult;
+import com.gousade.entity.GantryInfoDTO;
+import com.gousade.entity.TestResponseResult;
 import com.gousade.mapper.UserMapper;
 import com.gousade.pojo.SmsResponseLog;
 import com.gousade.pojo.User;
 import com.gousade.service.SmsResponseLogService;
+import com.gousade.utils.Java8DateUtil;
 import com.gousade.utils.SerializerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,5 +78,19 @@ public class GousadeTestController {
         byte[] bytes = SerializerUtil.getSerializer().serialize(outerMap);
         Map<String, Object> deserializeOuterMap = (Map<String, Object>) SerializerUtil.getSerializer().deserialize(bytes);
         return ResponseResult.renderSuccess();
+    }
+
+    @PostMapping(value = "/testTrafficGuidance", produces = {"application/json;charset=UTF-8"}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public TestResponseResult testTrafficGuidance(String organID, String key, String day) {
+        TestResponseResult result = new TestResponseResult();
+        result.setStatus(200);
+        result.setMsg("成功");
+        result.setReceiveTime(Java8DateUtil.formatZonedDateTime(ZonedDateTime.now()));
+        List<GantryInfoDTO> list = new ArrayList<>();
+        list.add(GantryInfoDTO.builder().gantryID("id001").gantryName("门架001").Dir("内环").avgSpeed(62).FRate(100000).pcu(110000).build());
+        list.add(GantryInfoDTO.builder().gantryID("id002").gantryName("门架002").Dir("外环").avgSpeed(52).FRate(120000).pcu(140000).build());
+        list.add(GantryInfoDTO.builder().gantryID("id003").gantryName("门架003").Dir("外环").avgSpeed(150).FRate(120000).pcu(140000).build());
+        result.setData(list);
+        return result;
     }
 }
