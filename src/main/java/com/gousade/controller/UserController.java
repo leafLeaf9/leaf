@@ -22,6 +22,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
@@ -119,11 +121,11 @@ public class UserController {
             @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataTypeClass = String.class, paramType = "query"),
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataTypeClass = String.class, paramType = "query"),
             @ApiImplicitParam(name = "phoneNumber", value = "手机号", required = true, dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "roleIds", value = "角色", required = false, dataTypeClass = String.class, paramType = "query")})
+            @ApiImplicitParam(name = "roleIds", value = "角色", dataTypeClass = String.class, paramType = "query")})
     @RequestMapping(value = "/userEdit", method = RequestMethod.POST)
-    public Object userEdit(@ApiIgnore User user) {
-        boolean b = false;
-        if (user.getId() == null || "".equals(user.getId())) {
+    public Object userEdit(@ApiIgnore @Validated User user) {
+        boolean b;
+        if (ObjectUtils.isEmpty(user.getId())) {
             b = userService.insert(user);
         } else {
             b = userService.updateUserById(user);
@@ -132,8 +134,8 @@ public class UserController {
     }
 
     @CacheEvict(allEntries = true, beforeInvocation = true)
-    @RequestMapping(value = "/deleteUserByid", method = RequestMethod.POST)
-    public Object deleteUserByid(
+    @RequestMapping(value = "/deleteUserById", method = RequestMethod.POST)
+    public Object deleteUserById(
             @ApiParam(name = "map", value = "map中包含要删除的用户id") @RequestParam Map<String, Object> map) {
         boolean b = userService.deleteUserByid(map);
         return ResponseResult.renderBoolean(b);

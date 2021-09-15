@@ -4,6 +4,12 @@ import com.gousade.commonutils.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MultipartException;
@@ -11,6 +17,7 @@ import org.springframework.web.multipart.MultipartException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author woxigsd@gmail.com
@@ -58,6 +65,23 @@ public class GlobalExceptionHandler {
     public ResponseResult handleSQLException(SQLException e) {
         log.error("发生sql异常", e);
         return ResponseResult.renderError().message("发生数据库异常，请联系系统管理员。");
+    }
+
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<ResponseResult> handleException(BindException e) {
+        BindingResult result = e.getBindingResult();
+        FieldError fieldError = result.getFieldError();
+        String message;
+        if (fieldError != null) {
+            message = String.format("%s。%s.%s：%s", fieldError.getDefaultMessage(),
+                    fieldError.getObjectName(), fieldError.getField(), fieldError.getRejectedValue());
+        } else {
+            List<ObjectError> errors = result.getAllErrors();
+            message = errors.get(0).getDefaultMessage();
+        }
+        ResponseResult responseResult = ResponseResult.renderError().message(message);
+        log.error("发生参数校验异常", e);
+        return new ResponseEntity<>(responseResult, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class)

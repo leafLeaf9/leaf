@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class User implements Serializable {
 
     private String userId;
 
+    @Size(max = 50, message = "用户名称不能超过{max}个字符")
     private String userName;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
