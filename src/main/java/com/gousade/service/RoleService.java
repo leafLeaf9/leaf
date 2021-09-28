@@ -16,15 +16,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * 类说明:角色管理Service，并且测试@Transactional注解功能
- *
- * @Transactional 默认只回滚RuntimeException和Error，添加rollbackFor =
- * Exception.class可以让事物在遇到非运行时异常时也回滚
- * 参考https://www.cnblogs.com/clwydjgs/p/9317849.html
- * https://blog.csdn.net/nextyu/article/details/78669997
- * https://www.cnblogs.com/caoyc/p/5632963.html
- * https://www.cnblogs.com/xd502djj/p/10940627.html
- * webapp/img/Exception.png
+ * /webapp/img/Exception.png
  */
 
 @Service
