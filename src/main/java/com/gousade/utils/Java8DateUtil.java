@@ -12,6 +12,8 @@ import java.util.Date;
  */
 public class Java8DateUtil {
     public static final ZoneId CTT = ZoneId.of("Asia/Shanghai");
+    public static final String dateFormatter = "yyyy-MM-dd HH:mm:ss";
+    public static final String dayFormatter = "yyyy-MM-dd";
 
     public static Date zonedDateTimeToDate(ZonedDateTime zonedDateTime) {
         return Date.from(zonedDateTime.toInstant());
@@ -22,7 +24,11 @@ public class Java8DateUtil {
     }
 
     public static String formatZonedDateTime(ZonedDateTime zonedDateTime) {
-        return formatZonedDateTime(zonedDateTime, "yyyy-MM-dd HH:mm:ss");
+        return formatZonedDateTime(zonedDateTime, dateFormatter);
+    }
+
+    public static String formatZonedDateTimeToDay(ZonedDateTime zonedDateTime) {
+        return formatZonedDateTime(zonedDateTime, dayFormatter);
     }
 
     public static String formatZonedDateTime(ZonedDateTime zonedDateTime, String format) {
@@ -31,7 +37,7 @@ public class Java8DateUtil {
     }
 
     public static ZonedDateTime dateTimeStrToZonedDateTime(String dateStr) {
-        return dateTimeStrToZonedDateTime(dateStr, "yyyy-MM-dd HH:mm:ss");
+        return dateTimeStrToZonedDateTime(dateStr, dateFormatter);
     }
 
     public static ZonedDateTime dateTimeStrToZonedDateTime(String dateStr, String format) {
@@ -40,7 +46,7 @@ public class Java8DateUtil {
     }
 
     public static ZonedDateTime dateStrToZonedDateTime(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(CTT);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dayFormatter).withZone(CTT);
         LocalDate localDate = LocalDate.parse(dateStr, formatter);
         return localDate.atStartOfDay(CTT);
     }

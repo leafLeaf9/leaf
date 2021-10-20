@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @Slf4j
@@ -47,7 +48,7 @@ public class ResponseUtil {
             Resource resource = resourceLoader.getResource(path);
             InputStream inputStream = resource.getInputStream();*/
             response.reset();
-            String fileName = URLEncoder.encode(Objects.requireNonNull(filename), "UTF-8")
+            String fileName = URLEncoder.encode(Objects.requireNonNull(filename), StandardCharsets.UTF_8.name())
                     .replaceAll("\\+", "%20");
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/octet-stream");

@@ -1,26 +1,39 @@
 package com.gousade.java8;
 
 import cn.hutool.core.thread.NamedThreadFactory;
+import com.google.gson.Gson;
 import com.gousade.pojo.User;
 import com.gousade.utils.BigDecimalCalculator;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import sun.misc.Unsafe;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
+import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
-
-/**
- * 从每个文件的第二行中提取:之后的数字
- */
 @Slf4j
-public class Test {
+public class Tests {
+
+    private static final long testVarOffset;
+
+    static {
+        try {
+            testVarOffset = getUnsafe().objectFieldOffset
+                    (Tests.class.getDeclaredField("state"));
+        } catch (Exception ex) {
+            throw new Error(ex);
+        }
+    }
+
+    private volatile int state;
 
     public static void main(String[] args) throws IOException {
         System.out.println(EmergencyOrderStatus.valueOf("ARRIVED").getClass());
@@ -87,6 +100,63 @@ public class Test {
         String collect3 = list4.stream().collect(Collectors.joining(","));
         System.out.println("-----------------------------");
         System.out.println("完成测试");
+
+        User user = User.builder().id("1").createTime(new Date()).build();
+        String s = new Gson().toJson(user);
+        System.out.println(s);
+
+        String emf = "Electromagnetic_Flowmeter m³/h";
+        System.out.println(emf);
+        System.out.println(Thread.currentThread().getId());
+        new Thread(() -> System.out.println("新线程id" + Thread.currentThread().getId())).start();
+        float diff = 1e-6F;
+        float diff1 = 1e+6F;
+        float diff2 = 1.377F;
+        System.out.println((double) diff2);
+        System.out.println(Double.valueOf(String.valueOf(diff2)));
+        String testSwitch = null;
+        switch (testSwitch) {
+            case "a":
+                System.out.println("a");
+            default:
+                System.out.println("de");
+        }
+    }
+
+    public static Unsafe getUnsafe() {
+        try {
+            Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+            theUnsafe.setAccessible(true);
+            return (Unsafe) theUnsafe.get(null);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取unsafe出错。");
+        }
+    }
+
+    public static Child generateChild() {
+        return new Child();
+    }
+
+    @Test
+    public void unsafeTest() throws InterruptedException {
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            boolean b = getUnsafe().compareAndSwapInt(this, testVarOffset, 0, 1);
+            System.out.println(b);
+            System.out.println("第一个线程 结果为 " + state);
+        }).start();
+        new Thread(() -> {
+            boolean b = getUnsafe().compareAndSwapInt(this, testVarOffset, 0, 2);
+            System.out.println(b);
+            System.out.println("第二个线程 结果为 " + state);
+        }).start();
+        Thread.sleep(3000);
     }
 
     /**

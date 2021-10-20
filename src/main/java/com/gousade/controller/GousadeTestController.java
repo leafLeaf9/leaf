@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,5 +79,10 @@ public class GousadeTestController {
     @PostMapping(value = "/testTrafficGuidance", produces = {"application/json;charset=UTF-8"}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseResult testTrafficGuidance() {
         return ResponseResult.renderSuccess();
+    }
+
+    @GetMapping("testJsonFormat")
+    public ResponseResult testJsonFormat() {
+        return ResponseResult.renderSuccess().data("time", LocalDate.now());
     }
 }

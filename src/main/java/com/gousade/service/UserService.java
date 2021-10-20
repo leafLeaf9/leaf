@@ -57,7 +57,6 @@ public class UserService {
             map.put("salt", uid);
             map.put("password", password);
             int i = userMapper.regist(map);
-
             if (i >= 1) {
                 retMap.put("result", "注册成功,跳转到登录页面");
             } else {
