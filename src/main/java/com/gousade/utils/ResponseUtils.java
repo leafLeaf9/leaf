@@ -7,15 +7,14 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @Slf4j
-public class ResponseUtil {
+public class ResponseUtils {
+    public static final String STREAM_CONTENT_TYPE = "application/octet-stream";
 
     public static void out(HttpServletResponse response, ResponseResult r) {
         ObjectMapper mapper = new ObjectMapper();
@@ -38,7 +37,8 @@ public class ResponseUtil {
     public static void resourceFileDownload(HttpServletResponse response, String path, String filename) {
         ClassPathResource classPathResource = new ClassPathResource(path);
         try (InputStream input = classPathResource.getInputStream(); OutputStream output = response.getOutputStream()) {
-            /*InputStream inputStream1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("static/word.txt");
+            /*InputStream inputStream1 = Thread.currentThread().getContextClassLoader()
+            .getResourceAsStream("static/word.txt");
             InputStream inputStream2 =classPathResource.getInputStream();
             ClassPathResource classPathResource = new ClassPathResource("static/word.txt");
             //jar包不能getFile，只能通过流的形式读取
@@ -47,21 +47,40 @@ public class ResponseUtil {
             ResourceLoader resourceLoader = new DefaultResourceLoader();
             Resource resource = resourceLoader.getResource(path);
             InputStream inputStream = resource.getInputStream();*/
-            response.reset();
-            String fileName = URLEncoder.encode(Objects.requireNonNull(filename), StandardCharsets.UTF_8.name())
-                    .replaceAll("\\+", "%20");
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/octet-stream");
-            response.addHeader("Content-Disposition",
-                    "attachment;filename*=utf-8''" + fileName);
-            byte[] bytes = new byte[1024];
-            int length;
-            while ((length = input.read(bytes)) != -1) {
-                output.write(bytes, 0, length);
-                output.flush();
-            }
+            completeResponse(response, filename, STREAM_CONTENT_TYPE);
+            writeStream(input, output);
         } catch (Exception e) {
             log.error("下载文件时发生异常。", e);
         }
     }
+
+    public static void completeResponse(HttpServletResponse response, String filename, String contentType)
+            throws IOException {
+        response.reset();
+        String fileName = URLEncoder.encode(Objects.requireNonNull(filename), StandardCharsets.UTF_8.name())
+                .replaceAll("\\+", "%20");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        response.setContentType(contentType);
+        response.addHeader("Content-Disposition", "attachment;filename*=utf-8''" + fileName);
+
+    }
+
+    public static void writeStream(InputStream input, OutputStream output) throws IOException {
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = input.read(bytes)) != -1) {
+            output.write(bytes, 0, length);
+            output.flush();
+        }
+    }
+
+    public static void fileDownload(HttpServletResponse response, File file, String filename) {
+        try (InputStream input = new FileInputStream(file); OutputStream output = response.getOutputStream()) {
+            completeResponse(response, filename, STREAM_CONTENT_TYPE);
+            writeStream(input, output);
+        } catch (Exception e) {
+            throw new RuntimeException("下载文件时发生异常。", e);
+        }
+    }
+
 }

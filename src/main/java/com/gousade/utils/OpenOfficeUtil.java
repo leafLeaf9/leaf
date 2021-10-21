@@ -4,42 +4,37 @@ import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.JodConverter;
 import org.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.jodconverter.office.LocalOfficeManager;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.File;
 import java.io.InputStream;
 
 /**
- * 文档转化工具类
- *
  * @author woxigousade
  * @date 2021/7/27
  */
+@Component
 @Slf4j
 public class OpenOfficeUtil {
-    private static final String OFFICE_HOME = "C:/Program Files (x86)/OpenOffice 4";
     private static final int PORT = 18101;
-    private static volatile OpenOfficeUtil instance;
     private LocalOfficeManager officeManager;
 
-    private OpenOfficeUtil() {
+    @PostConstruct
+    public void init() {
         try {
             officeManager = LocalOfficeManager.builder().install()
-                    /*.officeHome(OFFICE_HOME)*/.portNumbers(LocalMachineUtils.getAvailablePort(PORT)).build();
-            //officeManager = LocalOfficeManager.install();
+                    .portNumbers(LocalMachineUtils.getAvailablePort(PORT)).build();
             startOfficeManager();
         } catch (Exception e) {
             log.error("注册officeManager发生异常。", e);
         }
     }
 
-    public static OpenOfficeUtil getInstance() {
-        if (instance == null) {
-            synchronized (OpenOfficeUtil.class) {
-                if (instance == null)
-                    instance = new OpenOfficeUtil();
-            }
-        }
-        return instance;
+    @PreDestroy
+    public void destroy() {
+        stopOfficeManager();
     }
 
     public void startOfficeManager() {

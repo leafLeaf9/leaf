@@ -2,7 +2,7 @@ package com.gousade.controller;
 
 import com.gousade.annotation.RequestSentinel;
 import com.gousade.utils.OpenOfficeUtil;
-import com.gousade.utils.ResponseUtil;
+import com.gousade.utils.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.DocumentConverter;
 import org.jodconverter.document.DefaultDocumentFormatRegistry;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
@@ -29,6 +30,9 @@ public class FilePreviewController {
 
     @Autowired
     private HttpServletResponse response;
+
+    @Resource
+    private OpenOfficeUtil openOfficeUtil;
 
     /**
      * PDF预览
@@ -104,7 +108,7 @@ public class FilePreviewController {
         ClassPathResource classPathResource = new ClassPathResource(path);
         response.reset();
         try (OutputStream output = response.getOutputStream()) {
-            OpenOfficeUtil.getInstance().convert(classPathResource.getInputStream(), convertedFile);
+            openOfficeUtil.convert(classPathResource.getInputStream(), convertedFile);
             InputStream input = new FileInputStream(convertedFile);
             byte[] bytes = new byte[1024];
             int length;
@@ -183,6 +187,6 @@ public class FilePreviewController {
         toClient.flush();
         toClient.close();*/
         String path = "static" + File.separator + filename;
-        ResponseUtil.resourceFileDownload(response, path, filename.substring(filename.lastIndexOf("/") + 1));
+        ResponseUtils.resourceFileDownload(response, path, filename.substring(filename.lastIndexOf("/") + 1));
     }
 }

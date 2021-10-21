@@ -5,15 +5,12 @@ import com.google.gson.Gson;
 import com.gousade.pojo.User;
 import com.gousade.utils.BigDecimalCalculator;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-import sun.misc.Unsafe;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
-import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.*;
@@ -22,7 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Tests {
 
-    private static final long testVarOffset;
+    /*private static final long testVarOffset;
 
     static {
         try {
@@ -33,7 +30,7 @@ public class Tests {
         }
     }
 
-    private volatile int state;
+    private volatile int state;*/
 
     public static void main(String[] args) throws IOException {
         System.out.println(EmergencyOrderStatus.valueOf("ARRIVED").getClass());
@@ -53,7 +50,7 @@ public class Tests {
         System.out.println(str1);
         System.out.println(str2);
         List<String> list = new ArrayList<>();
-        list.add(new String("a"));
+        list.add("a");
         List<String> list2 = list.stream().collect(Collectors.toList());
         System.out.println(list == list2);
         System.out.println(list.get(0) == list2.get(0));
@@ -109,21 +106,9 @@ public class Tests {
         System.out.println(emf);
         System.out.println(Thread.currentThread().getId());
         new Thread(() -> System.out.println("新线程id" + Thread.currentThread().getId())).start();
-        float diff = 1e-6F;
-        float diff1 = 1e+6F;
-        float diff2 = 1.377F;
-        System.out.println((double) diff2);
-        System.out.println(Double.valueOf(String.valueOf(diff2)));
-        String testSwitch = null;
-        switch (testSwitch) {
-            case "a":
-                System.out.println("a");
-            default:
-                System.out.println("de");
-        }
     }
 
-    public static Unsafe getUnsafe() {
+    /*public static Unsafe getUnsafe() {
         try {
             Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
             theUnsafe.setAccessible(true);
@@ -132,10 +117,6 @@ public class Tests {
             e.printStackTrace();
             throw new RuntimeException("获取unsafe出错。");
         }
-    }
-
-    public static Child generateChild() {
-        return new Child();
     }
 
     @Test
@@ -157,13 +138,18 @@ public class Tests {
             System.out.println("第二个线程 结果为 " + state);
         }).start();
         Thread.sleep(3000);
+    }*/
+
+    public static Child generateChild() {
+        return new Child();
     }
 
     /**
      * 获取某行的冒号之后的数字
      */
     static void readLineVarFile(String fileName, int lineNumber) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName))); //使用缓冲区的方法将数据读入到缓冲区中
+        //使用缓冲区的方法将数据读入到缓冲区中
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
         String line = reader.readLine(); //定义行数
         int num = 0;
         while (line != null)    //当行数不为空时，输出该行内容及字符数
