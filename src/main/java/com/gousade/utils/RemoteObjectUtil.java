@@ -1,16 +1,10 @@
 package com.gousade.utils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gousade.utils.http.converter.MappingText2HttpMessageConverter;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,17 +22,7 @@ public class RemoteObjectUtil {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(connectTimeout);
         requestFactory.setReadTimeout(readTimeout);
-        RestTemplate template = new RestTemplate(requestFactory);
-        ObjectMapper lax = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        MappingJackson2HttpMessageConverter c = new MappingJackson2HttpMessageConverter();
-        c.setObjectMapper(lax);
-
-        List<HttpMessageConverter<?>> list = new ArrayList<>();
-        list.add(c);
-
-        template.setMessageConverters(list);
-        return template;
+        return new RestTemplate(requestFactory);
     }
 
     public static RestTemplate getSimpleRestTemplate() {

@@ -85,4 +85,14 @@ public class GousadeTestController {
     public ResponseResult testJsonFormat() {
         return ResponseResult.renderSuccess().data("time", LocalDate.now());
     }
+
+    @GetMapping("timeTest")
+    public ResponseResult timeTest() {
+        return ResponseResult.renderSuccess().data("timeCollection", LocalDate.now());
+    }
+
+    @PostMapping("postTimeTest")
+    public ResponseResult postTimeTest() {
+        return ResponseResult.renderSuccess().data("timeCollection", LocalDate.now());
+    }
 }

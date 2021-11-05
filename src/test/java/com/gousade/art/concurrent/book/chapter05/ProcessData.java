@@ -15,6 +15,9 @@ public class ProcessData {
 	private static final Lock writeLock = rwl.writeLock();
 	private volatile boolean update = false;
 
+	/**
+	 * 锁降级是指把持住（当前拥有的）写锁，再获取到读锁，随后释放（先前拥有的）写锁的过程
+	 */
 	@Test
 	public void processData() {
 		readLock.lock();

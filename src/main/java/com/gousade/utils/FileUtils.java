@@ -10,7 +10,7 @@ import java.net.URL;
  * @date 2020/6/15
  */
 @Slf4j
-public class FileUtil {
+public class FileUtils {
 
     /**
      * 递归删除文件及文件夹
