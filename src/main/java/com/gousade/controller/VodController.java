@@ -1,6 +1,6 @@
 package com.gousade.controller;
 
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.service.VodService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.gousade.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.excel.EasyExcelDemoData;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -1,6 +1,6 @@
 package com.gousade.controller;
 
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.mail.MailManage;
 import com.gousade.mail.MailManageImpl;
 import io.swagger.annotations.Api;

@@ -1,17 +1,27 @@
 package com.gousade.java8;
 
 import cn.hutool.core.thread.NamedThreadFactory;
-import com.google.gson.Gson;
 import com.gousade.pojo.User;
+import com.gousade.test.MyInterface;
 import com.gousade.utils.BigDecimalCalculator;
+import com.gousade.utils.Java8DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
@@ -98,14 +108,57 @@ public class Tests {
         System.out.println("-----------------------------");
         System.out.println("完成测试");
 
-        User user = User.builder().id("1").createTime(new Date()).build();
-        String s = new Gson().toJson(user);
-        System.out.println(s);
+        String command = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<reply method=\"device\" error=\"success\"></reply><break/>";
+        byte[] bytes = command.getBytes(StandardCharsets.UTF_8);
+        System.out.println(Arrays.toString(bytes));
+        String receiveData = new String(bytes, StandardCharsets.UTF_8);
+        System.out.println(receiveData);
 
-        String emf = "Electromagnetic_Flowmeter m³/h";
-        System.out.println(emf);
-        System.out.println(Thread.currentThread().getId());
-        new Thread(() -> System.out.println("新线程id" + Thread.currentThread().getId())).start();
+        TestInteger testInteger = new TestInteger();
+        TestInt testInt = new TestInt();
+        testInteger.setDeathAmount(null);
+//        testInt.setDeathAmount(testInteger.getDeathAmount());
+//        BeanUtils.copyProperties(testInteger, testInt);
+        System.out.println("int" + testInt);
+
+        TestInteger testInteger2 = new TestInteger();
+        TestInt testInt2 = new TestInt();
+        testInt2.setDeathAmount(4);
+        BeanUtils.copyProperties(testInt2, testInteger2);
+        System.out.println("integer" + testInteger2);
+        ServiceLoader<MyInterface> loads = ServiceLoader.load(MyInterface.class);
+        String url = "http://192.168.12.64:7005/SubCenterMonitor/";
+        URL uri = new URL(url);
+        System.out.println(uri.getHost());
+    }
+
+    @Test
+    public void testDate() {
+        LocalDate localDate = LocalDate.now().minusYears(1);
+        System.out.println(localDate);
+        LocalDate firstDayOfYear = localDate.with(TemporalAdjusters.firstDayOfYear());
+        System.out.println(firstDayOfYear);
+        ZonedDateTime zonedStartTime = Java8DateUtil.dateTimeStrToZonedDateTime("2021-03-06 13:05:20")
+                .withHour(0).withMinute(0).withSecond(0);
+        System.out.println(zonedStartTime.with(TemporalAdjusters.firstDayOfYear()));
+        System.out.println(zonedStartTime.with(TemporalAdjusters.firstDayOfMonth()));
+        ZonedDateTime zonedEndTime = zonedStartTime.with(TemporalAdjusters.lastDayOfYear());
+        System.out.println(zonedEndTime);
+    }
+
+    @Test
+    public void testChronoUnit() {
+        System.out.println(ChronoUnit.MINUTES.between(ZonedDateTime.now().minusDays(1), ZonedDateTime.now()));
+        System.out.println(ChronoUnit.MINUTES.between(ZonedDateTime.now().plusDays(1), ZonedDateTime.now()));
+    }
+
+    @Test
+    public void testBigDecimalScale() {
+        double stakeNum = 1172.384615;
+        System.out.println(BigDecimal.valueOf(stakeNum));
+        System.out.println(BigDecimal.valueOf(stakeNum).doubleValue());
+        System.out.println(BigDecimal.valueOf(stakeNum).setScale(3, RoundingMode.HALF_UP).doubleValue());
     }
 
     /*public static Unsafe getUnsafe() {

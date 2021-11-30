@@ -1,6 +1,6 @@
 package com.gousade.controller;
 
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.service.EasyExcelDataService;
 import com.gousade.service.SmsResponseLogService;
 import lombok.extern.slf4j.Slf4j;

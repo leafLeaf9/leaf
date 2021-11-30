@@ -1,7 +1,7 @@
 package com.gousade.controller;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisSmsCodeUtil;
 import com.gousade.redis.RedisUtil;

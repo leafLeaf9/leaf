@@ -5,7 +5,6 @@ import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
@@ -28,12 +27,12 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Component
-public class SendSmsUtil {
+public class SmsUtil {
 
     /*private static final String accessKeyId = "M6o8JNrzxIO7zI2S4LrWRdaNdCNACo9/1v5/DqfDdFJEb3MlrXU+2aJi2oRxieUDQKCCIC2rJvw6HDVR9zEdgQ==";
     private static final String accessKeySecret = "bFfybIAXktU8bitG/bRkA36bEHW/RcNBuheCoJeEzG8nz8UgTaNYWEilha5sMiKuF/k/1IRKn88xh+0g4x09pw==";*/
-    private static final String SignName = "HrhfSLEriq7HCvkMG88vhQ60AJ9U5mR6GtFRoKVHj9XGdJgrSuvvQL/MNEoiFsPD";
-    private static final String TemplateCode = "JP+XAHjZfZW1a1gb4ugXGqHwr80IQxbFKma0pzt54oQoMC66Srm+roFA68b6wLyF";
+    private static final String SIGN_NAME = "HrhfSLEriq7HCvkMG88vhQ60AJ9U5mR6GtFRoKVHj9XGdJgrSuvvQL/MNEoiFsPD";
+    private static final String TEMPLATE_CODE = "JP+XAHjZfZW1a1gb4ugXGqHwr80IQxbFKma0pzt54oQoMC66Srm+roFA68b6wLyF";
     private static String accessKeyId;
     private static String accessKeySecret;
     @Resource
@@ -43,12 +42,12 @@ public class SendSmsUtil {
 
     @Value("${aliyun.accessKeyId}")
     public void setAccessKeyId(String accessKeyId) {
-        SendSmsUtil.accessKeyId = accessKeyId;
+        SmsUtil.accessKeyId = accessKeyId;
     }
 
     @Value("${aliyun.accessKeySecret}")
     public void setAccessKeySecret(String accessKeySecret) {
-        SendSmsUtil.accessKeySecret = accessKeySecret;
+        SmsUtil.accessKeySecret = accessKeySecret;
     }
 
     public void sendSms(String mobile, int code) {
@@ -66,16 +65,14 @@ public class SendSmsUtil {
         request.setSysAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", mobile);
-        request.putQueryParameter("SignName", jasyptUtil.decrypt(SignName));
-        request.putQueryParameter("TemplateCode", jasyptUtil.decrypt(TemplateCode));
+        request.putQueryParameter("SignName", jasyptUtil.decrypt(SIGN_NAME));
+        request.putQueryParameter("TemplateCode", jasyptUtil.decrypt(TEMPLATE_CODE));
         request.putQueryParameter("TemplateParam", "{\"code\":" + code + "}");
         try {
             CommonResponse response = client.getCommonResponse(request);
             log.info("aliyun sendSms response: " + response.getData());
             SmsResponseLog entity = SmsResponseLog.builder().response(response.getData()).build();
             smsResponseLogMapper.insert(entity);
-        } catch (ServerException e) {
-            e.printStackTrace();
         } catch (ClientException e) {
             e.printStackTrace();
         }

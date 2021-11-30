@@ -1,7 +1,7 @@
 package com.gousade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.entity.EasyExcelData;
 import org.springframework.web.multipart.MultipartFile;
 

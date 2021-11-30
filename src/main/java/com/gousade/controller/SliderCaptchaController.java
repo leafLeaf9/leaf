@@ -1,7 +1,7 @@
 package com.gousade.controller;
 
 import cn.hutool.core.util.IdUtil;
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.pojo.SliderCaptchaDto;
 import com.gousade.utils.BigDecimalCalculator;
 import com.gousade.utils.ImageUtil;

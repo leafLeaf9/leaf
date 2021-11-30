@@ -2,8 +2,8 @@ package com.gousade.redis;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.annotation.OperationRecord;
-import com.gousade.commonutils.ResponseResult;
-import com.gousade.utils.SendSmsUtil;
+import com.gousade.common.ResponseResult;
+import com.gousade.utils.SmsUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,7 +19,7 @@ public class RedisSmsCodeUtil {
     private RedisUtil redisUtil;
 
     @Resource
-    private SendSmsUtil sendSmsUtil;
+    private SmsUtil smsUtil;
 
     @OperationRecord(operationNum = 9999, operationDescription = "短信验证码发送")
     public Object sendSmsCode(String phoneNumber) throws ClientException {
@@ -27,7 +27,7 @@ public class RedisSmsCodeUtil {
         Object redisGetSentCode = redisUtil.get(phoneNumber);
         if (redisGetSentCode == null) {
 //            redisUtil.set(phoneNumber, randomCode, 180L);
-            sendSmsUtil.sendSms(phoneNumber, randomCode);
+            smsUtil.sendSms(phoneNumber, randomCode);
             return ResponseResult.renderSuccess().message("验证码发送成功。");
         } else {
             return ResponseResult.renderError().message("验证码已存在，到期前请勿重复发送。");

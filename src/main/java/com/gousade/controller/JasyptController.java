@@ -1,6 +1,6 @@
 package com.gousade.controller;
 
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.jasypt.JasyptUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.Logical;

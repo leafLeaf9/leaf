@@ -1,6 +1,6 @@
 package com.gousade.controller;
 
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.entity.SecretJasypt;
 import com.gousade.pojo.OperationRecordLog;
 import com.gousade.pojo.SmsResponseLog;

@@ -112,6 +112,44 @@ public class DateTimeTest {
 
     }
 
+    @Test
+    public void testTemporalAdjusters() {
+        LocalDate nowDate = LocalDate.now().minusYears(1);
+        LocalDate firstDayOfYear = nowDate.with(TemporalAdjusters.firstDayOfYear());
+        LocalDate lastDayOfYear = nowDate.with(TemporalAdjusters.lastDayOfYear());
+        LocalDateTime firstDateOfYear = LocalDateTime.of(firstDayOfYear, LocalTime.MIN);
+        LocalDateTime lastDateOfYear = LocalDateTime.of(lastDayOfYear, LocalTime.MAX);
+
+        LocalDate firstDayOfMonth = nowDate.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayOfMonth = nowDate.with(TemporalAdjusters.lastDayOfMonth());
+        LocalDateTime firstDateOfMonth = LocalDateTime.of(firstDayOfMonth, LocalTime.MIN);
+        LocalDateTime lastDateOfMonth = LocalDateTime.of(lastDayOfMonth, LocalTime.MAX);
+
+        LocalDateTime fistDateOfDay = LocalDateTime.of(nowDate, LocalTime.MIN);
+        LocalDateTime lastDateOfDay = LocalDateTime.of(nowDate, LocalTime.MAX);
+
+
+        System.out.println("当前时间：" + LocalDateTime.now());
+
+        System.out.println("今年第一天：" + firstDateOfYear);
+        System.out.println("今天最后一天：" + lastDateOfYear);
+
+        System.out.println("当月第一天：" + firstDateOfMonth);
+        System.out.println("当月最后一天：" + lastDateOfMonth);
+
+        System.out.println("当天开始时间：" + fistDateOfDay);
+        System.out.println("当天结束时间：" + lastDateOfDay);
+//        print：
+//        当前时间：2020-04-17T10:10:40.443
+//        今年第一天：2020-01-01T00:00
+//        今天最后一天：2020-12-31T23:59:59.999999999
+//        当月第一天：2020-04-01T00:00
+//        当月最后一天：2020-04-30T23:59:59.999999999
+//        当天开始时间：2020-04-17T00:00
+//        当天结束时间：2020-04-17T23:59:59.999999999
+    }
+
+
     // 5. DateTimeFormatter : 解析和格式化日期或时间
     @Test
     public void test5() {

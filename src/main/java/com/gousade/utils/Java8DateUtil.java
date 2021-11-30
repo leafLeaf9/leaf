@@ -23,6 +23,15 @@ public class Java8DateUtil {
         return ZonedDateTime.ofInstant(date.toInstant(), CTT);
     }
 
+    public static String formatDate(Date date) {
+        return formatDate(date, dateFormatter);
+    }
+
+    public static String formatDate(Date date, String format) {
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), CTT);
+        return formatZonedDateTime(zonedDateTime, format);
+    }
+
     public static String formatZonedDateTime(ZonedDateTime zonedDateTime) {
         return formatZonedDateTime(zonedDateTime, dateFormatter);
     }

@@ -1,5 +1,6 @@
 package com.gousade.mybatisPlus;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.gousade.mapper.RoleMapper;
@@ -82,6 +83,14 @@ public class MybatisPlusTest {
         wrapper.orderByAsc("seq", "create_time");
         // 指定要查询的列
         wrapper.select("id", "name", "seq", "create_time");
+        List<Role> list = roleMapper.selectList(wrapper);
+        log.info(list.toString());
+    }
+
+    @Test
+    public void testSelectLambdaQuery() {
+        LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Role::isDelflag, false).orderByAsc(Role::getCreateTime);
         List<Role> list = roleMapper.selectList(wrapper);
         log.info(list.toString());
     }

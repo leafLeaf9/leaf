@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * ΢�Žӿڵ���ʧ��ʱ����ȴ����200�ɹ�����Ҫ����Error����Ϊ΢�������Ļ���
+ * 微信接口调用失败时请求却还是200成功，需要添加Error类作为微信相关类的基类
  *
  * @author woxigousade
  * @date 2021/9/27

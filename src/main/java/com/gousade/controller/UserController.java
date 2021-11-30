@@ -1,7 +1,7 @@
 package com.gousade.controller;
 
 import com.gousade.annotation.OperationRecord;
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
 import com.gousade.service.AttachmentGeneralService;

@@ -1,7 +1,10 @@
 package com.gousade.controller;
 
-import com.gousade.commonutils.ResponseResult;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.gousade.common.ResponseResult;
+import com.gousade.mapper.RoleMapper;
 import com.gousade.mapper.UserMapper;
+import com.gousade.pojo.Role;
 import com.gousade.pojo.SmsResponseLog;
 import com.gousade.pojo.User;
 import com.gousade.service.SmsResponseLogService;
@@ -37,6 +40,9 @@ public class GousadeTestController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @GetMapping("/listSmsLogs")
     public ResponseResult listSmsLogs() {
@@ -94,5 +100,13 @@ public class GousadeTestController {
     @PostMapping("postTimeTest")
     public ResponseResult postTimeTest() {
         return ResponseResult.renderSuccess().data("timeCollection", LocalDate.now());
+    }
+
+    @GetMapping("timeSelectOne")
+    public ResponseResult timeSelectOne() {
+        LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(Role::getName, "测试").orderByAsc(Role::getCreateTime);
+        Role role = roleMapper.selectOne(wrapper);
+        return ResponseResult.renderSuccess().data("selectOne", role);
     }
 }

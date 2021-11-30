@@ -4,6 +4,9 @@
  */
 package com.gousade.art.concurrent.book.chapter02;
 
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author tengfei.fangtf
  * @version $Id: Snippet.java, v 0.1 2015-7-31 下午11:32:42 tengfei.fangtf Exp $
  */
+@Slf4j
 public class Counter {
 
     private final AtomicInteger atomicI = new AtomicInteger(0);
@@ -25,12 +29,14 @@ public class Counter {
         long start = System.currentTimeMillis();
         for (int j = 0; j < 100; j++) {
             Thread t = new Thread(new Runnable() {
+                @SneakyThrows
                 @Override
                 public void run() {
                     for (int i = 0; i < 10000; i++) {
                         cas.count();
                         cas.safeCount();
                     }
+                    Thread.sleep(5000);
                 }
             });
             ts.add(t);
@@ -42,7 +48,10 @@ public class Counter {
         // 等待所有线程执行完成
         for (Thread t : ts) {
             try {
+                log.info(t.getId() + t.getName() + "进入join1");
+                //join方法会让主线程等待t线程死亡
                 t.join();
+                log.info(t.getId() + t.getName() + "进入join2");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -64,4 +64,9 @@ public class BigDecimalCalculator {
         }
     }
 
+    public static double getDistance(double startPoint, double endPoint, int scale) {
+        return Math.abs(BigDecimal.valueOf(startPoint).subtract(BigDecimal.valueOf(endPoint))
+                .setScale(scale, RoundingMode.HALF_UP).doubleValue());
+    }
+
 }

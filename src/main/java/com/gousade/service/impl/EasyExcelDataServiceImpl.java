@@ -4,7 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.entity.EasyExcelData;
 import com.gousade.entity.listener.EasyExcelDataListener;
 import com.gousade.mapper.EasyExcelDataMapper;

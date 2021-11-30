@@ -1,6 +1,6 @@
 package com.gousade.controller.advice;
 
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;

@@ -1,6 +1,6 @@
 package com.gousade.controller;
 
-import com.gousade.commonutils.ResponseResult;
+import com.gousade.common.ResponseResult;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisUtil;
 import com.gousade.utils.SaltUtil;
