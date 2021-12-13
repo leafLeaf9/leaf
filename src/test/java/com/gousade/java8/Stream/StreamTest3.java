@@ -185,7 +185,7 @@ public class StreamTest3 {
     @Test
     public void testCollectingAndThenGroupingBy() {
         List<EmployeeWrapper> collect = employees.stream()
-                .collect(Collectors.collectingAndThen(Collectors.groupingBy(Employee::getStatus, Collectors.toList()),
+                .collect(Collectors.collectingAndThen(Collectors.groupingBy(Employee::getStatus),
                         map -> {
                             List<EmployeeWrapper> list = new ArrayList<>();
                             map.forEach((k, v) -> list.add(new EmployeeWrapper(k.name(), v)));

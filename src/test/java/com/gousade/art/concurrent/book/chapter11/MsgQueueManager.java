@@ -1,1 +1,39 @@
-package com.gousade.art.concurrent.book.chapter11;import java.util.concurrent.BlockingQueue;import java.util.concurrent.LinkedTransferQueue;/** * ×ÜÏûÏ¢¶ÓÁĞ¹ÜÀí * * @author tengfei.fangtf */public class MsgQueueManager implements IMsgQueue {    /**     * ÏûÏ¢×Ü¶ÓÁĞ     */    public final BlockingQueue<Message> messageQueue;    private MsgQueueManager() {        messageQueue = new LinkedTransferQueue<Message>();    }    public void put(Message msg) {        try {            messageQueue.put(msg);        } catch (InterruptedException e) {            Thread.currentThread().interrupt();        }    }    public Message take() {        try {            return messageQueue.take();        } catch (InterruptedException e) {            Thread.currentThread().interrupt();        }        return null;    }}
+package com.gousade.art.concurrent.book.chapter11;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedTransferQueue;
+
+/**
+ * æ€»æ¶ˆæ¯é˜Ÿåˆ—ç®¡ç†
+ *
+ * @author tengfei.fangtf
+ */
+public class MsgQueueManager implements IMsgQueue {
+
+    /**
+     * æ¶ˆæ¯æ€»é˜Ÿåˆ—
+     */
+    public final BlockingQueue<Message> messageQueue;
+
+    private MsgQueueManager() {
+        messageQueue = new LinkedTransferQueue<Message>();
+    }
+
+    public void put(Message msg) {
+        try {
+            messageQueue.put(msg);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public Message take() {
+        try {
+            return messageQueue.take();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return null;
+    }
+
+}

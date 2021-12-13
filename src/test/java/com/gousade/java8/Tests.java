@@ -1,6 +1,7 @@
 package com.gousade.java8;
 
 import cn.hutool.core.thread.NamedThreadFactory;
+import com.gousade.annotation.OperationRecord;
 import com.gousade.pojo.User;
 import com.gousade.test.MyInterface;
 import com.gousade.utils.BigDecimalCalculator;
@@ -147,6 +148,7 @@ public class Tests {
         System.out.println(zonedEndTime);
     }
 
+    @OperationRecord(operationNum = 9999, operationDescription = "短信验证码发送")
     @Test
     public void testChronoUnit() {
         System.out.println(ChronoUnit.MINUTES.between(ZonedDateTime.now().minusDays(1), ZonedDateTime.now()));
@@ -159,6 +161,17 @@ public class Tests {
         System.out.println(BigDecimal.valueOf(stakeNum));
         System.out.println(BigDecimal.valueOf(stakeNum).doubleValue());
         System.out.println(BigDecimal.valueOf(stakeNum).setScale(3, RoundingMode.HALF_UP).doubleValue());
+    }
+
+    @Test
+    public void testSet() {
+        Set<User> set = new TreeSet<>(Comparator.comparing(User::getId));
+        set.add(User.builder().id("user211").build());
+        set.add(User.builder().id("user211").build());
+        set.add(User.builder().id("user211").userId("userID211").build());
+        set.add(User.builder().id("user2").build());
+        System.out.println(set.size());
+        System.out.println(set);
     }
 
     /*public static Unsafe getUnsafe() {
