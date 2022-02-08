@@ -120,7 +120,7 @@ public class StreamTest3 {
         System.out.println(average);
         System.out.println("----------------------------------");
         // 工资总和
-        Double sum = employees.stream().collect(Collectors.summingDouble(Employee::getSalary));
+        Double sum = employees.stream().mapToDouble(Employee::getSalary).sum();
         System.out.println(sum);
         System.out.println("----------------------------------");
         // 工资总和另一种写法

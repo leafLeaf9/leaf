@@ -47,7 +47,7 @@ public class User implements Serializable {
     private String salt;
 
     @TableField(fill = FieldFill.INSERT)
-//    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)

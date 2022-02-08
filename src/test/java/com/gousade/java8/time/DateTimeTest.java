@@ -149,6 +149,17 @@ public class DateTimeTest {
 //        当天结束时间：2020-04-17T23:59:59.999999999
     }
 
+    @Test
+    public void testTemporalAdjusters1() {
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime firstDayOfMonth = now.with(TemporalAdjusters.firstDayOfMonth());
+        ZonedDateTime firstDayOfMonth0 = now.with(TemporalAdjusters.firstDayOfMonth())
+                .withHour(0).withMinute(0).withSecond(0).withNano(0);
+        System.out.println(now);
+        System.out.println(firstDayOfMonth);
+        System.out.println(firstDayOfMonth0);
+    }
+
 
     // 5. DateTimeFormatter : 解析和格式化日期或时间
     @Test

@@ -1,5 +1,6 @@
 package com.gousade.entity;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,10 +11,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class WeChatTokenInfo extends WeChatError {
-    private String access_token;
-    private Integer expires_in;
-    private String refresh_token;
+    @JsonAlias(value = "access_token")
+    private String accessToken;
+    @JsonAlias(value = "expires_in")
+    private Integer expiresIn;
+    @JsonAlias(value = "refresh_token")
+    private String refreshToken;
     private String openid;
     private String scope;
-    private String unionid;
+    @JsonAlias(value = "unionid")
+    private String unionId;
 }

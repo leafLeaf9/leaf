@@ -2,6 +2,7 @@ package com.gousade.java8;
 
 import cn.hutool.core.thread.NamedThreadFactory;
 import com.gousade.annotation.OperationRecord;
+import com.gousade.pojo.SubUserImpl;
 import com.gousade.pojo.User;
 import com.gousade.test.MyInterface;
 import com.gousade.utils.BigDecimalCalculator;
@@ -25,6 +26,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -172,6 +174,79 @@ public class Tests {
         set.add(User.builder().id("user2").build());
         System.out.println(set.size());
         System.out.println(set);
+    }
+
+    @Test
+    public void testSplit() {
+        String str = "";
+        String[] split = str.split(",");
+        System.out.println(Arrays.toString(split));
+    }
+
+    @Test
+    public void testSubClassToString() {
+        SubUserImpl subUser = new SubUserImpl();
+        subUser.setSub1("zez");
+        System.out.println(subUser);
+    }
+
+    @Test
+    public void testKey() {
+        String str = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAotQDQzCJlx8xhe9Se3YcjioWPXGF68n89P+htxvfrOBm9jJ11KefIBDzN6oGUK3wk/xkAAfHxSLPIPapDH02tnQv8thz7SrnJyLhMGKJ12gLwDLt105hyxRTi3DpOd9mNq5JFF8is+xPdNhgVFSH4luOXRlBl5aVzFG5nux1gt90mrlz+q6yJTjD05jxxZsorbN46CVdfBYVCptyBWUH+jwRZNG/Ujykrp19XKuqzpO7NFDdRZ1WoK7kFYMeMCH66X45abG2+rA3vw1s8R0P+KzQ4Zlt53VIZ4gy8XwQCwNGMIG5ueOPctTjeyq4qtN1SXvvldLvCehijstw3qaSKwIDAQAB";
+        System.out.println(new String(Base64.getDecoder().decode(str.getBytes(StandardCharsets.UTF_8))));
+    }
+
+    @Test
+    public void testEmptyListGetMax() {
+        List<User> list = new ArrayList<>();
+        Optional<String> max = list.stream().map(User::getId).max(String::compareTo);
+        System.out.println(max);
+        String str = "00";
+        Integer integer = Integer.valueOf(str);
+        System.out.println(integer);
+        System.out.println(integer % 2);
+        Map<String, Object> map = new ConcurrentHashMap<>();
+        map.put("k", "v");
+        System.out.println(map.size());
+    }
+
+    @Test
+    public void testEBoxingTypeCopy() {
+        TestInteger testInteger = new TestInteger();
+        TestInt testInt = new TestInt();
+        testInteger.setDeathAmount(3);
+        Integer deathAmount = testInteger.getDeathAmount();
+//        testInt.setDeathAmount(deathAmount);
+        BeanUtils.copyProperties(testInteger, testInt);
+        System.out.println("int" + testInt);
+
+        TestInteger testInteger2 = new TestInteger();
+        TestInt testInt2 = new TestInt();
+        testInt2.setDeathAmount(4);
+        BeanUtils.copyProperties(testInt2, testInteger2);
+        System.out.println("integer" + testInteger2);
+
+        System.out.println(9.845778423E7);
+        System.out.println(98457784.23);
+    }
+
+    @Test
+    public void testValue() {
+        User user1 = User.builder().id("1").build();
+        User user2 = user1;
+        System.out.println(user1);
+        System.out.println(user2);
+        user1.setId("new 1");
+        System.out.println(user1);
+        System.out.println(user2);
+
+        AtomicReference<ZonedDateTime> atomicTime1 = new AtomicReference<>(ZonedDateTime.now());
+        ZonedDateTime zonedDateTime2 = atomicTime1.get();
+        System.out.println(atomicTime1);
+        System.out.println(zonedDateTime2);
+        atomicTime1.compareAndSet(zonedDateTime2, zonedDateTime2.plusMonths(1));
+        System.out.println(atomicTime1);
+        System.out.println(zonedDateTime2);
     }
 
     /*public static Unsafe getUnsafe() {

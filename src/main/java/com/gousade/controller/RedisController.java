@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -51,9 +50,9 @@ public class RedisController {
         User userEntity = new User();
         userEntity.setId(SaltUtil.generateUUId());
         userEntity.setUserName("reidsuser");
-        userEntity.setCreateTime(new Date());
+//        userEntity.setCreateTime(new Date());
         // return redisUtil.set(key,userEntity,ExpireTime);
-        return redisUtil.set(key, key, 1800);
+        return redisUtil.set(key, userEntity, 1800);
     }
 
     @RequestMapping(value = "get", method = RequestMethod.POST)

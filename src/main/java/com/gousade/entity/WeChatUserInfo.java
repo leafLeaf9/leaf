@@ -1,5 +1,6 @@
 package com.gousade.entity;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,7 +17,9 @@ public class WeChatUserInfo extends WeChatError {
     private String province;
     private String city;
     private String country;
-    private String headimgurl;
+    @JsonAlias(value = "headimgurl")
+    private String headImgUrl;
     private String[] privilege;
-    private String unionid;
+    @JsonAlias(value = "unionid")
+    private String unionId;
 }

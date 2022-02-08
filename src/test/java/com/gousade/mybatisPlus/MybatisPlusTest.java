@@ -6,12 +6,18 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.gousade.mapper.RoleMapper;
 import com.gousade.mapper.UserMapper;
 import com.gousade.pojo.Role;
+import com.gousade.pojo.SmsResponseLog;
 import com.gousade.pojo.User;
+import com.gousade.service.RoleService;
+import com.gousade.service.SmsResponseLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.StopWatch;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +33,12 @@ public class MybatisPlusTest {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private SmsResponseLogService smsResponseLogService;
 
     @Test
     public void findAll() {
@@ -136,5 +148,43 @@ public class MybatisPlusTest {
         User nearestCamera = list.get(0);
         list.remove(nearestCamera);
         System.out.println(list.size());
+    }
+
+    @Test
+    public void testZonedDateTimeInsertUser() {
+        User user = new User();
+        user.setId("admin" + System.currentTimeMillis());
+//        user.setCreateTime(ZonedDateTime.now());
+        userMapper.insert(user);
+    }
+
+    @Test
+    public void testBatchInsert() {
+        SmsResponseLog first = smsResponseLogService.getById("1300243375404560385");
+        log.info("first: {}", first);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        List<SmsResponseLog> list = new ArrayList<>();
+        first.setId(null);
+        for (int i = 0; i < 1000; i++) {
+            SmsResponseLog clone = new SmsResponseLog();
+            BeanUtils.copyProperties(first, clone);
+            list.add(clone);
+//            roleMapper.updateById(first);
+        }
+        smsResponseLogService.saveBatch(list);
+        stopWatch.stop();
+        log.info(String.valueOf(stopWatch.getTotalTimeMillis()));
+
+    }
+
+    @Test
+    public void testBatchUpdate() {
+        List<SmsResponseLog> list1 = smsResponseLogService.list(null);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        smsResponseLogService.updateBatchById(list1);
+        stopWatch.stop();
+        log.info(String.valueOf(stopWatch.getTotalTimeMillis()));
     }
 }

@@ -70,9 +70,9 @@ public class WeChatUtils {
         checkSate(state);
 
         WeChatTokenInfo tokenInfo = getWeChatTokenInfo(code);
-        refreshToken(tokenInfo.getRefresh_token());
+        refreshToken(tokenInfo.getRefreshToken());
         WeChatUserInfo userInfo = getUserInfoByToken(tokenInfo);
-        String unionId = userInfo.getUnionid();
+        String unionId = userInfo.getUnionId();
         //TODO 登录逻辑
     }
 
@@ -89,8 +89,8 @@ public class WeChatUtils {
         param.put("CODE", code);
         RestTemplate restTemplate = RemoteObjectUtil.getTextSupportedRestTemplate();
         WeChatTokenInfo tokenInfo = restTemplate.getForObject(url, WeChatTokenInfo.class, param);
-        if (!ObjectUtils.isEmpty(Objects.requireNonNull(tokenInfo).getErrcode())) {
-            throw new RuntimeException("微信登录-获取access_token失败：" + tokenInfo.getErrmsg());
+        if (!ObjectUtils.isEmpty(Objects.requireNonNull(tokenInfo).getErrorCode())) {
+            throw new RuntimeException("微信登录-获取access_token失败：" + tokenInfo.getErrorMessage());
         }
         return tokenInfo;
     }
@@ -112,23 +112,23 @@ public class WeChatUtils {
         param.put("refreshToken", refreshToken);
         RestTemplate restTemplate = RemoteObjectUtil.getTextSupportedRestTemplate();
         WeChatTokenInfo refreshTokenInfo = restTemplate.getForObject(url, WeChatTokenInfo.class, param);
-        if (!ObjectUtils.isEmpty(Objects.requireNonNull(refreshTokenInfo).getErrcode())) {
-            log.error("微信登录-刷新access_token失败：" + refreshTokenInfo.getErrmsg());
+        if (!ObjectUtils.isEmpty(Objects.requireNonNull(refreshTokenInfo).getErrorCode())) {
+            log.error("微信登录-刷新access_token失败：" + refreshTokenInfo.getErrorMessage());
             return;
         }
         log.info("微信登录-刷新access_token成功，token {} 剩余有效期为：{}小时。",
-                refreshTokenInfo.getAccess_token(), TimeUnit.SECONDS.toHours(refreshTokenInfo.getExpires_in()));
+                refreshTokenInfo.getAccessToken(), TimeUnit.SECONDS.toHours(refreshTokenInfo.getExpiresIn()));
     }
 
     private WeChatUserInfo getUserInfoByToken(WeChatTokenInfo tokenInfo) {
         String url = "https://api.weixin.qq.com/sns/userinfo?access_token={accessToken}&openid={openId}";
         Map<String, Object> param = new HashMap<>();
-        param.put("accessToken", tokenInfo.getAccess_token());
+        param.put("accessToken", tokenInfo.getAccessToken());
         param.put("openId", tokenInfo.getOpenid());
         RestTemplate restTemplate = RemoteObjectUtil.getTextSupportedRestTemplate();
         WeChatUserInfo userInfo = restTemplate.getForObject(url, WeChatUserInfo.class, param);
-        if (!ObjectUtils.isEmpty(Objects.requireNonNull(userInfo).getErrcode())) {
-            throw new RuntimeException("微信登录-获取用户信息失败：{}" + userInfo.getErrmsg());
+        if (!ObjectUtils.isEmpty(Objects.requireNonNull(userInfo).getErrorCode())) {
+            throw new RuntimeException("微信登录-获取用户信息失败：{}" + userInfo.getErrorMessage());
         }
         log.info("微信登录-获取到用户信息：{}", userInfo);
         return userInfo;

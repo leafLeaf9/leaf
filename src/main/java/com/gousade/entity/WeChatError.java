@@ -1,5 +1,6 @@
 package com.gousade.entity;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,6 +13,8 @@ import java.io.Serializable;
  */
 @Data
 public class WeChatError implements Serializable {
-    private Integer errcode;
-    private String errmsg;
+    @JsonAlias(value = "errcode")
+    private Integer errorCode;
+    @JsonAlias(value = "errmsg")
+    private String errorMessage;
 }
