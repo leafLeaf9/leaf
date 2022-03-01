@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class User implements Serializable {
 
     @TableField(fill = FieldFill.INSERT)
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    private ZonedDateTime createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;

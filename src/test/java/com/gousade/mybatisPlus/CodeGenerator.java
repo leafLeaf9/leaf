@@ -1,14 +1,5 @@
 package com.gousade.mybatisPlus;
 
-import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.rules.DateType;
-import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +21,7 @@ public class CodeGenerator {
     public void run() {
 
         // 1、创建代码生成器
-        AutoGenerator mpg = new AutoGenerator();
+       /* AutoGenerator mpg = new AutoGenerator();
 
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
@@ -88,6 +79,6 @@ public class CodeGenerator {
         mpg.setStrategy(strategy);
 
         // 6、执行
-        mpg.execute();
+        mpg.execute();*/
     }
 }

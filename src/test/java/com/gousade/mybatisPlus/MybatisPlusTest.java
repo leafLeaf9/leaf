@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StopWatch;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -125,7 +126,7 @@ public class MybatisPlusTest {
     public void testUpdateByEntitySucc() {
         QueryWrapper<User> ew = new QueryWrapper<>();
         ew.eq("version", 2);
-        int count = userMapper.selectCount(ew);
+        int count = Math.toIntExact(userMapper.selectCount(ew));
 
         User entity = User.builder().build();
         entity.setVersion(2);
@@ -186,5 +187,18 @@ public class MybatisPlusTest {
         smsResponseLogService.updateBatchById(list1);
         stopWatch.stop();
         log.info(String.valueOf(stopWatch.getTotalTimeMillis()));
+    }
+
+    @Test
+    public void testZonedDateTimeSave() {
+        User user = User.builder().id("test20220301001").userName("test20220301001").build();
+        user.setCreateTime(ZonedDateTime.now());
+        userMapper.insert(user);
+    }
+
+    @Test
+    public void testZonedDateTimeQuery() {
+        User user = userMapper.selectById("test20220301001");
+        System.out.println(user);
     }
 }
