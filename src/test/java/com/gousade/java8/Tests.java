@@ -11,14 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -247,6 +245,102 @@ public class Tests {
         atomicTime1.compareAndSet(zonedDateTime2, zonedDateTime2.plusMonths(1));
         System.out.println(atomicTime1);
         System.out.println(zonedDateTime2);
+
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(null);
+        System.out.println(list.stream().reduce(Integer::sum));
+    }
+
+    @Test
+    public void testStringValue() {
+        String startTime = "00:05";
+        System.out.println(startTime);
+        changeStringValue(startTime);
+        System.out.println(startTime);
+    }
+
+    @Test
+    public void changeStringValue(String str) {
+        str = "00:00";
+    }
+
+    @Test
+    public void testCopy() {
+        Source source = new Source();
+        source.setBeginPosition(9.8);
+        Target target = new Target();
+        BeanUtils.copyProperties(source, target);
+        System.out.println(target);
+    }
+
+    @Test
+    public void urlDecode() throws UnsupportedEncodingException {
+        String str = "/open/gateway?app_id=90001&method=control_publish_simple&version=2.0&api_request_id=001&charset=UTF-8&sign_type=RSA&sign=er&content=%7B%22deviceCode%22%3A%223ceb6fe650b04b50a59852233e8b2420%22%2C%20%22list%22%3A%5B%7B%22textList%22%3A%5B%7B%22fontSize%22%3A%2232%22%2C%20%22fontColor%22%3A%22%23ffff00%22%2C%20%22backColor%22%3A%22000000%22%2C%20%22content%22%3A%22%E7%AC%AC%E4%B8%80%E8%A1%8C%E6%96%87%E5%AD%97%E7%AC%AC%E4%BA%8C%E8%A1%8C%E6%96%87%E5%AD%97%22%2C%20%22horizonAlign%22%3A2%2C%20%22verticalAlign%22%3A2%7D%5D%2C%20%22img%22%3A%5B%5D%2C%20%22videos%22%3A%5B%5D%2C%20%22templateId%22%3A%22t%22%2C%20%22stayTime%22%3A3%7D%5D%7D";
+        String decode = URLDecoder.decode(str, "UTF-8");
+        System.out.println(decode);
+    }
+
+    @Test
+    public void changeAtomic() {
+        String str = "test";
+        AtomicReference<String> result = new AtomicReference<>(str);
+        System.out.println(result);
+        str = "test1";
+        System.out.println(result);
+
+        User user = User.builder().id("id").build();
+        AtomicReference<User> result1 = new AtomicReference<>(user);
+        System.out.println(result1);
+        user.setId("id1");
+        System.out.println(result1);
+    }
+
+    @Test
+    public void testExceptionInSubThread() throws InterruptedException {
+        System.out.println(1);
+        try {
+            new Thread(() -> {
+                System.out.println("sub thread start.");
+                throw new RuntimeException("子线程抛出异常");
+//            System.out.println("sub thread end.");
+            }).start();
+        } catch (Exception e) {
+            log.error("主线程捕获到子线程异常。", e);
+        }
+        Thread.sleep(20000);
+    }
+
+    @Test
+    public void testExceptionInSubThread2() throws InterruptedException {
+        System.out.println(1);
+        new Thread(() -> {
+            try {
+                System.out.println("sub thread start.");
+                throw new RuntimeException("子线程抛出异常");
+//            System.out.println("sub thread end.");
+            } catch (Exception e) {
+                log.error("子线程捕获到自身异常。", e);
+            }
+        }).start();
+
+        Thread.sleep(20000);
+    }
+
+    @Test
+    public void testExceptionInSubThread3() throws InterruptedException, ExecutionException {
+        System.out.println(1);
+        ExecutorService threadPool = Executors.newFixedThreadPool(1);
+        Future<String> submit = threadPool.submit(() -> {
+            System.out.println("sub thread start.");
+            throw new RuntimeException("子线程抛出异常");
+//            return "success";
+        });
+        String result = submit.get();
+        System.out.println(result);
+
+
+        Thread.sleep(20000);
     }
 
     /*public static Unsafe getUnsafe() {

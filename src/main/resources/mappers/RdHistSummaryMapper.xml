@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gousade.mapper.RdHistSummaryMapper">
+	<update id="testConcurrentUpdate">
+		update rd_hist_summary t
+		set t.total_flux = #{totalFlux}
+		where t.id = '000131553eb44633873ee3899a5aa4b4'
+	</update>
+
+	<update id="testConcurrentMinus">
+		update rd_hist_summary t
+		set t.total_flux = t.total_flux - 1
+		where t.id = '000131553eb44633873ee3899a5aa4b4'
+	</update>
+
+	<select id="listCount" resultType="com.gousade.entity.RdHistSummary">
+		SELECT t.time,
+		       sum(t.count) as count,
+		sum(t.total_occupancy) as total_occupancy, sum(t.total_flux) as total_flux, sum(t.total_mileage) as total_mileage,
+		sum(t.car_total_flux) as car_total_flux, sum(t.car_total_mileage) as car_total_mileage
+		, sum(t.truck_total_flux) as truck_total_flux, sum(t.truck_total_mileage) as truck_total_mileage
+		FROM rd_hist_summary t
+		where t.device_type = #{deviceType}
+		  and t.type = #{type}
+		<![CDATA[and t.time >= #{startTime}
+		  and t.time <= #{endTime}
+		  and t.line_no in ('01'
+			, '11'
+			, '12'
+			, '13'
+			, '14'
+			, '15'
+			, '16')
+		group by t.time]]>
+		order by t.time
+	</select>
+</mapper>

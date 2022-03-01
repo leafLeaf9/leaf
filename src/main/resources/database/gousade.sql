@@ -2802,6 +2802,116 @@ INSERT INTO `user_role`
 VALUES ('ffd0fcf7605940b9b24d30134a58c3af', 'c0f597ae8bbd4550b1caa6ac130c02e6', '82773b3e46924b049b0269334cc4ea0e',
         '2020-09-22 16:29:03', '2020-09-22 16:29:03', '0');
 
+
+-- ----------------------------
+-- Table structure for rd_hist_summary
+-- ----------------------------
+DROP TABLE IF EXISTS `rd_hist_summary`;
+CREATE TABLE `rd_hist_summary`
+(
+    `id`                  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL COMMENT '编号',
+    `device_id`           varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL COMMENT '设备编号',
+    `device_type`         varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备类型 rdDevice ETCRdDevice',
+    `line_no`             int NULL DEFAULT NULL COMMENT '车道号 单车道：上行 01，下行03。2车道以上：上行从内至外按 11、12、13…编号；下行按 31、32、33…编号',
+    `type`                tinyint NULL DEFAULT NULL COMMENT '统计类型 5min(5),30min(30)',
+    `time`                varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '时间,格式为HH:mm',
+    `total_occupancy`     decimal(38, 3) NULL DEFAULT NULL COMMENT '总占有率',
+    `total_flux`          bigint NULL DEFAULT NULL COMMENT '总交通量',
+    `total_mileage`       decimal(38, 3) NULL DEFAULT NULL COMMENT '总里程',
+    `count`               bigint NULL DEFAULT NULL COMMENT '数据总条数',
+    `occupancy`           decimal(10, 3) NULL DEFAULT NULL COMMENT '占有率',
+    `flux`                bigint NULL DEFAULT NULL COMMENT '交通量(总交通量除以总条数)',
+    `speed`               decimal(10, 3) NULL DEFAULT NULL COMMENT '平均速度(总里程除以总交通量)',
+    `car_total_flux`      bigint NULL DEFAULT NULL COMMENT '客车总交通量',
+    `car_total_mileage`   decimal(38, 3) NULL DEFAULT NULL COMMENT '客车总里程',
+    `car_flux`            bigint NULL DEFAULT NULL COMMENT '客车平均交通量(总交通量除以总条数)',
+    `car_speed`           decimal(10, 3) NULL DEFAULT NULL COMMENT '客车平均速度(总里程除以总交通量)',
+    `truck_total_flux`    bigint NULL DEFAULT NULL COMMENT '货车总交通量',
+    `truck_total_mileage` decimal(38, 3) NULL DEFAULT NULL COMMENT '货车总里程',
+    `truck_flux`          bigint NULL DEFAULT NULL COMMENT '货车平均交通量(总交通量除以总条数)',
+    `truck_speed`         decimal(10, 3) NULL DEFAULT NULL COMMENT '货车平均速度(总里程除以总交通量)',
+    `create_time`         datetime NULL DEFAULT NULL,
+    `update_time`         datetime NULL DEFAULT NULL,
+    PRIMARY KEY (`id`) USING BTREE,
+    INDEX                 `idx_device_id`(`device_id`) USING BTREE,
+    INDEX                 `idx_device_type`(`device_type`) USING BTREE,
+    INDEX                 `idx_type`(`type`) USING BTREE,
+    INDEX                 `idx_time`(`time`) USING BTREE,
+    INDEX                 `idx_line_no`(`line_no`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '交调(包括etc)历史数据统计表' ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- Records of rd_hist_summary
+-- ----------------------------
+INSERT INTO `rd_hist_summary`
+VALUES ('000131553eb44633873ee3899a5aa4b4', '0071143313030004', 'rdDevice', 31, 5, '07:55', 366.000, 5, 639377.000, 250,
+        1.464, 26, 96.495, 4936, 506805.000, 19, 102.675, 1690, 132572.000, 6, 78.445, '2022-02-23 14:28:00',
+        '2022-02-24 00:30:15');
+INSERT INTO `rd_hist_summary`
+VALUES ('0001be00ec724618b05f483526318816', '0071143313030001', 'rdDevice', 32, 5, '05:30', 219.000, 1687, 145600.000,
+        226, 0.969, 7, 86.307, 1327, 117155.000, 5, 88.286, 360, 28445.000, 1, 79.014, '2022-02-23 14:28:00',
+        '2022-02-24 00:30:15');
+INSERT INTO `rd_hist_summary`
+VALUES ('00023523ab914b49b348ff5bb5b7b53b', 'G300161001001920010', 'ETCRdDevice', 31, 5, '06:55', 0.000, 11984,
+        1133626.770, 161, 0.000, 74, 94.595, 10027, 980400.910, 62, 97.776, 1957, 153225.860, 12, 78.296,
+        '2022-02-23 14:30:10', '2022-02-24 00:30:38');
+INSERT INTO `rd_hist_summary`
+VALUES ('0002f414bcbb42f0ac767f4b1f3a7903', 'G300161001000920010', 'ETCRdDevice', 33, 5, '06:40', 0.000, 3722,
+        300758.260, 160, 0.000, 23, 80.806, 2241, 213635.960, 14, 95.331, 1481, 87122.300, 9, 58.827,
+        '2022-02-23 14:30:10', '2022-02-24 00:30:38');
+INSERT INTO `rd_hist_summary`
+VALUES ('0005b917f669417a96d6792308d05782', 'G300161001000710010', 'ETCRdDevice', 13, 5, '17:15', 0.000, 7040,
+        484380.060, 161, 0.000, 43, 68.804, 5115, 369638.330, 31, 72.266, 1925, 114741.730, 11, 59.606,
+        '2022-02-23 14:30:10', '2022-02-24 00:30:38');
+INSERT INTO `rd_hist_summary`
+VALUES ('00065824ab27462e9e24c1fa34a15f46', 'G300161001001510010', 'ETCRdDevice', 12, 5, '20:45', 0.000, 5570,
+        513209.190, 161, 0.000, 34, 92.138, 4726, 443886.200, 29, 93.924, 844, 69322.990, 5, 82.136,
+        '2022-02-23 14:30:10', '2022-02-24 00:30:38');
+INSERT INTO `rd_hist_summary`
+VALUES ('0008fc35b9304833b0bc1e254ebba07e', '0151145313010067', 'rdDevice', 13, 30, '20:30', 10740.000, 91587,
+        6276133.000, 1756, 6.116, 52, 68.526, 57376, 3915099.000, 32, 68.236, 34211, 2361034.000, 19, 69.014,
+        '2022-02-23 14:29:05', '2022-02-24 00:30:25');
+INSERT INTO `rd_hist_summary`
+VALUES ('0009edc9fbae4d639983ea76256fed58', 'G300161001000420010', 'ETCRdDevice', 31, 5, '06:55', 0.000, 7982,
+        581709.040, 161, 0.000, 49, 72.878, 6379, 482432.220, 39, 75.628, 1603, 99276.820, 9, 61.932,
+        '2022-02-23 14:30:10', '2022-02-24 00:30:37');
+INSERT INTO `rd_hist_summary`
+VALUES ('000ae5881f104c15b9cb37f94750df9e', '0071143313030003', 'rdDevice', 32, 5, '14:10', 3489.000, 20486,
+        1892133.000, 273, 12.780, 75, 92.362, 15677, 1470582.000, 57, 93.805, 4809, 421551.000, 17, 87.659,
+        '2022-02-23 14:28:00', '2022-02-24 00:30:15');
+INSERT INTO `rd_hist_summary`
+VALUES ('000b971aaf2642ad9db55c429ecedd3b', '0071154312120040', 'rdDevice', 31, 5, '23:20', 221.000, 3586, 356650.000,
+        290, 0.762, 12, 99.456, 3522, 350825.000, 12, 99.610, 64, 5825.000, 0, 91.016, '2022-02-23 14:28:00',
+        '2022-02-24 00:30:15');
+INSERT INTO `rd_hist_summary`
+VALUES ('000ba428e72a47999daa449c2794a8ac', '0151145313010065', 'rdDevice', 32, 5, '16:35', 798.000, 17689, 1278266.000,
+        271, 2.945, 65, 72.263, 16989, 1228507.000, 62, 72.312, 700, 49759.000, 2, 71.084, '2022-02-23 14:28:00',
+        '2022-02-24 00:30:15');
+INSERT INTO `rd_hist_summary`
+VALUES ('000e1a1c42ed4bcebc5cd236710d2947', '0151145315060050', 'rdDevice', 33, 5, '18:10', 39.000, 1801, 188506.000,
+        94, 0.415, 19, 104.667, 1801, 188506.000, 19, 104.667, 0, 0.000, 0, 0.000, '2022-02-23 14:28:00',
+        '2022-02-24 00:30:15');
+
+-- ----------------------------
+-- Table structure for standard_table
+-- ----------------------------
+DROP TABLE IF EXISTS `standard_table`;
+CREATE TABLE `standard_table`
+(
+    `id`          bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+    `create_time` datetime NULL DEFAULT NULL,
+    `update_time` datetime NULL DEFAULT NULL,
+    `is_deleted`  tinyint(1) NULL DEFAULT NULL,
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of standard_table
+-- ----------------------------
+INSERT INTO `standard_table`
+VALUES (1, '2021-07-02 08:50:36', '2021-07-02 08:51:36', 0);
+
 -- ----------------------------
 -- View structure for selectattachments
 -- ----------------------------
