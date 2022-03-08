@@ -7,8 +7,8 @@ import com.gousade.pojo.SmsResponseLog;
 import com.gousade.service.EasyExcelDataService;
 import com.gousade.service.SmsResponseLogService;
 import com.gousade.utils.SaltUtil;
-import com.gousade.utils.SpringBeanUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,9 +56,9 @@ public class SmsResponseLogServiceImpl extends ServiceImpl<SmsResponseLogMapper,
         easyExcelDataService.save(EasyExcelData.builder().id(SaltUtil.generateUUId()).build());
         try {
             //smsResponseLogService.testTransactionalTryCatch();
-            //((SmsResponseLogServiceImpl)AopContext.currentProxy()).testTransactionalTryCatch();
-            SmsResponseLogService smsResponseLogService = SpringBeanUtil.getBean(SmsResponseLogService.class);
-            smsResponseLogService.testTransactionalThrowException();
+            ((SmsResponseLogServiceImpl) AopContext.currentProxy()).testTransactionalThrowException();
+//            SmsResponseLogService smsResponseLogService = SpringBeanUtil.getBean(SmsResponseLogService.class);
+//            smsResponseLogService.testTransactionalThrowException();
         } catch (Exception e) {
             log.error("捕获异常", e);
         }

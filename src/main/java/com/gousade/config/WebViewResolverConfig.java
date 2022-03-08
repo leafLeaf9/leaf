@@ -100,7 +100,7 @@ public class WebViewResolverConfig implements WebMvcConfigurer {
         fastMediaTypes.add(MediaType.APPLICATION_JSON);
         fastJsonConverter.setSupportedMediaTypes(fastMediaTypes);
 //		converters.add(fastJsonConverter);//这会让fastJsonConverter排在消息转换器管道列表的最后，可能会轮不到它处理消息转换
-        converters.add(0, fastJsonConverter);//要显示指明将fastJsonConverter排在消息转换器管道列表的首位
+        converters.add(0, fastJsonConverter);//要显式指明将fastJsonConverter排在消息转换器管道列表的首位
     }
 
 }

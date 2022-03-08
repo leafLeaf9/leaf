@@ -38,14 +38,16 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseResult handleUnauthorizedException(UnauthorizedException e) {
+    public ResponseResult handleUnauthorizedException(UnauthorizedException e, HttpServletResponse response) {
         log.error("发生权限异常", e);
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
         return ResponseResult.renderError().message("发生权限异常：无权限。" + e.getCause().getMessage());
     }
 
     @ExceptionHandler(AuthorizationException.class)
-    public ResponseResult handleAuthorizationException(AuthorizationException e) {
+    public ResponseResult handleAuthorizationException(AuthorizationException e, HttpServletResponse response) {
         log.error("发生权限异常", e);
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
         return ResponseResult.renderError().message("发生权限异常：未认证。" + e.getCause().getMessage());
     }
 
@@ -56,15 +58,18 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseResult handleNullPointerException(NullPointerException e) {
-        log.error("发生空指针异常", e);
-        return ResponseResult.renderError().message("发生空指针异常：" + e.getCause().getMessage());
+    public ResponseEntity<ResponseResult> handleNullPointerException(NullPointerException e) {
+        String message = "发生空指针异常。";
+        log.error(message, e);
+        ResponseResult responseResult = ResponseResult.renderError().message(message);
+        return new ResponseEntity<>(responseResult, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(SQLException.class)
-    public ResponseResult handleSQLException(SQLException e) {
+    public ResponseEntity<ResponseResult> handleSQLException(SQLException e) {
         log.error("发生sql异常", e);
-        return ResponseResult.renderError().message("发生数据库异常，请联系系统管理员。");
+        ResponseResult responseResult = ResponseResult.renderError().message("发生数据库异常，请联系系统管理员。");
+        return new ResponseEntity<>(responseResult, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(BindException.class)
@@ -85,11 +90,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseResult handleException(Exception e, HttpServletResponse response) {
-        log.error("发生未知异常", e);
-        response.setContentType("text/html;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        return ResponseResult.renderError().message("发生未知异常，请联系系统管理员。");
+    public ResponseEntity<ResponseResult> handleException(Exception e) {
+        String message = "发生未知异常";
+        log.error(message, e);
+        ResponseResult responseResult = ResponseResult.renderError().message(message);
+        return new ResponseEntity<>(responseResult, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
