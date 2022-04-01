@@ -9,7 +9,7 @@ import com.gousade.service.EasyExcelDataService;
 import com.gousade.service.SmsResponseLogService;
 import com.gousade.service.UserService;
 import com.gousade.shiro.ShiroUtil;
-import com.gousade.utils.SaltUtil;
+import com.gousade.util.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

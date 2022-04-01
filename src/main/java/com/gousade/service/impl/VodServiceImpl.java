@@ -1,7 +1,7 @@
 package com.gousade.service.impl;
 
 import com.gousade.service.VodService;
-import com.gousade.utils.VodUtil;
+import com.gousade.util.VodUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

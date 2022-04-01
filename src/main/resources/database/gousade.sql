@@ -2912,6 +2912,38 @@ CREATE TABLE `standard_table`
 INSERT INTO `standard_table`
 VALUES (1, '2021-07-02 08:50:36', '2021-07-02 08:51:36', 0);
 
+DROP TABLE IF EXISTS `resource_route`;
+CREATE TABLE `resource_route`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `begin_point_id` varchar(50)    NOT NULL COMMENT '起点id(可以是任何构造物、资源)',
+    `end_point_id`   varchar(50)    NOT NULL COMMENT '终点id(可以是任何构造物、资源)',
+    `distance`       decimal(65, 3) NOT NULL COMMENT '起点到终点的距离，单位为km',
+    `in_use`         tinyint(1) unsigned NOT NULL COMMENT '是否启用',
+    `create_time`    datetime       NOT NULL COMMENT '创建时间',
+    `update_time`    datetime       NOT NULL COMMENT '更新时间',
+    `is_deleted`     tinyint(1) unsigned NOT NULL COMMENT '逻辑删除',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_begin_point_id_end_point_id` (`begin_point_id`,`end_point_id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT='资源邻接矩阵路径表' ROW_FORMAT = Dynamic;
+
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415952994305, 'v1', 'v3', 10.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415982354433, 'v1', 'v5', 30.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415990743042, 'v1', 'v6', 100.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415990743043, 'v2', 'v3', 5.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415990743044, 'v3', 'v4', 50.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415990743045, 'v4', 'v6', 10.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415999131650, 'v5', 'v4', 20.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
+VALUES (1508694415999131651, 'v5', 'v6', 60.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+
 -- ----------------------------
 -- View structure for selectattachments
 -- ----------------------------

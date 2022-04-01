@@ -6,7 +6,7 @@ import com.gousade.mapper.SmsResponseLogMapper;
 import com.gousade.pojo.SmsResponseLog;
 import com.gousade.service.EasyExcelDataService;
 import com.gousade.service.SmsResponseLogService;
-import com.gousade.utils.SaltUtil;
+import com.gousade.util.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.gousade.service.impl;
 
 import com.gousade.service.OssService;
-import com.gousade.utils.OssUtil;
+import com.gousade.util.OssUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

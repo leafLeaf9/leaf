@@ -1,8 +1,8 @@
 package com.gousade.controller;
 
 import com.gousade.annotation.RequestSentinel;
-import com.gousade.utils.OpenOfficeUtil;
-import com.gousade.utils.ResponseUtils;
+import com.gousade.util.OpenOfficeUtil;
+import com.gousade.util.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.DocumentConverter;
 import org.jodconverter.document.DefaultDocumentFormatRegistry;

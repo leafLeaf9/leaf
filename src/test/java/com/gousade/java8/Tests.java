@@ -1,13 +1,15 @@
 package com.gousade.java8;
 
 import cn.hutool.core.thread.NamedThreadFactory;
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.gousade.annotation.OperationRecord;
 import com.gousade.pojo.SubUserImpl;
 import com.gousade.pojo.User;
 import com.gousade.test.MyInterface;
-import com.gousade.utils.BigDecimalCalculator;
-import com.gousade.utils.Java8DateUtil;
+import com.gousade.util.BigDecimalCalculator;
+import com.gousade.util.Java8DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 
@@ -263,6 +265,8 @@ public class Tests {
     @Test
     public void changeStringValue(String str) {
         str = "00:00";
+        int x = 5;
+        System.out.println(-x);
     }
 
     @Test
@@ -341,6 +345,58 @@ public class Tests {
 
 
         Thread.sleep(20000);
+    }
+
+    @Test
+    public void testUserDir() {
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println(ChronoUnit.MINUTES.between(ZonedDateTime.now(), ZonedDateTime.now().minusMinutes(30)));
+    }
+
+    @Test
+    public void testNullArray() {
+        String[] array = null;
+        List<String> collect = Arrays.stream(array).collect(Collectors.toList());
+        System.out.println(collect);
+        System.out.println(System.getProperty("user.dir"));
+    }
+
+    @Test
+    public void testSortComparable() {
+        List<Integer> list = new ArrayList<>();
+        list.add(10);
+        list.add(5);
+        System.out.println(list);
+        Collections.sort(list);
+        System.out.println(list);
+    }
+
+    @Test
+    public void testEmptyArrayArgs() {
+        printArray();
+        printArray(1, 2, "3");
+        Integer str = null;
+        System.out.println(str == 0);
+    }
+
+    private void printArray(Object... values) {
+        List<Object> list = new ArrayList<>(Arrays.asList(values));
+        System.out.println(list);
+    }
+
+    @Test
+    public void testRemoveStream() {
+        List<User> list = new ArrayList<>();
+        list.add(User.builder().id("1").build());
+        list.add(User.builder().id("2").build());
+        list.add(User.builder().id("3").build());
+        list.add(User.builder().id("4").build());
+        list.add(User.builder().id("5").build());
+        Assertions.assertEquals(5, list.size());
+        list.stream().filter(e -> e.getId().equals("1")).findFirst().ifPresent(list::remove);
+        Assertions.assertEquals(4, list.size());
+        Long aLong = new DefaultIdentifierGenerator().nextId(list.get(0));
+        System.out.println(aLong);
     }
 
     /*public static Unsafe getUnsafe() {

@@ -3,7 +3,7 @@ package com.gousade.redis;
 import com.aliyuncs.exceptions.ClientException;
 import com.gousade.annotation.OperationRecord;
 import com.gousade.common.ResponseResult;
-import com.gousade.utils.SmsUtil;
+import com.gousade.util.SmsUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

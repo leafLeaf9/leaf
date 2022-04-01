@@ -6,7 +6,7 @@ import com.gousade.mapper.UserRoleMapper;
 import com.gousade.pojo.Resource;
 import com.gousade.pojo.Role;
 import com.gousade.pojo.RoleResource;
-import com.gousade.utils.SaltUtil;
+import com.gousade.util.SaltUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

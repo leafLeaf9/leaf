@@ -2,8 +2,8 @@ package com.gousade.aspect;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.gousade.utils.DataTablesPageUtil;
-import com.gousade.utils.DataTablesResultUtil;
+import com.gousade.util.DataTablesPageUtil;
+import com.gousade.util.DataTablesResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -24,7 +24,7 @@ public class PageHelperAspect {
      * execution(* com.text.aop.*.*(..))
      */
 
-    @Pointcut("execution(com.gousade.utils.DataTablesPageUtil com.gousade.service.*.*(com.gousade.utils.DataTablesPageUtil))")
+    @Pointcut("execution(com.gousade.util.DataTablesPageUtil com.gousade.service.*.*(com.gousade.util.DataTablesPageUtil))")
     private void pointCutPagination() {
     }
 

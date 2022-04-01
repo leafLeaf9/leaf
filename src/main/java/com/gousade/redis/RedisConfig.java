@@ -1,6 +1,6 @@
 package com.gousade.redis;
 
-import com.gousade.utils.SerializerUtil;
+import com.gousade.util.SerializerUtil;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;

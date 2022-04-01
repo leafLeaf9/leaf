@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gousade.mapper.ResourceRouteMapper">
+	<resultMap id="ShortestRouteMap" type="com.gousade.entity.ResourceRouteDO">
+		<id column="id" property="id"/>
+		<result column="begin_point_id" property="beginPointId"/>
+		<result column="end_point_id" property="endPointId"/>
+		<result column="distance" property="distance"/>
+		<result column="in_use" property="inUse"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+		<result column="is_deleted" property="deleted"/>
+	</resultMap>
+
+	<select id="listEffectiveRoutes" resultMap="ShortestRouteMap">
+		select t.*
+		from resource_route t
+		where t.in_use = '1'
+		  and t.is_deleted = '0'
+		order by t.begin_point_id, t.end_point_id
+	</select>
+</mapper>

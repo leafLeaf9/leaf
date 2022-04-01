@@ -8,7 +8,7 @@ import com.gousade.pojo.Role;
 import com.gousade.pojo.SmsResponseLog;
 import com.gousade.pojo.User;
 import com.gousade.service.SmsResponseLogService;
-import com.gousade.utils.SerializerUtil;
+import com.gousade.util.SerializerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +107,8 @@ public class GousadeTestController {
     public ResponseResult timeSelectOne() {
         LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(Role::getName, "测试").orderByAsc(Role::getCreateTime);
+        List<String> ids = new ArrayList<>();
+        wrapper.in(Role::getName, ids);
         Role role = roleMapper.selectOne(wrapper);
         return ResponseResult.renderSuccess().data("selectOne", role);
     }

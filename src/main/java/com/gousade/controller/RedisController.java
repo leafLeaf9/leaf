@@ -3,7 +3,7 @@ package com.gousade.controller;
 import com.gousade.common.ResponseResult;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisUtil;
-import com.gousade.utils.SaltUtil;
+import com.gousade.util.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

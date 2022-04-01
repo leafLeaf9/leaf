@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.gousade.annotation.OperationRecord;
 import com.gousade.pojo.Role;
 import com.gousade.service.RoleService;
-import com.gousade.utils.GeneratePDFUtil;
+import com.gousade.util.GeneratePDFUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

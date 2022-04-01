@@ -1,7 +1,7 @@
 package com.gousade.java8.lambda;
 
 import com.gousade.entity.Gift;
-import com.gousade.utils.SaltUtil;
+import com.gousade.util.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

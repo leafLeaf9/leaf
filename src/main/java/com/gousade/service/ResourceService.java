@@ -8,7 +8,7 @@ import com.gousade.pojo.Resource;
 import com.gousade.pojo.RoleResource;
 import com.gousade.pojo.Tree;
 import com.gousade.pojo.User;
-import com.gousade.utils.SaltUtil;
+import com.gousade.util.SaltUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
