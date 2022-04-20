@@ -91,4 +91,18 @@ public class RoBotController {
         return !ObjectUtils.isEmpty(userId) && !ObjectUtils.isEmpty(userId) && adminUserIds.contains(userId);
     }
 
+    //获取群成员信息
+    private void GetGroupMemberInfo(String groupId, String userid, String no_cache = false){
+        String url = robotRequestUrl + "get_group_member_info?group_id={group_id}&user_id={user_id}";
+        Map<String, Object> map = new HashMap<>();
+        map.put("group_id", groupId);
+        map.put("user_id", userid);
+        ResponseEntity<String> result = RemoteObjectUtil.getSimpleRestTemplate().getForEntity(url, String.class, map);
+        sendGroupMsg(map.group_id, map.user_id);
+        bool isAdmin = isRobotAdmin(map.user_id, map.group_id);
+        // if (HttpStatus.OK.equals(result.getStatusCode())) {
+        //     log.info("发送群消息成功, 群号: {}, 消息体: {}", groupId, message);
+        // }
+    }
+
 }
