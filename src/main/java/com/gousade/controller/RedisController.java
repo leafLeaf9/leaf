@@ -55,7 +55,7 @@ public class RedisController {
         return redisUtil.set(key, userEntity, 1800);
     }
 
-    @RequestMapping(value = "get", method = RequestMethod.POST)
+    @RequestMapping(value = "get", method = RequestMethod.GET)
     public Object redisget(String key) {
         return redisUtil.get(key);
     }

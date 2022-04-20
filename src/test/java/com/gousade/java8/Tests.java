@@ -392,6 +392,7 @@ public class Tests {
         list.add(User.builder().id("3").build());
         list.add(User.builder().id("4").build());
         list.add(User.builder().id("5").build());
+        System.out.println(list.stream().map(User::getId).collect(Collectors.joining(",", "(", ")")));
         Assertions.assertEquals(5, list.size());
         list.stream().filter(e -> e.getId().equals("1")).findFirst().ifPresent(list::remove);
         Assertions.assertEquals(4, list.size());
