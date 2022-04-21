@@ -1,6 +1,7 @@
 package com.gousade.entity.dto;
 
 import com.gousade.util.Java8DateUtil;
+import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
+@ApiModel(description = "cqHttp的事件消息实体类")
 @Data
 public class CqHttpEvent implements Serializable {
     private long time;

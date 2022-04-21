@@ -400,6 +400,14 @@ public class Tests {
         System.out.println(aLong);
     }
 
+    @Test
+    public void testNullBooleanCondition() {
+        Boolean unfriendly = null;
+        if (unfriendly) {
+            System.out.println(true);
+        }
+    }
+
     /*public static Unsafe getUnsafe() {
         try {
             Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");

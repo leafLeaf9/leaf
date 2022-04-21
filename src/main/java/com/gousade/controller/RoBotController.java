@@ -1,7 +1,8 @@
 package com.gousade.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.gousade.entity.dto.CqHttpEvent;
+import com.gousade.entity.dto.CqHttpResponse;
+import com.gousade.entity.dto.CqTencentQQMember;
 import com.gousade.redis.RedisUtil;
 import com.gousade.util.JsonUtils;
 import com.gousade.util.RemoteObjectUtil;
@@ -21,6 +22,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Api(tags = "用户管理")
 @Slf4j
@@ -39,8 +41,9 @@ public class RoBotController {
 
     @PostMapping
     public void cqHttpEvent() {
-        JSONObject jsonObject = JsonUtils.getJSONObject(request);
-        CqHttpEvent cqHttpEvent = jsonObject.toJavaObject(CqHttpEvent.class);
+//        JSONObject jsonObject = JsonUtils.getJSONObject(request);
+        CqHttpEvent cqHttpEvent = JsonUtils.getCqHttpEvent(request);
+//        CqHttpEvent cqHttpEvent = jsonObject.toJavaObject(CqHttpEvent.class);
         if ("message".equals(cqHttpEvent.getPostType()) && "group".equals(cqHttpEvent.getMessageType())) {
             handleGroupMessage(cqHttpEvent);
         }
@@ -49,13 +52,16 @@ public class RoBotController {
     private void handleGroupMessage(CqHttpEvent cqHttpEvent) {
         String message = cqHttpEvent.getMessage();
         if (message.contains("禁言")) {
-            handleGroupBanSomeBody(cqHttpEvent);
+            handleGroupBanSomebody(cqHttpEvent);
         }
     }
 
-    private void handleGroupBanSomeBody(CqHttpEvent cqHttpEvent) {
+    private void handleGroupBanSomebody(CqHttpEvent cqHttpEvent) {
         String message = cqHttpEvent.getMessage();
         if (!isRobotAdmin(cqHttpEvent.getUserId(), cqHttpEvent.getGroupId())) {
+            String refusedMessage = String.format("[CQ:at,qq=%s]您没有管理员权限，无法执行禁言操作。",
+                    cqHttpEvent.getUserId());
+            sendGroupMsg(cqHttpEvent.getGroupId(), refusedMessage);
             return;
         }
         String banCQGrammar = "CQ:at,qq=";
@@ -86,24 +92,40 @@ public class RoBotController {
     }
 
     private boolean isRobotAdmin(String userId, String groupId) {
-        //TODO 实现通过userId和groupId判断发送人是否是该QQ群的管理员
+        CqTencentQQMember groupMemberInfo = getGroupMemberInfo(groupId, userId);
         String adminUserIds = String.valueOf(redisUtil.get("goCqHttpRobot:robotAdmin"));
-        return !ObjectUtils.isEmpty(userId) && !ObjectUtils.isEmpty(userId) && adminUserIds.contains(userId);
+        return !ObjectUtils.isEmpty(userId)
+                && ((!ObjectUtils.isEmpty(adminUserIds) && adminUserIds.contains(userId))
+                || isGroupMemberAdmin(groupMemberInfo));
     }
 
-    //获取群成员信息
-    private void GetGroupMemberInfo(String groupId, String userid, String no_cache = false){
+    /**
+     * 获取群成员信息
+     *
+     * @param groupId 群号
+     * @param userId  用户id
+     * @return {@link CqTencentQQMember}
+     */
+    private CqTencentQQMember getGroupMemberInfo(String groupId, String userId) {
         String url = robotRequestUrl + "get_group_member_info?group_id={group_id}&user_id={user_id}";
         Map<String, Object> map = new HashMap<>();
         map.put("group_id", groupId);
-        map.put("user_id", userid);
-        ResponseEntity<String> result = RemoteObjectUtil.getSimpleRestTemplate().getForEntity(url, String.class, map);
-        sendGroupMsg(map.group_id, map.user_id);
-        bool isAdmin = isRobotAdmin(map.user_id, map.group_id);
-        // if (HttpStatus.OK.equals(result.getStatusCode())) {
-        //     log.info("发送群消息成功, 群号: {}, 消息体: {}", groupId, message);
-        // }
+        map.put("user_id", userId);
+        ResponseEntity<CqHttpResponse> result = RemoteObjectUtil.getSimpleRestTemplate().getForEntity(url,
+                CqHttpResponse.class, map);
+        return Objects.requireNonNull(result.getBody()).getData().toJavaObject(CqTencentQQMember.class);
     }
 
-//hello world
+   /* public static void main(String[] args) {
+        CqTencentQQMember memberInfo = new RoBotController().getGroupMemberInfo("93551088", "1207366201");
+        System.out.println(memberInfo);
+    }*/
+
+    private boolean isGroupMemberAdmin(CqTencentQQMember member) {
+        if (member == null) {
+            return false;
+        }
+        return Objects.equals(member.getRole(), "owner") || Objects.equals(member.getRole(), "admin");
+    }
+
 }
