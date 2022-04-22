@@ -1,12 +1,16 @@
 package com.gousade.scheduler;
 
+import com.gousade.redis.RedisUtils;
+import com.gousade.service.GoCqHttpRoBotService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -35,6 +39,12 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class SchedulerTask {
 
+    @Resource
+    private RedisUtils redisUtils;
+
+    @Autowired
+    private GoCqHttpRoBotService roBotService;
+
     @Async
     @Scheduled(cron = "0 0/5 * * * ?")
     @Scheduled(cron = "0 0/9 * * * ?")
@@ -43,5 +53,20 @@ public class SchedulerTask {
                 .now(/*Java8DateUtil.CTT*/)
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS ZZZZ E 'CST'"));
         log.info("Current Time : {}", currentTime);
+    }
+
+    @Async
+    @Scheduled(cron = "00 00 08 * * ?")
+    @Scheduled(cron = "00 00 22 * * ?")
+    public void remindMiHoYoSignInSpecifiedGroup() {
+        String groups = String.valueOf(redisUtils.get("goCqHttpRobot:robotRemindGroup"));
+        int hour = ZonedDateTime.now().getHour();
+        String message = String.format("已经%s点了，记得去米游社签到。", hour);
+        if (hour == 22) {
+            message = String.format("已经%s点了，查看一下有没有忘记米游社签到。", hour);
+        }
+        for (String group : groups.split(",")) {
+            roBotService.sendGroupMsg(group, message);
+        }
     }
 }
