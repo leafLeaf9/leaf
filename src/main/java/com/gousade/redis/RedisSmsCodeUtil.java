@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 public class RedisSmsCodeUtil {
 
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtils;
 
     @Resource
     private SmsUtil smsUtil;
@@ -24,7 +24,7 @@ public class RedisSmsCodeUtil {
     @OperationRecord(operationNum = 9999, operationDescription = "短信验证码发送")
     public Object sendSmsCode(String phoneNumber) throws ClientException {
         int randomCode = (int) ((Math.random() * 9 + 1) * 100000);
-        Object redisGetSentCode = redisUtil.get(phoneNumber);
+        Object redisGetSentCode = redisUtils.get(phoneNumber);
         if (redisGetSentCode == null) {
 //            redisUtil.set(phoneNumber, randomCode, 180L);
             smsUtil.sendSms(phoneNumber, randomCode);

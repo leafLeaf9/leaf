@@ -4,7 +4,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.gousade.common.ResponseResult;
 import com.gousade.pojo.User;
 import com.gousade.redis.RedisSmsCodeUtil;
-import com.gousade.redis.RedisUtil;
+import com.gousade.redis.RedisUtils;
 import com.gousade.service.EasyExcelDataService;
 import com.gousade.service.SmsResponseLogService;
 import com.gousade.service.UserService;
@@ -32,7 +32,7 @@ public class SmsCodeController {
     private RedisSmsCodeUtil smsCodeUtil;
 
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtils;
 
     @Autowired
     private UserService userService;
@@ -57,7 +57,7 @@ public class SmsCodeController {
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public Object validate(String checkCode, User user) {
-        Object redisGetSentCode = redisUtil.get(user.getPhoneNumber());
+        Object redisGetSentCode = redisUtils.get(user.getPhoneNumber());
         if (redisGetSentCode == null) {
             return ResponseResult.renderError().message("验证码已失效，请重新获取。");
         } else {

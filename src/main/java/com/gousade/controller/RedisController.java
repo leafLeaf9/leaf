@@ -2,7 +2,7 @@ package com.gousade.controller;
 
 import com.gousade.common.ResponseResult;
 import com.gousade.pojo.User;
-import com.gousade.redis.RedisUtil;
+import com.gousade.redis.RedisUtils;
 import com.gousade.util.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class RedisController {
     private static final int ExpireTime = 600; // redis中存储的过期时间60s
 
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtils;
 
     @Autowired
     @Qualifier("enableTransactionRedisTemplate")
@@ -41,38 +41,38 @@ public class RedisController {
 
     @RequestMapping(value = "/keys", method = RequestMethod.POST)
     public Object keys(String... patterns) {
-        return redisUtil.keys(patterns);
+        return redisUtils.keys(patterns);
     }
 
     @RequestMapping(value = "set", method = RequestMethod.POST)
     public boolean redisset(String key) {
-        redisUtil.selectDB(5);
+        redisUtils.selectDB(5);
         User userEntity = new User();
         userEntity.setId(SaltUtil.generateUUId());
         userEntity.setUserName("reidsuser");
 //        userEntity.setCreateTime(new Date());
         // return redisUtil.set(key,userEntity,ExpireTime);
-        return redisUtil.set(key, userEntity, 1800);
+        return redisUtils.set(key, userEntity, 1800);
     }
 
     @RequestMapping(value = "get", method = RequestMethod.GET)
     public Object redisget(String key) {
-        return redisUtil.get(key);
+        return redisUtils.get(key);
     }
 
     @RequestMapping(value = "expire", method = RequestMethod.POST)
     public boolean expire(String key) {
-        return redisUtil.expire(key, ExpireTime);
+        return redisUtils.expire(key, ExpireTime);
     }
 
     @RequestMapping(value = "getExpire", method = RequestMethod.POST)
     public long getExpire(String key) {
-        return redisUtil.getExpire(key);
+        return redisUtils.getExpire(key);
     }
 
     @RequestMapping(value = "persist", method = RequestMethod.POST)
     public boolean persist(String key) {
-        return redisUtil.persist(key);
+        return redisUtils.persist(key);
     }
 
     @RequestMapping(value = "/getUser", method = RequestMethod.POST)
@@ -92,7 +92,7 @@ public class RedisController {
 //        redisUtil.incr("increment", 1);
         redisTemplate.opsForValue().increment("increment", 1);
         redisTemplate.exec();
-        return ResponseResult.renderSuccess().message("自增成功").data("result", redisUtil.get("increment"));
+        return ResponseResult.renderSuccess().message("自增成功").data("result", redisUtils.get("increment"));
     }
 
     /**
@@ -104,8 +104,8 @@ public class RedisController {
     public ResponseResult multi(String key) {
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.multi();
-        redisUtil.set("testMulti1", key, 1800L);
-        redisUtil.set("testMulti2", Integer.parseInt(key), 1800L);
+        redisUtils.set("testMulti1", key, 1800L);
+        redisUtils.set("testMulti2", Integer.parseInt(key), 1800L);
         redisTemplate.opsForValue().increment("testMulti2", 2);
 //    	redisUtil.lGet("testMulti1", 0, -1);
 //    	redisTemplate.discard();
@@ -153,30 +153,30 @@ public class RedisController {
     public ResponseResult lockedLoanByWatch() throws InterruptedException {
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.multi();
-        redisUtil.set("balance", 100, 1800L);
-        redisUtil.set("debt", 0, 1800L);
+        redisUtils.set("balance", 100, 1800L);
+        redisUtils.set("debt", 0, 1800L);
         redisTemplate.exec();
         redisTemplate.watch("balance");
-        log.info("now balance is : {}", redisUtil.get("balance"));
-        log.info("now debt is : {}", redisUtil.get("debt"));
-        int originBalance = Integer.parseInt(redisUtil.get("balance").toString());
-        int originDebt = Integer.parseInt(redisUtil.get("debt").toString());
+        log.info("now balance is : {}", redisUtils.get("balance"));
+        log.info("now debt is : {}", redisUtils.get("debt"));
+        int originBalance = Integer.parseInt(redisUtils.get("balance").toString());
+        int originDebt = Integer.parseInt(redisUtils.get("debt").toString());
         int balance;// 可用余额
         int debt;// 欠额
         int amtToSubtract = 10;// 实刷额度
         new Thread(() -> {
-            redisUtil.set("balance", 5, 1800L);
+            redisUtils.set("balance", 5, 1800L);
             log.warn("另一个线程修改balance为5");
-            redisUtil.set("balance", 60, 1800L);
+            redisUtils.set("balance", 60, 1800L);
             log.warn("另一个线程修改balance为60");
-            redisUtil.set("balance", 100, 1800L);
+            redisUtils.set("balance", 100, 1800L);
             log.warn("另一个线程修改balance为100");
         })
         // 线程开启时修改了balance会导致借款失败，关闭时可成功借款。
 //		.start()
         ;
         Thread.sleep(2500);
-        balance = Integer.parseInt(redisUtil.get("balance").toString());
+        balance = Integer.parseInt(redisUtils.get("balance").toString());
         if (balance < amtToSubtract) {
             redisTemplate.unwatch();
             log.info("the balance modified by anthor thread!借款失败。");
@@ -189,10 +189,10 @@ public class RedisController {
 //			redisUtil.decr("balance", amtToSubtract);
 //			redisUtil.incr("debt", amtToSubtract);
             redisTemplate.exec();
-            log.info("now balance is : {}", redisUtil.get("balance"));
-            log.info("now debt is : {}", redisUtil.get("debt"));
-            int currentBalance = Integer.parseInt(redisUtil.get("balance").toString());
-            int currentDebt = Integer.parseInt(redisUtil.get("debt").toString());
+            log.info("now balance is : {}", redisUtils.get("balance"));
+            log.info("now debt is : {}", redisUtils.get("debt"));
+            int currentBalance = Integer.parseInt(redisUtils.get("balance").toString());
+            int currentDebt = Integer.parseInt(redisUtils.get("debt").toString());
             if (currentBalance == originBalance - amtToSubtract && currentDebt == originDebt + amtToSubtract) {
                 log.info("借款成功");
                 return ResponseResult.renderSuccess().message("借款成功");

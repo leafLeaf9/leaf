@@ -1,6 +1,7 @@
 package com.gousade.util;
 
 import com.gousade.util.http.converter.MappingText2HttpMessageConverter;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -44,5 +45,13 @@ public class RemoteObjectUtil {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingText2HttpMessageConverter());
         return restTemplate;
+    }
+
+    public static void addHeaders(RestTemplate restTemplate, Map<String, String> map) {
+        restTemplate.getInterceptors().add((httpRequest, bytes, clientHttpRequestExecution) -> {
+            HttpHeaders headers = httpRequest.getHeaders();
+            map.forEach(headers::add);
+            return clientHttpRequestExecution.execute(httpRequest, bytes);
+        });
     }
 }

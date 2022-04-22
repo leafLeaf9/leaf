@@ -19,12 +19,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class RedisUtil {
+public class RedisUtils {
 
     @Autowired
     private final RedisTemplate<String, Object> redisTemplate;
 
-    public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
+    public RedisUtils(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

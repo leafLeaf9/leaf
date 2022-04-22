@@ -3,7 +3,7 @@ package com.gousade.util;
 import com.gousade.entity.QRCodeDTO;
 import com.gousade.entity.WeChatTokenInfo;
 import com.gousade.entity.WeChatUserInfo;
-import com.gousade.redis.RedisUtil;
+import com.gousade.redis.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +41,7 @@ public class WeChatUtils {
     @Value("${wechat.web.login.scope:snsapi_login}")
     private String wechatWebLoginScope;
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtils;
     @Autowired
     private HttpServletRequest request;
 
@@ -56,7 +56,7 @@ public class WeChatUtils {
     }
 
     private void cacheState(String state) {
-        redisUtil.set(WECHAT_LOGIN_STATE_PREFIX + request.getSession().getId(), state, DEFAULT_EXPIRE_TIME);
+        redisUtils.set(WECHAT_LOGIN_STATE_PREFIX + request.getSession().getId(), state, DEFAULT_EXPIRE_TIME);
     }
 
     public QRCodeDTO getQRCodeDTO() throws UnsupportedEncodingException {
@@ -97,11 +97,11 @@ public class WeChatUtils {
 
     private void checkSate(String state) {
         String key = WECHAT_LOGIN_STATE_PREFIX + request.getSession().getId();
-        String cacheState = String.valueOf(redisUtil.get(key));
+        String cacheState = String.valueOf(redisUtils.get(key));
         if (ObjectUtils.isEmpty(cacheState) || !cacheState.equals(state)) {
             throw new RuntimeException("微信登录-state校验失败。");
         }
-        redisUtil.del(key);
+        redisUtils.del(key);
     }
 
     public void refreshToken(String refreshToken) {
