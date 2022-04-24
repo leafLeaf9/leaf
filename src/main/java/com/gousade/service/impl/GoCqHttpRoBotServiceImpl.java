@@ -57,7 +57,8 @@ public class GoCqHttpRoBotServiceImpl implements GoCqHttpRoBotService {
 
     private void handleSendCourse(CqHttpEvent event) {
         String courseUrl = "https://shimo.im/docs/dlrDMxoybAcmrwKU";
-        String sentMessage = String.format("cookie教程地址: %s\n绑定米游社cookie命令为: 发送以下指令\n绑定米游社cookie 你的cookie", courseUrl);
+        String sentMessage = String.format("cookie教程地址: %s\n绑定米游社cookie方式为: "
+                + "在群内发送以下消息\n绑定米游社cookie 你的cookie", courseUrl);
         sendGroupMsg(event.getGroupId(), sentMessage);
     }
 
@@ -68,16 +69,20 @@ public class GoCqHttpRoBotServiceImpl implements GoCqHttpRoBotService {
     }
 
     private void handleMiHoYoSign(CqHttpEvent event) {
-        String userId = event.getUserId();
+        miHoYoSign(event.getUserId(), event.getGroupId());
+    }
+
+    @Override
+    public void miHoYoSign(String userId, String groupId) {
         Object cookie = redisUtils.get(MiHoYoServiceImpl.MI_HO_YO_COOKIE_KEY_PREFIX + userId);
         if (cookie == null) {
-            String sentMessage = String.format("未查询到对应的cookie，请先绑定米游社cookie。[CQ:at,qq=%s]", event.getUserId());
-            sendGroupMsg(event.getGroupId(), sentMessage);
+            String sentMessage = String.format("未查询到对应的cookie，请先绑定米游社cookie。[CQ:at,qq=%s]", userId);
+            sendGroupMsg(groupId, sentMessage);
             return;
         }
         String resultMessage = miHoYoService.doSign(String.valueOf(cookie));
-        String sentMessage = String.format("[CQ:at,qq=%s]\n", event.getUserId());
-        sendGroupMsg(event.getGroupId(), sentMessage + resultMessage);
+        String sentMessage = String.format("[CQ:at,qq=%s]\n", userId);
+        sendGroupMsg(groupId, sentMessage + resultMessage);
     }
 
     private void handleGroupBanSomebody(CqHttpEvent event) {

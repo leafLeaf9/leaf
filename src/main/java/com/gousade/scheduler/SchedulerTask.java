@@ -2,6 +2,9 @@ package com.gousade.scheduler;
 
 import com.gousade.redis.RedisUtils;
 import com.gousade.service.GoCqHttpRoBotService;
+import com.gousade.service.MiHoYoService;
+import com.gousade.service.impl.MiHoYoServiceImpl;
+import com.gousade.util.Java8DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 /**
  * @author woxigousade
@@ -45,6 +49,9 @@ public class SchedulerTask {
     @Autowired
     private GoCqHttpRoBotService roBotService;
 
+    @Autowired
+    private MiHoYoService miHoYoService;
+
     @Async
     @Scheduled(cron = "0 0/5 * * * ?")
     @Scheduled(cron = "0 0/9 * * * ?")
@@ -59,7 +66,7 @@ public class SchedulerTask {
     @Scheduled(cron = "00 00 08 * * ?")
     @Scheduled(cron = "00 00 22 * * ?")
     public void remindMiHoYoSignInSpecifiedGroup() {
-        String groups = String.valueOf(redisUtils.get("goCqHttpRobot:robotRemindGroup"));
+        String groups = String.valueOf(redisUtils.get("goCqHttpRobot:robotRemindGroups"));
         int hour = ZonedDateTime.now().getHour();
         String message = String.format("已经%s点了，记得去米游社签到。", hour);
         if (hour == 22) {
@@ -68,5 +75,21 @@ public class SchedulerTask {
         for (String group : groups.split(",")) {
             roBotService.sendGroupMsg(group, message);
         }
+    }
+
+    @Async
+    @Scheduled(cron = "00 30 07 * * ?")
+    public void miHoYoAutoSignInSpecifiedGroup() {
+        ZonedDateTime now = ZonedDateTime.now();
+        String group = String.valueOf(redisUtils.get("goCqHttpRobot:robotPushGroup"));
+        String signStartMessage = String.format("现在是%s, 开始执行米游社自动签到。", Java8DateUtil.formatZonedDateTime(now));
+        roBotService.sendGroupMsg(group, signStartMessage);
+        Set<String> set = redisUtils.keys(MiHoYoServiceImpl.MI_HO_YO_COOKIE_KEY_PREFIX + "*");
+        set.stream().sorted().forEach(key -> {
+            String userId = key.substring(key.lastIndexOf(":") + 1);
+            roBotService.miHoYoSign(userId, group);
+        });
+        String signEndMessage = "执行米游社自动签到结束, 请收到登录失效通知的重新绑定cookie。在群里发送ck教程即可获取绑定教程。";
+        roBotService.sendGroupMsg(group, signEndMessage);
     }
 }
