@@ -110,7 +110,6 @@ public class Tests {
         String collect3 = list4.stream().collect(Collectors.joining(","));
         System.out.println("-----------------------------");
         System.out.println("完成测试");
-
         String command = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<reply method=\"device\" error=\"success\"></reply><break/>";
         byte[] bytes = command.getBytes(StandardCharsets.UTF_8);

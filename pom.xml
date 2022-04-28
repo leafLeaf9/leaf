@@ -318,8 +318,6 @@
 			<id>dev</id>
 			<properties>
 				<profiles.active>dev</profiles.active>
-				<logback.logdir>D:/gousadelogs/dev</logback.logdir>
-				<logback.appname>gousade-dev</logback.appname>
 			</properties>
 			<activation>
 				<!-- 通过<activeByDefault>true</activeByDefault>设置默认激活的profile -->
@@ -330,22 +328,18 @@
 			<id>test</id>
 			<properties>
 				<profiles.active>test</profiles.active>
-				<logback.logdir>D:/gousadelogs/test</logback.logdir>
-				<logback.appname>gousade-test</logback.appname>
 			</properties>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
 				<profiles.active>prod</profiles.active>
-				<logback.logdir>C:/gousadelogs/prod</logback.logdir>
-				<logback.appname>gousade-prod</logback.appname>
 			</properties>
 		</profile>
 	</profiles>
 
 	<build>
-		<finalName>gousade</finalName>
+<!--		<finalName>gousade</finalName>-->
 		<!--打jar包时需要添加以打包webapp静态资源文件 -->
 		<resources>
 			<resource>
@@ -359,10 +353,9 @@
 				<directory>${basedir}/src/main/resources</directory>
 				<filtering>true</filtering>
 				<includes>
-					<include>${profiles.active}/application*.yml</include>
-					<include>${profiles.active}/application*.yaml</include>
-					<include>${profiles.active}/application*.properties</include>
-					<include>**/application.properties</include>
+					<include>**/application*.yml</include>
+					<include>**/application*.yaml</include>
+					<include>**/application*.properties</include>
 				</includes>
 			</resource>
 			<resource>

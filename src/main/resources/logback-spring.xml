@@ -3,18 +3,15 @@
 <!-- scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true -->
 <!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 -->
 <!-- debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
-<configuration scan="true" scanPeriod="60 seconds"
-			   debug="false">
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
 	<!--由于 logback在 application.properties之前加载，所以无法读取 application.properties
 		中的变量，此时需要使用 springProperty属性 -->
-	<springProperty scope="context" name="appname"
-					source="logback.appname"/>
-	<springProperty scope="context" name="logdir"
-					source="logback.logdir"/>
+	<springProperty scope="context" name="APP_NAME" source="logging.app.name" defaultValue="gousade"/>
+	<springProperty scope="context" name="LOG_PATH" source="logging.file.path" defaultValue="/logs"/>
 	<!-- name的值是变量的名称，value的值时变量定义的值。通过定义的值会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量。 -->
-	<!--<property name="logdir" value="D:/gousadelogs" /> <property name="appname"
+	<!--<property name="LOG_PATH" value="/logs" /> <property name="appName"
 		value="gousade" /> -->
-	<contextName>${appname}</contextName>
+	<contextName>${APP_NAME}</contextName>
 	<!-- 彩色日志 -->
 	<!-- 配置格式变量：CONSOLE_LOG_PATTERN 彩色日志格式 -->
 	<!-- magenta:洋红 -->
@@ -23,7 +20,7 @@
 	<!-- white:白色 -->
 	<!-- magenta:洋红 -->
 	<property name="CONSOLE_LOG_PATTERN"
-			  value="%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
+	          value="%yellow(%date{yyyy-MM-dd HH:mm:ss}) |%highlight(%-5level) |%blue(%thread) |%blue(%file:%line) |%green(%logger) |%cyan(%msg%n)"/>
 	<property name="GOUSADE_LOG_PATTERN"
 			  value="%boldRed(%d{yyyy-MM-dd HH:mm:ss}) %magenta(%contextName) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{99}) - %msg%n"/>
 	<!--输出到控制台 ConsoleAppender -->
@@ -45,10 +42,10 @@
 	</appender>
 
 	<appender name="FileInfoLog"
-			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	          class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<!--日志名称，如果没有File 属性，那么只会使用FileNamePattern的文件路径规则,如果同时有<File>和<FileNamePattern>，那么当天日志是<File>，明天会自动把今天
 			的日志改名为今天的日期。即，<File> 的日志都是当天的。 -->
-		<File>${logdir}/${appname}-log-info.log</File>
+		<File>${LOG_PATH}/${APP_NAME}-log-info.log</File>
 		<!--日志输出编码格式化 -->
 		<encoder>
 			<charset>UTF-8</charset>
@@ -60,7 +57,7 @@
 		<rollingPolicy
 				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间 -->
-			<FileNamePattern>${logdir}/${appname}.log-info-%d{yyyy-MM-dd}.%i.log
+			<FileNamePattern>${LOG_PATH}/${APP_NAME}.log-info-%d{yyyy-MM-dd}.%i.log
 			</FileNamePattern>
 			<!--单个日志文件最大值，达到之后就进行切割 -->
 			<timeBasedFileNamingAndTriggeringPolicy
@@ -81,10 +78,10 @@
 	</appender>
 
 	<appender name="FileWarnLog"
-			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	          class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<!--日志名称，如果没有File 属性，那么只会使用FileNamePattern的文件路径规则,如果同时有<File>和<FileNamePattern>，那么当天日志是<File>，明天会自动把今天
 			的日志改名为今天的日期。即，<File> 的日志都是当天的。 -->
-		<File>${logdir}/${appname}-log-warn.log</File>
+		<File>${LOG_PATH}/${APP_NAME}-log-warn.log</File>
 		<!--日志输出编码格式化 -->
 		<encoder>
 			<charset>UTF-8</charset>
@@ -96,7 +93,7 @@
 		<rollingPolicy
 				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间 -->
-			<FileNamePattern>${logdir}/${appname}.log-warn-%d{yyyy-MM-dd}.%i.log
+			<FileNamePattern>${LOG_PATH}/${APP_NAME}.log-warn-%d{yyyy-MM-dd}.%i.log
 			</FileNamePattern>
 			<!--单个日志文件最大值，达到之后就进行切割 -->
 			<timeBasedFileNamingAndTriggeringPolicy
@@ -117,10 +114,10 @@
 	</appender>
 
 	<appender name="FileErrorLog"
-			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+	          class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<!--日志名称，如果没有File 属性，那么只会使用FileNamePattern的文件路径规则,如果同时有<File>和<FileNamePattern>，那么当天日志是<File>，明天会自动把今天
 			的日志改名为今天的日期。即，<File> 的日志都是当天的。 -->
-		<File>${logdir}/${appname}-log-error.log</File>
+		<File>${LOG_PATH}/${APP_NAME}-log-error.log</File>
 		<!--日志输出编码格式化 -->
 		<encoder>
 			<charset>UTF-8</charset>
@@ -132,7 +129,7 @@
 		<rollingPolicy
 				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间 -->
-			<FileNamePattern>${logdir}/${appname}.log-error-%d{yyyy-MM-dd}.%i.log
+			<FileNamePattern>${LOG_PATH}/${APP_NAME}.log-error-%d{yyyy-MM-dd}.%i.log
 			</FileNamePattern>
 			<!--单个日志文件最大值，达到之后就进行切割 -->
 			<timeBasedFileNamingAndTriggeringPolicy
