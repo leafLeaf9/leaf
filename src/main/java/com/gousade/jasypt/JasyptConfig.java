@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @EnableEncryptableProperties
 @PropertySource(name = "EncryptedProperties", value = {"classpath:application.properties",
-        "classpath:/${spring.profiles.active}/application-${spring.profiles.active}.properties",
+        "classpath:/dev/application-dev.properties", "classpath:/prod/application-prod.properties",
         "classpath:customized.properties"})
 @Configuration
 public class JasyptConfig {
