@@ -63,21 +63,6 @@ public class SchedulerTask {
     }
 
     @Async
-    @Scheduled(cron = "00 00 08 * * ?")
-    @Scheduled(cron = "00 00 22 * * ?")
-    public void remindMiHoYoSignInSpecifiedGroup() {
-        String groups = String.valueOf(redisUtils.get("goCqHttpRobot:robotRemindGroups"));
-        int hour = ZonedDateTime.now().getHour();
-        String message = String.format("已经%s点了，记得去米游社签到。", hour);
-        if (hour == 22) {
-            message = String.format("已经%s点了，查看一下有没有忘记米游社签到。", hour);
-        }
-        for (String group : groups.split(",")) {
-            roBotService.sendGroupMsg(group, message);
-        }
-    }
-
-    @Async
     @Scheduled(cron = "00 30 07 * * ?")
     public void miHoYoAutoSignInSpecifiedGroup() {
         ZonedDateTime now = ZonedDateTime.now();
