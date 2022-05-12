@@ -39,7 +39,7 @@ public class EasyExcelDataController {
      * <p>
      * 3. 直接读即可
      */
-    @OperationRecord(operationNum = 1, operationDescription = "上传excel测试")
+    @OperationRecord(operationNum = 1, operationDescription = "'上传excel测试'")
     @PostMapping("upload")
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult upload(MultipartFile file) throws IOException {
@@ -48,7 +48,7 @@ public class EasyExcelDataController {
         return easyExcelDataService.upload(file, easyExcelDataService);
     }
 
-    @OperationRecord(operationNum = 2, operationDescription = "下载excel测试")
+    @OperationRecord(operationNum = 2, operationDescription = "'下载excel测试'")
     @PostMapping("download")
     public void download(HttpServletResponse response) throws IOException {
         easyExcelDataService.download(response, easyExcelDataService);

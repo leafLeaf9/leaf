@@ -28,7 +28,7 @@ public class RoleController {
 	@Autowired
 	private RoleService roleService;
 
-	@OperationRecord(operationNum = 0, operationDescription = "查询角色列表")
+	@OperationRecord(operationNum = 0, operationDescription = "查询角色列表+{#p0}")
 	@RequestMapping(value = "/selectRoleList", method = RequestMethod.POST)
 	public Map<String, Object> selectRoleList(@RequestParam(value = "page", required = false) String page,
 	                                          @RequestParam(value = "rows", required = false) String rows, HttpServletRequest request) {

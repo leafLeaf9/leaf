@@ -8,7 +8,7 @@ import org.apache.shiro.SecurityUtils;
  * @date: 2020/9/1/0001 21:19
  * @description: shiro util class
  */
-public class ShiroUtil {
+public class ShiroUtils {
 
     public static User getShiroSessionUser() {
         if (SecurityUtils.getSubject() == null || SecurityUtils.getSubject().getPrincipal() == null) {

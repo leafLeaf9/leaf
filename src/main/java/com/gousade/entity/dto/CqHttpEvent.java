@@ -1,7 +1,7 @@
 package com.gousade.entity.dto;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gousade.util.Java8DateUtil;
+import com.gousade.util.DateUtils;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -32,6 +32,6 @@ public class CqHttpEvent implements Serializable {
     private JSONObject sender;
 
     public ZonedDateTime getReceiveTime() {
-        return Java8DateUtil.dateToZonedDateTime(new Date(time * 1000));
+        return DateUtils.dateToZonedDateTime(new Date(time * 1000));
     }
 }

@@ -8,7 +8,7 @@ import com.gousade.redis.RedisUtils;
 import com.gousade.service.EasyExcelDataService;
 import com.gousade.service.SmsResponseLogService;
 import com.gousade.service.UserService;
-import com.gousade.shiro.ShiroUtil;
+import com.gousade.shiro.ShiroUtils;
 import com.gousade.util.SaltUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class SmsCodeController {
             return ResponseResult.renderError().message("验证码已失效，请重新获取。");
         } else {
             if (redisGetSentCode.toString().equals(checkCode)) {
-                user.setId(ShiroUtil.getShiroSessionUser() != null ? ShiroUtil.getShiroSessionUser().getId()
+                user.setId(ShiroUtils.getShiroSessionUser() != null ? ShiroUtils.getShiroSessionUser().getId()
                         : user.getId());
                 user.setSalt(SaltUtil.getUUId());
                 user.setPassword(SaltUtil.toHex(user.getPassword(), user.getSalt()));

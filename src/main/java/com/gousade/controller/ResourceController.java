@@ -4,7 +4,7 @@ import com.gousade.pojo.Resource;
 import com.gousade.pojo.Tree;
 import com.gousade.pojo.User;
 import com.gousade.service.ResourceService;
-import com.gousade.shiro.ShiroUtil;
+import com.gousade.shiro.ShiroUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -27,7 +27,7 @@ public class ResourceController {
 
     @RequestMapping(value = "/tree", method = RequestMethod.POST)
     public Object tree() {
-        User user = ShiroUtil.getShiroSessionUser();
+        User user = ShiroUtils.getShiroSessionUser();
         List<Resource> list = resourceService.selectTree(user);
         return list;
     }

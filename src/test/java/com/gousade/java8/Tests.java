@@ -7,7 +7,7 @@ import com.gousade.pojo.SubUserImpl;
 import com.gousade.pojo.User;
 import com.gousade.test.MyInterface;
 import com.gousade.util.BigDecimalCalculator;
-import com.gousade.util.Java8DateUtil;
+import com.gousade.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -141,7 +141,7 @@ public class Tests {
         System.out.println(localDate);
         LocalDate firstDayOfYear = localDate.with(TemporalAdjusters.firstDayOfYear());
         System.out.println(firstDayOfYear);
-        ZonedDateTime zonedStartTime = Java8DateUtil.dateTimeStrToZonedDateTime("2021-03-06 13:05:20")
+        ZonedDateTime zonedStartTime = DateUtils.dateTimeStrToZonedDateTime("2021-03-06 13:05:20")
                 .withHour(0).withMinute(0).withSecond(0);
         System.out.println(zonedStartTime.with(TemporalAdjusters.firstDayOfYear()));
         System.out.println(zonedStartTime.with(TemporalAdjusters.firstDayOfMonth()));
@@ -149,7 +149,7 @@ public class Tests {
         System.out.println(zonedEndTime);
     }
 
-    @OperationRecord(operationNum = 9999, operationDescription = "短信验证码发送")
+    @OperationRecord(operationNum = 9999, operationDescription = "'短信验证码发送'")
     @Test
     public void testChronoUnit() {
         System.out.println(ChronoUnit.MINUTES.between(ZonedDateTime.now().minusDays(1), ZonedDateTime.now()));

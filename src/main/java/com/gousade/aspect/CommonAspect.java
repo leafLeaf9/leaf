@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class CommonAspect {
 
-
     @Pointcut("@annotation(com.gousade.annotation.Retryable)")
     public void retryPointcut() {
     }
@@ -25,7 +24,6 @@ public class CommonAspect {
     @Pointcut("@annotation(com.gousade.annotation.Timing)")
     public void timingPointcut() {
     }
-
 
     @Around("retryPointcut() && @annotation(retry)")
     public Object redisRetryAround(ProceedingJoinPoint point, Retryable retry) throws Throwable {

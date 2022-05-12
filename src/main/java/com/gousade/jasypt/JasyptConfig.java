@@ -5,13 +5,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
+ * jasypt配置类
+ *
  * @author woxigsd@gmail.com
- * @date 2020-8-21 15:40:42 Description: jasypt配置类
- * jdk1.8使用jasypt需要在jdk\jre\lib\security目录下放入jce_policy-8的jar包
+ * @date 2020-8-21 15:40:42
+ * jdk1.8_161之前使用jasypt需要在jdk\jre\lib\security目录下放入jce_policy-8的jar包
  */
 @EnableEncryptableProperties
 @PropertySource(name = "EncryptedProperties", value = {"classpath:application.properties",
-        "classpath:/dev/application-dev.properties", "classpath:/prod/application-prod.properties",
+        "classpath:application-dev.properties", "classpath:application-prod.properties",
         "classpath:customized.properties"})
 @Configuration
 public class JasyptConfig {

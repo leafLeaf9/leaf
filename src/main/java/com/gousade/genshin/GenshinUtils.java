@@ -66,8 +66,8 @@ public class GenshinUtils {
     }
 
     public static void main(String[] args) {
-        String cookie = "mi18nLang=zh-cn; _MHYUUID=93103775-30ee-4f09-bb40-281da4e9f91c; _ga_831VBKXN1V=GS1.1.1632807124.1.1.1632808859.0; UM_distinctid=17f2b182bb3203-0d3e1c10ac62d6-a7d173c-1fa400-17f2b182bb4e4d; _gid=GA1.2.1005172781.1650521825; CNZZDATA1275023096=1865624122-1647387676-https%253A%252F%252Fwww.baidu.com%252F%7C1650591259; _ga_KJ6J9V9VZQ=GS1.1.1650593308.2.0.1650593309.0; _ga=GA1.2.1238409759.1632807125; ltoken=zZHlj1u5O4ESn78o8Hb0dYp5ZYzGJUMPa8Q6TgUb; ltuid=247958300; cookie_token=Z3nWDaLLIPRUNPGDZg3Ezl6aIihe2oF2QnzSFPsh; account_id=247958300; _gat=1";
-        JSONObject roles = getGenshinUserGameRoles("cookie");
+        String cookie = "";
+        JSONObject roles = getGenshinUserGameRoles(cookie);
         System.out.println(roles);
     }
 

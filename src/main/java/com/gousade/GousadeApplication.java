@@ -1,5 +1,6 @@
 package com.gousade;
 
+import com.mzt.logapi.starter.annotation.EnableLogRecord;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,8 +11,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author woxigousade <woxigsd@gmail.com>
  * @date 2018/12/25
  */
-@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
+
 @SpringBootApplication(scanBasePackages = "com.gousade")
+@EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
+@EnableLogRecord(tenant = "com.gousade")
 public class GousadeApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

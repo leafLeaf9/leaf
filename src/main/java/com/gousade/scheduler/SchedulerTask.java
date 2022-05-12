@@ -4,7 +4,7 @@ import com.gousade.redis.RedisUtils;
 import com.gousade.service.GoCqHttpRoBotService;
 import com.gousade.service.MiHoYoService;
 import com.gousade.service.impl.MiHoYoServiceImpl;
-import com.gousade.util.Java8DateUtil;
+import com.gousade.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -67,7 +67,7 @@ public class SchedulerTask {
     public void miHoYoAutoSignInSpecifiedGroup() {
         ZonedDateTime now = ZonedDateTime.now();
         String group = String.valueOf(redisUtils.get("goCqHttpRobot:robotPushGroup"));
-        String signStartMessage = String.format("现在是%s, 开始执行米游社自动签到。", Java8DateUtil.formatZonedDateTime(now));
+        String signStartMessage = String.format("现在是%s, 开始执行米游社自动签到。", DateUtils.formatZonedDateTime(now));
         roBotService.sendGroupMsg(group, signStartMessage);
         Set<String> set = redisUtils.keys(MiHoYoServiceImpl.MI_HO_YO_COOKIE_KEY_PREFIX + "*");
         set.stream().sorted().forEach(key -> {

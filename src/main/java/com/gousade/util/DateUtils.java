@@ -10,7 +10,7 @@ import java.util.Date;
  * @author woxigousade
  * @date 2020/7/21
  */
-public class Java8DateUtil {
+public class DateUtils {
     public static final ZoneId CTT = ZoneId.of("Asia/Shanghai");
     public static final String dateFormatter = "yyyy-MM-dd HH:mm:ss";
     public static final String dayFormatter = "yyyy-MM-dd";

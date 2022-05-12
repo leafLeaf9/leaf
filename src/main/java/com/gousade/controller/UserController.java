@@ -6,7 +6,7 @@ import com.gousade.pojo.User;
 import com.gousade.pojo.util.AttachmentGeneral;
 import com.gousade.service.AttachmentGeneralService;
 import com.gousade.service.UserService;
-import com.gousade.shiro.ShiroUtil;
+import com.gousade.shiro.ShiroUtils;
 import com.gousade.util.AttachmentUtil;
 import com.gousade.util.DataTablesPageUtil;
 import io.swagger.annotations.*;
@@ -142,7 +142,7 @@ public class UserController {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    @OperationRecord(operationNum = 1, operationDescription = "上传头像")
+    @OperationRecord(operationNum = 1, operationDescription = "'上传头像'")
     @RequestMapping(value = "/userAvatarUpload", method = RequestMethod.POST)
     public Object userAvatarUpload(@RequestParam(value = "attachments") MultipartFile attachments) throws IOException {
         String filType = attachments.getOriginalFilename()
@@ -154,7 +154,7 @@ public class UserController {
         }
         if (attachments.getOriginalFilename() != "") {
             AttachmentGeneral attachmentGeneral = AttachmentUtil.AttachmentUpload(attachments);
-            User user = ShiroUtil.getShiroSessionUser();
+            User user = ShiroUtils.getShiroSessionUser();
             attachmentGeneral.setAttachId(user.getId());
             attachmentGeneralService.save(attachmentGeneral);
             attachmentGeneral.setId(user.getId());
@@ -164,25 +164,25 @@ public class UserController {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    @OperationRecord(operationNum = 1, operationDescription = "上传oss头像")
+    @OperationRecord(operationNum = 1, operationDescription = "'上传oss头像'")
     @RequestMapping(value = "/uploadOssAvatar", method = RequestMethod.POST)
     public ResponseResult uploadOssAvatar(@RequestParam(value = "attachments") MultipartFile attachments) {
-        User user = ShiroUtil.getShiroSessionUser();
+        User user = ShiroUtils.getShiroSessionUser();
         boolean b = userService.uploadOssAvatar(attachments, user);
         return ResponseResult.renderBoolean(b);
     }
 
-    @OperationRecord(operationNum = 2, operationDescription = "获取头像")
+    @OperationRecord(operationNum = 2, operationDescription = "'获取头像'")
     @RequestMapping(value = "/getUserAvatar", method = RequestMethod.GET)
     public void getUserAvatar(HttpServletResponse response, HttpServletRequest request) {
-        User user = ShiroUtil.getShiroSessionUser();
+        User user = ShiroUtils.getShiroSessionUser();
         userService.getUserAvatar(response, request, user);
     }
 
-    @OperationRecord(operationNum = 2, operationDescription = "获取oss头像")
+    @OperationRecord(operationNum = 2, operationDescription = "'获取oss头像'")
     @RequestMapping(value = "/getOssAvatar", method = RequestMethod.GET)
     public ResponseResult getOssAvatar() {
-        User user = ShiroUtil.getShiroSessionUser();
+        User user = ShiroUtils.getShiroSessionUser();
         String url = userService.getOssAvatar(user);
         return ResponseResult.renderSuccess().message("获取oss头像成功").data("url", url);
     }
