@@ -20,6 +20,8 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -180,6 +182,8 @@ public class Tests {
         String str = "";
         String[] split = str.split(",");
         System.out.println(Arrays.toString(split));
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(str.split(",")));
+        System.out.println(list);
     }
 
     @Test
@@ -401,10 +405,29 @@ public class Tests {
 
     @Test
     public void testNullBooleanCondition() {
+        System.out.println(LocalDate.now().toString());
         Boolean unfriendly = null;
-        if (unfriendly) {
-            System.out.println(true);
-        }
+        List<Boolean> list = new ArrayList<>();
+        list.add(unfriendly);
+        System.out.println(list.stream().filter(e -> e != null && e).count());
+        Map<String, Object> map = new HashMap<>();
+        Object o = map.get(null);
+        System.out.println(o);
+    }
+
+    @Test
+    public void testTimeConvert() throws ParseException {
+        ZonedDateTime zonedDateTime = DateUtils.dateTimeStrToZonedDateTime("0001-01-01 00:00:00");
+        System.out.println(DateUtils.formatZonedDateTime(zonedDateTime));
+        System.out.println(zonedDateTime.toInstant());
+        Date date = Date.from(zonedDateTime.toInstant());
+        System.out.println(date);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date parse = sdf.parse("0001-01-01 00:00:00");
+        System.out.println(parse);
+        ZonedDateTime zonedDateTime1 = DateUtils.dateToZonedDateTime(parse);
+        String formatDate = DateUtils.formatDate(parse);
+        System.out.println(formatDate);
     }
 
     /*public static Unsafe getUnsafe() {

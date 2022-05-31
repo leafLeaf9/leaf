@@ -1,5 +1,7 @@
 package com.gousade.genshin;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.gousade.entity.dto.GenshinSign;
@@ -16,7 +18,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class GenshinUtils {
-    public static String getGenshinUserInfo(String uid, String cookie) {
+    public static JSONObject getGenshinUserInfo(String uid, String cookie) {
         String url = MiHoYoConstant.INFO_URL;
         Map<String, String> paramMap = new TreeMap<>();
         paramMap.put("server", String.valueOf(MiHoYoConstant.SERVER_REGION_MAP
@@ -24,7 +26,7 @@ public class GenshinUtils {
         paramMap.put("role_id", uid);
         String ds = getGenshinUserInfoDS(paramMap, StringPool.EMPTY);
         RestTemplate restTemplate = getMiHoYoRestTemplate(ds, cookie, getGenshinUserInfoAppVersion(), getGenshinClientType());
-        ResponseEntity<String> result = restTemplate.getForEntity(url, String.class, paramMap);
+        ResponseEntity<JSONObject> result = restTemplate.getForEntity(url, JSONObject.class, paramMap);
         return result.getBody();
     }
 
@@ -68,6 +70,12 @@ public class GenshinUtils {
     public static void main(String[] args) {
         String cookie = "";
         JSONObject roles = getGenshinUserGameRoles(cookie);
+        JSONArray jsonArray = roles.getJSONObject("data").getJSONArray("list");
+        for (Object e : jsonArray) {
+            JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(e));
+            JSONObject userInfo = getGenshinUserInfo(jsonObject.getString("game_uid"), cookie);
+            System.out.println(userInfo);
+        }
         System.out.println(roles);
     }
 

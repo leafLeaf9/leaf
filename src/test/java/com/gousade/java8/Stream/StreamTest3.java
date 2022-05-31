@@ -124,7 +124,7 @@ public class StreamTest3 {
         System.out.println(sum);
         System.out.println("----------------------------------");
         // 工资总和另一种写法
-        Optional<Double> optionalSum = employees.stream().map(Employee::getSalary).reduce(Double::sum);
+        Optional<Double> optionalSum = employees.stream().map(Employee::getSalary).reduce((a, b) -> Double.sum(a, b));
         System.out.println(optionalSum);
         System.out.println("----------------------------------");
         // 工资最大值的员工信息

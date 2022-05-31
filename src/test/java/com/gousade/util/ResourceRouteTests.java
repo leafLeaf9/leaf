@@ -27,8 +27,7 @@ public class ResourceRouteTests {
         testInsertRoutes();
     }
 
-
-    private void testInsertRoutes() {
+    public void testInsertRoutes() {
         LocalDateTime now = LocalDateTime.now();
         ResourceRouteDO v1v3 = ResourceRouteDO.builder().id(1508694415952994305L).beginPointId("v1").endPointId("v3")
                 .distance(10.0).inUse(true).createTime(now).updateTime(now).deleted(false).build();

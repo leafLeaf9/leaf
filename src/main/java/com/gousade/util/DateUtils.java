@@ -1,5 +1,6 @@
 package com.gousade.util;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -20,7 +21,8 @@ public class DateUtils {
     }
 
     public static ZonedDateTime dateToZonedDateTime(Date date) {
-        return ZonedDateTime.ofInstant(date.toInstant(), CTT);
+        String formattedDate = formatDate(date);
+        return dateTimeStrToZonedDateTime(formattedDate);
     }
 
     public static String formatDate(Date date) {
@@ -28,8 +30,8 @@ public class DateUtils {
     }
 
     public static String formatDate(Date date, String format) {
-        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), CTT);
-        return formatZonedDateTime(zonedDateTime, format);
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        return formatter.format(date);
     }
 
     public static String formatZonedDateTime(ZonedDateTime zonedDateTime) {
@@ -58,5 +60,10 @@ public class DateUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dayFormatter).withZone(CTT);
         LocalDate localDate = LocalDate.parse(dateStr, formatter);
         return localDate.atStartOfDay(CTT);
+    }
+
+    public static LocalDate dateToLocalDate(Date date) {
+        ZonedDateTime zonedDateTime = dateToZonedDateTime(date);
+        return zonedDateTime.toLocalDate();
     }
 }

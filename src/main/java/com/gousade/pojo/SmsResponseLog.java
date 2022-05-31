@@ -39,4 +39,5 @@ public class SmsResponseLog implements Serializable, TestInterface {
     @ApiModelProperty(value = "逻辑删除 1(true)已删除， 0(false)未删除")
     private boolean delflag;
 
+
 }
