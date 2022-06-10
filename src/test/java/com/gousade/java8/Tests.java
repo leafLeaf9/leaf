@@ -430,6 +430,18 @@ public class Tests {
         System.out.println(formatDate);
     }
 
+    @Test
+    public void testMath() {
+        String msg = "涩图搜索宵宫";
+        String keyword = msg.replaceAll("#*(涩图|色图)搜索", "");
+        System.out.println(keyword);
+        Random random = new Random();
+        System.out.println(random.nextInt(10));
+        System.out.println(random.nextInt());
+        List<String> list = new ArrayList<>();
+        System.out.println(list.stream().filter(Objects::nonNull).collect(Collectors.joining(",")));
+    }
+
     /*public static Unsafe getUnsafe() {
         try {
             Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");

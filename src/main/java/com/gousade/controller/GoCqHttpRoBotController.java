@@ -2,7 +2,7 @@ package com.gousade.controller;
 
 import com.gousade.entity.dto.CqHttpEvent;
 import com.gousade.service.GoCqHttpRoBotService;
-import com.gousade.util.JsonUtils;
+import com.gousade.util.JSONObjectUtils;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class GoCqHttpRoBotController {
 
     @PostMapping
     public void cqHttpEvent() {
-        CqHttpEvent cqHttpEvent = JsonUtils.getCqHttpEvent(request);
+        CqHttpEvent cqHttpEvent = JSONObjectUtils.getCqHttpEvent(request);
         baseService.handleCqHttpEvent(cqHttpEvent);
     }
 }

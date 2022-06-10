@@ -1,49 +1,27 @@
 package com.gousade.util;
 
-import com.alibaba.fastjson.JSONObject;
-import com.gousade.entity.dto.CqHttpEvent;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.lang.Nullable;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-
+/**
+ * @author woxigousade
+ * @date 2021/6/10
+ */
 public class JsonUtils {
-    public static JSONObject getJSONObject(HttpServletRequest request) {
-        JSONObject jsonParam = null;
-        try {
-            // 获取输入流
-            BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-            // 数据写入StringBuilder
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = streamReader.readLine()) != null) {
-                sb.append(line);
-            }
-            jsonParam = JSONObject.parseObject(sb.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonParam;
+    public static JavaType getCollectionType(ObjectMapper mapper, Class<?> collectionClass, Class<?>... elementClasses) {
+        return mapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
     }
 
-    public static CqHttpEvent getCqHttpEvent(HttpServletRequest request) {
-        CqHttpEvent result = new CqHttpEvent();
+    public static String serialize(@Nullable Object t) {
         try {
-            // 获取输入流
-            BufferedReader streamReader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
-
-            // 数据写入StringBuilder
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = streamReader.readLine()) != null) {
-                sb.append(line);
-            }
-            result = JSONObject.parseObject(sb.toString(), CqHttpEvent.class);
-        } catch (Exception e) {
+            return objectMapper.writeValueAsString(t);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return null;
         }
-        return result;
     }
 }

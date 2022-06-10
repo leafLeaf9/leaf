@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.gousade.entity.dto.GenshinRequestBody;
 import com.gousade.entity.dto.GenshinSign;
+import com.gousade.util.JsonUtils;
 import com.gousade.util.RemoteObjectUtil;
 import com.gousade.util.SaltUtil;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,8 +20,20 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class GenshinUtils {
+    public static JSONObject listGenshinCharacters(GenshinRequestBody body, String cookie) {
+        String url = MiHoYoConstant.HOST_RECORD + MiHoYoConstant.GAME_RECORD + "character";
+        String str = JsonUtils.serialize(body);
+        String ds = getGenshinUserInfoDS(new HashMap<>(), str);
+        RestTemplate restTemplate = getMiHoYoRestTemplate(ds, cookie, getGenshinUserInfoAppVersion(), getGenshinClientType());
+        ResponseEntity<JSONObject> result = restTemplate.postForEntity(url, body, JSONObject.class);
+        return result.getBody();
+    }
+
     public static JSONObject getGenshinUserInfo(String uid, String cookie) {
         String url = MiHoYoConstant.INFO_URL;
+        GenshinSign body = new GenshinSign();
+        body.setUid(uid);
+        body.setUid(uid);
         Map<String, String> paramMap = new TreeMap<>();
         paramMap.put("server", String.valueOf(MiHoYoConstant.SERVER_REGION_MAP
                 .getOrDefault(String.valueOf(uid.charAt(0)), "cn_gf01")));
@@ -68,13 +82,18 @@ public class GenshinUtils {
     }
 
     public static void main(String[] args) {
-        String cookie = "";
+        String cookie = "ltoken=peTudWXoT2zCDSH56quELdGD5uWF9yriDuPphYDi;ltuid=247958300;cookie_token=mr1TxMM8TXdkEaLmFOovn7B2cjvV2HN0e2AncUXX; account_id=247958300;";
         JSONObject roles = getGenshinUserGameRoles(cookie);
         JSONArray jsonArray = roles.getJSONObject("data").getJSONArray("list");
         for (Object e : jsonArray) {
             JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(e));
             JSONObject userInfo = getGenshinUserInfo(jsonObject.getString("game_uid"), cookie);
+            GenshinSign genshinSign = new GenshinSign(MiHoYoConstant.SIGN_ACT_ID, jsonObject.getString("region"),
+                    jsonObject.getString("game_uid"));
+            GenshinRequestBody body = new GenshinRequestBody(jsonObject.getString("game_uid"), jsonObject.getString("region"));
+            JSONObject characters = listGenshinCharacters(body, cookie);
             System.out.println(userInfo);
+            System.out.println(characters);
         }
         System.out.println(roles);
     }

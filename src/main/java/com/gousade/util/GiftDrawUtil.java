@@ -14,7 +14,7 @@ import java.util.Map;
  * @author woxigsd@gmail.com
  * @date 2020-10-14 14:36:59
  * @description 礼物概率抽奖工具
- * @see https://blog.csdn.net/yyc252532009/article/details/75950120
+ * https://blog.csdn.net/yyc252532009/article/details/75950120
  */
 @Slf4j
 public class GiftDrawUtil {
