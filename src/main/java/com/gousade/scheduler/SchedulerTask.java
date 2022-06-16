@@ -67,7 +67,7 @@ public class SchedulerTask {
     public void miHoYoAutoSignInSpecifiedGroup() {
         ZonedDateTime now = ZonedDateTime.now();
         String group = String.valueOf(redisUtils.get("goCqHttpRobot:robotPushGroup"));
-        String signStartMessage = String.format("现在是%s, 开始执行米游社自动签到。", DateUtils.formatZonedDateTime(now));
+        String signStartMessage = String.format("现在是%s, 开始执行米游社自动签到。", DateUtils.formatTime(now));
         roBotService.sendGroupMsg(group, signStartMessage);
         Set<String> set = redisUtils.keys(MiHoYoServiceImpl.MI_HO_YO_COOKIE_KEY_PREFIX + "*");
         set.stream().sorted().forEach(key -> {

@@ -418,7 +418,7 @@ public class Tests {
     @Test
     public void testTimeConvert() throws ParseException {
         ZonedDateTime zonedDateTime = DateUtils.dateTimeStrToZonedDateTime("0001-01-01 00:00:00");
-        System.out.println(DateUtils.formatZonedDateTime(zonedDateTime));
+        System.out.println(DateUtils.formatTime(zonedDateTime));
         System.out.println(zonedDateTime.toInstant());
         Date date = Date.from(zonedDateTime.toInstant());
         System.out.println(date);
@@ -426,7 +426,7 @@ public class Tests {
         Date parse = sdf.parse("0001-01-01 00:00:00");
         System.out.println(parse);
         ZonedDateTime zonedDateTime1 = DateUtils.dateToZonedDateTime(parse);
-        String formatDate = DateUtils.formatDate(parse);
+        String formatDate = DateUtils.formatTime(parse);
         System.out.println(formatDate);
     }
 
@@ -434,12 +434,17 @@ public class Tests {
     public void testMath() {
         String msg = "涩图搜索宵宫";
         String keyword = msg.replaceAll("#*(涩图|色图)搜索", "");
-        System.out.println(keyword);
-        Random random = new Random();
-        System.out.println(random.nextInt(10));
-        System.out.println(random.nextInt());
-        List<String> list = new ArrayList<>();
-        System.out.println(list.stream().filter(Objects::nonNull).collect(Collectors.joining(",")));
+        String str = "测试斜杠/////";
+        String replace = str.replace("/", "");
+        System.out.println(replace);
+        Integer jamCount = 0;
+        System.out.println(jamCount);
+        porcessJamCount(jamCount);
+        System.out.println(jamCount);
+    }
+
+    private void porcessJamCount(Integer jamCount) {
+        jamCount = jamCount + 100;
     }
 
     /*public static Unsafe getUnsafe() {

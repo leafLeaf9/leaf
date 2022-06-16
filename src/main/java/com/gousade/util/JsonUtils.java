@@ -12,8 +12,8 @@ import org.springframework.lang.Nullable;
 public class JsonUtils {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static JavaType getCollectionType(ObjectMapper mapper, Class<?> collectionClass, Class<?>... elementClasses) {
-        return mapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
+    public static JavaType getCollectionType(Class<?> collectionClass, Class<?>... elementClasses) {
+        return objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
     }
 
     public static String serialize(@Nullable Object t) {
@@ -22,6 +22,25 @@ public class JsonUtils {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static <T> T toObject(String jsonStr, Class<T> valueType) {
+        try {
+            return objectMapper.readValue(jsonStr, valueType);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T readValue(String jsonStr, Class<?> valueType, Class<?>... parameterClasses) {
+        try {
+            JavaType type = getCollectionType(valueType, parameterClasses);
+            return objectMapper.readValue(jsonStr, type);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

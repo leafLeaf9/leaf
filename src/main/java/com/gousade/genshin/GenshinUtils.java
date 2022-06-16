@@ -82,7 +82,7 @@ public class GenshinUtils {
     }
 
     public static void main(String[] args) {
-        String cookie = "ltoken=peTudWXoT2zCDSH56quELdGD5uWF9yriDuPphYDi;ltuid=247958300;cookie_token=mr1TxMM8TXdkEaLmFOovn7B2cjvV2HN0e2AncUXX; account_id=247958300;";
+        String cookie = "";
         JSONObject roles = getGenshinUserGameRoles(cookie);
         JSONArray jsonArray = roles.getJSONObject("data").getJSONArray("list");
         for (Object e : jsonArray) {
@@ -94,6 +94,7 @@ public class GenshinUtils {
             JSONObject characters = listGenshinCharacters(body, cookie);
             System.out.println(userInfo);
             System.out.println(characters);
+            System.out.println(characters.getJSONObject("data").getJSONArray("avatars").toString());
         }
         System.out.println(roles);
     }
