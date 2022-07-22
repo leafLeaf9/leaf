@@ -1,12 +1,15 @@
 package com.gousade.java8;
 
+import cn.hutool.core.io.checksum.crc16.CRC16CCITT;
 import cn.hutool.core.thread.NamedThreadFactory;
+import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.gousade.annotation.OperationRecord;
 import com.gousade.pojo.SubUserImpl;
 import com.gousade.pojo.User;
 import com.gousade.test.MyInterface;
 import com.gousade.util.BigDecimalCalculator;
+import com.gousade.util.CoderUtils;
 import com.gousade.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -20,10 +23,13 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
@@ -415,8 +421,32 @@ public class Tests {
         System.out.println(o);
     }
 
+    public static byte[] HexString2Bytes(String src, int length) {
+        byte[] ret = new byte[length];
+        byte[] tmp = src.getBytes();
+        for (int i = 0; i < length; i++) {
+            ret[i] = uniteBytes(tmp[i * 2], tmp[i * 2 + 1]);
+        }
+        return ret;
+    }
+
+    public static byte uniteBytes(byte src0, byte src1) {
+        byte _b0 = Byte.decode("0x" + new String(new byte[]{src0})).byteValue();
+        _b0 = (byte) (_b0 << 4);
+        byte _b1 = Byte.decode("0x" + new String(new byte[]{src1})).byteValue();
+        byte ret = (byte) (_b0 ^ _b1);
+        return ret;
+    }
+
     @Test
     public void testTimeConvert() throws ParseException {
+        ZonedDateTime time = ZonedDateTime.now();
+        LocalDateTime timeLocal = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(DateUtils.CTT);
+        ZonedDateTime time1 = ZonedDateTime.parse("0001-01-01 00:00:00", formatter);
+        LocalDateTime time2 = LocalDateTime.parse("0001-01-01 00:00:00", formatter);
+        System.out.println(formatter.format(time1));
+        System.out.println(formatter.format(time2));
         ZonedDateTime zonedDateTime = DateUtils.dateTimeStrToZonedDateTime("0001-01-01 00:00:00");
         System.out.println(DateUtils.formatTime(zonedDateTime));
         System.out.println(zonedDateTime.toInstant());
@@ -431,21 +461,118 @@ public class Tests {
     }
 
     @Test
-    public void testMath() {
-        String msg = "涩图搜索宵宫";
-        String keyword = msg.replaceAll("#*(涩图|色图)搜索", "");
-        String str = "测试斜杠/////";
-        String replace = str.replace("/", "");
-        System.out.println(replace);
-        Integer jamCount = 0;
-        System.out.println(jamCount);
-        porcessJamCount(jamCount);
-        System.out.println(jamCount);
+    public void tesThreadExecuteManyTimes() {
+        System.out.println(System.getProperty("catalina.home"));
+        System.out.println(0xF7);
+        System.out.println((byte) 0xFF);
+        Thread thread = new Thread(() -> {
+            System.out.println("执行一次");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        for (int i = 0; i < 3; i++) {
+            thread.start();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    private void porcessJamCount(Integer jamCount) {
-        jamCount = jamCount + 100;
+    @Test
+    public void tesCRC16CCITT() throws UnsupportedEncodingException {
+        System.out.println(CoderUtils.bytes2HexStringSplit("谨慎驾驶".getBytes(StandardCharsets.UTF_8)));
+        System.out.println(CoderUtils.bytes2HexStringSplit("谨慎驾驶".getBytes(StandardCharsets.ISO_8859_1)));
+        System.out.println(CoderUtils.bytes2HexStringSplit("谨慎驾驶".getBytes("GBK")));
+        System.out.println(CoderUtils.bytes2HexStringSplit(" ".getBytes()));
+        System.out.println(CoderUtils.bytes2HexStringSplit("\n".getBytes()));
+        System.out.println(CoderUtils.bytes2HexStringSplit("\r".getBytes()));
+        System.out.println(CoderUtils.bytes2HexStringSplit("\r\n".getBytes()));
+        HashMap<String, List<String>> map = new HashMap<>();
+        List<String> collect = map.values().stream().map(e -> e.get(0)).collect(Collectors.toList());
+        System.out.println(collect);
+        int x = 16;
+        DecimalFormat decimalFormat = new DecimalFormat("000");
+        System.out.println(decimalFormat.format(x));
+        System.out.println(decimalFormat.format(1234));
+        System.out.println(Arrays.toString(hex2RGB("#ff0000")));
+        System.out.println(Arrays.toString(hex2RGB("#00ff00")));
+
+        System.out.println(Arrays.toString("01".getBytes()));
+        System.out.println(Arrays.toString("06".getBytes()));
+        System.out.println(Arrays.toString("Aa".getBytes()));
+        String play = "[Playlist]\n" +
+                "Item_No=2\n" +
+                "Item0=1000,1,1,\\C000000\\Ba01\\C000000\\Ba02\\C000000\\Ba03\\C000000\\fh1616\\c255000000000是是是\\C000000\\fh1616\\c255000000000啧啧责\n" +
+                "Item1=1000,1,1,\\C000000\\fh1616\\c255000000000第二屏文字\n";
+        System.out.println(Arrays.toString(play.getBytes()));
+        // 帧头 表明一帧的开始，为接收方提供同步
+        byte[] frameHeader = new byte[]{0x02};
+        byte[] frameAddress = "01".getBytes();
+        byte[] frameType = "10".getBytes();
+        byte[] frameData = "第一屏内容: 是是是".getBytes();
+        byte[] array1 = ArrayUtil.addAll(frameHeader, frameAddress);
+        byte[] array2 = ArrayUtil.addAll(array1, frameType);
+        byte[] array3 = ArrayUtil.addAll(array2, frameData);
+        CRC16CCITT ccitt = new CRC16CCITT();
+        ccitt.update(array3);
+        System.out.println(ccitt.getHexValue(false));
+        System.out.println(ccitt.getHexValue(true));
+        System.out.println(Arrays.toString(HexString2Bytes(ccitt.getHexValue(true), 2)));
+        System.out.println(Arrays.toString(HexString2Bytes(ccitt.getHexValue(true).toUpperCase(), 2)));
+        System.out.println(Arrays.toString(new byte[]{(byte) 0xfb, 0x42}));
+        System.out.println(Arrays.toString(new byte[]{(byte) 0xFB, 0x42}));
+        CRC16CCITT ccitt1 = new CRC16CCITT();
+        ccitt1.update(new byte[]{(byte) 0xFF});
+        System.out.println(ccitt1.getHexValue());
     }
+
+    public int[] hex2RGB(String hexStr) {
+        if (hexStr != null && !"".equals(hexStr) && hexStr.length() == 7) {
+            int[] rgb = new int[3];
+            rgb[0] = Integer.valueOf(hexStr.substring(1, 3), 16);
+            rgb[1] = Integer.valueOf(hexStr.substring(3, 5), 16);
+            rgb[2] = Integer.valueOf(hexStr.substring(5, 7), 16);
+            return rgb;
+        }
+        return null;
+    }
+
+    @Test
+    public void testFilterForeach() {
+        User user = User.builder().id("123").build();
+        User user2 = User.builder().id("1234").build();
+        User user3 = User.builder().id("2234").build();
+        List<User> list = new ArrayList<>();
+        list.add(user);
+        list.add(user2);
+        list.add(user3);
+        List<User> newList = list.stream().filter(e -> e.getId().startsWith("1")).collect(Collectors.toList());
+        newList.forEach(e -> e.setUserName("以1开头的用户"));
+        System.out.println(list);
+    }
+
+    @Test
+    public void testFileWriter() throws IOException {
+        String directory = "C:" + File.separator + "Users" + File.separator + "Administrator" +
+                File.separator + "Desktop";
+        File file = new File(directory + File.separator);
+        System.out.println(file.exists());
+        System.out.println(file.isDirectory());
+        try (FileWriter writer = new FileWriter(directory + File.separator + "新建文本文档 (3).txt")) {
+            writer.write("是是是n\n");
+            writer.write("是是是r\r");
+            writer.write("是是是rn\r\n");
+            writer.write("是是是rnn\r\n");
+            writer.flush();
+        }
+    }
+
+
 
     /*public static Unsafe getUnsafe() {
         try {

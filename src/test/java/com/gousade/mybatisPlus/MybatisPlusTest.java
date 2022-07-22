@@ -18,10 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StopWatch;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -104,8 +101,13 @@ public class MybatisPlusTest {
     public void testSelectLambdaQuery() {
         LambdaQueryWrapper<Role> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Role::isDelflag, false).orderByAsc(Role::getCreateTime);
+        wrapper.ge(Role::getCreateTime, ZonedDateTime.now().minusYears(10));
         List<Role> list = roleMapper.selectList(wrapper);
         log.info(list.toString());
+        Map<String, Integer> map = new HashMap<>();
+        map.put("0101", null);
+        map.put(null, null);
+        System.out.println(map);
     }
 
     @Test

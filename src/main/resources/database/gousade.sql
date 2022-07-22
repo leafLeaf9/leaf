@@ -2620,19 +2620,12 @@ VALUES ('78b66ae44ad34c23afd9afac02cd83e0', 'textadmin', '文本分析管理员'
         'b222ee185b7c48c7bce686e715fe931f', '2019-02-28 11:05:52', '2020-09-22 16:46:35', '文本分析管理员', '151********',
         NULL, 0, NULL, 4);
 INSERT INTO `user`
-VALUES ('8252099ea409477489b90f4cf0f084a3', 'gousade', '狗萨德', 'c08ce72bf25386cc3814f7c5131f97d9',
-        'b222ee185b7c48c7bce686e715fe931f', '2019-11-27 20:32:27', '2020-09-22 16:46:35', NULL, NULL, NULL, 0, NULL, 4);
-INSERT INTO `user`
 VALUES ('86a50c1474ef4a61b00fef8c8e5db8a1', 'ccc', NULL, NULL, NULL, NULL, '2020-09-22 16:46:35', NULL, NULL, NULL, 0,
         NULL, 4);
 INSERT INTO `user`
 VALUES ('8961e4f21fac43b796c1e0d0a422414', 'abbt', '023', NULL, NULL, NULL, '2020-09-22 16:46:35', NULL, '222', NULL, 0,
         NULL, 4);
 INSERT INTO `user`
-VALUES ('911a8e15eebf4d569f8a8299e5ad99d5', 'Tohsaka Rin', 'Tohsaka Rin', '9bb54586cc1d39ea40fd0efab1b845c5',
-        '9117b66d4b3c40d5a53d7a199b0d437b', '2018-11-07 22:56:54', '2020-09-22 16:46:35', '超级管理员，拥有全部权限', '151********',
-        '2021-01-10 18:10:01', 0,
-        'https://gousade.oss-cn-beijing.aliyuncs.com/2020-09-24/19e1b6fd7fc74588b573864aec3ca838avarar3.jpg', 4);
 INSERT INTO `user`
 VALUES ('9f8a863225404d908e9a028cc8adb9fd', 'aaa', NULL, NULL, NULL, NULL, '2020-09-22 16:46:35', NULL, NULL, NULL, 0,
         NULL, 4);
@@ -2943,6 +2936,61 @@ INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, 
 VALUES (1508694415999131650, 'v5', 'v4', 20.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
 INSERT INTO resource_route (id, begin_point_id, end_point_id, distance, in_use, create_time, update_time, is_deleted)
 VALUES (1508694415999131651, 'v5', 'v6', 60.000, 1, '2022-03-29 14:35:54', '2022-03-29 14:35:54', 0);
+
+-- ----------------------------
+-- Table structure for t_sys_quartz_job
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sys_quartz_job`;
+CREATE TABLE `t_sys_quartz_job`
+(
+    `id`              bigint(20) NOT NULL COMMENT '日志id',
+    `job_name`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '任务名称',
+    `job_group`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '任务组名',
+    `invoke_target`   varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '调用目标字符串',
+    `cron_expression` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'cron执行表达式',
+    `misfire_policy`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'cron计划策略',
+    `concurrent`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否并发执行（0允许 1禁止）',
+    `status`          int NULL DEFAULT NULL COMMENT '任务状态（0正常 1暂停）',
+    `create_time`     datetime                                                      NOT NULL COMMENT '创建时间',
+    `update_time`     datetime                                                      NOT NULL COMMENT '更新时间',
+    `is_deleted`      tinyint(1) unsigned NOT NULL COMMENT '逻辑删除',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度表'
+  ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of t_sys_quartz_job
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for t_sys_quartz_job_log
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sys_quartz_job_log`;
+CREATE TABLE `t_sys_quartz_job_log`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `job_name`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '任务名称',
+    `job_group`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '任务组名',
+    `invoke_target`  varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '调用目标字符串',
+    `job_message`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '日志信息',
+    `status`         int NULL DEFAULT NULL COMMENT '执行状态（0正常 1失败）',
+    `exception_info` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '异常信息',
+    `start_time`     datetime NULL DEFAULT NULL COMMENT '开始时间',
+    `end_time`       datetime NULL DEFAULT NULL COMMENT '结束时间',
+    `create_time`    datetime NOT NULL COMMENT '创建时间',
+    `update_time`    datetime NOT NULL COMMENT '更新时间',
+    `is_deleted`     tinyint(1) unsigned NOT NULL COMMENT '逻辑删除',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度日志表'
+  ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of t_sys_quartz_job_log
+-- ----------------------------
 
 -- ----------------------------
 -- View structure for selectattachments

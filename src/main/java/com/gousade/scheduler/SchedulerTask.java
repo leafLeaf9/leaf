@@ -35,7 +35,7 @@ import java.util.Set;
  * cron表达式的星期中1为周日SUN 2为周一MON以此类推 7为周六SAT，但是此处使用org.springframework.scheduling.support.CronSequenceGenerator类，
  * 0,1,2,3,4,5,6分别表示SUN,MON,TUE,WED,THU,FRI,SAT所以周一到周五应该是1,2,3,4,5或者MON,TUE,WED,THU,FRI
  * Sunday can be represented as 0 or 7 0和7都可以代表周日
- * http://www.manongjc.com/detail/15-zlvwmipbrrbfjht.html
+ * <a href="http://www.manongjc.com/detail/15-zlvwmipbrrbfjht.html">...</a>
  */
 @Component
 @EnableScheduling

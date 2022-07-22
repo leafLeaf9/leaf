@@ -1,6 +1,8 @@
 package com.gousade.art.concurrent.book.chapter10;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 import java.util.concurrent.*;
@@ -29,5 +31,41 @@ public class ThreadPoolTests {
             THREAD_POOL1.execute(() -> log.info("测试1"));
         }
 
+    }
+
+    /**
+     * 测试队列已满时，新来的任务执行顺序
+     * 新来的会比已在队列中的先执行
+     */
+    @Test
+    public void testOverflowWorkQueueNewCommand() throws InterruptedException {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
+                3,
+                6,
+                10,
+                TimeUnit.MINUTES,
+                new ArrayBlockingQueue<>(3));
+        for (int i = 1; i <= 9; i++) {
+            int finalI = i;
+            threadPoolExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(Thread.currentThread().getName() + " is executing" + finalI);
+                    try {
+                        Thread.sleep(10000000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public String toString() {
+                    return "thread" + finalI;
+                }
+            });
+        }
+        Thread.sleep(3 * 1000);
+        System.out.println(threadPoolExecutor.getQueue());
+        Assertions.assertEquals("[thread4, thread5, thread6]", threadPoolExecutor.getQueue().toString());
     }
 }

@@ -138,8 +138,7 @@ public class StreamTest3 {
         System.out.println(optionalMax2.get());
         System.out.println("----------------------------------");
         // 工资最小值
-        Optional<Double> optionalMin = employees.stream().map(Employee::getSalary)
-                .collect(Collectors.minBy(Double::compareTo));
+        Optional<Double> optionalMin = employees.stream().map(Employee::getSalary).min(Double::compareTo);
         System.out.println(optionalMin.get());
         System.out.println("----------------------------------");
         // 工资总和、最大值、平均值
