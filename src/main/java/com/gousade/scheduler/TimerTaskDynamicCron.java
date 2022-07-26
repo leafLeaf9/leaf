@@ -2,7 +2,6 @@ package com.gousade.scheduler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
@@ -28,11 +27,6 @@ public class TimerTaskDynamicCron {
 
     @Autowired
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
-
-    @Bean
-    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
-        return new ThreadPoolTaskScheduler();
-    }
 
     /**
      * 项目启动时就运行

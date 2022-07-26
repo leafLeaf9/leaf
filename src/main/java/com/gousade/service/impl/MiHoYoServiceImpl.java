@@ -10,10 +10,8 @@ import com.gousade.entity.dto.GenshinSign;
 import com.gousade.genshin.GenshinUtils;
 import com.gousade.genshin.MiHoYoConstant;
 import com.gousade.redis.RedisUtils;
-import com.gousade.service.GoCqHttpRoBotService;
 import com.gousade.service.MiHoYoService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -30,13 +28,6 @@ public class MiHoYoServiceImpl implements MiHoYoService {
 
     @Resource
     private RedisUtils redisUtils;
-
-    @Autowired
-    private GoCqHttpRoBotService roBotService;
-
-    private void sendGroupMsg(String groupId, String message) {
-        roBotService.sendGroupMsg(groupId, message);
-    }
 
     @Override
     public void bindMiHoYoCookie(CqHttpEvent event) {
