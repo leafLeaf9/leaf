@@ -19,18 +19,7 @@ public class RemoteObjectUtil {
         return getRestTemplate(5 * 1000, 15 * 1000);
     }
 
-    public static RestTemplate getRestTemplate(int connectTimeout, int readTimeout) {
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(connectTimeout);
-        requestFactory.setReadTimeout(readTimeout);
-        return new RestTemplate(requestFactory);
-    }
-
-    public static RestTemplate getSimpleRestTemplate() {
-        return getSimpleRestTemplate(5 * 1000, 15 * 1000);
-    }
-
-    public static RestTemplate getSimpleRestTemplate(int connectTimeOut, int readTimeOut) {
+    public static RestTemplate getRestTemplate(int connectTimeOut, int readTimeOut) {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(connectTimeOut);
         requestFactory.setReadTimeout(readTimeOut);

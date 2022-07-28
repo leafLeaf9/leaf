@@ -3,18 +3,20 @@ package com.gousade.scheduler;
 import com.gousade.constant.ScheduleConstants;
 import com.gousade.entity.SysQuartzJob;
 import com.gousade.mapper.SysQuartzJobMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.JobDetailImpl;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Set;
 
-@Configuration
+@Slf4j
+@Component
 public class QuartzSchedulerUtil {
 
     @Autowired
@@ -99,6 +101,7 @@ public class QuartzSchedulerUtil {
             if (job.getStatus().equals(1)) {
                 pauseJob(job);
             }
+            log.warn("初始化定时任务: {}, {}", job.getId(), job.getJobName());
         }
     }
 

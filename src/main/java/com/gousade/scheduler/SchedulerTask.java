@@ -3,8 +3,6 @@ package com.gousade.scheduler;
 import com.gousade.redis.RedisUtils;
 import com.gousade.service.GoCqHttpRoBotService;
 import com.gousade.service.MiHoYoService;
-import com.gousade.service.impl.MiHoYoServiceImpl;
-import com.gousade.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
 /**
  * @author woxigousade
@@ -62,7 +59,7 @@ public class SchedulerTask {
         log.info("Current Time : {}", currentTime);
     }
 
-    @Async
+    /*@Async
     @Scheduled(cron = "00 30 07 * * ?")
     public void miHoYoAutoSignInSpecifiedGroup() {
         ZonedDateTime now = ZonedDateTime.now();
@@ -80,5 +77,5 @@ public class SchedulerTask {
         });
         String signEndMessage = "执行米游社自动签到结束, 请收到登录失效通知的重新绑定cookie。在群里发送ck教程即可获取绑定教程。";
         roBotService.sendGroupMsg(group, signEndMessage);
-    }
+    }*/
 }

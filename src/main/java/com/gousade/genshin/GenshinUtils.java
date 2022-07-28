@@ -49,7 +49,7 @@ public class GenshinUtils {
     }
 
     public static RestTemplate getMiHoYoRestTemplate(String ds, String cookie, String appVersion, String clientType) {
-        RestTemplate restTemplate = RemoteObjectUtil.getSimpleRestTemplate();
+        RestTemplate restTemplate = RemoteObjectUtil.getRestTemplate();
         Map<String, String> headerMap = getBasicHeaderMap();
         headerMap.put("x-rpc-device_id", SaltUtil.generateUUId().toUpperCase());
         headerMap.put("x-rpc-client_type", clientType);

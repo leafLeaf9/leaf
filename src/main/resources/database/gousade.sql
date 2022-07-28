@@ -2963,6 +2963,10 @@ CREATE TABLE `t_sys_quartz_job`
 -- ----------------------------
 -- Records of t_sys_quartz_job
 -- ----------------------------
+INSERT INTO `t_sys_quartz_job` (`id`, `job_name`, `job_group`, `invoke_target`, `cron_expression`, `misfire_policy`,
+                                `concurrent`, `status`, `create_time`, `update_time`, `is_deleted`)
+VALUES (1, '米哈游自动签到任务', 'default', 'miHoYoJob.miHoYoAutoSignInSpecifiedGroup()', '00 30 05 * * ?', '3', '1', 0,
+        '2022-07-28 16:16:48', '2022-07-28 16:16:50', 0);
 
 -- ----------------------------
 -- Table structure for t_sys_quartz_job_log

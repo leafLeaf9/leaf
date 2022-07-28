@@ -1,5 +1,6 @@
 package com.gousade.scheduler;
 
+import com.gousade.scheduler.job.MiHoYoJob;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,12 @@ public class SchedulerTaskTests {
     @Autowired
     private SchedulerTask schedulerTask;
 
+    @Autowired
+    private MiHoYoJob miHoYoJob;
+
     @Test
     public void testMiHoYoAutoSignInSpecifiedGroup() {
-        schedulerTask.miHoYoAutoSignInSpecifiedGroup();
+        miHoYoJob.miHoYoAutoSignInSpecifiedGroup();
         try {
             Thread.sleep(30000);
         } catch (InterruptedException e) {

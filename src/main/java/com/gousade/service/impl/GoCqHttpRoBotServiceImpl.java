@@ -102,7 +102,7 @@ public class GoCqHttpRoBotServiceImpl implements GoCqHttpRoBotService {
         map.put("group_id", event.getGroupId());
         map.put("user_id", bannedId);
         map.put("duration", duration);
-        ResponseEntity<String> result = RemoteObjectUtil.getSimpleRestTemplate().getForEntity(url, String.class, map);
+        ResponseEntity<String> result = RemoteObjectUtil.getRestTemplate().getForEntity(url, String.class, map);
         if (HttpStatus.OK.equals(result.getStatusCode())) {
             String sentMessage = String.format("执行禁言成功。[CQ:at,qq=%s]被禁言%d秒。", bannedId, duration);
             sendGroupMsg(event.getGroupId(), sentMessage);
@@ -115,7 +115,7 @@ public class GoCqHttpRoBotServiceImpl implements GoCqHttpRoBotService {
         Map<String, Object> map = new HashMap<>();
         map.put("group_id", groupId);
         map.put("message", message);
-        ResponseEntity<String> result = RemoteObjectUtil.getSimpleRestTemplate().getForEntity(url, String.class, map);
+        ResponseEntity<String> result = RemoteObjectUtil.getRestTemplate().getForEntity(url, String.class, map);
         if (HttpStatus.OK.equals(result.getStatusCode())) {
             log.info("发送群消息成功, 群号: {}, 消息体: {}", groupId, message);
         }
@@ -141,7 +141,7 @@ public class GoCqHttpRoBotServiceImpl implements GoCqHttpRoBotService {
         Map<String, Object> map = new HashMap<>();
         map.put("group_id", groupId);
         map.put("user_id", userId);
-        ResponseEntity<CqHttpResponse> result = RemoteObjectUtil.getSimpleRestTemplate().getForEntity(url,
+        ResponseEntity<CqHttpResponse> result = RemoteObjectUtil.getRestTemplate().getForEntity(url,
                 CqHttpResponse.class, map);
         return Objects.requireNonNull(result.getBody()).getData().toJavaObject(CqTencentQQMember.class);
     }
