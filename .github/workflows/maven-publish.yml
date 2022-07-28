@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: gousade-auto-build
-          path: target/gousade.jar
+          path: target/gousade-1.1.2.jar

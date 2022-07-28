@@ -38,8 +38,7 @@ public class VodUtil {
     public static DefaultAcsClient initVodClient(String accessKeyId, String accessKeySecret) throws ClientException {
         String regionId = "cn-shanghai"; // 点播服务接入区域
         DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, accessKeySecret);
-        DefaultAcsClient client = new DefaultAcsClient(profile);
-        return client;
+        return new DefaultAcsClient(profile);
     }
 
     public String uploadAliyunVideo(MultipartFile file) {
@@ -51,7 +50,7 @@ public class VodUtil {
                     inputStream);
             UploadVideoImpl uploader = new UploadVideoImpl();
             UploadStreamResponse response = uploader.uploadStream(request);
-            String videoId = null;
+            String videoId;
             if (response.isSuccess()) {
                 videoId = response.getVideoId();
             } else { // 如果设置回调URL无效，不影响视频上传，可以返回VideoId同时会返回错误码。
@@ -73,8 +72,7 @@ public class VodUtil {
             GetVideoPlayAuthRequest request = new GetVideoPlayAuthRequest();
             request.setVideoId(videoId);
             GetVideoPlayAuthResponse response = client.getAcsResponse(request);
-            String playAuth = response.getPlayAuth();
-            return playAuth;
+            return response.getPlayAuth();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

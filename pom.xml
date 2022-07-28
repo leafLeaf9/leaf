@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gousade</groupId>
 	<artifactId>gousade</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>1.1.2</version>
 	<name>spring-boot-gousade</name>
 	<description>SpringBoot Project.</description>
@@ -186,7 +186,7 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
-			<version>1.8.0</version>
+			<version>1.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -201,13 +201,15 @@
 		<dependency>
 		    <groupId>com.aliyun</groupId>
 		    <artifactId>aliyun-java-sdk-vod</artifactId>
-		    <version>2.15.12</version>
+			<version>2.16.7</version>
 		</dependency>
 		<dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-sdk-vod-upload</artifactId>
-            <version>1.4.13</version>
-        </dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-sdk-vod-upload</artifactId>
+			<version>1.4.14</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/aliyun-java-vod-upload-1.4.14.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>com.aliyun</groupId>
 			<artifactId>aliyun-java-sdk-afs</artifactId>
