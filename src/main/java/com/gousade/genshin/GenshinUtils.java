@@ -54,6 +54,7 @@ public class GenshinUtils {
         headerMap.put("x-rpc-device_id", SaltUtil.generateUUId().toUpperCase());
         headerMap.put("x-rpc-client_type", clientType);
         headerMap.put("x-rpc-app_version", appVersion);
+        headerMap.put("User-Agent", " miHoYoBBS/" + appVersion);
         headerMap.put("DS", ds);
         headerMap.put("Cookie", cookie);
         RemoteObjectUtil.addHeaders(restTemplate, headerMap);
@@ -95,6 +96,7 @@ public class GenshinUtils {
             System.out.println(userInfo);
             System.out.println(characters);
             System.out.println(characters.getJSONObject("data").getJSONArray("avatars").toString());
+            genshinSign(genshinSign, cookie);
         }
         System.out.println(roles);
     }
