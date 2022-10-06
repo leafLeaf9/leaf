@@ -115,6 +115,22 @@ public class FileUtils {
         return data;
     }
 
+    public static byte[] readFile(InputStream input) {
+        byte[] data;
+        try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = input.read(bytes)) != -1) {
+                output.write(bytes, 0, length);
+                output.flush();
+            }
+            data = output.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("读取文件流失败。");
+        }
+        return data;
+    }
+
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static byte[] write2File(byte[] data, String directory, String fileName) {
         String filePath = directory + File.separator + fileName;

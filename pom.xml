@@ -34,6 +34,13 @@
 		</developer>
 	</developers>
 
+	<repositories>
+		<repository>
+			<id>space-maven</id>
+			<url>https://packages.jetbrains.team/maven/p/skija/maven</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-properties-migrator</artifactId>
 			<scope>runtime</scope> </dependency> -->
@@ -310,6 +317,12 @@
 			<groupId>io.github.mouzt</groupId>
 			<artifactId>bizlog-sdk</artifactId>
 			<version>2.0.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jetbrains.skija/skija-windows -->
+		<dependency>
+			<groupId>org.jetbrains.skija</groupId>
+			<artifactId>skija-windows</artifactId>
+			<version>0.93.6</version>
 		</dependency>
 		<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
 		<!--<dependency>
