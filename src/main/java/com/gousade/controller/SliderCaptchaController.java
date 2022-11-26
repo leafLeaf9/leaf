@@ -4,7 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.gousade.common.ResponseResult;
 import com.gousade.pojo.SliderCaptchaDto;
 import com.gousade.util.BigDecimalCalculator;
-import com.gousade.util.ImageUtil;
+import com.gousade.util.SliderCaptchaImageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -72,7 +72,7 @@ public class SliderCaptchaController {
         File templateDictionary = new File(ResourceUtils.getURL("classpath:static/sliderImages/template").getPath());
         File[] templateFiles = templateDictionary.listFiles();
         File templateImageFile = Objects.requireNonNull(templateFiles)[new Random().nextInt(templateFiles.length)];
-        SliderCaptchaDto sliderCaptchaDto = ImageUtil.getSliderCaptcha(backgroundImageFile, templateImageFile);
+        SliderCaptchaDto sliderCaptchaDto = SliderCaptchaImageUtils.getSliderCaptcha(backgroundImageFile, templateImageFile);
         SliderCaptchaDto cacheSliderCaptchaDto = SliderCaptchaDto.builder()
                 .id(IdUtil.simpleUUID())
                 .randomX(sliderCaptchaDto.getRandomX())

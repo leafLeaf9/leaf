@@ -12,9 +12,11 @@ import com.gousade.util.BigDecimalCalculator;
 import com.gousade.util.CoderUtils;
 import com.gousade.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -570,6 +572,20 @@ public class Tests {
             writer.write("是是是rnn\r\n");
             writer.flush();
         }
+    }
+
+    @Test
+    public void readResource() throws IOException {
+        String resPath = "static/captcha/carbon/1W+个碳分子.txt";
+        //获取指定路径下的资源文件
+        ClassPathResource resources = new ClassPathResource(resPath);
+        //获取流
+        InputStream in = resources.getInputStream();
+        //创建临时文件(空文件) 该文件会默认创建在你用户的更目录下，具体哪个自己打印出来看看就知道
+        File imgFile = File.createTempFile("result", ".txt");
+        //将获取的流转为文件，在转换过后我们的资源文件就被copy到前面创建的临时文件中了
+        FileUtils.copyInputStreamToFile(in, imgFile);
+        System.out.println("临时文件路径:"+imgFile.getAbsolutePath());
     }
 
 

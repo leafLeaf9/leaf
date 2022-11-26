@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jodconverter.DocumentConverter;
 import org.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,14 @@ import java.io.*;
 @RequestMapping(value = "/admin/gousadeTest/filePreview")
 public class FilePreviewController {
 
+    @Lazy
     @Autowired
     private DocumentConverter converter;
 
     @Autowired
     private HttpServletResponse response;
 
+    @Lazy
     @Resource
     private OpenOfficeUtil openOfficeUtil;
 

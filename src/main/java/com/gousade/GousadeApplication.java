@@ -1,6 +1,7 @@
 package com.gousade;
 
 import com.mzt.logapi.starter.annotation.EnableLogRecord;
+import org.jodconverter.boot.autoconfigure.JodConverterLocalAutoConfiguration;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @date 2018/12/25
  */
 
-@SpringBootApplication(scanBasePackages = "com.gousade")
+@SpringBootApplication(scanBasePackages = "com.gousade", exclude = {JodConverterLocalAutoConfiguration.class})
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
 @EnableLogRecord(tenant = "com.gousade")
 public class GousadeApplication extends SpringBootServletInitializer {

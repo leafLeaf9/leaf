@@ -158,7 +158,6 @@ public class MdlMolParser {
 							molecule.getBond(pos).stereoDirection = val;
 						}
 					}
-					continue;
 				} catch (IndexOutOfBoundsException e) {
 					throw new BadMolFormatException("Invalid MDL MOL: M-block");
 				}

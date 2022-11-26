@@ -1,10 +1,14 @@
 package com.gousade.util;
 
+import cn.hutool.core.io.file.LineSeparator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * @author woxigousade
@@ -12,6 +16,17 @@ import java.text.DecimalFormat;
  */
 @Slf4j
 public class FileUtils {
+    public static final String USER_HOME = "user.home";
+    public static final String USER_HOME_DIRECTORY = System.getProperty(USER_HOME);
+    public static final String USER_DIR = "user.dir";
+    public static final String USER_DIR_DIRECTORY = System.getProperty(USER_DIR);
+    public static final String CATALINA_HOME = "catalina.home";
+    public static final String ROOT_DIRECTORY = System.getProperty(CATALINA_HOME);
+    public static final String FILES = "files";
+    public static final String FILE_DIRECTORY = ROOT_DIRECTORY + File.separator + FILES;
+    public static final String VMS_PROGRAM_HOME = "vmsProgram";
+    public static final String VMS_PROGRAM_DIRECTORY = ROOT_DIRECTORY + File.separator + FILES
+            + File.separator + VMS_PROGRAM_HOME;
 
     /**
      * 递归删除文件及文件夹
@@ -148,6 +163,58 @@ public class FileUtils {
             throw new RuntimeException("读取文件流失败：FileUtil.read()");
         }
         return data;
+    }
+
+    @SuppressWarnings({"ResultOfMethodCallIgnored"})
+    public static void write2File(InputStream inputStream, String directory, String fileName) {
+        File pf = new File(directory);
+        if (!pf.exists()) {
+            pf.mkdirs();
+        }
+        try {
+            try (OutputStream outputStream = Files.newOutputStream(Paths.get(directory + File.separator + fileName))) {
+                ResponseUtils.writeStream(inputStream, outputStream);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings({"ResultOfMethodCallIgnored"})
+    public static void write2File(List<String> list, String directory, String fileName) {
+        File parentFile = new File(directory);
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
+        try (FileWriter writer = new FileWriter(directory + File.separator + fileName)) {
+            list.forEach(str -> {
+                try {
+                    writer.write(str + LineSeparator.LINUX.getValue());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void saveVMSProgram(String programDictionary, String fileName, String programContent) {
+        String dictionary = VMS_PROGRAM_DIRECTORY + File.separator + programDictionary;
+        File file = new File(dictionary);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        try (FileWriter fileWriter = new FileWriter(dictionary + File.separator + fileName)) {
+            fileWriter.write(programContent + "\r\n");
+            fileWriter.flush();
+            log.warn(dictionary + File.separator + fileName + "保存成功。");
+        } catch (IOException e) {
+            log.error("节目文件保存异常。", e);
+            throw new RuntimeException("保存节目内容文件" + dictionary + File.separator + fileName + "失败。");
+        }
     }
 
     public static String formatFileSize(long fileSize) {
