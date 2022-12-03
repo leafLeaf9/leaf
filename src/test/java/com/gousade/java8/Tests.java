@@ -576,7 +576,7 @@ public class Tests {
 
     @Test
     public void readResource() throws IOException {
-        String resPath = "static/captcha/carbon/1W+个碳分子.txt";
+        String resPath = "static/captcha/carbon/sdf/Compound_000500001_001000000.sdf-500002-510922.txt";
         //获取指定路径下的资源文件
         ClassPathResource resources = new ClassPathResource(resPath);
         //获取流

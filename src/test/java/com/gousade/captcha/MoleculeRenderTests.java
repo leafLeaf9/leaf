@@ -1,6 +1,8 @@
 package com.gousade.captcha;
 
 
+import com.gousade.captcha.carbon.Molecule;
+import com.gousade.captcha.carbon.MoleculeRender;
 import org.jetbrains.skija.Image;
 
 public class MoleculeRenderTests {
