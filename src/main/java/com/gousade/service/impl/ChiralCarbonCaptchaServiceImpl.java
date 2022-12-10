@@ -1,5 +1,6 @@
 package com.gousade.service.impl;
 
+import cn.hutool.core.img.ImgUtil;
 import com.gousade.captcha.carbon.Molecule;
 import com.gousade.captcha.carbon.MoleculeRender;
 import com.gousade.captcha.carbon.util.ChiralCarbonHelper;
@@ -7,7 +8,10 @@ import com.gousade.captcha.carbon.util.MoleculeUtils;
 import com.gousade.entity.dto.ChiralCarbonCaptchaDTO;
 import com.gousade.entity.query.ChiralCarbonCaptchaQuery;
 import com.gousade.service.ChiralCarbonCaptchaService;
+import com.gousade.util.ExcelUtils;
+import com.gousade.util.ImageUtils;
 import lombok.val;
+import org.jetbrains.skija.Image;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,17 +30,21 @@ public class ChiralCarbonCaptchaServiceImpl implements ChiralCarbonCaptchaServic
 		Molecule molecule = MoleculeUtils.getInstance().randomMolecule();
 		val cfg = initMoleculeConfig(molecule);
 		val chirals = ChiralCarbonHelper.getMoleculeChiralCarbons(molecule);
-		List<Integer> regions = chirals.stream().map(index -> {
+		List<String> regions = chirals.stream().map(index -> {
 			val gridWidth = cfg.width / cfg.gridCountX;
 			val gridHeight = cfg.height / cfg.gridCountY;
 			val x = cfg.transformX(molecule, molecule.atomX(index));
 			val y = cfg.transformY(molecule, molecule.atomY(index));
-			val xn = Math.round(x / gridWidth);
-			val yn = Math.round(y / gridHeight);
-			return (xn << 4) | yn;
-		}).sorted().collect(Collectors.toList());
+			val xIndex = (int) Math.floor(x / gridWidth);
+			val yIndex = (int) Math.floor(y / gridHeight);
+			return ExcelUtils.getExcelColumn(xIndex) + (yIndex + 1);
+		}).distinct().sorted().collect(Collectors.toList());
 		cfg.setShownChiralCarbons(query.isHint() ? new ArrayList<>(chirals) : Collections.emptyList());
-		return null;
+		Image image = MoleculeRender.renderMoleculeAsImage(molecule, cfg);
+		//noinspection ConstantConditions
+		String base64DataUri = ImageUtils.toBase64DataUri(image.encodeToData().getBytes(), ImgUtil.IMAGE_TYPE_PNG);
+		return ChiralCarbonCaptchaDTO.builder().base64(base64DataUri)
+				.regions(query.isAnswer() ? regions : Collections.emptyList()).build();
 	}
 
 	private MoleculeRender.MoleculeRenderConfig initMoleculeConfig(Molecule molecule) {

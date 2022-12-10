@@ -42,23 +42,24 @@ public class ShiroConfig {
 		map.put("/jasypt/**", "anon");*/
         map.put("/favicon.ico", "anon");// 防止favicon.ico图标被拦截
         map.put("/admin/smsCode/**", "anon");
-        map.put("/admin/gousadeTest/**", "anon");
-        map.put("/admin/goCqHttpRobot/**", "anon");
-        map.put("/admin/miHoYo/**", "anon");
-        map.put("/admin/sysUser/ShiroRegist", "anon");
-        map.put("/admin/sysUser/loginShiroUser", "anon");
-        map.put("/", "anon");
-        /*map.put("/index", "anon");*/
-        map.put("/static/**", "anon");
-        /*map.put("/template/**", "anon");*/
-        // 下面四条都是swagger3过滤
-		/*map.put("/swagger-ui/**", "anon");
+		map.put("/admin/gousadeTest/**", "anon");
+		map.put("/admin/goCqHttpRobot/**", "anon");
+		map.put("/admin/miHoYo/**", "anon");
+		map.put("/admin/sysUser/ShiroRegist", "anon");
+		map.put("/admin/sysUser/loginShiroUser", "anon");
+		map.put("/", "anon");
+		/*map.put("/index", "anon");*/
+		map.put("/static/**", "anon");
+		/*map.put("/template/**", "anon");*/
+		// 下面四条都是swagger3过滤
+		map.put("/swagger-ui/**", "anon");
 		map.put("/webjars/**", "anon");
 		map.put("/swagger-resources/**", "anon");
-		map.put("/v3/api-docs", "anon");*/
-        map.put("/**", "authc");
-        return map;
-    }
+		map.put("/v3/api-docs", "anon");
+		map.put("/captcha/chiralCarbon/**", "anon");
+		map.put("/**", "authc");
+		return map;
+	}
 
     /**
      * 凭证匹配器 （由于我们的密码校验交给Shiro的SimpleAuthenticationInfo进行处理了 ）

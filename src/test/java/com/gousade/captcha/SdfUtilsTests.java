@@ -31,7 +31,7 @@ public class SdfUtilsTests {
 	@Test
 	public void splitSDFFile() throws IOException {
 		ClassPathResource classPathResource = new ClassPathResource("static" + File.separator + "captcha"
-				+ File.separator + "carbon" + File.separator + "Compound_000500001_001000000.sdf-510923-528878.txt");
+				+ File.separator + "carbon" + File.separator + "Compound_000500001_001000000.sdf-510923-528878.sdf");
 		String outputDir = String.join(File.separator, FileUtils.USER_DIR_DIRECTORY, "captcha", "carbon")
 				+ File.separator;
 		SdfUtils.splitSDFFile(classPathResource.getFile().getAbsolutePath(), outputDir);
@@ -54,7 +54,6 @@ public class SdfUtilsTests {
 						.flatMap(line -> Arrays.stream(line.split(LineSeparator.LINUX.getValue())))
 						.collect(Collectors.joining(LineSeparator.LINUX.getValue()));
 				Molecule molecule = MdlMolParser.parseString(molStr);
-				// TODO 通过isChiralCarbon过滤包含手性碳原子的分子
 				for (int i = 1; i <= molecule.atomCount(); i++) {
 					if (ChiralCarbonHelper.isChiralCarbon(molecule, i)) {
 						FileUtil.copy(path, Paths.get(outputDir + file.getName()));

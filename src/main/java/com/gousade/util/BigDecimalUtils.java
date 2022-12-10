@@ -5,9 +5,9 @@ import java.math.RoundingMode;
 
 /**
  * @author woxigsd@gmail.com
- * @date 2020年7月31日 上午9:36:12
+ * @date 2020-07-31
  */
-public class BigDecimalCalculator {
+public class BigDecimalUtils {
 
     public static double add(double... array) {
         BigDecimal b1 = new BigDecimal(Double.toString(0));
@@ -68,5 +68,4 @@ public class BigDecimalCalculator {
         return Math.abs(BigDecimal.valueOf(startPoint).subtract(BigDecimal.valueOf(endPoint))
                 .setScale(scale, RoundingMode.HALF_UP).doubleValue());
     }
-
 }

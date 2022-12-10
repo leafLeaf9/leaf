@@ -23,4 +23,9 @@ public class ExcelUtils {
         } while (columnIndex > 0);
         return columnStr.toString();
     }
+
+    public static void main(String[] args) {
+        System.out.println(getExcelColumn(0));
+        System.out.println(getExcelColumn(1));
+    }
 }

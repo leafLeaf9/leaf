@@ -85,7 +85,7 @@ public class GiftDrawUtil {
         list.forEach((item) -> {
             rateArr[0] += item.getProb();// 相当于0.1/1 0.3/1 0.6/1 1.0/1 得到一个数轴区间
 //        	probLists.add(rateArr[0]/sumProbArr[0]);
-            probLists.add(BigDecimalCalculator.divide(rateArr[0], sumProbArr[0], 2));
+            probLists.add(BigDecimalUtils.divide(rateArr[0], sumProbArr[0], 2));
         });
         double random = Math.random();
         probLists.add(random);

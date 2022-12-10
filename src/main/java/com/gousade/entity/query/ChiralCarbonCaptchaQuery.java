@@ -18,5 +18,7 @@ public class ChiralCarbonCaptchaQuery implements Serializable {
 	 */
 	@ApiModelProperty(value = "是否包含提示(true时生成的图片中用*号标识答案)")
 	private boolean hint;
+	@ApiModelProperty(value = "是否包含答案(手性碳所在区域)")
+	private boolean answer;
 
 }

@@ -3,7 +3,7 @@ package com.gousade.controller;
 import cn.hutool.core.util.IdUtil;
 import com.gousade.common.ResponseResult;
 import com.gousade.pojo.SliderCaptchaDto;
-import com.gousade.util.BigDecimalCalculator;
+import com.gousade.util.BigDecimalUtils;
 import com.gousade.util.SliderCaptchaImageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +100,7 @@ public class SliderCaptchaController {
         long timestamp = cacheValue.getTimestamp();
         long duration = Instant.now().toEpochMilli() - timestamp;
         //得到缩放比例
-        double zoomRatio = BigDecimalCalculator.divide(backgroundImageWidth, width, 2);
+		double zoomRatio = BigDecimalUtils.divide(backgroundImageWidth, width, 2);
         if (Math.abs(xRealOffset - (xOffset * zoomRatio)) > X_OFFSET_ERROR_VALUE * zoomRatio || duration < INTERVAL_TIME
                 || !cacheValue.getId().equals(sliderCaptchaDto.getId())) {
             return ResponseResult.renderError().message("验证失败，请将滑块拖动到正确位置。");

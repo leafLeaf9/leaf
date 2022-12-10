@@ -15,4 +15,5 @@ import java.util.List;
 public class ChiralCarbonCaptchaDTO implements Serializable {
 	private String base64;
 	private List<String> areas;
+	List<String> regions;
 }
