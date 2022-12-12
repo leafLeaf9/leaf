@@ -6,13 +6,15 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.util.ObjectUtils;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * https://pubchemdocs.ncbi.nlm.nih.gov/downloads
- * https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/CURRENT-Full/SDF/
+ * <a href="https://pubchemdocs.ncbi.nlm.nih.gov/downloads">...</a>
+ * <a href="https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/CURRENT-Full/SDF/">...</a>
  * SDF(Structural Data File)是大文本文件，里面包含了多个mol的结构定义
  */
 public class SdfUtils {
@@ -28,7 +30,7 @@ public class SdfUtils {
 	 * @throws IOException if the file could not be read, e.g. because it does not exist
 	 */
 	public static boolean isBgzFile(@NotNull File file) throws IOException {
-		try (InputStream is = new FileInputStream(file)) {
+		try (InputStream is = Files.newInputStream(file.toPath())) {
 			byte[] buf = new byte[4];
 			IOUtils.read(is, buf, 0, 4);
 			return buf[0] == (byte) 0x1F && buf[1] == (byte) 0x8B && buf[2] == (byte) 0x8 && buf[3] == (byte) 0x4;
@@ -36,7 +38,7 @@ public class SdfUtils {
 	}
 
 	public static void splitSDFFile(String inputPath, String outputDir) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(inputPath)));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(inputPath))));
 		String line = reader.readLine();
 		List<String> list = new ArrayList<>();
 		while (line != null) {

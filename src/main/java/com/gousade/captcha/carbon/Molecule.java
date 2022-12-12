@@ -15,6 +15,7 @@ import java.util.HashSet;
 @AllArgsConstructor
 public class Molecule {
 
+	private final Long cid;
 	private final Atom[] atoms;
 	private final Bond[] bonds;
 	private float maxX = 0.0f;
@@ -25,7 +26,8 @@ public class Molecule {
 	private float avgBondLength;
 	private final String mdlMolStr;
 
-	public Molecule(Atom[] a, Bond[] b, String mdlMol) {
+	public Molecule(Long cid, Atom[] a, Bond[] b, String mdlMol) {
+		this.cid = cid;
 		atoms = a;
 		bonds = b;
 		mdlMolStr = mdlMol;

@@ -29,8 +29,8 @@ public class ChiralCarbonCaptchaServiceImpl implements ChiralCarbonCaptchaServic
 	public ChiralCarbonCaptchaDTO getChiralCarbonCaptcha(ChiralCarbonCaptchaQuery query) {
 		Molecule molecule = MoleculeUtils.getInstance().randomMolecule();
 		val cfg = initMoleculeConfig(molecule);
-		val chirals = ChiralCarbonHelper.getMoleculeChiralCarbons(molecule);
-		List<String> regions = chirals.stream().map(index -> {
+		val chiralCarbons = ChiralCarbonHelper.getMoleculeChiralCarbons(molecule);
+		List<String> regions = chiralCarbons.stream().map(index -> {
 			val gridWidth = cfg.width / cfg.gridCountX;
 			val gridHeight = cfg.height / cfg.gridCountY;
 			val x = cfg.transformX(molecule, molecule.atomX(index));
@@ -39,11 +39,11 @@ public class ChiralCarbonCaptchaServiceImpl implements ChiralCarbonCaptchaServic
 			val yIndex = (int) Math.floor(y / gridHeight);
 			return ExcelUtils.getExcelColumn(xIndex) + (yIndex + 1);
 		}).distinct().sorted().collect(Collectors.toList());
-		cfg.setShownChiralCarbons(query.isHint() ? new ArrayList<>(chirals) : Collections.emptyList());
+		cfg.setShownChiralCarbons(query.isHint() ? new ArrayList<>(chiralCarbons) : Collections.emptyList());
 		Image image = MoleculeRender.renderMoleculeAsImage(molecule, cfg);
 		//noinspection ConstantConditions
 		String base64DataUri = ImageUtils.toBase64DataUri(image.encodeToData().getBytes(), ImgUtil.IMAGE_TYPE_PNG);
-		return ChiralCarbonCaptchaDTO.builder().base64(base64DataUri)
+		return ChiralCarbonCaptchaDTO.builder().cid(molecule.getCid()).base64(base64DataUri)
 				.regions(query.isAnswer() ? regions : Collections.emptyList()).build();
 	}
 

@@ -17,7 +17,7 @@ public class MoleculeRenderTests {
 
 		Molecule.Bond bond = new Molecule.Bond(1, 2, 1, 0, new String[]{});
 
-		Image image = MoleculeRender.renderMoleculeAsImage(new Molecule(new Molecule.Atom[] {atom, atom, atom},
+		Image image = MoleculeRender.renderMoleculeAsImage(new Molecule(500002L, new Molecule.Atom[]{atom, atom, atom},
 						new Molecule.Bond[]{bond, bond, bond}, ""),
 				renderConfig);
 		MoleculeRender.saveImage(image);

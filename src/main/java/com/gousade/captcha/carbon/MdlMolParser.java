@@ -40,6 +40,11 @@ public class MdlMolParser {
 		if (start == -1) {
 			throw new BadMolFormatException("V2000 tag not found at any_line.substring(34, 39)");
 		}
+		long cid = 0;
+		try {
+			cid = Long.parseLong(lines[0]);
+		} catch (Exception ignored) {
+		}
 		int numAtoms = Integer.parseInt(lines[start].substring(0, 3).trim());
 		int numBonds = Integer.parseInt(lines[start].substring(3, 6).trim());
 		atoms = new Molecule.Atom[numAtoms];
@@ -98,7 +103,7 @@ public class MdlMolParser {
 			bond.type = order;
 			bond.stereoDirection = style;
 		}
-		Molecule molecule = new Molecule(atoms, bonds, str);
+		Molecule molecule = new Molecule(cid, atoms, bonds, str);
 		for (int i = start + numAtoms + numBonds + 1; i < lines.length; i++) {
 			String line = lines[i];
 			if (line.startsWith("M  END")) {
