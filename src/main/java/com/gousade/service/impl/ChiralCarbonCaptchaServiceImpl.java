@@ -10,6 +10,7 @@ import com.gousade.entity.query.ChiralCarbonCaptchaQuery;
 import com.gousade.service.ChiralCarbonCaptchaService;
 import com.gousade.util.ExcelUtils;
 import com.gousade.util.ImageUtils;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.jetbrains.skija.Image;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
  * @author woxigousade <woxigsd@gmail.com>
  * @date 2022/12/03
  */
+@Slf4j
 @Service
 public class ChiralCarbonCaptchaServiceImpl implements ChiralCarbonCaptchaService {
 	@Override

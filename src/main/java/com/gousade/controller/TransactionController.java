@@ -36,4 +36,15 @@ public class TransactionController {
         return ResponseResult.renderSuccess();
     }
 
+    @GetMapping("/testCallThisClassMethod")
+    public ResponseResult testCallThisClassMethod() {
+        smsResponseLogService.testCallThisClassMethod();
+        return ResponseResult.renderSuccess();
+    }
+
+    @GetMapping("/testCallThisClassMethodWithoutTransactional")
+    public ResponseResult testCallThisClassMethodWithoutTransactional() {
+        smsResponseLogService.testCallThisClassMethodWithoutTransactional();
+        return ResponseResult.renderSuccess();
+    }
 }

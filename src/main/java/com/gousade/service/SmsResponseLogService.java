@@ -10,4 +10,8 @@ public interface SmsResponseLogService extends IService<SmsResponseLog> {
     void testRequiredCatchInOuterTransaction();
 
     void testTransactionalThrowException();
+
+    void testCallThisClassMethod();
+
+    void testCallThisClassMethodWithoutTransactional();
 }
