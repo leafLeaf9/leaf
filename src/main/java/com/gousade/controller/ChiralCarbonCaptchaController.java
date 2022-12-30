@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author woxigousade <woxigsd@gmail.com>
  * @date 2022/12/03
@@ -22,6 +24,9 @@ public class ChiralCarbonCaptchaController {
 
 	@Autowired
 	private ChiralCarbonCaptchaService service;
+
+	@Autowired
+	private HttpServletRequest httpServletRequest;
 
 	@PostMapping("/getChiralCarbonCaptcha")
 	public ResponseResult getChiralCarbonCaptcha(@RequestBody ChiralCarbonCaptchaQuery query) {
