@@ -18,7 +18,7 @@ public class MiHoYoConstant {
     public static final String GAME_RECORD = "/game_record/app/genshin/api/";
     public static final String GENSHIN_APP_VERSION = "2.28.1";
     public static final String COMMUNITY_APP_VERSION = "2.8.0";
-    public static final String GENSHIN_USER_INFO_APP_VERSION = "2.26.1";
+    public static final String GENSHIN_USER_INFO_APP_VERSION = "2.37.1";
     public static final String GENSHIN_CLIENT_TYPE = "5";
     public static final String COMMUNITY_CLIENT_TYPE = "2";
     public static final String SIGN_ACT_ID = "e202009291139501";
