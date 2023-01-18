@@ -23,7 +23,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
@@ -31,6 +30,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -123,7 +123,7 @@ public class UserController {
             @ApiImplicitParam(name = "phoneNumber", value = "手机号", required = true, dataTypeClass = String.class, paramType = "query"),
             @ApiImplicitParam(name = "roleIds", value = "角色", dataTypeClass = String.class, paramType = "query")})
     @RequestMapping(value = "/userEdit", method = RequestMethod.POST)
-    public Object userEdit(@ApiIgnore @Validated User user) {
+    public Object userEdit(@ApiIgnore @Valid User user) {
         boolean b;
         if (ObjectUtils.isEmpty(user.getId())) {
             b = userService.insert(user);
