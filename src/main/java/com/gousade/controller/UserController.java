@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -123,7 +124,7 @@ public class UserController {
             @ApiImplicitParam(name = "phoneNumber", value = "手机号", required = true, dataTypeClass = String.class, paramType = "query"),
             @ApiImplicitParam(name = "roleIds", value = "角色", dataTypeClass = String.class, paramType = "query")})
     @RequestMapping(value = "/userEdit", method = RequestMethod.POST)
-    public Object userEdit(@ApiIgnore @Valid User user) {
+    public Object userEdit(@ApiIgnore @Valid @NotNull(message = "[用户对象]不能为空") User user) {
         boolean b;
         if (ObjectUtils.isEmpty(user.getId())) {
             b = userService.insert(user);

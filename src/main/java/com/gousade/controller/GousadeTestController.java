@@ -9,11 +9,11 @@ import com.gousade.pojo.Role;
 import com.gousade.pojo.SmsResponseLog;
 import com.gousade.pojo.User;
 import com.gousade.service.SmsResponseLogService;
-import com.gousade.util.SerializerUtil;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +43,9 @@ public class GousadeTestController {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private Jackson2JsonRedisSerializer<Object> serializer;
 
     @GetMapping("/listSmsLogs")
     public ResponseResult listSmsLogs() {
@@ -75,10 +78,10 @@ public class GousadeTestController {
         redisTemplate.opsForValue().set("testRedisSerializable", outerMap);
         Map<String, Object> testRedisSerializable = (Map<String, Object>) redisTemplate.opsForValue().get("testRedisSerializable");
         log.info("测试反序列化的结果：{}", testRedisSerializable);
-        byte[] listBytes = SerializerUtil.getSerializer().serialize(list);
-        List<SmsResponseLog> deserializeList = (List<SmsResponseLog>) SerializerUtil.getSerializer().deserialize(listBytes);
-        byte[] bytes = SerializerUtil.getSerializer().serialize(outerMap);
-        Map<String, Object> deserializeOuterMap = (Map<String, Object>) SerializerUtil.getSerializer().deserialize(bytes);
+        byte[] listBytes = serializer.serialize(list);
+        List<SmsResponseLog> deserializeList = (List<SmsResponseLog>) serializer.deserialize(listBytes);
+        byte[] bytes = serializer.serialize(outerMap);
+        Map<String, Object> deserializeOuterMap = (Map<String, Object>) serializer.deserialize(bytes);
         return ResponseResult.renderSuccess();
     }
 

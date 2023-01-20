@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -69,6 +70,7 @@ public class User implements Serializable {
     @Version
     private Integer version;
 
+    @NotEmpty
     @TableField(exist = false)
     @JSONField(serialize = false)
     private Set<String> roles;
