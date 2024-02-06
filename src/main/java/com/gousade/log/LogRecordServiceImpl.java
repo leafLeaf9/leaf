@@ -17,7 +17,6 @@ public class LogRecordServiceImpl implements ILogRecordService {
         log.info("[logRecord]log={}", logRecord);
     }
 
-    @Override
     public void batchRecord(List<LogRecord> records) {
         Optional.ofNullable(records).ifPresent(x -> x.forEach(y ->
                 log.info("[logRecord]log={}", y)));

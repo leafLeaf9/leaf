@@ -1,5 +1,6 @@
 package com.gousade.controller;
 
+import com.gousade.annotation.AutoLock;
 import com.gousade.annotation.OperationRecord;
 import com.gousade.common.ResponseResult;
 import com.gousade.pojo.User;
@@ -37,6 +38,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Api(tags = "用户管理")
 @Slf4j
@@ -109,6 +111,7 @@ public class UserController {
         return dataTables;
     }
 
+    @AutoLock(lockTime = 3, timeUnit = TimeUnit.MINUTES)
     @ApiOperation("用户详情")
     @RequestMapping(value = "/selectByPrimaryKey", method = RequestMethod.POST)
     @Cacheable /*(value="redis@Cacheable")*/
