@@ -3,11 +3,11 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.gousade</groupId>
-	<artifactId>gousade</artifactId>
+	<groupId>com</groupId>
+	<artifactId>leaf</artifactId>
 	<packaging>jar</packaging>
 	<version>1.1.2</version>
-	<name>spring-boot-gousade</name>
+	<name>leaf</name>
 	<description>SpringBoot Project.</description>
 	<url>https://github.com/woxigousade/gousade</url>
 	<parent>
@@ -30,8 +30,8 @@
 
 	<developers>
 		<developer>
-			<id>woxigousade</id>
-			<name>woxigousade</name>
+			<id>leaf</id>
+			<name>leaf</name>
 			<email>woxigsd@gmail.com</email>
 		</developer>
 	</developers>
@@ -392,7 +392,7 @@
 	</profiles>
 
 	<build>
-<!--		<finalName>gousade</finalName>-->
+		<!--		<finalName>leaf</finalName>-->
 		<!--打jar包时需要添加以打包webapp静态资源文件 -->
 		<resources>
 			<resource>
