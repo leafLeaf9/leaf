@@ -356,7 +356,12 @@
 			<artifactId>redisson-spring-boot-starter</artifactId>
 			<version>3.18.0</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-client-java -->
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-client-java</artifactId>
+			<version>5.0.7</version>
+		</dependency>
 
 		<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
 		<!--<dependency>
