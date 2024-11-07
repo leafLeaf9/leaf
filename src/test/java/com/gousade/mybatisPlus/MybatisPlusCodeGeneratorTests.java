@@ -16,9 +16,9 @@ public class MybatisPlusCodeGeneratorTests {
 
     @Test
     public void runFast() {
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/subcenter_monitor?useUnicode=true",
+        FastAutoGenerator.create("jdbc:mysql://192.168.0.204:3306/subcenter_monitor_rc?useSSL=false",
                         "root",
-                        "123")
+                        "GGT@82339319")
                 .globalConfig(builder -> {
                     builder.author("Administrator") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
@@ -26,11 +26,11 @@ public class MybatisPlusCodeGeneratorTests {
                             .outputDir("E:\\IdeaProjects\\gousade\\src\\main\\java"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("direction.device.deviceinfo.workstatus") // 设置父包名
+                    builder.parent("direction.device.inspection") // 设置父包名
 //                            .moduleName("system") // 设置父包模块名
                     /*.pathInfo(Collections.singletonMap(OutputFile.other, "E://MybatisPlusCodeGenerator"))*/; // 设置mapperXml生成路径
                 })
-                .strategyConfig(builder -> builder.addInclude("yan_yan_sand_table_device_point") // 设置需要生成的表名
+                .strategyConfig(builder -> builder.addInclude("device_inspection_log") // 设置需要生成的表名
                         // 设置过滤表前缀
                         .addTablePrefix("t_", "c_")
                         .controllerBuilder().enableRestStyle().enableHyphenStyle()
