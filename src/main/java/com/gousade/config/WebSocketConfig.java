@@ -1,47 +1,22 @@
 package com.gousade.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft_6455;
-import org.java_websocket.handshake.ServerHandshake;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
-import java.net.URI;
-
-@Slf4j
-//@Component
+/**
+ * 内嵌tomcat才需要这个
+ */
+@Configuration
 public class WebSocketConfig {
-
-    //    @Bean
-    public WebSocketClient webSocketClient() {
-        try {
-            WebSocketClient webSocketClient = new WebSocketClient(new URI("ws://127.0.0.1:5701"), new Draft_6455()) {
-                @Override
-                public void onOpen(ServerHandshake handshakedata) {
-                    log.info("[websocket] 连接成功");
-                }
-
-                @Override
-                public void onMessage(String message) {
-                    log.info("[websocket] 收到消息={}", message);
-
-                }
-
-                @Override
-                public void onClose(int code, String reason, boolean remote) {
-                    log.info("[websocket] 退出连接");
-                }
-
-                @Override
-                public void onError(Exception ex) {
-                    log.info("[websocket] 连接错误={}", ex.getMessage());
-                }
-            };
-            webSocketClient.connect();
-            return webSocketClient;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    /**
+     * bean注册：会自动扫描带有@ServerEndpoint注解声明的Websocket Endpoint(端点)，注册成为Websocket bean。
+     * 要注意，如果项目使用外置的servlet容器，而不是直接使用springboot内置容器的话，就不要注入ServerEndpointExporter，因为它将由容器自己提供和管理。
+     */
+    @Bean
+    @ConditionalOnMissingBean(ServerEndpointExporter.class)
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
     }
-
 }

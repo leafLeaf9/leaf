@@ -12,7 +12,6 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Aspect
-@Component
+//@Component
 public class AutoLockAspect {
     private final static Logger LOGGER = LoggerFactory.getLogger(AutoLockAspect.class);
     private static final String REDIS_LOCK_PREFIX = "leafLock";
