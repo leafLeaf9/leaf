@@ -10,9 +10,9 @@ import com.gousade.entity.query.ChiralCarbonCaptchaQuery;
 import com.gousade.service.ChiralCarbonCaptchaService;
 import com.gousade.util.ExcelUtils;
 import com.gousade.util.ImageUtils;
+import io.github.humbleui.skija.Image;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.jetbrains.skija.Image;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
