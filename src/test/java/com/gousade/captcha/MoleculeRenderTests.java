@@ -3,7 +3,7 @@ package com.gousade.captcha;
 
 import com.gousade.captcha.carbon.Molecule;
 import com.gousade.captcha.carbon.MoleculeRender;
-import org.jetbrains.skija.Image;
+import io.github.humbleui.skija.Image;
 
 public class MoleculeRenderTests {
 	public static void main(String[] args) {
