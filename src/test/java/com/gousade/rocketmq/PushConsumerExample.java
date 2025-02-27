@@ -1,4 +1,4 @@
-package com.gousade.mq;
+package com.gousade.rocketmq;
 
 import org.apache.rocketmq.client.apis.ClientConfiguration;
 import org.apache.rocketmq.client.apis.ClientException;
@@ -10,7 +10,6 @@ import org.apache.rocketmq.client.apis.consumer.PushConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
@@ -20,7 +19,7 @@ public class PushConsumerExample {
     private PushConsumerExample() {
     }
 
-    public static void main(String[] args) throws ClientException, IOException, InterruptedException {
+    public static void main(String[] args) throws ClientException, InterruptedException {
         final ClientServiceProvider provider = ClientServiceProvider.loadService();
         // 接入点地址，需要设置成Proxy的地址和端口列表，一般是xxx:8080;xxx:8081
         String endpoints = "localhost:8081";

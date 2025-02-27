@@ -1,25 +1,46 @@
 package com.gousade.captcha;
 
 
-import com.gousade.captcha.carbon.Molecule;
-import com.gousade.captcha.carbon.MoleculeRender;
-import io.github.humbleui.skija.Image;
+import java.util.concurrent.atomic.AtomicStampedReference;
 
 public class MoleculeRenderTests {
-	public static void main(String[] args) {
-		MoleculeRender.MoleculeRenderConfig renderConfig = new MoleculeRender.MoleculeRenderConfig();
-		renderConfig.setWidth(3);
-		renderConfig.setHeight(3);
-		renderConfig.setFontSize(16.0F);
-		renderConfig.setScaleFactor(0.75F);
+	private static final int CORE_POOL_SIZE = 5;
+	private static final int MAX_POOL_SIZE = 10;
+	private static final int QUEUE_CAPACITY = 100;
+	private static final Long KEEP_ALIVE_TIME = 1L;
 
-		Molecule.Atom atom = new Molecule.Atom(1, "H", 1,1,1,1,1,1, 5.0F, 5.0F, 0.0F, new String[]{});
+	public static void main(String[] args) throws InterruptedException {
 
-		Molecule.Bond bond = new Molecule.Bond(1, 2, 1, 0, new String[]{});
+// 创建一个 AtomicStampedReference 对象，初始值为 "SnailClimb"，初始版本号为 1
+		AtomicStampedReference<String> asr = new AtomicStampedReference<>("SnailClimb", 1);
 
-		Image image = MoleculeRender.renderMoleculeAsImage(new Molecule(500002L, new Molecule.Atom[]{atom, atom, atom},
-						new Molecule.Bond[]{bond, bond, bond}, ""),
-				renderConfig);
-		MoleculeRender.saveImage(image);
+// 打印初始值和版本号
+		int[] initialStamp = new int[1];
+		String initialRef = asr.get(initialStamp);
+		System.out.println("Initial Reference: " + initialRef + ", Initial Stamp: " + initialStamp[0]);
+
+// 更新值和版本号
+		int oldStamp = initialStamp[0];
+		String oldRef = initialRef;
+		String newRef = "Daisy";
+		int newStamp = oldStamp + 1;
+
+		boolean isUpdated = asr.compareAndSet(oldRef, newRef, oldStamp, newStamp);
+		System.out.println("Update Success: " + isUpdated);
+
+// 打印更新后的值和版本号
+		int[] updatedStamp = new int[1];
+		String updatedRef = asr.get(updatedStamp);
+		System.out.println("Updated Reference: " + updatedRef + ", Updated Stamp: " + updatedStamp[0]);
+
+// 尝试用错误的版本号更新
+		boolean isUpdatedWithWrongStamp = asr.compareAndSet(newRef, "John", newStamp, newStamp + 1);
+		System.out.println("Update with Wrong Stamp Success: " + isUpdatedWithWrongStamp);
+
+// 打印最终的值和版本号
+		int[] finalStamp = new int[1];
+		String finalRef = asr.get(finalStamp);
+		System.out.println("Final Reference: " + finalRef + ", Final Stamp: " + finalStamp[0]);
 	}
+
 }

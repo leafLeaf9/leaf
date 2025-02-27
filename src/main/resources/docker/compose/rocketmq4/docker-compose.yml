@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  namesrv:
+    image: apache/rocketmq:4.9.6
+    container_name: rmqnamesrv
+    ports:
+      - 9876:9876
+    networks:
+      - rocketmq
+    command: sh mqnamesrv
+
+  broker:
+    image: apache/rocketmq:4.9.6
+    container_name: rmqbroker
+    ports:
+      - 10909:10909
+      - 10911:10911
+      - 10912:10912
+    environment:
+      - NAMESRV_ADDR=rmqnamesrv:9876
+    volumes:
+      - ./broker.conf:/home/rocketmq/rocketmq-4.9.6/conf/broker.conf
+    depends_on:
+      - namesrv
+    networks:
+      - rocketmq
+    command: sh mqbroker -c /home/rocketmq/rocketmq-4.9.6/conf/broker.conf
+  # 注意这里如果是本机Windows docker desktop启动的话 dashboard虽然能启动但是访问页面会报错连接不到broker 原因是访问的地址为docker内部ip172.xxx
+  dashboard:
+    image: apacherocketmq/rocketmq-dashboard:latest
+    container_name: rmqdashboard
+    networks:
+      - rocketmq
+    depends_on:
+      - broker
+      - namesrv
+    ports:
+      - 8082:8080
+    restart: on-failure
+    environment:
+      - NAMESRV_ADDR=rmqnamesrv:9876
+      - JAVA_OPTS=-Drocketmq.namesrv.addr=rmqnamesrv:9876
+
+networks:
+  rocketmq:
+    driver: bridge

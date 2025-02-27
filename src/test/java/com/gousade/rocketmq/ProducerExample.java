@@ -1,4 +1,4 @@
-package com.gousade.mq;
+package com.gousade.rocketmq;
 
 import org.apache.rocketmq.client.apis.ClientConfiguration;
 import org.apache.rocketmq.client.apis.ClientConfigurationBuilder;
