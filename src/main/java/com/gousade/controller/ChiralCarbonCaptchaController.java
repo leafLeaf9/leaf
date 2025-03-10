@@ -1,5 +1,7 @@
 package com.gousade.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.gousade.common.ResponseResult;
 import com.gousade.entity.dto.ChiralCarbonCaptchaDTO;
 import com.gousade.entity.query.ChiralCarbonCaptchaQuery;
@@ -28,10 +30,22 @@ public class ChiralCarbonCaptchaController {
 	@Autowired
 	private HttpServletRequest httpServletRequest;
 
+	@SentinelResource(value = "/captcha/chiralCarbon/getChiralCarbonCaptcha", blockHandler = "getChiralCarbonCaptchaBlockHandler",
+			fallback = "getChiralCarbonCaptchaFallback")
 	@PostMapping("/getChiralCarbonCaptcha")
 	public ResponseResult getChiralCarbonCaptcha(@RequestBody ChiralCarbonCaptchaQuery query) {
 		ChiralCarbonCaptchaDTO dto = service.getChiralCarbonCaptcha(query);
 		return ResponseResult.renderSuccess().data("data", dto);
+	}
+
+	public ResponseResult getChiralCarbonCaptchaBlockHandler(ChiralCarbonCaptchaQuery query, BlockException e) {
+		log.error("getChiralCarbonCaptchaBlockHandler error", e);
+		return ResponseResult.renderError();
+	}
+
+	public ResponseResult getChiralCarbonCaptchaFallback(ChiralCarbonCaptchaQuery query, Throwable e) {
+		log.error("getChiralCarbonCaptchaFallback error", e);
+		return ResponseResult.renderError();
 	}
 
 

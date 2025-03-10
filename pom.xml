@@ -387,6 +387,21 @@
 			<artifactId>redisson-spring-boot-starter</artifactId>
 			<version>3.18.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-core</artifactId>
+			<version>1.8.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-annotation-aspectj</artifactId>
+			<version>1.8.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-transport-simple-http</artifactId>
+			<version>1.8.6</version>
+		</dependency>
 
 
 		<!-- 热部署，修改包括静态页面的代码后自动重启生效 -->
